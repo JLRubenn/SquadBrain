@@ -54,17 +54,6 @@ export default class ViewModel extends FormViewModelBase
 		this.stopWatchers.push(watch(() => this.ValCodconvocatoria.value, (newValue, oldValue) => this.onUpdate('convocatoria.codconvocatoria', this.ValCodconvocatoria, newValue, oldValue)))
 
 		/** The hidden foreign keys. */
-		this.ValCodjogo = reactive(new modelFieldType.ForeignKey({
-			id: 'ValCodjogo',
-			originId: 'ValCodjogo',
-			area: 'CONVOCATORIA',
-			field: 'CODJOGO',
-			relatedArea: 'JOGO',
-			isFixed: true,
-			description: computed(() => this.Resources.JOGO37147),
-		}).cloneFrom(values?.ValCodjogo))
-		this.stopWatchers.push(watch(() => this.ValCodjogo.value, (newValue, oldValue) => this.onUpdate('convocatoria.codjogo', this.ValCodjogo, newValue, oldValue)))
-
 		this.ValCodjogador = reactive(new modelFieldType.ForeignKey({
 			id: 'ValCodjogador',
 			originId: 'ValCodjogador',
@@ -75,6 +64,62 @@ export default class ViewModel extends FormViewModelBase
 			description: computed(() => this.Resources.JOGADOR34905),
 		}).cloneFrom(values?.ValCodjogador))
 		this.stopWatchers.push(watch(() => this.ValCodjogador.value, (newValue, oldValue) => this.onUpdate('convocatoria.codjogador', this.ValCodjogador, newValue, oldValue)))
+
+		/** The used foreign keys. */
+		this.ValCodjogo = reactive(new modelFieldType.ForeignKey({
+			id: 'ValCodjogo',
+			originId: 'ValCodjogo',
+			area: 'CONVOCATORIA',
+			field: 'CODJOGO',
+			relatedArea: 'JOGO',
+			description: computed(() => this.Resources.JOGO37147),
+		}).cloneFrom(values?.ValCodjogo))
+		this.stopWatchers.push(watch(() => this.ValCodjogo.value, (newValue, oldValue) => this.onUpdate('convocatoria.codjogo', this.ValCodjogo, newValue, oldValue)))
+
+		/** The remaining form fields. */
+		this.TableJogoTitulo = reactive(new modelFieldType.String({
+			type: 'Lookup',
+			id: 'TableJogoTitulo',
+			originId: 'ValTitulo',
+			area: 'JOGO',
+			field: 'TITULO',
+			maxLength: 50,
+			description: computed(() => this.Resources.TITULO23260),
+			ignoreFldSubmit: true,
+		}).cloneFrom(values?.TableJogoTitulo))
+		this.stopWatchers.push(watch(() => this.TableJogoTitulo.value, (newValue, oldValue) => this.onUpdate('jogo.titulo', this.TableJogoTitulo, newValue, oldValue)))
+
+		this.JogoValLocal = reactive(new modelFieldType.String({
+			id: 'JogoValLocal',
+			originId: 'ValLocal',
+			area: 'JOGO',
+			field: 'LOCAL',
+			maxLength: 50,
+			isFixed: true,
+			description: computed(() => this.Resources.LOCAL02842),
+		}).cloneFrom(values?.JogoValLocal))
+		this.stopWatchers.push(watch(() => this.JogoValLocal.value, (newValue, oldValue) => this.onUpdate('jogo.local', this.JogoValLocal, newValue, oldValue)))
+
+		this.JogoValData = reactive(new modelFieldType.Date({
+			id: 'JogoValData',
+			originId: 'ValData',
+			area: 'JOGO',
+			field: 'DATA',
+			isFixed: true,
+			description: computed(() => this.Resources.DATA18071),
+		}).cloneFrom(values?.JogoValData))
+		this.stopWatchers.push(watch(() => this.JogoValData.value, (newValue, oldValue) => this.onUpdate('jogo.data', this.JogoValData, newValue, oldValue)))
+
+		this.JogoValEquipaadversaria = reactive(new modelFieldType.String({
+			id: 'JogoValEquipaadversaria',
+			originId: 'ValEquipaadversaria',
+			area: 'JOGO',
+			field: 'EQUIPAADVERSARIA',
+			maxLength: 50,
+			isFixed: true,
+			description: computed(() => this.Resources.EQUIPA_ADVERSARIA15813),
+		}).cloneFrom(values?.JogoValEquipaadversaria))
+		this.stopWatchers.push(watch(() => this.JogoValEquipaadversaria.value, (newValue, oldValue) => this.onUpdate('jogo.equipaadversaria', this.JogoValEquipaadversaria, newValue, oldValue)))
 	}
 
 	/**

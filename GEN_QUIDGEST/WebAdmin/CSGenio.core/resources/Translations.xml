@@ -564,6 +564,9 @@
   <msg id="Administrador" code="ADMINISTRADOR57294">
     <ENUS>Administrador</ENUS>
   </msg>
+  <msg id="Tempo (m)" code="TEMPO__M_37967">
+    <ENUS>Tempo (m)</ENUS>
+  </msg>
   <msg id="Unidade orgânica" code="UNIDADE_ORGANICA38383">
     <ENUS>Unidade orgânica</ENUS>
   </msg>

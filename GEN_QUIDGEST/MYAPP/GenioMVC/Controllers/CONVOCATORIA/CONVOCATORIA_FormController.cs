@@ -392,6 +392,51 @@ namespace GenioMVC.Controllers
 		#endregion
 
 
+		public class Convocatoria_JogoValTituloModel : RequestLookupModel
+		{
+			public Convocatoria_ViewModel Model { get; set; }
+		}
+
+		//
+		// GET: /Convocatoria/Convocatoria_JogoValTitulo
+		// POST: /Convocatoria/Convocatoria_JogoValTitulo
+		[ActionName("Convocatoria_JogoValTitulo")]
+		public ActionResult Convocatoria_JogoValTitulo([FromBody] Convocatoria_JogoValTituloModel requestModel)
+		{
+			var queryParams = requestModel.QueryParams;
+
+			// If there was a recent operation on this table then force the primary persistence server to be called and ignore the read only feature
+			if (string.IsNullOrEmpty(Navigation.GetStrValue("ForcePrimaryRead_jogo")))
+				UserContext.Current.SetPersistenceReadOnly(true);
+			else
+			{
+				Navigation.DestroyEntry("ForcePrimaryRead_jogo");
+				UserContext.Current.SetPersistenceReadOnly(false);
+			}
+
+			NameValueCollection requestValues = [];
+			if (queryParams != null)
+			{
+				// Add to request values
+				foreach (var kv in queryParams)
+					requestValues.Add(kv.Key, kv.Value);
+			}
+
+			IsStateReadonly = true;
+
+			Models.Convocatoria parentCtx = requestModel.Model == null ? null : new(m_userContext);
+			requestModel.Model?.Init(m_userContext);
+			requestModel.Model?.MapToModel(parentCtx);
+			Convocatoria_JogoValTitulo_ViewModel model = new(m_userContext, parentCtx);
+
+			CSGenio.core.framework.table.TableConfiguration tableConfig = model.GetTableConfig(requestModel.TableConfiguration);
+
+			model.setModes(Request.Query["m"].ToString());
+			model.Load(tableConfig, requestValues, Request.IsAjaxRequest());
+
+			return JsonOK(model);
+		}
+
 		// POST: /Convocatoria/Convocatoria_SaveEdit
 		[HttpPost]
 		public ActionResult Convocatoria_SaveEdit([FromBody] Convocatoria_ViewModel model)

@@ -95,14 +95,13 @@ namespace CSGenio.business
 
 			//- - - - - - - - - - - - - - - - - - -
 			Qfield = new Field(info.Alias, "tempo", FieldType.NUMERIC);
-			Qfield.FieldDescription = "Tempo";
+			Qfield.FieldDescription = "Tempo (m)";
 			Qfield.FieldSize =  3;
 			Qfield.MQueue = false;
 			Qfield.IntegerDigits = 3;
 			Qfield.CavDesignation = "TEMPO40562";
 
 			Qfield.Dupmsg = "";
-			Qfield.DefaultValue = new DefaultValue(m);
 			info.RegisterFieldDB(Qfield);
 
 			//- - - - - - - - - - - - - - - - - - -
@@ -178,10 +177,6 @@ namespace CSGenio.business
 			//------------------------------
 
 
-
-			info.DefaultValues = new string[] {
-			 "tempo"
-			};
 
 
 
@@ -345,11 +340,11 @@ namespace CSGenio.business
 			set { insertNameValueField(FldFoto, value); }
 		}
 
-		/// <summary>Field : "Tempo" Tipo: "N" Formula:  ""</summary>
+		/// <summary>Field : "Tempo (m)" Tipo: "N" Formula:  ""</summary>
 		public static FieldRef FldTempo { get { return m_fldTempo; } }
 		private static FieldRef m_fldTempo = new FieldRef("exercicio", "tempo");
 
-		/// <summary>Field : "Tempo" Tipo: "N" Formula:  ""</summary>
+		/// <summary>Field : "Tempo (m)" Tipo: "N" Formula:  ""</summary>
 		public decimal ValTempo
 		{
 			get { return (decimal)returnValueField(FldTempo); }

@@ -66,8 +66,8 @@ namespace GenioMVC.Models
 		[JsonIgnore]
 		public string ValFotoQTicket = null;
 
-		[DisplayName("Tempo")]
-		/// <summary>Field : "Tempo" Tipo: "N" Formula:  ""</summary>
+		[DisplayName("Tempo (m)")]
+		/// <summary>Field : "Tempo (m)" Tipo: "N" Formula:  ""</summary>
 		[ShouldSerialize("Exercicio.ValTempo")]
 		[NumericAttribute(0)]
 		public decimal? ValTempo { get { return Convert.ToDecimal(GenFunctions.RoundQG(klass.ValTempo, 0)); } set { klass.ValTempo = Convert.ToDecimal(value); } }

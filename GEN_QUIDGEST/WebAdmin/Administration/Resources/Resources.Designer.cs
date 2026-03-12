@@ -1753,6 +1753,15 @@ namespace Administration.Resources {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to "Tempo (m)"
+        /// </summary>
+        public static string TEMPO__M_37967 {
+            get {
+                return ResourceManager.GetString("TEMPO__M_37967", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to "Unidade orgânica"
         /// </summary>
         public static string UNIDADE_ORGANICA38383 {

@@ -92,7 +92,7 @@ export default class ViewModel extends FormViewModelBase
 			field: 'TEMPO',
 			maxDigits: 3,
 			decimalDigits: 0,
-			description: computed(() => this.Resources.TEMPO40562),
+			description: computed(() => this.Resources.TEMPO__M_37967),
 		}).cloneFrom(values?.ValTempo))
 		this.stopWatchers.push(watch(() => this.ValTempo.value, (newValue, oldValue) => this.onUpdate('exercicio.tempo', this.ValTempo, newValue, oldValue)))
 

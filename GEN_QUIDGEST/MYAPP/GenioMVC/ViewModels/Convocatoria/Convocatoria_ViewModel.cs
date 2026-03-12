@@ -36,12 +36,67 @@ namespace GenioMVC.ViewModels.Convocatoria
 		[ValidateSetAccess]
 		public string ValCodjogador { get; set; }
 		/// <summary>
-		/// Title: "" | Type: "CE"
+		/// Title: "Titulo" | Type: "CE"
 		/// </summary>
-		[ValidateSetAccess]
 		public string ValCodjogo { get; set; }
 
 		#endregion
+		/// <summary>
+		/// Title: "Titulo" | Type: "C"
+		/// </summary>
+		[ValidateSetAccess]
+		public TableDBEdit<GenioMVC.Models.Jogo> TableJogoTitulo { get; set; }
+		/// <summary>
+		/// Title: "Local" | Type: "C"
+		/// </summary>
+		[ValidateSetAccess]
+		public string JogoValLocal
+		{
+			get
+			{
+				return funcJogoValLocal != null ? funcJogoValLocal() : _auxJogoValLocal;
+			}
+			set { funcJogoValLocal = () => value; }
+		}
+
+		[JsonIgnore]
+		public Func<string> funcJogoValLocal { get; set; }
+
+		private string _auxJogoValLocal { get; set; }
+		/// <summary>
+		/// Title: "Data" | Type: "D"
+		/// </summary>
+		[ValidateSetAccess]
+		public DateTime? JogoValData
+		{
+			get
+			{
+				return funcJogoValData != null ? funcJogoValData() : _auxJogoValData;
+			}
+			set { funcJogoValData = () => value; }
+		}
+
+		[JsonIgnore]
+		public Func<DateTime?> funcJogoValData { get; set; }
+
+		private DateTime? _auxJogoValData { get; set; }
+		/// <summary>
+		/// Title: "Équipa Adversaria" | Type: "C"
+		/// </summary>
+		[ValidateSetAccess]
+		public string JogoValEquipaadversaria
+		{
+			get
+			{
+				return funcJogoValEquipaadversaria != null ? funcJogoValEquipaadversaria() : _auxJogoValEquipaadversaria;
+			}
+			set { funcJogoValEquipaadversaria = () => value; }
+		}
+
+		[JsonIgnore]
+		public Func<string> funcJogoValEquipaadversaria { get; set; }
+
+		private string _auxJogoValEquipaadversaria { get; set; }
 
 		#region Navigations
 		#endregion
@@ -175,6 +230,9 @@ namespace GenioMVC.ViewModels.Convocatoria
 			{
 				ValCodjogador = ViewModelConversion.ToString(m.ValCodjogador);
 				ValCodjogo = ViewModelConversion.ToString(m.ValCodjogo);
+				funcJogoValLocal = () => ViewModelConversion.ToString(m.Jogo.ValLocal);
+				funcJogoValData = () => ViewModelConversion.ToDateTime(m.Jogo.ValData);
+				funcJogoValEquipaadversaria = () => ViewModelConversion.ToString(m.Jogo.ValEquipaadversaria);
 				ValCodconvocatoria = ViewModelConversion.ToString(m.ValCodconvocatoria);
 			}
 			catch (Exception)
@@ -201,6 +259,7 @@ namespace GenioMVC.ViewModels.Convocatoria
 
 			try
 			{
+				m.ValCodjogo = ViewModelConversion.ToString(ValCodjogo);
 				m.ValCodconvocatoria = ViewModelConversion.ToString(ValCodconvocatoria);
 
 				/*
@@ -211,7 +270,6 @@ namespace GenioMVC.ViewModels.Convocatoria
 					return;
 
 				m.ValCodjogador = ViewModelConversion.ToString(ValCodjogador);
-				m.ValCodjogo = ViewModelConversion.ToString(ValCodjogo);
 			}
 			catch (Exception)
 			{
@@ -236,6 +294,9 @@ namespace GenioMVC.ViewModels.Convocatoria
 
 				switch (fullFieldName)
 				{
+					case "convocatoria.codjogo":
+						this.ValCodjogo = ViewModelConversion.ToString(_value);
+						break;
 					case "convocatoria.codconvocatoria":
 						this.ValCodconvocatoria = ViewModelConversion.ToString(_value);
 						break;
@@ -346,6 +407,7 @@ namespace GenioMVC.ViewModels.Convocatoria
 			// Add characteristics
 			Characs = new List<string>();
 
+			Load_Convocatoria__jogo__titulo(qs, lazyLoad);
 
 // USE /[MANUAL SQB VIEWMODEL_LOADPARTIAL CONVOCATORIA]/
 		}
@@ -361,6 +423,8 @@ namespace GenioMVC.ViewModels.Convocatoria
 		{
 			CrudViewModelFieldValidator validator = new(m_userContext.User.Language);
 
+			validator.StringLength("JogoValLocal", Resources.Resources.LOCAL02842, JogoValLocal, 50);
+			validator.StringLength("JogoValEquipaadversaria", Resources.Resources.EQUIPA_ADVERSARIA15813, JogoValEquipaadversaria, 50);
 
 
 			return validator.GetResult();
@@ -398,13 +462,211 @@ namespace GenioMVC.ViewModels.Convocatoria
 		{
 		}
 
+		/// <summary>
+		/// TableJogoTitulo -> (DB)
+		/// </summary>
+		/// <param name="qs"></param>
+		/// <param name="lazyLoad">Lazy loading of dropdown items</param>
+		public void Load_Convocatoria__jogo__titulo(NameValueCollection qs, bool lazyLoad = false)
+		{
+			bool convocatoria__jogo__tituloDoLoad = true;
+			CriteriaSet convocatoria__jogo__tituloConds = CriteriaSet.And();
+			{
+				object hValue = Navigation.GetValue("jogo", true);
+				if (hValue != null && !(hValue is Array) && !string.IsNullOrEmpty(Convert.ToString(hValue)))
+				{
+					convocatoria__jogo__tituloConds.Equal(CSGenioAjogo.FldCodjogo, hValue);
+					this.ValCodjogo = DBConversion.ToString(hValue);
+				}
+			}
+
+			TableJogoTitulo = new TableDBEdit<Models.Jogo>
+			{
+				IsLazyLoad = lazyLoad
+			};
+
+			if (lazyLoad)
+			{
+				if (Navigation.CurrentLevel.GetEntry("RETURN_jogo") != null)
+				{
+					this.ValCodjogo = Navigation.GetStrValue("RETURN_jogo");
+					Navigation.CurrentLevel.SetEntry("RETURN_jogo", null);
+				}
+				FillDependant_ConvocatoriaTableJogoTitulo(lazyLoad);
+				return;
+			}
+
+			if (convocatoria__jogo__tituloDoLoad)
+			{
+				List<ColumnSort> sorts = [];
+				ColumnSort requestedSort = GetRequestSort(TableJogoTitulo, "sTableJogoTitulo", "dTableJogoTitulo", qs, "jogo");
+				if (requestedSort != null)
+					sorts.Add(requestedSort);
+				sorts.Add(new ColumnSort(new ColumnReference(CSGenioAjogo.FldTitulo), SortOrder.Ascending));
+
+				string query = "";
+				if (!string.IsNullOrEmpty(qs["TableJogoTitulo_tableFilters"]))
+					TableJogoTitulo.TableFilters = bool.Parse(qs["TableJogoTitulo_tableFilters"]);
+				else
+					TableJogoTitulo.TableFilters = false;
+
+				query = qs["qTableJogoTitulo"];
+
+				//RS 26.07.2016 O preenchimento da lista de ajuda dos Dbedits passa a basear-se apenas no campo do próprio DbEdit
+				// O interface de pesquisa rápida não fica coerente quando se visualiza apenas uma coluna mas a pesquisa faz matching com 5 ou 6 colunas diferentes
+				//  tornando confuso to o user porque determinada row foi devolvida quando o Qresult não mostra como o matching foi feito
+				CriteriaSet search_filters = CriteriaSet.And();
+				if (!string.IsNullOrEmpty(query))
+				{
+					search_filters.Like(CSGenioAjogo.FldTitulo, query + "%");
+				}
+				convocatoria__jogo__tituloConds.SubSet(search_filters);
+
+				string tryParsePage = qs["pTableJogoTitulo"] != null ? qs["pTableJogoTitulo"].ToString() : "1";
+				int page = !string.IsNullOrEmpty(tryParsePage) ? int.Parse(tryParsePage) : 1;
+				int numberItems = CSGenio.framework.Configuration.NrRegDBedit;
+				int offset = (page - 1) * numberItems;
+
+				FieldRef[] fields = [CSGenioAjogo.FldCodjogo, CSGenioAjogo.FldTitulo, CSGenioAjogo.FldZzstate];
+
+// USE /[MANUAL SQB OVERRQ CONVOCATORIA_JOGOTITULO]/
+
+				// Limitation by Zzstate
+				/*
+					Records that are currently being inserted or duplicated will also be included.
+					Client-side persistence will try to fill the "text" value of that option.
+				*/
+				if (Navigation.checkFormMode("jogo", FormMode.New) || Navigation.checkFormMode("jogo", FormMode.Duplicate))
+					convocatoria__jogo__tituloConds.SubSet(CriteriaSet.Or()
+						.Equal(CSGenioAjogo.FldZzstate, 0)
+						.Equal(CSGenioAjogo.FldCodjogo, Navigation.GetStrValue("jogo")));
+				else
+					convocatoria__jogo__tituloConds.Criterias.Add(new Criteria(new ColumnReference(CSGenioAjogo.FldZzstate), CriteriaOperator.Equal, 0));
+
+				FieldRef firstVisibleColumn = new FieldRef("jogo", "titulo");
+				ListingMVC<CSGenioAjogo> listing = Models.ModelBase.Where<CSGenioAjogo>(m_userContext, false, convocatoria__jogo__tituloConds, fields, offset, numberItems, sorts, "LED_CONVOCATORIA__JOGO__TITULO", true, false, firstVisibleColumn: firstVisibleColumn);
+
+				TableJogoTitulo.SetPagination(page, numberItems, listing.HasMore, listing.GetTotal, listing.TotalRecords);
+				TableJogoTitulo.Query = query;
+				TableJogoTitulo.Elements = listing.RowsForViewModel((r) => new GenioMVC.Models.Jogo(m_userContext, r, true, _fieldsToSerialize_CONVOCATORIA__JOGO__TITULO));
+
+				//created by [ MH ] at [ 14.04.2016 ] - Foi alterada a forma de retornar a key do novo registo inserido / editado no form de apoio do DBEdit.
+				//last update by [ MH ] at [ 10.05.2016 ] - Validação se key encontra-se no level atual, as chaves dos niveis anteriores devem ser ignorados.
+				if (Navigation.CurrentLevel.GetEntry("RETURN_jogo") != null)
+				{
+					this.ValCodjogo = Navigation.GetStrValue("RETURN_jogo");
+					Navigation.CurrentLevel.SetEntry("RETURN_jogo", null);
+				}
+
+				TableJogoTitulo.List = new SelectList(TableJogoTitulo.Elements.ToSelectList(x => x.ValTitulo, x => x.ValCodjogo,  x => x.ValCodjogo == this.ValCodjogo), "Value", "Text", this.ValCodjogo);
+				FillDependant_ConvocatoriaTableJogoTitulo();
+			}
+		}
+
+		/// <summary>
+		/// Get Dependant fields values -> TableJogoTitulo (DB)
+		/// </summary>
+		/// <param name="PKey">Primary Key of Jogo</param>
+		public ConcurrentDictionary<string, object> GetDependant_ConvocatoriaTableJogoTitulo(string PKey)
+		{
+			FieldRef[] refDependantFields = [CSGenioAjogo.FldCodjogo, CSGenioAjogo.FldTitulo, CSGenioAjogo.FldLocal, CSGenioAjogo.FldData, CSGenioAjogo.FldEquipaadversaria];
+
+			var returnEmptyDependants = false;
+			CriteriaSet wherecodition = CriteriaSet.And();
+
+			// Return default values
+			if (GenFunctions.emptyG(PKey) == 1)
+				returnEmptyDependants = true;
+
+			// Check if the limit(s) is filled if exists
+			// - - - - - - - - - - - - - - - - - - - - -
+
+			if (returnEmptyDependants)
+				return GetViewModelFieldValues(refDependantFields);
+
+			PersistentSupport sp = m_userContext.PersistentSupport;
+			User u = m_userContext.User;
+
+			CSGenioAjogo tempArea = new(u);
+
+			// Fields to select
+			SelectQuery querySelect = new();
+			querySelect.PageSize(1);
+			foreach (FieldRef field in refDependantFields)
+				querySelect.Select(field);
+
+			querySelect.From(tempArea.QSystem, tempArea.TableName, tempArea.Alias)
+				.Where(wherecodition.Equal(CSGenioAjogo.FldCodjogo, PKey));
+
+			string[] dependantFields = refDependantFields.Select(f => f.FullName).ToArray();
+			QueryUtils.SetInnerJoins(dependantFields, null, tempArea, querySelect);
+
+			ArrayList values = sp.executeReaderOneRow(querySelect);
+			bool useDefaults = values.Count == 0;
+
+			if (useDefaults)
+				return GetViewModelFieldValues(refDependantFields);
+			return GetViewModelFieldValues(refDependantFields, values);
+		}
+
+		/// <summary>
+		/// Fill Dependant fields values -> TableJogoTitulo (DB)
+		/// </summary>
+		/// <param name="lazyLoad">Lazy loading of dropdown items</param>
+		public void FillDependant_ConvocatoriaTableJogoTitulo(bool lazyLoad = false)
+		{
+			var row = GetDependant_ConvocatoriaTableJogoTitulo(this.ValCodjogo);
+			try
+			{
+				this.funcJogoValLocal = () => (string)row["jogo.local"];
+				this.funcJogoValData = () => (DateTime?)row["jogo.data"];
+				this.funcJogoValEquipaadversaria = () => (string)row["jogo.equipaadversaria"];
+
+				// Fill List fields
+				this.ValCodjogo = ViewModelConversion.ToString(row["jogo.codjogo"]);
+				TableJogoTitulo.Value = (string)row["jogo.titulo"];
+				if (GenFunctions.emptyG(this.ValCodjogo) == 1)
+				{
+					this.ValCodjogo = "";
+					TableJogoTitulo.Value = "";
+					Navigation.ClearValue("jogo");
+				}
+				else if (lazyLoad)
+				{
+					TableJogoTitulo.SetPagination(1, 0, false, false, 1);
+					TableJogoTitulo.List = new SelectList(new List<SelectListItem>()
+					{
+						new SelectListItem
+						{
+							Value = Convert.ToString(this.ValCodjogo),
+							Text = Convert.ToString(TableJogoTitulo.Value),
+							Selected = true
+						}
+					}, "Value", "Text", this.ValCodjogo);
+				}
+
+				TableJogoTitulo.Selected = this.ValCodjogo;
+			}
+			catch (Exception ex)
+			{
+				CSGenio.framework.Log.Error(string.Format("FillDependant_Error (TableJogoTitulo): {0}; {1}", ex.Message, ex.InnerException != null ? ex.InnerException.Message : ""));
+			}
+		}
+
+		private readonly string[] _fieldsToSerialize_CONVOCATORIA__JOGO__TITULO = ["Jogo", "Jogo.ValCodjogo", "Jogo.ValZzstate", "Jogo.ValTitulo"];
+
 		protected override object GetViewModelValue(string identifier, object modelValue)
 		{
 			return identifier switch
 			{
 				"convocatoria.codjogador" => ViewModelConversion.ToString(modelValue),
 				"convocatoria.codjogo" => ViewModelConversion.ToString(modelValue),
+				"jogo.local" => ViewModelConversion.ToString(modelValue),
+				"jogo.data" => ViewModelConversion.ToDateTime(modelValue),
+				"jogo.equipaadversaria" => ViewModelConversion.ToString(modelValue),
 				"convocatoria.codconvocatoria" => ViewModelConversion.ToString(modelValue),
+				"jogo.codjogo" => ViewModelConversion.ToString(modelValue),
+				"jogo.titulo" => ViewModelConversion.ToString(modelValue),
 				_ => modelValue
 			};
 		}

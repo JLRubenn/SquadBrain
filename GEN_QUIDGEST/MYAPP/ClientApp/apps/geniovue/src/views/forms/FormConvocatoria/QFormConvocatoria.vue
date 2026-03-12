@@ -96,6 +96,82 @@
 			data-key="CONVOCATORIA"
 			:data-loading="!formInitialDataLoaded || !isActiveForm">
 			<template v-if="formControl.initialized && showFormBody">
+				<q-row v-if="controls.CONVOCATORIA__JOGO__TITULO.isVisible || controls.CONVOCATORIA__JOGO__LOCAL.isVisible || controls.CONVOCATORIA__JOGO__DATA.isVisible || controls.CONVOCATORIA__JOGO__EQUIPAADVERSARIA.isVisible">
+					<q-col
+						v-if="controls.CONVOCATORIA__JOGO__TITULO.isVisible"
+						cols="auto">
+						<base-input-structure
+							v-if="controls.CONVOCATORIA__JOGO__TITULO.isVisible"
+							class="i-text"
+							v-bind="controls.CONVOCATORIA__JOGO__TITULO"
+							v-on="controls.CONVOCATORIA__JOGO__TITULO.handlers"
+							:loading="controls.CONVOCATORIA__JOGO__TITULO.props.loading"
+							:reporting-mode-on="reportingModeCAV"
+							:suggestion-mode-on="suggestionModeOn">
+							<q-lookup
+								v-if="controls.CONVOCATORIA__JOGO__TITULO.isVisible"
+								v-bind="controls.CONVOCATORIA__JOGO__TITULO.props"
+								v-on="controls.CONVOCATORIA__JOGO__TITULO.handlers" />
+							<q-see-more-convocatoria-jogo-titulo
+								v-if="controls.CONVOCATORIA__JOGO__TITULO.seeMoreIsVisible"
+								v-bind="controls.CONVOCATORIA__JOGO__TITULO.seeMoreParams"
+								v-on="controls.CONVOCATORIA__JOGO__TITULO.handlers" />
+						</base-input-structure>
+					</q-col>
+					<q-col
+						v-if="controls.CONVOCATORIA__JOGO__LOCAL.isVisible"
+						cols="auto">
+						<base-input-structure
+							v-if="controls.CONVOCATORIA__JOGO__LOCAL.isVisible"
+							class="i-text"
+							v-bind="controls.CONVOCATORIA__JOGO__LOCAL"
+							v-on="controls.CONVOCATORIA__JOGO__LOCAL.handlers"
+							:loading="controls.CONVOCATORIA__JOGO__LOCAL.props.loading"
+							:reporting-mode-on="reportingModeCAV"
+							:suggestion-mode-on="suggestionModeOn">
+							<q-text-field
+								v-bind="controls.CONVOCATORIA__JOGO__LOCAL.props"
+								@blur="onBlur(controls.CONVOCATORIA__JOGO__LOCAL, model.JogoValLocal.value)"
+								@change="model.JogoValLocal.fnUpdateValueOnChange" />
+						</base-input-structure>
+					</q-col>
+					<q-col
+						v-if="controls.CONVOCATORIA__JOGO__DATA.isVisible"
+						cols="auto">
+						<base-input-structure
+							v-if="controls.CONVOCATORIA__JOGO__DATA.isVisible"
+							class="i-text"
+							v-bind="controls.CONVOCATORIA__JOGO__DATA"
+							v-on="controls.CONVOCATORIA__JOGO__DATA.handlers"
+							:loading="controls.CONVOCATORIA__JOGO__DATA.props.loading"
+							:reporting-mode-on="reportingModeCAV"
+							:suggestion-mode-on="suggestionModeOn">
+							<q-date-time-picker
+								v-if="controls.CONVOCATORIA__JOGO__DATA.isVisible"
+								v-bind="controls.CONVOCATORIA__JOGO__DATA.props"
+								:model-value="model.JogoValData.value"
+								@reset-icon-click="model.JogoValData.fnUpdateValue(model.JogoValData.originalValue ?? new Date())"
+								@update:model-value="model.JogoValData.fnUpdateValue($event ?? '')" />
+						</base-input-structure>
+					</q-col>
+					<q-col
+						v-if="controls.CONVOCATORIA__JOGO__EQUIPAADVERSARIA.isVisible"
+						cols="auto">
+						<base-input-structure
+							v-if="controls.CONVOCATORIA__JOGO__EQUIPAADVERSARIA.isVisible"
+							class="i-text"
+							v-bind="controls.CONVOCATORIA__JOGO__EQUIPAADVERSARIA"
+							v-on="controls.CONVOCATORIA__JOGO__EQUIPAADVERSARIA.handlers"
+							:loading="controls.CONVOCATORIA__JOGO__EQUIPAADVERSARIA.props.loading"
+							:reporting-mode-on="reportingModeCAV"
+							:suggestion-mode-on="suggestionModeOn">
+							<q-text-field
+								v-bind="controls.CONVOCATORIA__JOGO__EQUIPAADVERSARIA.props"
+								@blur="onBlur(controls.CONVOCATORIA__JOGO__EQUIPAADVERSARIA, model.JogoValEquipaadversaria.value)"
+								@change="model.JogoValEquipaadversaria.fnUpdateValueOnChange" />
+						</base-input-structure>
+					</q-col>
+				</q-row>
 			</template>
 		</q-container>
 	</teleport>
@@ -167,6 +243,7 @@
 		name: 'QFormConvocatoria',
 
 		components: {
+			QSeeMoreConvocatoriaJogoTitulo: defineAsyncComponent(() => import('@/views/forms/FormConvocatoria/dbedits/ConvocatoriaJogoTituloSeeMore.vue')),
 		},
 
 		mixins: [
@@ -442,6 +519,82 @@
 				},
 
 				controls: {
+					CONVOCATORIA__JOGO__TITULO: new fieldControlClass.LookupControl({
+						modelField: 'TableJogoTitulo',
+						valueChangeEvent: 'fieldChange:jogo.titulo',
+						id: 'CONVOCATORIA__JOGO__TITULO',
+						name: 'TITULO',
+						size: 'xxlarge',
+						label: computed(() => this.Resources.TITULO23260),
+						placeholder: '',
+						labelPosition: computed(() => this.labelAlignment.topleft),
+						externalCallbacks: {
+							getModelField: vm.getModelField,
+							getModelFieldValue: vm.getModelFieldValue,
+							setModelFieldValue: vm.setModelFieldValue
+						},
+						externalProperties: {
+							modelKeys: computed(() => vm.modelKeys)
+						},
+						lookupKeyModelField: {
+							name: 'ValCodjogo',
+							dependencyEvent: 'fieldChange:convocatoria.codjogo'
+						},
+						dependentFields: () => ({
+							set 'jogo.codjogo'(value) { vm.model.ValCodjogo.updateValue(value) },
+							set 'jogo.titulo'(value) { vm.model.TableJogoTitulo.updateValue(value) },
+							set 'jogo.local'(value) { vm.model.JogoValLocal.updateValue(value) },
+							set 'jogo.data'(value) { vm.model.JogoValData.updateValue(value) },
+							set 'jogo.equipaadversaria'(value) { vm.model.JogoValEquipaadversaria.updateValue(value) },
+						}),
+						controlLimits: [
+						],
+					}, this),
+					CONVOCATORIA__JOGO__LOCAL: new fieldControlClass.StringControl({
+						modelField: 'JogoValLocal',
+						valueChangeEvent: 'fieldChange:jogo.local',
+						dependentModelField: 'ValCodjogo',
+						dependentChangeEvent: 'fieldChange:convocatoria.codjogo',
+						id: 'CONVOCATORIA__JOGO__LOCAL',
+						name: 'LOCAL',
+						size: 'xlarge',
+						label: computed(() => this.Resources.LOCAL02842),
+						placeholder: '',
+						labelPosition: computed(() => this.labelAlignment.topleft),
+						maxLength: 50,
+						controlLimits: [
+						],
+					}, this),
+					CONVOCATORIA__JOGO__DATA: new fieldControlClass.DateControl({
+						modelField: 'JogoValData',
+						valueChangeEvent: 'fieldChange:jogo.data',
+						dependentModelField: 'ValCodjogo',
+						dependentChangeEvent: 'fieldChange:convocatoria.codjogo',
+						id: 'CONVOCATORIA__JOGO__DATA',
+						name: 'DATA',
+						size: 'small',
+						label: computed(() => this.Resources.DATA18071),
+						placeholder: '',
+						labelPosition: computed(() => this.labelAlignment.topleft),
+						dateTimeType: 'date',
+						controlLimits: [
+						],
+					}, this),
+					CONVOCATORIA__JOGO__EQUIPAADVERSARIA: new fieldControlClass.StringControl({
+						modelField: 'JogoValEquipaadversaria',
+						valueChangeEvent: 'fieldChange:jogo.equipaadversaria',
+						dependentModelField: 'ValCodjogo',
+						dependentChangeEvent: 'fieldChange:convocatoria.codjogo',
+						id: 'CONVOCATORIA__JOGO__EQUIPAADVERSARIA',
+						name: 'EQUIPAADVERSARIA',
+						size: 'xlarge',
+						label: computed(() => this.Resources.EQUIPA_ADVERSARIA15813),
+						placeholder: '',
+						labelPosition: computed(() => this.labelAlignment.topleft),
+						maxLength: 50,
+						controlLimits: [
+						],
+					}, this),
 				},
 
 				model: new FormViewModel(this, {
@@ -469,6 +622,16 @@
 						set ValCodjogador(value) { vm.model.ValCodjogador.updateValue(value) },
 						get ValCodjogo() { return vm.model.ValCodjogo.value },
 						set ValCodjogo(value) { vm.model.ValCodjogo.updateValue(value) },
+					},
+					Jogo: {
+						get ValData() { return vm.model.JogoValData.value },
+						set ValData(value) { vm.model.JogoValData.updateValue(value) },
+						get ValEquipaadversaria() { return vm.model.JogoValEquipaadversaria.value },
+						set ValEquipaadversaria(value) { vm.model.JogoValEquipaadversaria.updateValue(value) },
+						get ValLocal() { return vm.model.JogoValLocal.value },
+						set ValLocal(value) { vm.model.JogoValLocal.updateValue(value) },
+						get ValTitulo() { return vm.model.TableJogoTitulo.value },
+						set ValTitulo(value) { vm.model.TableJogoTitulo.updateValue(value) },
 					},
 					keys: {
 						/** The primary key of the CONVOCATORIA table */

@@ -610,6 +610,27 @@
 						hasDependencies: false,
 						isInCollapsible: false,
 						columnsOriginal: [
+							new listColumnTypes.TextColumn({
+								order: 1,
+								name: 'Jogador.ValNome',
+								area: 'JOGADOR',
+								field: 'NOME',
+								label: computed(() => this.Resources.NOME47814),
+								dataLength: 50,
+								scrollData: 30,
+								export: 1,
+								pkColumn: 'ValCodjogador',
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.TextColumn({
+								order: 2,
+								name: 'ValCodjogador',
+								area: 'CONVOCATORIA',
+								field: 'CODJOGADOR',
+								label: computed(() => this.Resources.JOGADOR34905),
+								dataLength: 8,
+								scrollData: 8,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 						],
 						config: {
 							name: 'ValConvocados',
@@ -741,13 +762,14 @@
 									isPopup: false
 								},
 							},
-							defaultSearchColumnName: '',
-							defaultSearchColumnNameOriginal: '',
+							defaultSearchColumnName: 'Jogador.ValNome',
+							defaultSearchColumnNameOriginal: 'Jogador.ValNome',
 							defaultColumnSorting: {
 								columnName: '',
 								sortOrder: 'asc'
 							}
 						},
+						globalEvents: ['changed-CONVOCATORIA', 'changed-JOGO', 'changed-JOGADOR'],
 						uuid: 'Convocatoria_ValConvocados',
 						allSelectedRows: 'false',
 						controlLimits: [

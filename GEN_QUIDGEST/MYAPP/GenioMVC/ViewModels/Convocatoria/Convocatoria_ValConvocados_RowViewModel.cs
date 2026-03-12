@@ -33,6 +33,18 @@ public class Convocatoria_ValConvocados_RowViewModel : Models.Convocatoria
 	private void SetColumns()
 	{
 		Columns ??= [
+			new ListColumn()
+			{
+				Order = 1,
+				Area = "JOGADOR",
+				Field = "NOME",
+			},
+			new ListColumn()
+			{
+				Order = 2,
+				Area = "CONVOCATORIA",
+				Field = "CODJOGADOR",
+			},
 		];
 	}
 

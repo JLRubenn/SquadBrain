@@ -24,11 +24,6 @@ public class PresencaForm : Form
 	/// </summary>
 	public EnumControl PresencaEstado => new EnumControl(driver, ContainerLocator, "container-PRESENCA__PRESENCA__ESTADO");
 
-	/// <summary>
-	/// 
-	/// </summary>
-	public ListControl PseudPresenca => new ListControl(driver, ContainerLocator, "#PRESENCAPSEUDPRESENCA");
-
 	public PresencaForm(IWebDriver driver, FORM_MODE mode, By? containerLocator = null)
 		: base(driver, mode, "PRESENCA", containerLocator: containerLocator) { }
 }

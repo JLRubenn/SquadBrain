@@ -128,6 +128,8 @@ namespace GenioMVC.ViewModels.Convocatoria
 		{
 			return
 			[
+				new Exports.QColumn(CSGenioAjogador.FldNome, FieldType.TEXT, Resources.Resources.NOME47814, 30, 0, true),
+				new Exports.QColumn(CSGenioAconvocatoria.FldCodjogador, FieldType.KEY_INT, Resources.Resources.JOGADOR34905, 8, 0, true),
 			];
 		}
 
@@ -178,6 +180,11 @@ namespace GenioMVC.ViewModels.Convocatoria
 			crs.SubSets.Add(ProcessSearchFilters(Menu, GetSearchColumns(tableConfig.ColumnConfigurations), tableConfig));
 
 
+			//Subfilters
+			CriteriaSet subfilters = CriteriaSet.And();
+
+
+			crs.SubSets.Add(subfilters);
 
 			// Form field filters
 			crs.SubSets.Add(ProcessFieldFilters(tableConfig.GlobalFilters));
@@ -300,7 +307,7 @@ namespace GenioMVC.ViewModels.Convocatoria
 			List<ColumnSort> sorts = GetRequestSorts(this.Menu, tableConfig, "convocatoria", allSortOrders);
 
 
-			FieldRef[] fields = new FieldRef[] { CSGenioAconvocatoria.FldCodconvocatoria, CSGenioAconvocatoria.FldZzstate };
+			FieldRef[] fields = new FieldRef[] { CSGenioAconvocatoria.FldCodconvocatoria, CSGenioAconvocatoria.FldZzstate, CSGenioAconvocatoria.FldCodjogador, CSGenioAjogador.FldCodjogador, CSGenioAjogador.FldNome };
 
 
 			// Totalizers
@@ -308,6 +315,12 @@ namespace GenioMVC.ViewModels.Convocatoria
 
 			FieldRef firstVisibleColumn = null;
 
+			if (sorts.Count == 0)
+			{
+				firstVisibleColumn = tableConfig?.GetFirstVisibleColumn(TableAlias);
+
+				firstVisibleColumn ??= new FieldRef("jogador", "nome");
+			}
 			// Limitations
 			this.TableLimits ??= [];
 			// Comparer to check if limit is already present in TableLimits
@@ -439,6 +452,8 @@ namespace GenioMVC.ViewModels.Convocatoria
 				{
 					case "convocatoria":
 						model.klass.insertNameValueField(Qfield.FullName, Qfield.Value); break;
+					case "jogador":
+						model.Jogador.klass.insertNameValueField(Qfield.FullName, Qfield.Value); break;
 					default:
 						break;
 				}
@@ -490,11 +505,13 @@ namespace GenioMVC.ViewModels.Convocatoria
 
 		private static readonly string[] _fieldsToSerialize =
 		[
-			"Convocatoria", "Convocatoria.ValCodconvocatoria", "Convocatoria.ValZzstate", "Convocatoria.ValCodjogador", "Convocatoria.ValCodjogo"
+			"Convocatoria", "Convocatoria.ValCodconvocatoria", "Convocatoria.ValZzstate", "Jogador", "Jogador.ValNome", "Convocatoria.ValCodjogador", "Convocatoria.ValCodjogo"
 		];
 
 		private static readonly List<TableSearchColumn> _searchableColumns =
 		[
+			new TableSearchColumn("Jogador_ValNome", CSGenioAjogador.FldNome, typeof(string), defaultSearch : true),
+			new TableSearchColumn("ValCodjogador", CSGenioAconvocatoria.FldCodjogador, typeof(string)),
 		];
 	}
 }

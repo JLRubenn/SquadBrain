@@ -246,7 +246,7 @@ namespace GenioMVC.ViewModels.Jogador
 					filter_SQB_Menu_21_TYPEFILTER_4 = tableConfig.GroupFilters["filter_SQB_Menu_21_TYPEFILTER"].Contains("4");
 				if (filter_SQB_Menu_21_TYPEFILTER_4)
 				{
-					groupFilters.Equal(CSGenioAjogador.FldPosicao, "Médio");
+					groupFilters.Equal(CSGenioAjogador.FldPosicao, "Medio");
 
 				}
 

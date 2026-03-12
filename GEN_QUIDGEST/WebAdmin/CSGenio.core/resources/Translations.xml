@@ -90,6 +90,9 @@
   <msg id="Notification Message" code="NOTIFICATION_MESSAGE31108">
     <ENUS>Notification Message</ENUS>
   </msg>
+  <msg id="Centro" code="CENTRO49814">
+    <ENUS>Centro</ENUS>
+  </msg>
   <msg id="Equipa Anterior" code="EQUIPA_ANTERIOR39393">
     <ENUS>Equipa Anterior</ENUS>
   </msg>
@@ -107,6 +110,9 @@
   </msg>
   <msg id="Notification ID" code="NOTIFICATION_ID25507">
     <ENUS>Notification ID</ENUS>
+  </msg>
+  <msg id="A data de nascimento do jogador tem de ser no passado." code="A_DATA_DE_NASCIMENTO13950">
+    <ENUS>A data de nascimento do jogador tem de ser no passado.</ENUS>
   </msg>
   <msg id="Équipa Adversaria" code="EQUIPA_ADVERSARIA15813">
     <ENUS>Équipa Adversaria</ENUS>
@@ -143,6 +149,9 @@
   </msg>
   <msg id="Direito" code="DIREITO04521">
     <ENUS>Direito</ENUS>
+  </msg>
+  <msg id="Treino nº" code="TREINO_NO29135">
+    <ENUS>Treino nº</ENUS>
   </msg>
   <msg id="Titulo" code="TITULO23260">
     <ENUS>Titulo</ENUS>
@@ -221,6 +230,9 @@
   </msg>
   <msg id="New Group" code="NEW_GROUP63448">
     <ENUS>New Group</ENUS>
+  </msg>
+  <msg id="Defensivo" code="DEFENSIVO65066">
+    <ENUS>Defensivo</ENUS>
   </msg>
   <msg id="Jogos" code="JOGOS19503">
     <ENUS>Jogos</ENUS>
@@ -357,6 +369,9 @@
   <msg id="Exercicios" code="EXERCICIOS14912">
     <ENUS>Exercicios</ENUS>
   </msg>
+  <msg id="SPposicao" code="SPPOSICAO07942">
+    <ENUS>SPposicao</ENUS>
+  </msg>
   <msg id="Email" code="EMAIL25170">
     <ENUS>Email</ENUS>
   </msg>
@@ -368,6 +383,9 @@
   </msg>
   <msg id="Text after signature" code="TEXT_AFTER_SIGNATURE11837">
     <ENUS>Text after signature</ENUS>
+  </msg>
+  <msg id="SPposicoes" code="SPPOSICOES24450">
+    <ENUS>SPposicoes</ENUS>
   </msg>
   <msg id="Posicoes" code="POSICOES52720">
     <ENUS>Posicoes</ENUS>
@@ -399,6 +417,9 @@
   <msg id="Guarda-Redes" code="GUARDA_REDES05920">
     <ENUS>Guarda-Redes</ENUS>
   </msg>
+  <msg id="Ofensivo" code="OFENSIVO61315">
+    <ENUS>Ofensivo</ENUS>
+  </msg>
   <msg id="Agendado para execução" code="AGENDADO_PARA_EXECUC11223">
     <ENUS>Agendado para execução</ENUS>
   </msg>
@@ -422,6 +443,9 @@
   </msg>
   <msg id="Percentage" code="PERCENTAGE57728">
     <ENUS>Percentage</ENUS>
+  </msg>
+  <msg id="SPposicaoMedio" code="SPPOSICAOMEDIO14557">
+    <ENUS>SPposicaoMedio</ENUS>
   </msg>
   <msg id="Posicao" code="POSICAO53364">
     <ENUS>Posicao</ENUS>
@@ -479,6 +503,9 @@
   </msg>
   <msg id="Estado do processo" code="ESTADO_DO_PROCESSO07540">
     <ENUS>Estado do processo</ENUS>
+  </msg>
+  <msg id="Especificação Posição" code="ESPECIFICACAO_POSICA24622">
+    <ENUS>Especificação Posição</ENUS>
   </msg>
   <msg id="Cancelado" code="CANCELADO05982">
     <ENUS>Cancelado</ENUS>

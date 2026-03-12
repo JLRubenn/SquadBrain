@@ -47,6 +47,10 @@ namespace GenioMVC.ViewModels.Treino
 
 		#endregion
 		/// <summary>
+		/// Title: "Treino nº" | Type: "N"
+		/// </summary>
+		public decimal? ValNumtreino { get; set; }
+		/// <summary>
 		/// Title: "Numero Jogadores" | Type: "N"
 		/// </summary>
 		public decimal? ValNumjogadores { get; set; }
@@ -209,6 +213,7 @@ namespace GenioMVC.ViewModels.Treino
 				ValCodclube = ViewModelConversion.ToString(m.ValCodclube);
 				ValCodjogador = ViewModelConversion.ToString(m.ValCodjogador);
 				ValCodtreinador = ViewModelConversion.ToString(m.ValCodtreinador);
+				ValNumtreino = ViewModelConversion.ToNumeric(m.ValNumtreino);
 				ValNumjogadores = ViewModelConversion.ToNumeric(m.ValNumjogadores);
 				ValMicrociclo = ViewModelConversion.ToNumeric(m.ValMicrociclo);
 				ValMesociclos = ViewModelConversion.ToNumeric(m.ValMesociclos);
@@ -242,6 +247,7 @@ namespace GenioMVC.ViewModels.Treino
 			try
 			{
 				m.ValCodtreinador = ViewModelConversion.ToString(ValCodtreinador);
+				m.ValNumtreino = ViewModelConversion.ToNumeric(ValNumtreino);
 				m.ValNumjogadores = ViewModelConversion.ToNumeric(ValNumjogadores);
 				m.ValMicrociclo = ViewModelConversion.ToNumeric(ValMicrociclo);
 				m.ValMesociclos = ViewModelConversion.ToNumeric(ValMesociclos);
@@ -285,6 +291,9 @@ namespace GenioMVC.ViewModels.Treino
 				{
 					case "treino.codtreinador":
 						this.ValCodtreinador = ViewModelConversion.ToString(_value);
+						break;
+					case "treino.numtreino":
+						this.ValNumtreino = ViewModelConversion.ToNumeric(_value);
 						break;
 					case "treino.numjogadores":
 						this.ValNumjogadores = ViewModelConversion.ToNumeric(_value);
@@ -694,6 +703,7 @@ namespace GenioMVC.ViewModels.Treino
 				"treino.codclube" => ViewModelConversion.ToString(modelValue),
 				"treino.codjogador" => ViewModelConversion.ToString(modelValue),
 				"treino.codtreinador" => ViewModelConversion.ToString(modelValue),
+				"treino.numtreino" => ViewModelConversion.ToNumeric(modelValue),
 				"treino.numjogadores" => ViewModelConversion.ToNumeric(modelValue),
 				"treino.microciclo" => ViewModelConversion.ToNumeric(modelValue),
 				"treino.mesociclos" => ViewModelConversion.ToNumeric(modelValue),

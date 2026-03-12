@@ -1,0 +1,486 @@
+﻿<template>
+	<teleport
+		v-if="menuModalIsReady"
+		:to="`#${uiContainersId.body}`"
+		:disabled="!menuInfo.isPopup">
+		<form
+			class="form-horizontal"
+			@submit.prevent>
+			<q-row-container>
+				<q-table
+					v-bind="controls.menu"
+					v-on="controls.menu.handlers">
+					<template #header>
+						<q-table-config
+							:table-ctrl="controls.menu"
+							v-on="controls.menu.handlers" />
+					</template>
+					<!-- USE /[MANUAL SQB CUSTOM_TABLE SQB_Menu_411]/ -->
+				</q-table>
+			</q-row-container>
+		</form>
+	</teleport>
+
+	<teleport
+		v-if="menuModalIsReady && hasButtons"
+		:to="`#${uiContainersId.footer}`"
+		:disabled="!menuInfo.isPopup">
+		<q-row-container>
+			<div id="footer-action-btns">
+				<template
+					v-for="btn in menuButtons"
+					:key="btn.id">
+					<q-button
+						v-if="btn.isVisible"
+						:id="btn.id"
+						:label="btn.text"
+						:variant="btn.variant"
+						:disabled="btn.disabled"
+						:icon-pos="btn.iconPos"
+						:class="btn.classes"
+						@click="btn.action">
+						<q-icon
+							v-if="btn.icon"
+							v-bind="btn.icon" />
+					</q-button>
+				</template>
+			</div>
+		</q-row-container>
+	</teleport>
+</template>
+
+<script>
+	/* eslint-disable @typescript-eslint/no-unused-vars */
+	import asyncProcM from '@quidgest/clientapp/composables/async'
+	import qEnums from '@quidgest/clientapp/constants/enums'
+	import netAPI from '@quidgest/clientapp/network'
+	import openQSign from '@quidgest/clientapp/plugins/qSign'
+	import genericFunctions from '@quidgest/clientapp/utils/genericFunctions'
+	import { computed, readonly } from 'vue'
+
+	import MenuHandlers from '@/mixins/menuHandlers.js'
+	import controlClass from '@/mixins/fieldControl.js'
+	import listFunctions from '@/mixins/listFunctions.js'
+	import listColumnTypes from '@/mixins/listColumnTypes.js'
+	import { resetProgressBar, setProgressBar } from '@/utils/layout.js'
+
+	import { loadResources } from '@/plugins/i18n.js'
+
+	import hardcodedTexts from '@/hardcodedTexts'
+	import qApi from '@/api/genio/quidgestFunctions.js'
+	import qFunctions from '@/api/genio/projectFunctions.js'
+	import qProjArrays from '@/api/genio/projectArrays.js'
+	/* eslint-enable @typescript-eslint/no-unused-vars */
+
+	import MenuViewModel from './QMenuSQB_411ViewModel.js'
+
+	const requiredTextResources = ['QMenuSQB_411', 'hardcoded', 'messages']
+
+/* eslint-disable indent, vue/html-indent, vue/script-indent */
+// USE /[MANUAL SQB FORM_INCLUDEJS SQB_MENU_411]/
+// eslint-disable-next-line
+/* eslint-enable indent, vue/html-indent, vue/script-indent */
+
+	export default {
+		name: 'QMenuSqb411',
+
+		mixins: [
+			MenuHandlers
+		],
+
+		inheritAttrs: false,
+
+		props: {
+			/**
+			 * Whether or not the menu is used as a homepage.
+			 */
+			isHomePage: {
+				type: Boolean,
+				default: false
+			}
+		},
+
+		expose: [
+			'navigationId',
+			'onBeforeRouteLeave',
+			'updateMenuNavigation'
+		],
+
+		data()
+		{
+			// eslint-disable-next-line
+			const vm = this
+			return {
+				componentOnLoadProc: asyncProcM.getProcListMonitor('QMenuSQB_411', false),
+
+				interfaceMetadata: {
+					id: 'QMenuSQB_411', // Used for resources
+					requiredTextResources
+				},
+
+				menuInfo: {
+					id: '411',
+					isMenuList: true,
+					designation: computed(() => this.Resources.JOGOS19503),
+					acronym: 'SQB_411',
+					name: 'JOGO',
+					route: 'menu-SQB_411',
+					order: '411',
+					controller: 'JOGO',
+					action: 'SQB_Menu_411',
+					isPopup: false
+				},
+
+				model: new MenuViewModel(this),
+
+				controls: {
+					menu: new controlClass.TableSpecialRenderingControl({
+						fnHydrateViewModel: (data) => vm.model.hydrate(data),
+						id: 'SQB_Menu_411',
+						controller: 'JOGO',
+						action: 'SQB_Menu_411',
+						hasDependencies: false,
+						isInCollapsible: false,
+						tableModeClasses: [
+							'q-table--full-height',
+							'page-full-height'
+						],
+						columnsOriginal: [
+							new listColumnTypes.TextColumn({
+								order: 1,
+								name: 'Clube.ValNome',
+								area: 'CLUBE',
+								field: 'NOME',
+								label: computed(() => this.Resources.NOME47814),
+								dataLength: 50,
+								scrollData: 30,
+								export: 1,
+								pkColumn: 'ValCodclube',
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.DateColumn({
+								order: 2,
+								name: 'ValData',
+								area: 'JOGO',
+								field: 'DATA',
+								label: computed(() => this.Resources.DATA18071),
+								scrollData: 8,
+								dateTimeType: 'date',
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.TextColumn({
+								order: 3,
+								name: 'ValLocal',
+								area: 'JOGO',
+								field: 'LOCAL',
+								label: computed(() => this.Resources.LOCAL02842),
+								dataLength: 50,
+								scrollData: 30,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.TextColumn({
+								order: 4,
+								name: 'ValResultado',
+								area: 'JOGO',
+								field: 'RESULTADO',
+								label: computed(() => this.Resources.RESULTADO50955),
+								dataLength: 50,
+								scrollData: 30,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.TextColumn({
+								order: 5,
+								name: 'ValTitulo',
+								area: 'JOGO',
+								field: 'TITULO',
+								label: computed(() => this.Resources.TITULO23260),
+								dataLength: 50,
+								scrollData: 30,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.TextColumn({
+								order: 6,
+								name: 'ValEquipaadversaria',
+								area: 'JOGO',
+								field: 'EQUIPAADVERSARIA',
+								label: computed(() => this.Resources.EQUIPA_ADVERSARIA15813),
+								dataLength: 50,
+								scrollData: 30,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+						],
+						config: {
+							name: 'SQB_Menu_411',
+							serverMode: true,
+							pkColumn: 'ValCodjogo',
+							tableAlias: 'JOGO',
+							tableNamePlural: computed(() => this.Resources.JOGOS19503),
+							viewManagement: '',
+							showLimitsInfo: true,
+							tableTitle: computed(() => this.Resources.JOGOS19503),
+							showAlternatePagination: true,
+							permissions: {
+							},
+							searchBarConfig: {
+								visibility: true
+							},
+							allowColumnFilters: true,
+							allowColumnSort: true,
+							crudActions: [
+								{
+									id: 'show',
+									name: 'show',
+									title: computed(() => this.Resources.CONSULTAR57388),
+									icon: {
+										icon: 'view'
+									},
+									isInReadOnly: true,
+									params: {
+										action: vm.openFormAction,
+										type: 'form',
+										formName: 'JOGO',
+										mode: 'SHOW',
+										isControlled: true
+									}
+								},
+								{
+									id: 'edit',
+									name: 'edit',
+									title: computed(() => this.Resources.EDITAR11616),
+									icon: {
+										icon: 'pencil'
+									},
+									isInReadOnly: true,
+									params: {
+										action: vm.openFormAction,
+										type: 'form',
+										formName: 'JOGO',
+										mode: 'EDIT',
+										isControlled: true
+									}
+								},
+								{
+									id: 'duplicate',
+									name: 'duplicate',
+									title: computed(() => this.Resources.DUPLICAR09748),
+									icon: {
+										icon: 'duplicate'
+									},
+									isInReadOnly: true,
+									params: {
+										action: vm.openFormAction,
+										type: 'form',
+										formName: 'JOGO',
+										mode: 'DUPLICATE',
+										isControlled: true
+									}
+								},
+								{
+									id: 'delete',
+									name: 'delete',
+									title: computed(() => this.Resources.ELIMINAR21155),
+									icon: {
+										icon: 'delete'
+									},
+									isInReadOnly: true,
+									params: {
+										action: vm.openFormAction,
+										type: 'form',
+										formName: 'JOGO',
+										mode: 'DELETE',
+										isControlled: true
+									}
+								}
+							],
+							generalActions: [
+								{
+									id: 'insert',
+									name: 'insert',
+									title: computed(() => this.Resources.INSERIR43365),
+									icon: {
+										icon: 'add'
+									},
+									isInReadOnly: true,
+									params: {
+										action: vm.openFormAction,
+										type: 'form',
+										formName: 'JOGO',
+										mode: 'NEW',
+										repeatInsertion: false,
+										isControlled: true
+									}
+								},
+							],
+							generalCustomActions: [
+							],
+							groupActions: [
+							],
+							customActions: [
+							],
+							MCActions: [
+							],
+							rowClickAction: {
+								id: 'RCA_SQB_4111',
+								name: 'form-JOGO',
+								isVisible: true,
+								params: {
+									isRoute: true,
+									limits: [
+										{
+											identifier: 'id',
+											fnValueSelector: (row) => row.ValCodjogo
+										},
+									],
+									isControlled: true,
+									action: vm.openFormAction, type: 'form', mode: 'SHOW', formName: 'JOGO'
+								}
+							},
+							formsDefinition: {
+								'JOGO': {
+									fnKeySelector: (row) => row.Fields.ValCodjogo,
+									isPopup: false
+								},
+							},
+							defaultSearchColumnName: 'ValTitulo',
+							defaultSearchColumnNameOriginal: 'ValTitulo',
+							defaultColumnSorting: {
+								columnName: 'ValData',
+								sortOrder: 'asc'
+							}
+						},
+						globalEvents: ['changed-CLUBE', 'changed-JOGO'],
+						uuid: 'da00c309-0491-44d2-a8c0-78e91aaaafd3',
+						allSelectedRows: 'false',
+						viewModes: [
+							{
+								id: 'CARDS',
+								type: 'cards',
+								subtype: 'card-horizontal',
+								label: computed(() => this.Resources.CARTOES27587),
+								order: 1,
+								mappingVariables: readonly({
+									title: {
+										allowsMultiple: false,
+										sources: [
+											'JOGO.TITULO',
+										]
+									},
+									subtitle: {
+										allowsMultiple: false,
+										sources: [
+											'JOGO.DATA',
+										]
+									},
+									text: {
+										allowsMultiple: true,
+										sources: [
+											'JOGO.LOCAL',
+										]
+									},
+								}),
+								styleVariables: {
+									actionsAlignment: {
+										rawValue: 'left',
+										isMapped: false
+									},
+									actionsStyle: {
+										rawValue: 'dropdown',
+										isMapped: false
+									},
+									backgroundColor: {
+										rawValue: 'auto',
+										isMapped: false
+									},
+									customFollowupDefaultTarget: {
+										rawValue: 'blank',
+										isMapped: false
+									},
+									customInsertCard: {
+										rawValue: false,
+										isMapped: false
+									},
+									customInsertCardStyle: {
+										rawValue: 'secondary',
+										isMapped: false
+									},
+									displayMode: {
+										rawValue: 'grid',
+										isMapped: false
+									},
+									gridMode: {
+										rawValue: 'fixed',
+										isMapped: false
+									},
+									containerAlignment: {
+										rawValue: 'left',
+										isMapped: false
+									},
+									hoverScaleAmount: {
+										rawValue: '1.00',
+										isMapped: false
+									},
+									showColumnTitles: {
+										rawValue: false,
+										isMapped: false
+									},
+									showEmptyColumnTitles: {
+										rawValue: true,
+										isMapped: false
+									},
+									size: {
+										rawValue: 'regular',
+										isMapped: false
+									},
+								},
+								groups: {
+								}
+							},
+						],
+						headerLevel: 1,
+						isActiveControl: computed(() => this.isActiveMenu)
+					}, this),
+				}
+			}
+		},
+
+		beforeRouteEnter(to, _, next)
+		{
+			// called before the route that renders this component is confirmed.
+			// does NOT have access to `this` component instance,
+			// because it has not been created yet when this guard is called!
+
+			next((vm) => vm.updateMenuNavigation(to))
+		},
+
+		beforeRouteLeave(to, _, next)
+		{
+			this.onBeforeRouteLeave(next)
+		},
+
+		mounted()
+		{
+/* eslint-disable indent, vue/html-indent, vue/script-indent */
+// USE /[MANUAL SQB FORM_CODEJS SQB_MENU_411]/
+// eslint-disable-next-line
+/* eslint-enable indent, vue/html-indent, vue/script-indent */
+		},
+
+		beforeUnmount()
+		{
+/* eslint-disable indent, vue/html-indent, vue/script-indent */
+// USE /[MANUAL SQB COMPONENT_BEFORE_UNMOUNT SQB_MENU_411]/
+// eslint-disable-next-line
+/* eslint-enable indent, vue/html-indent, vue/script-indent */
+		},
+
+		methods: {
+/* eslint-disable indent, vue/html-indent, vue/script-indent */
+// USE /[MANUAL SQB FUNCTIONS_JS SQB_411]/
+// eslint-disable-next-line
+/* eslint-enable indent, vue/html-indent, vue/script-indent */
+/* eslint-disable indent, vue/html-indent, vue/script-indent */
+// USE /[MANUAL SQB LISTING_CODEJS SQB_MENU_411]/
+// eslint-disable-next-line
+/* eslint-enable indent, vue/html-indent, vue/script-indent */
+		}
+	}
+</script>

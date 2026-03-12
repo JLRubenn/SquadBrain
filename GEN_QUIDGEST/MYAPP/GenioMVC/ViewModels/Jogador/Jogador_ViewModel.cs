@@ -67,6 +67,18 @@ namespace GenioMVC.ViewModels.Jogador
 		/// </summary>
 		public string ValPosicao { get; set; }
 		/// <summary>
+		/// Title: "Especificação Posição" | Type: "AC"
+		/// </summary>
+		public string ValSpposicaomedio { get; set; }
+		/// <summary>
+		/// Title: "Especificação Posição" | Type: "AC"
+		/// </summary>
+		public string ValSpposicaoat { get; set; }
+		/// <summary>
+		/// Title: "Especificação Posição" | Type: "AC"
+		/// </summary>
+		public string ValSpposicaodef { get; set; }
+		/// <summary>
 		/// Title: "Posição Segundaria" | Type: "AC"
 		/// </summary>
 		public string ValPosicaosegundaria { get; set; }
@@ -212,6 +224,9 @@ namespace GenioMVC.ViewModels.Jogador
 				ValDatanascimento = ViewModelConversion.ToDateTime(m.ValDatanascimento);
 				ValPedominante = ViewModelConversion.ToString(m.ValPedominante);
 				ValPosicao = ViewModelConversion.ToString(m.ValPosicao);
+				ValSpposicaomedio = ViewModelConversion.ToString(m.ValSpposicaomedio);
+				ValSpposicaoat = ViewModelConversion.ToString(m.ValSpposicaoat);
+				ValSpposicaodef = ViewModelConversion.ToString(m.ValSpposicaodef);
 				ValPosicaosegundaria = ViewModelConversion.ToString(m.ValPosicaosegundaria);
 				ValEquipaanterior = ViewModelConversion.ToString(m.ValEquipaanterior);
 				ValCodjogador = ViewModelConversion.ToString(m.ValCodjogador);
@@ -248,6 +263,9 @@ namespace GenioMVC.ViewModels.Jogador
 				m.ValDatanascimento = ViewModelConversion.ToDateTime(ValDatanascimento);
 				m.ValPedominante = ViewModelConversion.ToString(ValPedominante);
 				m.ValPosicao = ViewModelConversion.ToString(ValPosicao);
+				m.ValSpposicaomedio = ViewModelConversion.ToString(ValSpposicaomedio);
+				m.ValSpposicaoat = ViewModelConversion.ToString(ValSpposicaoat);
+				m.ValSpposicaodef = ViewModelConversion.ToString(ValSpposicaodef);
 				m.ValPosicaosegundaria = ViewModelConversion.ToString(ValPosicaosegundaria);
 				m.ValEquipaanterior = ViewModelConversion.ToString(ValEquipaanterior);
 				m.ValCodjogador = ViewModelConversion.ToString(ValCodjogador);
@@ -295,6 +313,15 @@ namespace GenioMVC.ViewModels.Jogador
 						break;
 					case "jogador.posicao":
 						this.ValPosicao = ViewModelConversion.ToString(_value);
+						break;
+					case "jogador.spposicaomedio":
+						this.ValSpposicaomedio = ViewModelConversion.ToString(_value);
+						break;
+					case "jogador.spposicaoat":
+						this.ValSpposicaoat = ViewModelConversion.ToString(_value);
+						break;
+					case "jogador.spposicaodef":
+						this.ValSpposicaodef = ViewModelConversion.ToString(_value);
 						break;
 					case "jogador.posicaosegundaria":
 						this.ValPosicaosegundaria = ViewModelConversion.ToString(_value);
@@ -678,6 +705,9 @@ namespace GenioMVC.ViewModels.Jogador
 				"jogador.datanascimento" => ViewModelConversion.ToDateTime(modelValue),
 				"jogador.pedominante" => ViewModelConversion.ToString(modelValue),
 				"jogador.posicao" => ViewModelConversion.ToString(modelValue),
+				"jogador.spposicaomedio" => ViewModelConversion.ToString(modelValue),
+				"jogador.spposicaoat" => ViewModelConversion.ToString(modelValue),
+				"jogador.spposicaodef" => ViewModelConversion.ToString(modelValue),
 				"jogador.posicaosegundaria" => ViewModelConversion.ToString(modelValue),
 				"jogador.equipaanterior" => ViewModelConversion.ToString(modelValue),
 				"jogador.codjogador" => ViewModelConversion.ToString(modelValue),

@@ -207,6 +207,9 @@
 	<data name="NOTIFICATION_MESSAGE31108" xml:space="preserve">
 		<value>Notification Message</value>
 	</data>
+	<data name="CENTRO49814" xml:space="preserve">
+		<value>Centro</value>
+	</data>
 	<data name="EQUIPA_ANTERIOR39393" xml:space="preserve">
 		<value>Equipa Anterior</value>
 	</data>
@@ -224,6 +227,9 @@
 	</data>
 	<data name="NOTIFICATION_ID25507" xml:space="preserve">
 		<value>Notification ID</value>
+	</data>
+	<data name="A_DATA_DE_NASCIMENTO13950" xml:space="preserve">
+		<value>A data de nascimento do jogador tem de ser no passado.</value>
 	</data>
 	<data name="EQUIPA_ADVERSARIA15813" xml:space="preserve">
 		<value>Équipa Adversaria</value>
@@ -260,6 +266,9 @@
 	</data>
 	<data name="DIREITO04521" xml:space="preserve">
 		<value>Direito</value>
+	</data>
+	<data name="TREINO_NO29135" xml:space="preserve">
+		<value>Treino nº</value>
 	</data>
 	<data name="TITULO23260" xml:space="preserve">
 		<value>Titulo</value>
@@ -338,6 +347,9 @@
 	</data>
 	<data name="NEW_GROUP63448" xml:space="preserve">
 		<value>New Group</value>
+	</data>
+	<data name="DEFENSIVO65066" xml:space="preserve">
+		<value>Defensivo</value>
 	</data>
 	<data name="JOGOS19503" xml:space="preserve">
 		<value>Jogos</value>
@@ -474,6 +486,9 @@
 	<data name="EXERCICIOS14912" xml:space="preserve">
 		<value>Exercicios</value>
 	</data>
+	<data name="SPPOSICAO07942" xml:space="preserve">
+		<value>SPposicao</value>
+	</data>
 	<data name="EMAIL25170" xml:space="preserve">
 		<value>Email</value>
 	</data>
@@ -485,6 +500,9 @@
 	</data>
 	<data name="TEXT_AFTER_SIGNATURE11837" xml:space="preserve">
 		<value>Text after signature</value>
+	</data>
+	<data name="SPPOSICOES24450" xml:space="preserve">
+		<value>SPposicoes</value>
 	</data>
 	<data name="POSICOES52720" xml:space="preserve">
 		<value>Posicoes</value>
@@ -516,6 +534,9 @@
 	<data name="GUARDA_REDES05920" xml:space="preserve">
 		<value>Guarda-Redes</value>
 	</data>
+	<data name="OFENSIVO61315" xml:space="preserve">
+		<value>Ofensivo</value>
+	</data>
 	<data name="AGENDADO_PARA_EXECUC11223" xml:space="preserve">
 		<value>Agendado para execução</value>
 	</data>
@@ -539,6 +560,9 @@
 	</data>
 	<data name="PERCENTAGE57728" xml:space="preserve">
 		<value>Percentage</value>
+	</data>
+	<data name="SPPOSICAOMEDIO14557" xml:space="preserve">
+		<value>SPposicaoMedio</value>
 	</data>
 	<data name="POSICAO53364" xml:space="preserve">
 		<value>Posicao</value>
@@ -596,6 +620,9 @@
 	</data>
 	<data name="ESTADO_DO_PROCESSO07540" xml:space="preserve">
 		<value>Estado do processo</value>
+	</data>
+	<data name="ESPECIFICACAO_POSICA24622" xml:space="preserve">
+		<value>Especificação Posição</value>
 	</data>
 	<data name="CANCELADO05982" xml:space="preserve">
 		<value>Cancelado</value>

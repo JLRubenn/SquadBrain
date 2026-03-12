@@ -597,7 +597,6 @@
 						placeholder: '',
 						labelPosition: computed(() => this.labelAlignment.topleft),
 						maxLength: 50,
-						mustBeFilled: true,
 						controlLimits: [
 						],
 					}, this),

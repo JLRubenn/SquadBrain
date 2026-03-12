@@ -88,6 +88,17 @@ export default class ViewModel extends FormViewModelBase
 		this.stopWatchers.push(watch(() => this.ValCodtreinador.value, (newValue, oldValue) => this.onUpdate('treino.codtreinador', this.ValCodtreinador, newValue, oldValue)))
 
 		/** The remaining form fields. */
+		this.ValNumtreino = reactive(new modelFieldType.Number({
+			id: 'ValNumtreino',
+			originId: 'ValNumtreino',
+			area: 'TREINO',
+			field: 'NUMTREINO',
+			maxDigits: 3,
+			decimalDigits: 0,
+			description: computed(() => this.Resources.TREINO_NO29135),
+		}).cloneFrom(values?.ValNumtreino))
+		this.stopWatchers.push(watch(() => this.ValNumtreino.value, (newValue, oldValue) => this.onUpdate('treino.numtreino', this.ValNumtreino, newValue, oldValue)))
+
 		this.ValNumjogadores = reactive(new modelFieldType.Number({
 			id: 'ValNumjogadores',
 			originId: 'ValNumjogadores',

@@ -104,12 +104,14 @@ public class AppPage: PageObject
 		module = "SQB";
 		res.AddModule(module);
 		res.AddMenu(module, "1", null);
+		res.AddMenu(module, "11", "1");
+		res.AddMenu(module, "12", "1");
 		res.AddMenu(module, "2", null);
 		res.AddMenu(module, "3", null);
 		res.AddMenu(module, "4", null);
+		res.AddMenu(module, "41", "4");
+		res.AddMenu(module, "42", "4");
 		res.AddMenu(module, "5", null);
-		res.AddMenu(module, "6", null);
-		res.AddMenu(module, "7", null);
         return res;
     }
 }

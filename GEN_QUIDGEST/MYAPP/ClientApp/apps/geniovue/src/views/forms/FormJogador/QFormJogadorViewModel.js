@@ -138,6 +138,39 @@ export default class ViewModel extends FormViewModelBase
 		}).cloneFrom(values?.ValPosicao))
 		this.stopWatchers.push(watch(() => this.ValPosicao.value, (newValue, oldValue) => this.onUpdate('jogador.posicao', this.ValPosicao, newValue, oldValue)))
 
+		this.ValSpposicaomedio = reactive(new modelFieldType.String({
+			id: 'ValSpposicaomedio',
+			originId: 'ValSpposicaomedio',
+			area: 'JOGADOR',
+			field: 'SPPOSICAOMEDIO',
+			maxLength: 3,
+			arrayOptions: computed(() => new qProjArrays.QArraySpposicaomedio(vm.$getResource).elements),
+			description: computed(() => this.Resources.ESPECIFICACAO_POSICA24622),
+		}).cloneFrom(values?.ValSpposicaomedio))
+		this.stopWatchers.push(watch(() => this.ValSpposicaomedio.value, (newValue, oldValue) => this.onUpdate('jogador.spposicaomedio', this.ValSpposicaomedio, newValue, oldValue)))
+
+		this.ValSpposicaoat = reactive(new modelFieldType.String({
+			id: 'ValSpposicaoat',
+			originId: 'ValSpposicaoat',
+			area: 'JOGADOR',
+			field: 'SPPOSICAOAT',
+			maxLength: 1,
+			arrayOptions: computed(() => new qProjArrays.QArraySpposicao(vm.$getResource).elements),
+			description: computed(() => this.Resources.ESPECIFICACAO_POSICA24622),
+		}).cloneFrom(values?.ValSpposicaoat))
+		this.stopWatchers.push(watch(() => this.ValSpposicaoat.value, (newValue, oldValue) => this.onUpdate('jogador.spposicaoat', this.ValSpposicaoat, newValue, oldValue)))
+
+		this.ValSpposicaodef = reactive(new modelFieldType.String({
+			id: 'ValSpposicaodef',
+			originId: 'ValSpposicaodef',
+			area: 'JOGADOR',
+			field: 'SPPOSICAODEF',
+			maxLength: 1,
+			arrayOptions: computed(() => new qProjArrays.QArraySpposicao(vm.$getResource).elements),
+			description: computed(() => this.Resources.ESPECIFICACAO_POSICA24622),
+		}).cloneFrom(values?.ValSpposicaodef))
+		this.stopWatchers.push(watch(() => this.ValSpposicaodef.value, (newValue, oldValue) => this.onUpdate('jogador.spposicaodef', this.ValSpposicaodef, newValue, oldValue)))
+
 		this.ValPosicaosegundaria = reactive(new modelFieldType.String({
 			id: 'ValPosicaosegundaria',
 			originId: 'ValPosicaosegundaria',

@@ -222,7 +222,7 @@
 									</base-input-structure>
 								</q-col>
 							</q-row>
-							<q-row v-if="controls.JOGADOR__JOGADOR__POSICAO.isVisible">
+							<q-row v-if="controls.JOGADOR__JOGADOR__POSICAO.isVisible || controls.JOGADOR__JOGADOR__SPPOSICAOMEDIO.isVisible || controls.JOGADOR__JOGADOR__SPPOSICAOAT.isVisible || controls.JOGADOR__JOGADOR__SPPOSICAODEF.isVisible">
 								<q-col
 									v-if="controls.JOGADOR__JOGADOR__POSICAO.isVisible"
 									cols="auto">
@@ -238,6 +238,57 @@
 											v-if="controls.JOGADOR__JOGADOR__POSICAO.isVisible"
 											v-bind="controls.JOGADOR__JOGADOR__POSICAO.props"
 											@update:model-value="model.ValPosicao.fnUpdateValue" />
+									</base-input-structure>
+								</q-col>
+								<q-col
+									v-if="controls.JOGADOR__JOGADOR__SPPOSICAOMEDIO.isVisible"
+									cols="auto">
+									<base-input-structure
+										v-if="controls.JOGADOR__JOGADOR__SPPOSICAOMEDIO.isVisible"
+										class="i-text"
+										v-bind="controls.JOGADOR__JOGADOR__SPPOSICAOMEDIO"
+										v-on="controls.JOGADOR__JOGADOR__SPPOSICAOMEDIO.handlers"
+										:loading="controls.JOGADOR__JOGADOR__SPPOSICAOMEDIO.props.loading"
+										:reporting-mode-on="reportingModeCAV"
+										:suggestion-mode-on="suggestionModeOn">
+										<q-select
+											v-if="controls.JOGADOR__JOGADOR__SPPOSICAOMEDIO.isVisible"
+											v-bind="controls.JOGADOR__JOGADOR__SPPOSICAOMEDIO.props"
+											@update:model-value="model.ValSpposicaomedio.fnUpdateValue" />
+									</base-input-structure>
+								</q-col>
+								<q-col
+									v-if="controls.JOGADOR__JOGADOR__SPPOSICAOAT.isVisible"
+									cols="auto">
+									<base-input-structure
+										v-if="controls.JOGADOR__JOGADOR__SPPOSICAOAT.isVisible"
+										class="i-text"
+										v-bind="controls.JOGADOR__JOGADOR__SPPOSICAOAT"
+										v-on="controls.JOGADOR__JOGADOR__SPPOSICAOAT.handlers"
+										:loading="controls.JOGADOR__JOGADOR__SPPOSICAOAT.props.loading"
+										:reporting-mode-on="reportingModeCAV"
+										:suggestion-mode-on="suggestionModeOn">
+										<q-select
+											v-if="controls.JOGADOR__JOGADOR__SPPOSICAOAT.isVisible"
+											v-bind="controls.JOGADOR__JOGADOR__SPPOSICAOAT.props"
+											@update:model-value="model.ValSpposicaoat.fnUpdateValue" />
+									</base-input-structure>
+								</q-col>
+								<q-col
+									v-if="controls.JOGADOR__JOGADOR__SPPOSICAODEF.isVisible"
+									cols="auto">
+									<base-input-structure
+										v-if="controls.JOGADOR__JOGADOR__SPPOSICAODEF.isVisible"
+										class="i-text"
+										v-bind="controls.JOGADOR__JOGADOR__SPPOSICAODEF"
+										v-on="controls.JOGADOR__JOGADOR__SPPOSICAODEF.handlers"
+										:loading="controls.JOGADOR__JOGADOR__SPPOSICAODEF.props.loading"
+										:reporting-mode-on="reportingModeCAV"
+										:suggestion-mode-on="suggestionModeOn">
+										<q-select
+											v-if="controls.JOGADOR__JOGADOR__SPPOSICAODEF.isVisible"
+											v-bind="controls.JOGADOR__JOGADOR__SPPOSICAODEF.props"
+											@update:model-value="model.ValSpposicaodef.fnUpdateValue" />
 									</base-input-structure>
 								</q-col>
 							</q-row>
@@ -656,7 +707,7 @@
 						labelPosition: computed(() => this.labelAlignment.topleft),
 						isCollapsible: false,
 						anchored: false,
-						directChildren: ['JOGADOR_CLUBENOME____', 'JOGADOR__JOGADOR__NUMEROCAMISOLA', 'JOGADOR__JOGADOR__NOME', 'JOGADOR__JOGADOR__DATANASCIMENTO', 'JOGADOR__JOGADOR__PEDOMINANTE', 'JOGADOR__JOGADOR__POSICAO', 'JOGADOR__JOGADOR__POSICAOSEGUNDARIA', 'JOGADOR__JOGADOR__EQUIPAANTERIOR'],
+						directChildren: ['JOGADOR_CLUBENOME____', 'JOGADOR__JOGADOR__NUMEROCAMISOLA', 'JOGADOR__JOGADOR__NOME', 'JOGADOR__JOGADOR__DATANASCIMENTO', 'JOGADOR__JOGADOR__PEDOMINANTE', 'JOGADOR__JOGADOR__POSICAO', 'JOGADOR__JOGADOR__SPPOSICAOMEDIO', 'JOGADOR__JOGADOR__SPPOSICAOAT', 'JOGADOR__JOGADOR__SPPOSICAODEF', 'JOGADOR__JOGADOR__POSICAOSEGUNDARIA', 'JOGADOR__JOGADOR__EQUIPAANTERIOR'],
 						mustBeFilled: true,
 						controlLimits: [
 						],
@@ -772,6 +823,87 @@
 						controlLimits: [
 						],
 					}, this),
+					JOGADOR__JOGADOR__SPPOSICAOMEDIO: new fieldControlClass.ArrayStringControl({
+						modelField: 'ValSpposicaomedio',
+						valueChangeEvent: 'fieldChange:jogador.spposicaomedio',
+						id: 'JOGADOR__JOGADOR__SPPOSICAOMEDIO',
+						name: 'SPPOSICAOMEDIO',
+						size: 'medium',
+						label: computed(() => this.Resources.ESPECIFICACAO_POSICA24622),
+						placeholder: '',
+						labelPosition: computed(() => this.labelAlignment.topleft),
+						container: 'JOGADOR_PSEUDNEWGRP01',
+						maxLength: 3,
+						arrayName: 'SPposicaoMedio',
+						helpShortItem: 'None',
+						helpDetailedItem: 'None',
+						controlLimits: [
+						],
+						showWhen: {
+							// eslint-disable-next-line @typescript-eslint/no-unused-vars
+							fnFormula(params)
+							{
+								// Formula: [JOGADOR->POSICAO] == "Medio"
+								return this.ValPosicao.value==="Medio"
+							},
+							dependencyEvents: ['fieldChange:jogador.posicao'],
+							isServerRecalc: false,
+						},
+					}, this),
+					JOGADOR__JOGADOR__SPPOSICAOAT: new fieldControlClass.ArrayStringControl({
+						modelField: 'ValSpposicaoat',
+						valueChangeEvent: 'fieldChange:jogador.spposicaoat',
+						id: 'JOGADOR__JOGADOR__SPPOSICAOAT',
+						name: 'SPPOSICAOAT',
+						size: 'medium',
+						label: computed(() => this.Resources.ESPECIFICACAO_POSICA24622),
+						placeholder: '',
+						labelPosition: computed(() => this.labelAlignment.topleft),
+						container: 'JOGADOR_PSEUDNEWGRP01',
+						maxLength: 1,
+						arrayName: 'SPposicao',
+						helpShortItem: 'None',
+						helpDetailedItem: 'None',
+						controlLimits: [
+						],
+						showWhen: {
+							// eslint-disable-next-line @typescript-eslint/no-unused-vars
+							fnFormula(params)
+							{
+								// Formula: [JOGADOR->POSICAO] == "Atacante"
+								return this.ValPosicao.value==="Atacante"
+							},
+							dependencyEvents: ['fieldChange:jogador.posicao'],
+							isServerRecalc: false,
+						},
+					}, this),
+					JOGADOR__JOGADOR__SPPOSICAODEF: new fieldControlClass.ArrayStringControl({
+						modelField: 'ValSpposicaodef',
+						valueChangeEvent: 'fieldChange:jogador.spposicaodef',
+						id: 'JOGADOR__JOGADOR__SPPOSICAODEF',
+						name: 'SPPOSICAODEF',
+						size: 'medium',
+						label: computed(() => this.Resources.ESPECIFICACAO_POSICA24622),
+						placeholder: '',
+						labelPosition: computed(() => this.labelAlignment.topleft),
+						container: 'JOGADOR_PSEUDNEWGRP01',
+						maxLength: 1,
+						arrayName: 'SPposicao',
+						helpShortItem: 'None',
+						helpDetailedItem: 'None',
+						controlLimits: [
+						],
+						showWhen: {
+							// eslint-disable-next-line @typescript-eslint/no-unused-vars
+							fnFormula(params)
+							{
+								// Formula: [JOGADOR->POSICAO] == "Defesa"
+								return this.ValPosicao.value==="Defesa"
+							},
+							dependencyEvents: ['fieldChange:jogador.posicao'],
+							isServerRecalc: false,
+						},
+					}, this),
 					JOGADOR__JOGADOR__POSICAOSEGUNDARIA: new fieldControlClass.ArrayStringControl({
 						modelField: 'ValPosicaosegundaria',
 						valueChangeEvent: 'fieldChange:jogador.posicaosegundaria',
@@ -849,6 +981,12 @@
 						set ValPosicao(value) { vm.model.ValPosicao.updateValue(value) },
 						get ValPosicaosegundaria() { return vm.model.ValPosicaosegundaria.value },
 						set ValPosicaosegundaria(value) { vm.model.ValPosicaosegundaria.updateValue(value) },
+						get ValSpposicaoat() { return vm.model.ValSpposicaoat.value },
+						set ValSpposicaoat(value) { vm.model.ValSpposicaoat.updateValue(value) },
+						get ValSpposicaodef() { return vm.model.ValSpposicaodef.value },
+						set ValSpposicaodef(value) { vm.model.ValSpposicaodef.updateValue(value) },
+						get ValSpposicaomedio() { return vm.model.ValSpposicaomedio.value },
+						set ValSpposicaomedio(value) { vm.model.ValSpposicaomedio.updateValue(value) },
 					},
 					keys: {
 						/** The primary key of the JOGADOR table */

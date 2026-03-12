@@ -104,7 +104,24 @@
 							v-bind="controls.TREINO__PSEUDNEWGRP01"
 							:is-visible="controls.TREINO__PSEUDNEWGRP01.isVisible">
 							<!-- Start TREINO__PSEUDNEWGRP01 -->
-							<q-row v-if="controls.TREINO__TREINO__NUMJOGADORES.isVisible || controls.TREINO__TREINO__MICROCICLO.isVisible || controls.TREINO__TREINO__MESOCICLOS.isVisible || controls.TREINO__TREINO__DATA.isVisible || controls.TREINO__TREINADOR__NOME.isVisible">
+							<q-row v-if="controls.TREINO__TREINO__NUMTREINO.isVisible || controls.TREINO__TREINO__NUMJOGADORES.isVisible || controls.TREINO__TREINO__MICROCICLO.isVisible || controls.TREINO__TREINO__MESOCICLOS.isVisible || controls.TREINO__TREINO__DATA.isVisible || controls.TREINO__TREINADOR__NOME.isVisible">
+								<q-col
+									v-if="controls.TREINO__TREINO__NUMTREINO.isVisible"
+									cols="auto">
+									<base-input-structure
+										v-if="controls.TREINO__TREINO__NUMTREINO.isVisible"
+										class="i-text"
+										v-bind="controls.TREINO__TREINO__NUMTREINO"
+										v-on="controls.TREINO__TREINO__NUMTREINO.handlers"
+										:loading="controls.TREINO__TREINO__NUMTREINO.props.loading"
+										:reporting-mode-on="reportingModeCAV"
+										:suggestion-mode-on="suggestionModeOn">
+										<q-numeric-input
+											v-if="controls.TREINO__TREINO__NUMTREINO.isVisible"
+											v-bind="controls.TREINO__TREINO__NUMTREINO.props"
+											@update:model-value="model.ValNumtreino.fnUpdateValue" />
+									</base-input-structure>
+								</q-col>
 								<q-col
 									v-if="controls.TREINO__TREINO__NUMJOGADORES.isVisible"
 									cols="auto">
@@ -616,7 +633,23 @@
 						labelPosition: computed(() => this.labelAlignment.topleft),
 						isCollapsible: false,
 						anchored: false,
-						directChildren: ['TREINO__TREINO__NUMJOGADORES', 'TREINO__TREINO__MICROCICLO', 'TREINO__TREINO__MESOCICLOS', 'TREINO__TREINO__DATA', 'TREINO__TREINADOR__NOME'],
+						directChildren: ['TREINO__TREINO__NUMTREINO', 'TREINO__TREINO__NUMJOGADORES', 'TREINO__TREINO__MICROCICLO', 'TREINO__TREINO__MESOCICLOS', 'TREINO__TREINO__DATA', 'TREINO__TREINADOR__NOME'],
+						controlLimits: [
+						],
+					}, this),
+					TREINO__TREINO__NUMTREINO: new fieldControlClass.NumberControl({
+						modelField: 'ValNumtreino',
+						valueChangeEvent: 'fieldChange:treino.numtreino',
+						id: 'TREINO__TREINO__NUMTREINO',
+						name: 'NUMTREINO',
+						size: 'small',
+						label: computed(() => this.Resources.TREINO_NO29135),
+						placeholder: '',
+						labelPosition: computed(() => this.labelAlignment.topleft),
+						container: 'TREINO__PSEUDNEWGRP01',
+						maxIntegers: 3,
+						maxDecimals: 0,
+						isSequencial: true,
 						controlLimits: [
 						],
 					}, this),
@@ -1003,6 +1036,8 @@
 						set ValMicrociclo(value) { vm.model.ValMicrociclo.updateValue(value) },
 						get ValNumjogadores() { return vm.model.ValNumjogadores.value },
 						set ValNumjogadores(value) { vm.model.ValNumjogadores.updateValue(value) },
+						get ValNumtreino() { return vm.model.ValNumtreino.value },
+						set ValNumtreino(value) { vm.model.ValNumtreino.updateValue(value) },
 						get ValObjetivo() { return vm.model.ValObjetivo.value },
 						set ValObjetivo(value) { vm.model.ValObjetivo.updateValue(value) },
 					},

@@ -147,6 +147,18 @@ namespace CSGenio.business
 			info.RegisterFieldDB(Qfield);
 
 			//- - - - - - - - - - - - - - - - - - -
+			Qfield = new Field(info.Alias, "numtreino", FieldType.NUMERIC);
+			Qfield.FieldDescription = "Treino nº";
+			Qfield.FieldSize =  3;
+			Qfield.MQueue = false;
+			Qfield.IntegerDigits = 3;
+			Qfield.CavDesignation = "TREINO_NO29135";
+
+			Qfield.Dupmsg = "";
+			Qfield.DefaultValue = new DefaultValue(DefaultValue.getGreaterPlus1_int, "numtreino");
+			info.RegisterFieldDB(Qfield);
+
+			//- - - - - - - - - - - - - - - - - - -
 			Qfield = new Field(info.Alias, "zzstate", FieldType.INTEGER);
 			Qfield.FieldDescription = "Estado da ficha";
 			info.RegisterFieldDB(Qfield);
@@ -206,6 +218,9 @@ namespace CSGenio.business
 				null, false));
 
 
+			info.SequentialDefaultValues = new string[] {
+			 "numtreino"
+			};
 
 
 
@@ -423,6 +438,17 @@ namespace CSGenio.business
 			set { insertNameValueField(FldCodjogador, value); }
 		}
 
+		/// <summary>Field : "Treino nº" Tipo: "N" Formula:  ""</summary>
+		public static FieldRef FldNumtreino { get { return m_fldNumtreino; } }
+		private static FieldRef m_fldNumtreino = new FieldRef("treino", "numtreino");
+
+		/// <summary>Field : "Treino nº" Tipo: "N" Formula:  ""</summary>
+		public decimal ValNumtreino
+		{
+			get { return (decimal)returnValueField(FldNumtreino); }
+			set { insertNameValueField(FldNumtreino, value); }
+		}
+
 		/// <summary>Field : "ZZSTATE" Type: "INT" Formula:  ""</summary>
 		public static FieldRef FldZzstate { get { return m_fldZzstate; } }
 		private static FieldRef m_fldZzstate = new FieldRef("treino", "zzstate");
@@ -520,7 +546,7 @@ namespace CSGenio.business
 		// USE /[MANUAL SQB TABAUX TREINO]/
 
  
-           
+            
 
 	}
 }

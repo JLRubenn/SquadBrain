@@ -92,7 +92,6 @@ namespace CSGenio.business
 			Qfield.MQueue = false;
 			Qfield.CavDesignation = "RESULTADO50955";
 
-            Qfield.NotNull = true;
 			Qfield.Dupmsg = "";
 			info.RegisterFieldDB(Qfield);
 

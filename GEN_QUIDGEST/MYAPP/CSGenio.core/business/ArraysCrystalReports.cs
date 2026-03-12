@@ -92,6 +92,22 @@ namespace CSGenio.business
             Qresult = new StringBuilder();
             Qresult.Append("\"                                              \"");
             todasArrays.Add("s_tpproc", Qresult.ToString());
+			// spposicao
+            Qresult = new StringBuilder();
+			            Qresult.AppendLine("if {{{0}}} = \"C\" then \"Centro\" else");
+			            Qresult.AppendLine("if {{{0}}} = \"D\" then \"Direito\" else");
+			            Qresult.AppendLine("if {{{0}}} = \"E\" then \"Esquerdo\" else");
+            Qresult.Append("\"                                              \"");
+            todasArrays.Add("spposicao", Qresult.ToString());
+			// spposicaomedio
+            Qresult = new StringBuilder();
+			            Qresult.AppendLine("if {{{0}}} = \"C\" then \"Centro\" else");
+			            Qresult.AppendLine("if {{{0}}} = \"D\" then \"Defensivo\" else");
+			            Qresult.AppendLine("if {{{0}}} = \"O\" then \"Ofensivo\" else");
+			            Qresult.AppendLine("if {{{0}}} = \"DTO\" then \"Direito\" else");
+			            Qresult.AppendLine("if {{{0}}} = \"ESQ\" then \"Esquerdo\" else");
+            Qresult.Append("\"                                              \"");
+            todasArrays.Add("spposicaomedio", Qresult.ToString());
         }
 
         /// <summary>

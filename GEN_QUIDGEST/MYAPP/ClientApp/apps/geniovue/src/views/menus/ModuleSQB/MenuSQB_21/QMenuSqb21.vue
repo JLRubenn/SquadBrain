@@ -121,12 +121,12 @@
 				menuInfo: {
 					id: '21',
 					isMenuList: true,
-					designation: computed(() => this.Resources.TREINADORES03133),
+					designation: computed(() => this.Resources.CLUBES32887),
 					acronym: 'SQB_21',
-					name: 'TREINADOR',
+					name: 'CLUBE',
 					route: 'menu-SQB_21',
 					order: '21',
-					controller: 'TREINADOR',
+					controller: 'CLUBE',
 					action: 'SQB_Menu_21',
 					isPopup: false
 				},
@@ -137,7 +137,7 @@
 					menu: new controlClass.TableListControl({
 						fnHydrateViewModel: (data) => vm.model.hydrate(data),
 						id: 'SQB_Menu_21',
-						controller: 'TREINADOR',
+						controller: 'CLUBE',
 						action: 'SQB_Menu_21',
 						hasDependencies: false,
 						isInCollapsible: false,
@@ -146,46 +146,94 @@
 							'page-full-height'
 						],
 						columnsOriginal: [
-							new listColumnTypes.ArrayColumn({
+							new listColumnTypes.TextColumn({
 								order: 1,
-								name: 'ValFuncao',
-								area: 'TREINADOR',
-								field: 'FUNCAO',
-								label: computed(() => this.Resources.FUN01176),
-								dataLength: 3,
-								scrollData: 3,
-								export: 1,
-								array: computed(() => new qProjArrays.QArrayFuncaotr(vm.$getResource).elements),
-								arrayType: qProjArrays.QArrayFuncaotr.type,
-								arrayDisplayMode: 'D',
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.TextColumn({
-								order: 2,
 								name: 'ValNome',
-								area: 'TREINADOR',
-								field: 'NOME',
-								label: computed(() => this.Resources.NOME47814),
-								dataLength: 50,
-								scrollData: 30,
-								export: 1,
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.TextColumn({
-								order: 3,
-								name: 'Clube.ValNome',
 								area: 'CLUBE',
 								field: 'NOME',
 								label: computed(() => this.Resources.NOME47814),
 								dataLength: 50,
 								scrollData: 30,
 								export: 1,
-								pkColumn: 'ValCodclube',
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.TextColumn({
+								order: 2,
+								name: 'ValEpoca',
+								area: 'CLUBE',
+								field: 'EPOCA',
+								label: computed(() => this.Resources.EPOCA21186),
+								dataLength: 50,
+								scrollData: 30,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.TextColumn({
+								order: 3,
+								name: 'ValCoordtecn',
+								area: 'CLUBE',
+								field: 'COORDTECN',
+								label: computed(() => this.Resources.COORDENADOR_TECNICO51290),
+								dataLength: 50,
+								scrollData: 30,
+								export: 1,
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 							new listColumnTypes.TextColumn({
 								order: 4,
-								name: 'ValLasttreinocriado',
-								area: 'TREINADOR',
-								field: 'LASTTREINOCRIADO',
-								label: computed(() => this.Resources.LASTTREINOCRIADO36042),
+								name: 'ValTreinadorprincipal',
+								area: 'CLUBE',
+								field: 'TREINADORPRINCIPAL',
+								label: computed(() => this.Resources.TREINADOR_PRINCIPAL45661),
+								dataLength: 50,
+								scrollData: 30,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.TextColumn({
+								order: 5,
+								name: 'ValEscalao',
+								area: 'CLUBE',
+								field: 'ESCALAO',
+								label: computed(() => this.Resources.ESCALAO14935),
+								dataLength: 50,
+								scrollData: 30,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.TextColumn({
+								order: 6,
+								name: 'ValPresidente',
+								area: 'CLUBE',
+								field: 'PRESIDENTE',
+								label: computed(() => this.Resources.PRESIDENTE51745),
+								dataLength: 50,
+								scrollData: 30,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.ImageColumn({
+								order: 7,
+								name: 'ValFoto',
+								area: 'CLUBE',
+								field: 'FOTO',
+								label: computed(() => this.Resources.FOTO19492),
+								dataTitle: computed(() => genericFunctions.formatString(vm.Resources.IMAGEM_UTILIZADA_PAR58591, vm.Resources.FOTO19492)),
+								scrollData: 3,
+								sortable: false,
+								searchable: false,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.TextColumn({
+								order: 8,
+								name: 'ValTreinadoradjunto',
+								area: 'CLUBE',
+								field: 'TREINADORADJUNTO',
+								label: computed(() => this.Resources.TREINADOR_ADJUNTO05329),
+								dataLength: 50,
+								scrollData: 30,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.TextColumn({
+								order: 9,
+								name: 'ValCoordform',
+								area: 'CLUBE',
+								field: 'COORDFORM',
+								label: computed(() => this.Resources.COORDENADOR_FORMACAO06004),
 								dataLength: 50,
 								scrollData: 30,
 								export: 1,
@@ -194,12 +242,12 @@
 						config: {
 							name: 'SQB_Menu_21',
 							serverMode: true,
-							pkColumn: 'ValCodtreinador',
-							tableAlias: 'TREINADOR',
-							tableNamePlural: computed(() => this.Resources.TREINADORES03133),
+							pkColumn: 'ValCodclube',
+							tableAlias: 'CLUBE',
+							tableNamePlural: computed(() => this.Resources.CLUBES32887),
 							viewManagement: '',
 							showLimitsInfo: true,
-							tableTitle: computed(() => this.Resources.TREINADORES03133),
+							tableTitle: computed(() => this.Resources.CLUBES32887),
 							showAlternatePagination: true,
 							permissions: {
 							},
@@ -220,7 +268,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'TREINADOR',
+										formName: 'CLUBE',
 										mode: 'SHOW',
 										isControlled: true
 									}
@@ -236,7 +284,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'TREINADOR',
+										formName: 'CLUBE',
 										mode: 'EDIT',
 										isControlled: true
 									}
@@ -252,7 +300,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'TREINADOR',
+										formName: 'CLUBE',
 										mode: 'DUPLICATE',
 										isControlled: true
 									}
@@ -268,7 +316,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'TREINADOR',
+										formName: 'CLUBE',
 										mode: 'DELETE',
 										isControlled: true
 									}
@@ -286,7 +334,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'TREINADOR',
+										formName: 'CLUBE',
 										mode: 'NEW',
 										repeatInsertion: false,
 										isControlled: true
@@ -303,23 +351,23 @@
 							],
 							rowClickAction: {
 								id: 'RCA_SQB_211',
-								name: 'form-TREINADOR',
+								name: 'form-CLUBE',
 								isVisible: true,
 								params: {
 									isRoute: true,
 									limits: [
 										{
 											identifier: 'id',
-											fnValueSelector: (row) => row.ValCodtreinador
+											fnValueSelector: (row) => row.ValCodclube
 										},
 									],
 									isControlled: true,
-									action: vm.openFormAction, type: 'form', mode: 'SHOW', formName: 'TREINADOR'
+									action: vm.openFormAction, type: 'form', mode: 'SHOW', formName: 'CLUBE'
 								}
 							},
 							formsDefinition: {
-								'TREINADOR': {
-									fnKeySelector: (row) => row.Fields.ValCodtreinador,
+								'CLUBE': {
+									fnKeySelector: (row) => row.Fields.ValCodclube,
 									isPopup: false
 								},
 							},
@@ -330,8 +378,8 @@
 								sortOrder: 'asc'
 							}
 						},
-						globalEvents: ['changed-CLUBE', 'changed-TREINADOR'],
-						uuid: '5ba0ff1b-89f5-40ca-8277-e6289e6181e5',
+						globalEvents: ['changed-CLUBE'],
+						uuid: '01f9c3d9-0a9a-4bbf-a19f-d3f760cc2bdb',
 						allSelectedRows: 'false',
 						headerLevel: 1,
 						isActiveControl: computed(() => this.isActiveMenu)

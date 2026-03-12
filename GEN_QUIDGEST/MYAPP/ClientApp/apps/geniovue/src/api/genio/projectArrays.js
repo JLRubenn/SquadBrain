@@ -542,6 +542,90 @@ export class QArrayS_tpproc
 	}
 }
 
+/**
+ * The SPposicao array.
+ */
+export class QArraySpposicao
+{
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	constructor(fnResources)
+	{
+		this.type = 'C'
+		this.pluralName = 'SPPOSICOES24450'
+		this.singularName = 'SPPOSICAO07942'
+
+		this.elements = [
+			new Option({
+				num: 1,
+				key: 'C',
+				resourceId: 'CENTRO49814',
+				fnResources,
+			}),
+			new Option({
+				num: 2,
+				key: 'D',
+				resourceId: 'DIREITO04521',
+				fnResources,
+			}),
+			new Option({
+				num: 3,
+				key: 'E',
+				resourceId: 'ESQUERDO47848',
+				fnResources,
+			}),
+		]
+
+	}
+}
+
+/**
+ * The SPposicaoMedio array.
+ */
+export class QArraySpposicaomedio
+{
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	constructor(fnResources)
+	{
+		this.type = 'C'
+		this.pluralName = 'SPPOSICOES24450'
+		this.singularName = 'SPPOSICAOMEDIO14557'
+
+		this.elements = [
+			new Option({
+				num: 1,
+				key: 'C',
+				resourceId: 'CENTRO49814',
+				fnResources,
+			}),
+			new Option({
+				num: 2,
+				key: 'D',
+				resourceId: 'DEFENSIVO65066',
+				fnResources,
+			}),
+			new Option({
+				num: 3,
+				key: 'O',
+				resourceId: 'OFENSIVO61315',
+				fnResources,
+			}),
+			new Option({
+				num: 4,
+				key: 'DTO',
+				resourceId: 'DIREITO04521',
+				fnResources,
+			}),
+			new Option({
+				num: 5,
+				key: 'ESQ',
+				resourceId: 'ESQUERDO47848',
+				fnResources,
+			}),
+		]
+
+	}
+}
+
 
 export default {
 	QArrayEstado_presenca,
@@ -554,4 +638,6 @@ export default {
 	QArrayS_resul,
 	QArrayS_roles,
 	QArrayS_tpproc,
+	QArraySpposicao,
+	QArraySpposicaomedio,
 }

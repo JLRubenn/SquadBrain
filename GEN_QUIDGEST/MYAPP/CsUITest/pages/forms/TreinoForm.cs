@@ -13,6 +13,11 @@ public class TreinoForm : Form
 	public CollapsibleZoneControl PseudNewgrp01 => new CollapsibleZoneControl(driver, ContainerLocator, "#TREINO__PSEUDNEWGRP01-container");
 
 	/// <summary>
+	/// Treino nº
+	/// </summary>
+	public BaseInputControl TreinoNumtreino => new BaseInputControl(driver, ContainerLocator, "container-TREINO__TREINO__NUMTREINO", "#TREINO__TREINO__NUMTREINO");
+
+	/// <summary>
 	/// Numero Jogadores
 	/// </summary>
 	public BaseInputControl TreinoNumjogadores => new BaseInputControl(driver, ContainerLocator, "container-TREINO__TREINO__NUMJOGADORES", "#TREINO__TREINO__NUMJOGADORES");

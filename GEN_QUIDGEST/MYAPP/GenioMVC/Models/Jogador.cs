@@ -102,6 +102,30 @@ namespace GenioMVC.Models
 		[JsonIgnore]
 		public string ValFotoQTicket = null;
 
+		[DisplayName("Especificação Posição")]
+		/// <summary>Field : "Especificação Posição" Tipo: "AC" Formula:  ""</summary>
+		[ShouldSerialize("Jogador.ValSpposicaomedio")]
+		[DataArray("Spposicaomedio", GenioMVC.Helpers.ArrayType.Character)]
+		public string ValSpposicaomedio { get { return klass.ValSpposicaomedio; } set { klass.ValSpposicaomedio = value; } }
+		[JsonIgnore]
+		public SelectList ArrayValspposicaomedio { get { return new SelectList(CSGenio.business.ArraySpposicaomedio.GetDictionary(), "Key", "Value", ValSpposicaomedio); } set { ValSpposicaomedio = value.SelectedValue as string; } }
+
+		[DisplayName("Especificação Posição")]
+		/// <summary>Field : "Especificação Posição" Tipo: "AC" Formula:  ""</summary>
+		[ShouldSerialize("Jogador.ValSpposicaoat")]
+		[DataArray("Spposicao", GenioMVC.Helpers.ArrayType.Character)]
+		public string ValSpposicaoat { get { return klass.ValSpposicaoat; } set { klass.ValSpposicaoat = value; } }
+		[JsonIgnore]
+		public SelectList ArrayValspposicaoat { get { return new SelectList(CSGenio.business.ArraySpposicao.GetDictionary(), "Key", "Value", ValSpposicaoat); } set { ValSpposicaoat = value.SelectedValue as string; } }
+
+		[DisplayName("Especificação Posição")]
+		/// <summary>Field : "Especificação Posição" Tipo: "AC" Formula:  ""</summary>
+		[ShouldSerialize("Jogador.ValSpposicaodef")]
+		[DataArray("Spposicao", GenioMVC.Helpers.ArrayType.Character)]
+		public string ValSpposicaodef { get { return klass.ValSpposicaodef; } set { klass.ValSpposicaodef = value; } }
+		[JsonIgnore]
+		public SelectList ArrayValspposicaodef { get { return new SelectList(CSGenio.business.ArraySpposicao.GetDictionary(), "Key", "Value", ValSpposicaodef); } set { ValSpposicaodef = value.SelectedValue as string; } }
+
 		[DisplayName("ZZSTATE")]
 		[ShouldSerialize("Jogador.ValZzstate")]
 		/// <summary>Field: "ZZSTATE", Type: "INT", Formula: ""</summary>

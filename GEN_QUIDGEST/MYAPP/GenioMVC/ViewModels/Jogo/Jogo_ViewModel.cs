@@ -412,8 +412,6 @@ namespace GenioMVC.ViewModels.Jogo
 			validator.Required("ValEquipaadversaria", Resources.Resources.EQUIPA_ADVERSARIA15813, ViewModelConversion.ToString(ValEquipaadversaria), FieldType.TEXT.GetFormatting());
 			validator.StringLength("ValResultado", Resources.Resources.RESULTADO50955, ValResultado, 50);
 
-			validator.Required("ValResultado", Resources.Resources.RESULTADO50955, ViewModelConversion.ToString(ValResultado), FieldType.TEXT.GetFormatting());
-
 
 			return validator.GetResult();
 		}

@@ -124,6 +124,12 @@ namespace GenioMVC.Models
 			set { _jogador = value; }
 		}
 
+		[DisplayName("Treino nº")]
+		/// <summary>Field : "Treino nº" Tipo: "N" Formula:  ""</summary>
+		[ShouldSerialize("Treino.ValNumtreino")]
+		[NumericAttribute(0)]
+		public decimal? ValNumtreino { get { return Convert.ToDecimal(GenFunctions.RoundQG(klass.ValNumtreino, 0)); } set { klass.ValNumtreino = Convert.ToDecimal(value); } }
+
 		[DisplayName("ZZSTATE")]
 		[ShouldSerialize("Treino.ValZzstate")]
 		/// <summary>Field: "ZZSTATE", Type: "INT", Formula: ""</summary>

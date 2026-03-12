@@ -157,6 +157,42 @@ namespace CSGenio.business
 			info.RegisterFieldDB(Qfield);
 
 			//- - - - - - - - - - - - - - - - - - -
+			Qfield = new Field(info.Alias, "spposicaomedio", FieldType.ARRAY_TEXT);
+			Qfield.FieldDescription = "Especificação Posição";
+			Qfield.FieldSize =  3;
+			Qfield.MQueue = false;
+			Qfield.CavDesignation = "ESPECIFICACAO_POSICA24622";
+
+			Qfield.Dupmsg = "";
+            Qfield.ArrayName = "dbo.GetValArrayCspposicaomedio";
+            Qfield.ArrayClassName = "Spposicaomedio";
+			info.RegisterFieldDB(Qfield);
+
+			//- - - - - - - - - - - - - - - - - - -
+			Qfield = new Field(info.Alias, "spposicaoat", FieldType.ARRAY_TEXT);
+			Qfield.FieldDescription = "Especificação Posição";
+			Qfield.FieldSize =  1;
+			Qfield.MQueue = false;
+			Qfield.CavDesignation = "ESPECIFICACAO_POSICA24622";
+
+			Qfield.Dupmsg = "";
+            Qfield.ArrayName = "dbo.GetValArrayCspposicao";
+            Qfield.ArrayClassName = "Spposicao";
+			info.RegisterFieldDB(Qfield);
+
+			//- - - - - - - - - - - - - - - - - - -
+			Qfield = new Field(info.Alias, "spposicaodef", FieldType.ARRAY_TEXT);
+			Qfield.FieldDescription = "Especificação Posição";
+			Qfield.FieldSize =  1;
+			Qfield.MQueue = false;
+			Qfield.CavDesignation = "ESPECIFICACAO_POSICA24622";
+
+			Qfield.Dupmsg = "";
+            Qfield.ArrayName = "dbo.GetValArrayCspposicao";
+            Qfield.ArrayClassName = "Spposicao";
+			info.RegisterFieldDB(Qfield);
+
+			//- - - - - - - - - - - - - - - - - - -
 			Qfield = new Field(info.Alias, "zzstate", FieldType.INTEGER);
 			Qfield.FieldDescription = "Estado da ficha";
 			info.RegisterFieldDB(Qfield);
@@ -209,6 +245,21 @@ namespace CSGenio.business
 
 			//Write conditions
 			List<ConditionFormula> conditions = new List<ConditionFormula>();
+
+			// DateCompare([JOGADOR->DATANASCIMENTO], [Today]) > 0
+			{
+			List<ByAreaArguments> argumentsListByArea = new List<ByAreaArguments>();
+			argumentsListByArea= new List<ByAreaArguments>();
+			argumentsListByArea.Add(new ByAreaArguments(new string[] {"datanascimento"},new int[] {0},"jogador","codjogador"));
+			ConditionFormula writeCondition = new ConditionFormula(argumentsListByArea, 1, delegate(object []args,User user,string module,PersistentSupport sp) {
+				return GenFunctions.DateCompare(((DateTime)args[0]),DateTime.Today)>0;
+			});
+			writeCondition.ErrorWarning = "A data de nascimento do jogador tem de ser no passado.";
+            writeCondition.Type =  ConditionType.ERROR;
+            writeCondition.Validate = true;
+			writeCondition.Field = info.DBFields["datanascimento"];
+			conditions.Add(writeCondition);
+			}
 			info.WriteConditions = conditions.Where(c=> c.IsWriteCondition()).ToList();
 			info.CrudConditions = conditions.Where(c=> c.IsCrudCondition()).ToList();
 
@@ -419,6 +470,39 @@ namespace CSGenio.business
 			set { insertNameValueField(FldFoto, value); }
 		}
 
+		/// <summary>Field : "Especificação Posição" Tipo: "AC" Formula:  ""</summary>
+		public static FieldRef FldSpposicaomedio { get { return m_fldSpposicaomedio; } }
+		private static FieldRef m_fldSpposicaomedio = new FieldRef("jogador", "spposicaomedio");
+
+		/// <summary>Field : "Especificação Posição" Tipo: "AC" Formula:  ""</summary>
+		public string ValSpposicaomedio
+		{
+			get { return (string)returnValueField(FldSpposicaomedio); }
+			set { insertNameValueField(FldSpposicaomedio, value); }
+		}
+
+		/// <summary>Field : "Especificação Posição" Tipo: "AC" Formula:  ""</summary>
+		public static FieldRef FldSpposicaoat { get { return m_fldSpposicaoat; } }
+		private static FieldRef m_fldSpposicaoat = new FieldRef("jogador", "spposicaoat");
+
+		/// <summary>Field : "Especificação Posição" Tipo: "AC" Formula:  ""</summary>
+		public string ValSpposicaoat
+		{
+			get { return (string)returnValueField(FldSpposicaoat); }
+			set { insertNameValueField(FldSpposicaoat, value); }
+		}
+
+		/// <summary>Field : "Especificação Posição" Tipo: "AC" Formula:  ""</summary>
+		public static FieldRef FldSpposicaodef { get { return m_fldSpposicaodef; } }
+		private static FieldRef m_fldSpposicaodef = new FieldRef("jogador", "spposicaodef");
+
+		/// <summary>Field : "Especificação Posição" Tipo: "AC" Formula:  ""</summary>
+		public string ValSpposicaodef
+		{
+			get { return (string)returnValueField(FldSpposicaodef); }
+			set { insertNameValueField(FldSpposicaodef, value); }
+		}
+
 		/// <summary>Field : "ZZSTATE" Type: "INT" Formula:  ""</summary>
 		public static FieldRef FldZzstate { get { return m_fldZzstate; } }
 		private static FieldRef m_fldZzstate = new FieldRef("jogador", "zzstate");
@@ -516,7 +600,7 @@ namespace CSGenio.business
 		// USE /[MANUAL SQB TABAUX JOGADOR]/
 
  
-           
+              
 
 	}
 }

@@ -451,11 +451,11 @@ namespace GenioMVC.Controllers
 			var queryParams = requestModel.QueryParams;
 
 			// If there was a recent operation on this table then force the primary persistence server to be called and ignore the read only feature
-			if (string.IsNullOrEmpty(Navigation.GetStrValue("ForcePrimaryRead_jogador")))
+			if (string.IsNullOrEmpty(Navigation.GetStrValue("ForcePrimaryRead_convocatoria")))
 				UserContext.Current.SetPersistenceReadOnly(true);
 			else
 			{
-				Navigation.DestroyEntry("ForcePrimaryRead_jogador");
+				Navigation.DestroyEntry("ForcePrimaryRead_convocatoria");
 				UserContext.Current.SetPersistenceReadOnly(false);
 			}
 

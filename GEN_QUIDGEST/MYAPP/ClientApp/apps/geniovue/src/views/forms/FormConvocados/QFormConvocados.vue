@@ -93,212 +93,79 @@
 
 		<q-container
 			fluid
-			data-key="CLUBE"
+			data-key="CONVOCADOS"
 			:data-loading="!formInitialDataLoaded || !isActiveForm">
 			<template v-if="formControl.initialized && showFormBody">
-				<q-row v-if="controls.CLUBE___CLUBEFOTO____.isVisible">
-					<q-col v-if="controls.CLUBE___CLUBEFOTO____.isVisible">
+				<q-row v-if="controls.CONVOCADOS__JOGADOR__NOME.isVisible || controls.CONVOCADOS__JOGADOR__NUMEROCAMISOLA.isVisible || controls.CONVOCADOS__JOGADOR__POSICAO.isVisible || controls.CONVOCADOS__JOGADOR__POSICAOSEGUNDARIA.isVisible">
+					<q-col
+						v-if="controls.CONVOCADOS__JOGADOR__NOME.isVisible"
+						cols="auto">
 						<base-input-structure
-							v-if="controls.CLUBE___CLUBEFOTO____.isVisible"
-							class="q-image"
-							v-bind="controls.CLUBE___CLUBEFOTO____"
-							v-on="controls.CLUBE___CLUBEFOTO____.handlers"
-							:loading="controls.CLUBE___CLUBEFOTO____.props.loading"
+							v-if="controls.CONVOCADOS__JOGADOR__NOME.isVisible"
+							class="i-text"
+							v-bind="controls.CONVOCADOS__JOGADOR__NOME"
+							v-on="controls.CONVOCADOS__JOGADOR__NOME.handlers"
+							:loading="controls.CONVOCADOS__JOGADOR__NOME.props.loading"
 							:reporting-mode-on="reportingModeCAV"
 							:suggestion-mode-on="suggestionModeOn">
-							<q-image
-								v-if="controls.CLUBE___CLUBEFOTO____.isVisible"
-								v-bind="controls.CLUBE___CLUBEFOTO____.props"
-								v-on="controls.CLUBE___CLUBEFOTO____.handlers" />
+							<q-lookup
+								v-if="controls.CONVOCADOS__JOGADOR__NOME.isVisible"
+								v-bind="controls.CONVOCADOS__JOGADOR__NOME.props"
+								v-on="controls.CONVOCADOS__JOGADOR__NOME.handlers" />
+							<q-see-more-convocados-jogador-nome
+								v-if="controls.CONVOCADOS__JOGADOR__NOME.seeMoreIsVisible"
+								v-bind="controls.CONVOCADOS__JOGADOR__NOME.seeMoreParams"
+								v-on="controls.CONVOCADOS__JOGADOR__NOME.handlers" />
 						</base-input-structure>
 					</q-col>
-				</q-row>
-				<q-row v-if="controls.CLUBE___PSEUDNEWGRP01.isVisible">
-					<q-col v-if="controls.CLUBE___PSEUDNEWGRP01.isVisible">
-						<q-group-collapsible
-							v-if="controls.CLUBE___PSEUDNEWGRP01.isVisible"
-							id="CLUBE___PSEUDNEWGRP01"
-							v-bind="controls.CLUBE___PSEUDNEWGRP01"
-							v-on="controls.CLUBE___PSEUDNEWGRP01.handlers">
-							<!-- Start CLUBE___PSEUDNEWGRP01 -->
-							<q-row v-if="controls.CLUBE___CLUBENOME____.isVisible">
-								<q-col
-									v-if="controls.CLUBE___CLUBENOME____.isVisible"
-									cols="auto">
-									<base-input-structure
-										v-if="controls.CLUBE___CLUBENOME____.isVisible"
-										class="i-text"
-										v-bind="controls.CLUBE___CLUBENOME____"
-										v-on="controls.CLUBE___CLUBENOME____.handlers"
-										:loading="controls.CLUBE___CLUBENOME____.props.loading"
-										:reporting-mode-on="reportingModeCAV"
-										:suggestion-mode-on="suggestionModeOn">
-										<q-text-field
-											v-bind="controls.CLUBE___CLUBENOME____.props"
-											@blur="onBlur(controls.CLUBE___CLUBENOME____, model.ValNome.value)"
-											@change="model.ValNome.fnUpdateValueOnChange" />
-									</base-input-structure>
-								</q-col>
-							</q-row>
-							<q-row v-if="controls.CLUBE___CLUBEESCALAO_.isVisible">
-								<q-col
-									v-if="controls.CLUBE___CLUBEESCALAO_.isVisible"
-									cols="auto">
-									<base-input-structure
-										v-if="controls.CLUBE___CLUBEESCALAO_.isVisible"
-										class="i-text"
-										v-bind="controls.CLUBE___CLUBEESCALAO_"
-										v-on="controls.CLUBE___CLUBEESCALAO_.handlers"
-										:loading="controls.CLUBE___CLUBEESCALAO_.props.loading"
-										:reporting-mode-on="reportingModeCAV"
-										:suggestion-mode-on="suggestionModeOn">
-										<q-text-field
-											v-bind="controls.CLUBE___CLUBEESCALAO_.props"
-											@blur="onBlur(controls.CLUBE___CLUBEESCALAO_, model.ValEscalao.value)"
-											@change="model.ValEscalao.fnUpdateValueOnChange" />
-									</base-input-structure>
-								</q-col>
-							</q-row>
-							<q-row v-if="controls.CLUBE___CLUBEEPOCA___.isVisible">
-								<q-col
-									v-if="controls.CLUBE___CLUBEEPOCA___.isVisible"
-									cols="auto">
-									<base-input-structure
-										v-if="controls.CLUBE___CLUBEEPOCA___.isVisible"
-										class="i-text"
-										v-bind="controls.CLUBE___CLUBEEPOCA___"
-										v-on="controls.CLUBE___CLUBEEPOCA___.handlers"
-										:loading="controls.CLUBE___CLUBEEPOCA___.props.loading"
-										:reporting-mode-on="reportingModeCAV"
-										:suggestion-mode-on="suggestionModeOn">
-										<q-text-field
-											v-bind="controls.CLUBE___CLUBEEPOCA___.props"
-											@blur="onBlur(controls.CLUBE___CLUBEEPOCA___, model.ValEpoca.value)"
-											@change="model.ValEpoca.fnUpdateValueOnChange" />
-									</base-input-structure>
-								</q-col>
-							</q-row>
-							<!-- End CLUBE___PSEUDNEWGRP01 -->
-						</q-group-collapsible>
+					<q-col
+						v-if="controls.CONVOCADOS__JOGADOR__NUMEROCAMISOLA.isVisible"
+						cols="auto">
+						<base-input-structure
+							v-if="controls.CONVOCADOS__JOGADOR__NUMEROCAMISOLA.isVisible"
+							class="i-text"
+							v-bind="controls.CONVOCADOS__JOGADOR__NUMEROCAMISOLA"
+							v-on="controls.CONVOCADOS__JOGADOR__NUMEROCAMISOLA.handlers"
+							:loading="controls.CONVOCADOS__JOGADOR__NUMEROCAMISOLA.props.loading"
+							:reporting-mode-on="reportingModeCAV"
+							:suggestion-mode-on="suggestionModeOn">
+							<q-numeric-input
+								v-if="controls.CONVOCADOS__JOGADOR__NUMEROCAMISOLA.isVisible"
+								v-bind="controls.CONVOCADOS__JOGADOR__NUMEROCAMISOLA.props"
+								@update:model-value="model.JogadorValNumerocamisola.fnUpdateValue" />
+						</base-input-structure>
 					</q-col>
-				</q-row>
-				<q-row v-if="controls.CLUBE___PSEUDNEWGRP02.isVisible">
-					<q-col v-if="controls.CLUBE___PSEUDNEWGRP02.isVisible">
-						<q-group-collapsible
-							v-if="controls.CLUBE___PSEUDNEWGRP02.isVisible"
-							id="CLUBE___PSEUDNEWGRP02"
-							v-bind="controls.CLUBE___PSEUDNEWGRP02"
-							v-on="controls.CLUBE___PSEUDNEWGRP02.handlers">
-							<!-- Start CLUBE___PSEUDNEWGRP02 -->
-							<q-row v-if="controls.CLUBE__CLUBE__PRESIDENTE.isVisible">
-								<q-col
-									v-if="controls.CLUBE__CLUBE__PRESIDENTE.isVisible"
-									cols="auto">
-									<base-input-structure
-										v-if="controls.CLUBE__CLUBE__PRESIDENTE.isVisible"
-										class="i-text"
-										v-bind="controls.CLUBE__CLUBE__PRESIDENTE"
-										v-on="controls.CLUBE__CLUBE__PRESIDENTE.handlers"
-										:loading="controls.CLUBE__CLUBE__PRESIDENTE.props.loading"
-										:reporting-mode-on="reportingModeCAV"
-										:suggestion-mode-on="suggestionModeOn">
-										<q-text-field
-											v-bind="controls.CLUBE__CLUBE__PRESIDENTE.props"
-											@blur="onBlur(controls.CLUBE__CLUBE__PRESIDENTE, model.ValPresidente.value)"
-											@change="model.ValPresidente.fnUpdateValueOnChange" />
-									</base-input-structure>
-								</q-col>
-							</q-row>
-							<q-row v-if="controls.CLUBE__CLUBE__COORDTECN.isVisible">
-								<q-col
-									v-if="controls.CLUBE__CLUBE__COORDTECN.isVisible"
-									cols="auto">
-									<base-input-structure
-										v-if="controls.CLUBE__CLUBE__COORDTECN.isVisible"
-										class="i-text"
-										v-bind="controls.CLUBE__CLUBE__COORDTECN"
-										v-on="controls.CLUBE__CLUBE__COORDTECN.handlers"
-										:loading="controls.CLUBE__CLUBE__COORDTECN.props.loading"
-										:reporting-mode-on="reportingModeCAV"
-										:suggestion-mode-on="suggestionModeOn">
-										<q-text-field
-											v-bind="controls.CLUBE__CLUBE__COORDTECN.props"
-											@blur="onBlur(controls.CLUBE__CLUBE__COORDTECN, model.ValCoordtecn.value)"
-											@change="model.ValCoordtecn.fnUpdateValueOnChange" />
-									</base-input-structure>
-								</q-col>
-							</q-row>
-							<q-row v-if="controls.CLUBE__CLUBE__COORDFORM.isVisible">
-								<q-col
-									v-if="controls.CLUBE__CLUBE__COORDFORM.isVisible"
-									cols="auto">
-									<base-input-structure
-										v-if="controls.CLUBE__CLUBE__COORDFORM.isVisible"
-										class="i-text"
-										v-bind="controls.CLUBE__CLUBE__COORDFORM"
-										v-on="controls.CLUBE__CLUBE__COORDFORM.handlers"
-										:loading="controls.CLUBE__CLUBE__COORDFORM.props.loading"
-										:reporting-mode-on="reportingModeCAV"
-										:suggestion-mode-on="suggestionModeOn">
-										<q-text-field
-											v-bind="controls.CLUBE__CLUBE__COORDFORM.props"
-											@blur="onBlur(controls.CLUBE__CLUBE__COORDFORM, model.ValCoordform.value)"
-											@change="model.ValCoordform.fnUpdateValueOnChange" />
-									</base-input-structure>
-								</q-col>
-							</q-row>
-							<!-- End CLUBE___PSEUDNEWGRP02 -->
-						</q-group-collapsible>
+					<q-col
+						v-if="controls.CONVOCADOS__JOGADOR__POSICAO.isVisible"
+						cols="auto">
+						<base-input-structure
+							v-if="controls.CONVOCADOS__JOGADOR__POSICAO.isVisible"
+							class="i-text"
+							v-bind="controls.CONVOCADOS__JOGADOR__POSICAO"
+							v-on="controls.CONVOCADOS__JOGADOR__POSICAO.handlers"
+							:loading="controls.CONVOCADOS__JOGADOR__POSICAO.props.loading"
+							:reporting-mode-on="reportingModeCAV"
+							:suggestion-mode-on="suggestionModeOn">
+							<q-select
+								v-if="controls.CONVOCADOS__JOGADOR__POSICAO.isVisible"
+								v-bind="controls.CONVOCADOS__JOGADOR__POSICAO.props" />
+						</base-input-structure>
 					</q-col>
-				</q-row>
-				<q-row v-if="controls.CLUBE___PSEUDNEWGRP03.isVisible">
-					<q-col v-if="controls.CLUBE___PSEUDNEWGRP03.isVisible">
-						<q-group-collapsible
-							v-if="controls.CLUBE___PSEUDNEWGRP03.isVisible"
-							id="CLUBE___PSEUDNEWGRP03"
-							v-bind="controls.CLUBE___PSEUDNEWGRP03"
-							v-on="controls.CLUBE___PSEUDNEWGRP03.handlers">
-							<!-- Start CLUBE___PSEUDNEWGRP03 -->
-							<q-row v-if="controls.CLUBE__CLUBE__TREINADORPRINCIPAL.isVisible">
-								<q-col
-									v-if="controls.CLUBE__CLUBE__TREINADORPRINCIPAL.isVisible"
-									cols="auto">
-									<base-input-structure
-										v-if="controls.CLUBE__CLUBE__TREINADORPRINCIPAL.isVisible"
-										class="i-text"
-										v-bind="controls.CLUBE__CLUBE__TREINADORPRINCIPAL"
-										v-on="controls.CLUBE__CLUBE__TREINADORPRINCIPAL.handlers"
-										:loading="controls.CLUBE__CLUBE__TREINADORPRINCIPAL.props.loading"
-										:reporting-mode-on="reportingModeCAV"
-										:suggestion-mode-on="suggestionModeOn">
-										<q-text-field
-											v-bind="controls.CLUBE__CLUBE__TREINADORPRINCIPAL.props"
-											@blur="onBlur(controls.CLUBE__CLUBE__TREINADORPRINCIPAL, model.ValTreinadorprincipal.value)"
-											@change="model.ValTreinadorprincipal.fnUpdateValueOnChange" />
-									</base-input-structure>
-								</q-col>
-							</q-row>
-							<q-row v-if="controls.CLUBE__CLUBE__TREINADORADJUNTO.isVisible">
-								<q-col
-									v-if="controls.CLUBE__CLUBE__TREINADORADJUNTO.isVisible"
-									cols="auto">
-									<base-input-structure
-										v-if="controls.CLUBE__CLUBE__TREINADORADJUNTO.isVisible"
-										class="i-text"
-										v-bind="controls.CLUBE__CLUBE__TREINADORADJUNTO"
-										v-on="controls.CLUBE__CLUBE__TREINADORADJUNTO.handlers"
-										:loading="controls.CLUBE__CLUBE__TREINADORADJUNTO.props.loading"
-										:reporting-mode-on="reportingModeCAV"
-										:suggestion-mode-on="suggestionModeOn">
-										<q-text-field
-											v-bind="controls.CLUBE__CLUBE__TREINADORADJUNTO.props"
-											@blur="onBlur(controls.CLUBE__CLUBE__TREINADORADJUNTO, model.ValTreinadoradjunto.value)"
-											@change="model.ValTreinadoradjunto.fnUpdateValueOnChange" />
-									</base-input-structure>
-								</q-col>
-							</q-row>
-							<!-- End CLUBE___PSEUDNEWGRP03 -->
-						</q-group-collapsible>
+					<q-col
+						v-if="controls.CONVOCADOS__JOGADOR__POSICAOSEGUNDARIA.isVisible"
+						cols="auto">
+						<base-input-structure
+							v-if="controls.CONVOCADOS__JOGADOR__POSICAOSEGUNDARIA.isVisible"
+							class="i-text"
+							v-bind="controls.CONVOCADOS__JOGADOR__POSICAOSEGUNDARIA"
+							v-on="controls.CONVOCADOS__JOGADOR__POSICAOSEGUNDARIA.handlers"
+							:loading="controls.CONVOCADOS__JOGADOR__POSICAOSEGUNDARIA.props.loading"
+							:reporting-mode-on="reportingModeCAV"
+							:suggestion-mode-on="suggestionModeOn">
+							<q-select
+								v-if="controls.CONVOCADOS__JOGADOR__POSICAOSEGUNDARIA.isVisible"
+								v-bind="controls.CONVOCADOS__JOGADOR__POSICAOSEGUNDARIA.props" />
+						</base-input-structure>
 					</q-col>
 				</q-row>
 			</template>
@@ -359,19 +226,20 @@
 	import qProjArrays from '@/api/genio/projectArrays.js'
 	/* eslint-enable @typescript-eslint/no-unused-vars */
 
-	import FormViewModel from './QFormClubeViewModel.js'
+	import FormViewModel from './QFormConvocadosViewModel.js'
 
-	const requiredTextResources = ['QFormClube', 'hardcoded', 'messages']
+	const requiredTextResources = ['QFormConvocados', 'hardcoded', 'messages']
 
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB FORM_INCLUDEJS CLUBE]/
+// USE /[MANUAL SQB FORM_INCLUDEJS CONVOCADOS]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 
 	export default {
-		name: 'QFormClube',
+		name: 'QFormConvocados',
 
 		components: {
+			QSeeMoreConvocadosJogadorNome: defineAsyncComponent(() => import('@/views/forms/FormConvocados/dbedits/ConvocadosJogadorNomeSeeMore.vue')),
 		},
 
 		mixins: [
@@ -385,8 +253,8 @@
 			nestedRouteParams: {
 				type: Object,
 				default: () => ({
-					name: 'CLUBE',
-					location: 'form-CLUBE',
+					name: 'CONVOCADOS',
+					location: 'form-CONVOCADOS',
 					params: {
 						isNested: true
 					}
@@ -419,20 +287,20 @@
 			// eslint-disable-next-line
 			const vm = this
 			return {
-				componentOnLoadProc: asyncProcM.getProcListMonitor('QFormClube', false),
+				componentOnLoadProc: asyncProcM.getProcListMonitor('QFormConvocados', false),
 
 				interfaceMetadata: {
-					id: 'QFormClube', // Used for resources
+					id: 'QFormConvocados', // Used for resources
 					requiredTextResources
 				},
 
 				formInfo: {
 					type: 'normal',
-					name: 'CLUBE',
-					route: 'form-CLUBE',
-					area: 'CLUBE',
-					primaryKey: 'ValCodclube',
-					designation: computed(() => this.Resources.CLUBE52443),
+					name: 'CONVOCADOS',
+					route: 'form-CONVOCADOS',
+					area: 'CONVOCATORIA',
+					primaryKey: 'ValCodconvocatoria',
+					designation: computed(() => this.Resources.CONVOCATORIA23089),
 					identifier: '', // Unique identifier received by route (when it's nested).
 					mode: '',
 					availableAgents: [],
@@ -647,176 +515,86 @@
 				},
 
 				controls: {
-					CLUBE___CLUBEFOTO____: new fieldControlClass.ImageControl({
-						modelField: 'ValFoto',
-						valueChangeEvent: 'fieldChange:clube.foto',
-						id: 'CLUBE___CLUBEFOTO____',
-						name: 'FOTO',
-						size: 'block',
-						label: computed(() => this.Resources.FOTO19492),
-						placeholder: '',
-						labelPosition: computed(() => this.labelAlignment.topleft),
-						height: 50,
-						width: 30,
-						dataTitle: computed(() => genericFunctions.formatString(vm.Resources.IMAGEM_UTILIZADA_PAR17299, vm.Resources.FOTO19492)),
-						maxFileSize: 10485760, // In bytes.
-						maxFileSizeLabel: '10 MB',
-						controlLimits: [
-						],
-					}, this),
-					CLUBE___PSEUDNEWGRP01: new fieldControlClass.GroupControl({
-						id: 'CLUBE___PSEUDNEWGRP01',
-						name: 'NEWGRP01',
-						size: 'block',
-						label: computed(() => this.Resources.INFORMACOES_DO_CLUBE41671),
-						placeholder: '',
-						labelPosition: computed(() => this.labelAlignment.topleft),
-						startsExpanded: false,
-						isCollapsible: true,
-						anchored: false,
-						directChildren: ['CLUBE___CLUBENOME____', 'CLUBE___CLUBEESCALAO_', 'CLUBE___CLUBEEPOCA___'],
-						mustBeFilled: true,
-						controlLimits: [
-						],
-					}, this),
-					CLUBE___CLUBENOME____: new fieldControlClass.StringControl({
-						modelField: 'ValNome',
-						valueChangeEvent: 'fieldChange:clube.nome',
-						id: 'CLUBE___CLUBENOME____',
+					CONVOCADOS__JOGADOR__NOME: new fieldControlClass.LookupControl({
+						modelField: 'TableJogadorNome',
+						valueChangeEvent: 'fieldChange:jogador.nome',
+						id: 'CONVOCADOS__JOGADOR__NOME',
 						name: 'NOME',
-						size: 'xxlarge',
+						size: 'xlarge',
 						label: computed(() => this.Resources.NOME47814),
 						placeholder: '',
 						labelPosition: computed(() => this.labelAlignment.topleft),
-						container: 'CLUBE___PSEUDNEWGRP01',
-						maxLength: 50,
-						mustBeFilled: true,
+						externalCallbacks: {
+							getModelField: vm.getModelField,
+							getModelFieldValue: vm.getModelFieldValue,
+							setModelFieldValue: vm.setModelFieldValue
+						},
+						externalProperties: {
+							modelKeys: computed(() => vm.modelKeys)
+						},
+						lookupKeyModelField: {
+							name: 'ValCodjogador',
+							dependencyEvent: 'fieldChange:convocatoria.codjogador'
+						},
+						dependentFields: () => ({
+							set 'jogador.codjogador'(value) { vm.model.ValCodjogador.updateValue(value) },
+							set 'jogador.nome'(value) { vm.model.TableJogadorNome.updateValue(value) },
+							set 'jogador.numerocamisola'(value) { vm.model.JogadorValNumerocamisola.updateValue(value) },
+							set 'jogador.posicao'(value) { vm.model.JogadorValPosicao.updateValue(value) },
+							set 'jogador.posicaosegundaria'(value) { vm.model.JogadorValPosicaosegundaria.updateValue(value) },
+						}),
 						controlLimits: [
 						],
 					}, this),
-					CLUBE___CLUBEESCALAO_: new fieldControlClass.StringControl({
-						modelField: 'ValEscalao',
-						valueChangeEvent: 'fieldChange:clube.escalao',
-						id: 'CLUBE___CLUBEESCALAO_',
-						name: 'ESCALAO',
-						size: 'xxlarge',
-						label: computed(() => this.Resources.ESCALAO14935),
+					CONVOCADOS__JOGADOR__NUMEROCAMISOLA: new fieldControlClass.NumberControl({
+						modelField: 'JogadorValNumerocamisola',
+						valueChangeEvent: 'fieldChange:jogador.numerocamisola',
+						dependentModelField: 'ValCodjogador',
+						dependentChangeEvent: 'fieldChange:convocatoria.codjogador',
+						id: 'CONVOCADOS__JOGADOR__NUMEROCAMISOLA',
+						name: 'NUMEROCAMISOLA',
+						size: 'small',
+						label: computed(() => this.Resources.NUMERO_CAMISOLA34511),
 						placeholder: '',
 						labelPosition: computed(() => this.labelAlignment.topleft),
-						container: 'CLUBE___PSEUDNEWGRP01',
-						maxLength: 50,
+						maxIntegers: 2,
+						maxDecimals: 0,
 						controlLimits: [
 						],
 					}, this),
-					CLUBE___CLUBEEPOCA___: new fieldControlClass.StringControl({
-						modelField: 'ValEpoca',
-						valueChangeEvent: 'fieldChange:clube.epoca',
-						id: 'CLUBE___CLUBEEPOCA___',
-						name: 'EPOCA',
-						size: 'xxlarge',
-						label: computed(() => this.Resources.EPOCA21186),
+					CONVOCADOS__JOGADOR__POSICAO: new fieldControlClass.ArrayStringControl({
+						modelField: 'JogadorValPosicao',
+						valueChangeEvent: 'fieldChange:jogador.posicao',
+						dependentModelField: 'ValCodjogador',
+						dependentChangeEvent: 'fieldChange:convocatoria.codjogador',
+						id: 'CONVOCADOS__JOGADOR__POSICAO',
+						name: 'POSICAO',
+						size: 'small',
+						label: computed(() => this.Resources.POSICAO07486),
 						placeholder: '',
 						labelPosition: computed(() => this.labelAlignment.topleft),
-						container: 'CLUBE___PSEUDNEWGRP01',
-						maxLength: 50,
+						maxLength: 3,
+						arrayName: 'Posicao',
+						helpShortItem: 'None',
+						helpDetailedItem: 'None',
 						controlLimits: [
 						],
 					}, this),
-					CLUBE___PSEUDNEWGRP02: new fieldControlClass.GroupControl({
-						id: 'CLUBE___PSEUDNEWGRP02',
-						name: 'NEWGRP02',
-						size: 'block',
-						label: computed(() => this.Resources.RESPONSAVEIS_DO_CLUB28910),
+					CONVOCADOS__JOGADOR__POSICAOSEGUNDARIA: new fieldControlClass.ArrayStringControl({
+						modelField: 'JogadorValPosicaosegundaria',
+						valueChangeEvent: 'fieldChange:jogador.posicaosegundaria',
+						dependentModelField: 'ValCodjogador',
+						dependentChangeEvent: 'fieldChange:convocatoria.codjogador',
+						id: 'CONVOCADOS__JOGADOR__POSICAOSEGUNDARIA',
+						name: 'POSICAOSEGUNDARIA',
+						size: 'small',
+						label: computed(() => this.Resources.POSICAO_SEGUNDARIA49537),
 						placeholder: '',
 						labelPosition: computed(() => this.labelAlignment.topleft),
-						startsExpanded: false,
-						isCollapsible: true,
-						anchored: false,
-						directChildren: ['CLUBE__CLUBE__PRESIDENTE', 'CLUBE__CLUBE__COORDTECN', 'CLUBE__CLUBE__COORDFORM'],
-						controlLimits: [
-						],
-					}, this),
-					CLUBE__CLUBE__PRESIDENTE: new fieldControlClass.StringControl({
-						modelField: 'ValPresidente',
-						valueChangeEvent: 'fieldChange:clube.presidente',
-						id: 'CLUBE__CLUBE__PRESIDENTE',
-						name: 'PRESIDENTE',
-						size: 'xxlarge',
-						label: computed(() => this.Resources.PRESIDENTE51745),
-						placeholder: '',
-						labelPosition: computed(() => this.labelAlignment.topleft),
-						container: 'CLUBE___PSEUDNEWGRP02',
-						maxLength: 50,
-						controlLimits: [
-						],
-					}, this),
-					CLUBE__CLUBE__COORDTECN: new fieldControlClass.StringControl({
-						modelField: 'ValCoordtecn',
-						valueChangeEvent: 'fieldChange:clube.coordtecn',
-						id: 'CLUBE__CLUBE__COORDTECN',
-						name: 'COORDTECN',
-						size: 'xxlarge',
-						label: computed(() => this.Resources.COORDENADOR_TECNICO51290),
-						placeholder: '',
-						labelPosition: computed(() => this.labelAlignment.topleft),
-						container: 'CLUBE___PSEUDNEWGRP02',
-						maxLength: 50,
-						controlLimits: [
-						],
-					}, this),
-					CLUBE__CLUBE__COORDFORM: new fieldControlClass.StringControl({
-						modelField: 'ValCoordform',
-						valueChangeEvent: 'fieldChange:clube.coordform',
-						id: 'CLUBE__CLUBE__COORDFORM',
-						name: 'COORDFORM',
-						size: 'xxlarge',
-						label: computed(() => this.Resources.COORDENADOR_FORMACAO06004),
-						placeholder: '',
-						labelPosition: computed(() => this.labelAlignment.topleft),
-						container: 'CLUBE___PSEUDNEWGRP02',
-						maxLength: 50,
-						controlLimits: [
-						],
-					}, this),
-					CLUBE___PSEUDNEWGRP03: new fieldControlClass.GroupControl({
-						id: 'CLUBE___PSEUDNEWGRP03',
-						name: 'NEWGRP03',
-						size: 'block',
-						label: computed(() => this.Resources.EQUIPA_TECNICA24280),
-						placeholder: '',
-						labelPosition: computed(() => this.labelAlignment.topleft),
-						startsExpanded: false,
-						isCollapsible: true,
-						anchored: false,
-						directChildren: ['CLUBE__CLUBE__TREINADORPRINCIPAL', 'CLUBE__CLUBE__TREINADORADJUNTO'],
-						controlLimits: [
-						],
-					}, this),
-					CLUBE__CLUBE__TREINADORPRINCIPAL: new fieldControlClass.StringControl({
-						modelField: 'ValTreinadorprincipal',
-						valueChangeEvent: 'fieldChange:clube.treinadorprincipal',
-						id: 'CLUBE__CLUBE__TREINADORPRINCIPAL',
-						name: 'TREINADORPRINCIPAL',
-						size: 'xxlarge',
-						label: computed(() => this.Resources.TREINADOR_PRINCIPAL45661),
-						placeholder: '',
-						labelPosition: computed(() => this.labelAlignment.topleft),
-						container: 'CLUBE___PSEUDNEWGRP03',
-						maxLength: 50,
-						controlLimits: [
-						],
-					}, this),
-					CLUBE__CLUBE__TREINADORADJUNTO: new fieldControlClass.StringControl({
-						modelField: 'ValTreinadoradjunto',
-						valueChangeEvent: 'fieldChange:clube.treinadoradjunto',
-						id: 'CLUBE__CLUBE__TREINADORADJUNTO',
-						name: 'TREINADORADJUNTO',
-						size: 'xxlarge',
-						label: computed(() => this.Resources.TREINADOR_ADJUNTO05329),
-						placeholder: '',
-						labelPosition: computed(() => this.labelAlignment.topleft),
-						container: 'CLUBE___PSEUDNEWGRP03',
-						maxLength: 50,
+						maxLength: 3,
+						arrayName: 'Posicao',
+						helpShortItem: 'None',
+						helpDetailedItem: 'None',
 						controlLimits: [
 						],
 					}, this),
@@ -830,9 +608,6 @@
 				}),
 
 				groupFields: readonly([
-					'CLUBE___PSEUDNEWGRP01',
-					'CLUBE___PSEUDNEWGRP02',
-					'CLUBE___PSEUDNEWGRP03',
 				]),
 
 				tableFields: readonly([
@@ -845,29 +620,29 @@
 				 * The Data API for easy access to model variables.
 				 */
 				dataApi: {
-					Clube: {
-						get ValCoordform() { return vm.model.ValCoordform.value },
-						set ValCoordform(value) { vm.model.ValCoordform.updateValue(value) },
-						get ValCoordtecn() { return vm.model.ValCoordtecn.value },
-						set ValCoordtecn(value) { vm.model.ValCoordtecn.updateValue(value) },
-						get ValEpoca() { return vm.model.ValEpoca.value },
-						set ValEpoca(value) { vm.model.ValEpoca.updateValue(value) },
-						get ValEscalao() { return vm.model.ValEscalao.value },
-						set ValEscalao(value) { vm.model.ValEscalao.updateValue(value) },
-						get ValFoto() { return vm.model.ValFoto.value },
-						set ValFoto(value) { vm.model.ValFoto.updateValue(value) },
-						get ValNome() { return vm.model.ValNome.value },
-						set ValNome(value) { vm.model.ValNome.updateValue(value) },
-						get ValPresidente() { return vm.model.ValPresidente.value },
-						set ValPresidente(value) { vm.model.ValPresidente.updateValue(value) },
-						get ValTreinadoradjunto() { return vm.model.ValTreinadoradjunto.value },
-						set ValTreinadoradjunto(value) { vm.model.ValTreinadoradjunto.updateValue(value) },
-						get ValTreinadorprincipal() { return vm.model.ValTreinadorprincipal.value },
-						set ValTreinadorprincipal(value) { vm.model.ValTreinadorprincipal.updateValue(value) },
+					Convocatoria: {
+						get ValCodjogador() { return vm.model.ValCodjogador.value },
+						set ValCodjogador(value) { vm.model.ValCodjogador.updateValue(value) },
+						get ValCodjogo() { return vm.model.ValCodjogo.value },
+						set ValCodjogo(value) { vm.model.ValCodjogo.updateValue(value) },
+					},
+					Jogador: {
+						get ValNome() { return vm.model.TableJogadorNome.value },
+						set ValNome(value) { vm.model.TableJogadorNome.updateValue(value) },
+						get ValNumerocamisola() { return vm.model.JogadorValNumerocamisola.value },
+						set ValNumerocamisola(value) { vm.model.JogadorValNumerocamisola.updateValue(value) },
+						get ValPosicao() { return vm.model.JogadorValPosicao.value },
+						set ValPosicao(value) { vm.model.JogadorValPosicao.updateValue(value) },
+						get ValPosicaosegundaria() { return vm.model.JogadorValPosicaosegundaria.value },
+						set ValPosicaosegundaria(value) { vm.model.JogadorValPosicaosegundaria.updateValue(value) },
 					},
 					keys: {
-						/** The primary key of the CLUBE table */
-						get clube() { return vm.model.ValCodclube },
+						/** The primary key of the CONVOCATORIA table */
+						get convocatoria() { return vm.model.ValCodconvocatoria },
+						/** The foreign key to the JOGO table */
+						get jogo() { return vm.model.ValCodjogo },
+						/** The foreign key to the JOGADOR table */
+						get jogador() { return vm.model.ValCodjogador },
 					},
 					get extraProperties() { return vm.model.extraProperties },
 				},
@@ -907,7 +682,7 @@
 		mounted()
 		{
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB FORM_CODEJS CLUBE]/
+// USE /[MANUAL SQB FORM_CODEJS CONVOCADOS]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 		},
@@ -915,7 +690,7 @@
 		beforeUnmount()
 		{
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB COMPONENT_BEFORE_UNMOUNT CLUBE]/
+// USE /[MANUAL SQB COMPONENT_BEFORE_UNMOUNT CONVOCADOS]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 		},
@@ -934,7 +709,7 @@
 				this.emitEvent('before-load-form')
 
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB BEFORE_LOAD_JS CLUBE]/
+// USE /[MANUAL SQB BEFORE_LOAD_JS CONVOCADOS]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 
@@ -954,7 +729,7 @@
 				this.emitEvent('after-load-form')
 
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB FORM_LOADED_JS CLUBE]/
+// USE /[MANUAL SQB FORM_LOADED_JS CONVOCADOS]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 			},
@@ -1001,7 +776,7 @@
 				this.emitEvent('before-apply-form')
 
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB BEFORE_APPLY_JS CLUBE]/
+// USE /[MANUAL SQB BEFORE_APPLY_JS CONVOCADOS]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 
@@ -1021,7 +796,7 @@
 				this.emitEvent('after-apply-form')
 
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB AFTER_APPLY_JS CLUBE]/
+// USE /[MANUAL SQB AFTER_APPLY_JS CONVOCADOS]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 			},
@@ -1068,7 +843,7 @@
 				this.emitEvent('before-save-form')
 
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB BEFORE_SAVE_JS CLUBE]/
+// USE /[MANUAL SQB BEFORE_SAVE_JS CONVOCADOS]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 
@@ -1088,7 +863,7 @@
 				this.emitEvent('after-save-form')
 
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB AFTER_SAVE_JS CLUBE]/
+// USE /[MANUAL SQB AFTER_SAVE_JS CONVOCADOS]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 
@@ -1103,7 +878,7 @@
 				this.emitEvent('before-delete-form')
 
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB BEFORE_DEL_JS CLUBE]/
+// USE /[MANUAL SQB BEFORE_DEL_JS CONVOCADOS]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 
@@ -1118,7 +893,7 @@
 				this.emitEvent('after-delete-form')
 
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB AFTER_DEL_JS CLUBE]/
+// USE /[MANUAL SQB AFTER_DEL_JS CONVOCADOS]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 
@@ -1138,7 +913,7 @@
 				this.emitEvent('before-exit-form')
 
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB BEFORE_EXIT_JS CLUBE]/
+// USE /[MANUAL SQB BEFORE_EXIT_JS CONVOCADOS]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 
@@ -1158,7 +933,7 @@
 				this.emitEvent('after-exit-form')
 
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB AFTER_EXIT_JS CLUBE]/
+// USE /[MANUAL SQB AFTER_EXIT_JS CONVOCADOS]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 			},
@@ -1174,7 +949,7 @@
 			onUpdate(fieldName, fieldObject, fieldValue, oldFieldValue)
 			{
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB DLGUPDT CLUBE]/
+// USE /[MANUAL SQB DLGUPDT CONVOCADOS]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 
@@ -1190,7 +965,7 @@
 			onBlur(fieldObject, fieldValue)
 			{
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB CTRLBLR CLUBE]/
+// USE /[MANUAL SQB CTRLBLR CONVOCADOS]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 
@@ -1207,14 +982,14 @@
 			onControlUpdate(controlField, control, fieldValue)
 			{
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB CTRLUPD CLUBE]/
+// USE /[MANUAL SQB CTRLUPD CONVOCADOS]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 
 				this.afterControlUpdate(controlField, fieldValue)
 			},
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB FUNCTIONS_JS CLUBE]/
+// USE /[MANUAL SQB FUNCTIONS_JS CONVOCADOS]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 		},

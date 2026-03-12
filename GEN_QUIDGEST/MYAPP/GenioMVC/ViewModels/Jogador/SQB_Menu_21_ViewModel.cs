@@ -237,7 +237,7 @@ namespace GenioMVC.ViewModels.Jogador
 					filter_SQB_Menu_21_TYPEFILTER_3 = tableConfig.GroupFilters["filter_SQB_Menu_21_TYPEFILTER"].Contains("3");
 				if (filter_SQB_Menu_21_TYPEFILTER_3)
 				{
-					groupFilters.Equal(CSGenioAjogador.FldPosicao, "Defesas");
+					groupFilters.Equal(CSGenioAjogador.FldPosicao, "Defesa");
 
 				}
 
@@ -246,7 +246,7 @@ namespace GenioMVC.ViewModels.Jogador
 					filter_SQB_Menu_21_TYPEFILTER_4 = tableConfig.GroupFilters["filter_SQB_Menu_21_TYPEFILTER"].Contains("4");
 				if (filter_SQB_Menu_21_TYPEFILTER_4)
 				{
-					groupFilters.Equal(CSGenioAjogador.FldPosicao, "Médios");
+					groupFilters.Equal(CSGenioAjogador.FldPosicao, "Médio");
 
 				}
 
@@ -255,7 +255,7 @@ namespace GenioMVC.ViewModels.Jogador
 					filter_SQB_Menu_21_TYPEFILTER_5 = tableConfig.GroupFilters["filter_SQB_Menu_21_TYPEFILTER"].Contains("5");
 				if (filter_SQB_Menu_21_TYPEFILTER_5)
 				{
-					groupFilters.Equal(CSGenioAjogador.FldPosicao, "Atacantes");
+					groupFilters.Equal(CSGenioAjogador.FldPosicao, "Atacante");
 
 				}
 

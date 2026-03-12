@@ -4,6 +4,7 @@ export default {
 	install: (app) => {
 		app.component('QFormAccountInfo', defineAsyncComponent(() => import('@/views/shared/AccountInfo.vue')))
 		app.component('QFormClube', defineAsyncComponent(() => import('@/views/forms/FormClube/QFormClube.vue')))
+		app.component('QFormConvocados', defineAsyncComponent(() => import('@/views/forms/FormConvocados/QFormConvocados.vue')))
 		app.component('QFormConvocatoria', defineAsyncComponent(() => import('@/views/forms/FormConvocatoria/QFormConvocatoria.vue')))
 		app.component('QFormExercicio', defineAsyncComponent(() => import('@/views/forms/FormExercicio/QFormExercicio.vue')))
 		app.component('QFormJogador', defineAsyncComponent(() => import('@/views/forms/FormJogador/QFormJogador.vue')))

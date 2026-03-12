@@ -16,6 +16,18 @@ export default function getFormsRoutes()
 			}
 		},
 		{
+			path: '/:culture/:system/:module/form/CONVOCADOS/:mode/:id?',
+			name: 'form-CONVOCADOS',
+			props: route => propsConverter(route),
+			component: () => import('@/views/forms/FormConvocados/QFormConvocados.vue'),
+			meta: {
+				routeType: 'form',
+				baseArea: 'CONVOCATORIA',
+				humanKeyFields: ['ValCodjogo'],
+				isPopup: false
+			}
+		},
+		{
 			path: '/:culture/:system/:module/form/CONVOCATORIA/:mode/:id?',
 			name: 'form-CONVOCATORIA',
 			props: route => propsConverter(route),

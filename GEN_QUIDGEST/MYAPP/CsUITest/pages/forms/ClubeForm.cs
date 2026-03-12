@@ -13,11 +13,6 @@ public class ClubeForm : Form
 	public BaseInputControl ClubeFoto => new BaseInputControl(driver, ContainerLocator, "container-CLUBE___CLUBEFOTO____", "#CLUBE___CLUBEFOTO____");
 
 	/// <summary>
-	/// 
-	/// </summary>
-	public CollapsibleZoneControl PseudNewgrp04 => new CollapsibleZoneControl(driver, ContainerLocator, "#CLUBE___PSEUDNEWGRP04-container");
-
-	/// <summary>
 	/// Informações DO clube
 	/// </summary>
 	public CollapsibleZoneControl PseudNewgrp01 => new CollapsibleZoneControl(driver, ContainerLocator, "#CLUBE___PSEUDNEWGRP01-container");

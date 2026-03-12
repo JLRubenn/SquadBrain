@@ -610,34 +610,13 @@
 						hasDependencies: false,
 						isInCollapsible: false,
 						columnsOriginal: [
-							new listColumnTypes.NumericColumn({
-								order: 1,
-								name: 'ValNumerocamisola',
-								area: 'JOGADOR',
-								field: 'NUMEROCAMISOLA',
-								label: computed(() => this.Resources.NUMERO_CAMISOLA34511),
-								scrollData: 2,
-								maxDigits: 2,
-								decimalPlaces: 0,
-								export: 1,
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.TextColumn({
-								order: 2,
-								name: 'ValNome',
-								area: 'JOGADOR',
-								field: 'NOME',
-								label: computed(() => this.Resources.NOME47814),
-								dataLength: 50,
-								scrollData: 30,
-								export: 1,
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 						],
 						config: {
 							name: 'ValConvocados',
 							serverMode: true,
-							pkColumn: 'ValCodjogador',
-							tableAlias: 'JOGADOR',
-							tableNamePlural: computed(() => this.Resources.JOGADORES08991),
+							pkColumn: 'ValCodconvocatoria',
+							tableAlias: 'CONVOCATORIA',
+							tableNamePlural: computed(() => this.Resources.CONVOCATORIAS26754),
 							viewManagement: '',
 							showLimitsInfo: true,
 							tableTitle: computed(() => this.Resources.CONVOCADOS52577),
@@ -661,7 +640,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'JOGADOR',
+										formName: 'CONVOCADOS',
 										mode: 'SHOW',
 										isControlled: true
 									}
@@ -677,7 +656,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'JOGADOR',
+										formName: 'CONVOCADOS',
 										mode: 'EDIT',
 										isControlled: true
 									}
@@ -693,7 +672,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'JOGADOR',
+										formName: 'CONVOCADOS',
 										mode: 'DUPLICATE',
 										isControlled: true
 									}
@@ -709,7 +688,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'JOGADOR',
+										formName: 'CONVOCADOS',
 										mode: 'DELETE',
 										isControlled: true
 									}
@@ -727,7 +706,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'JOGADOR',
+										formName: 'CONVOCADOS',
 										mode: 'NEW',
 										repeatInsertion: false,
 										isControlled: true
@@ -743,33 +722,32 @@
 							MCActions: [
 							],
 							rowClickAction: {
-								id: 'RCA__JOGADOR',
-								name: '_JOGADOR',
+								id: 'RCA__CONVOCADOS',
+								name: '_CONVOCADOS',
 								title: '',
 								isInReadOnly: true,
 								params: {
 									isRoute: true,
 									action: vm.openFormAction,
 									type: 'form',
-									formName: 'JOGADOR',
+									formName: 'CONVOCADOS',
 									mode: 'SHOW',
 									isControlled: true
 								}
 							},
 							formsDefinition: {
-								'JOGADOR': {
-									fnKeySelector: (row) => row.Fields.ValCodjogador,
+								'CONVOCADOS': {
+									fnKeySelector: (row) => row.Fields.ValCodconvocatoria,
 									isPopup: false
 								},
 							},
-							defaultSearchColumnName: 'ValNome',
-							defaultSearchColumnNameOriginal: 'ValNome',
+							defaultSearchColumnName: '',
+							defaultSearchColumnNameOriginal: '',
 							defaultColumnSorting: {
 								columnName: '',
 								sortOrder: 'asc'
 							}
 						},
-						globalEvents: ['changed-JOGADOR', 'changed-CLUBE'],
 						uuid: 'Convocatoria_ValConvocados',
 						allSelectedRows: 'false',
 						controlLimits: [

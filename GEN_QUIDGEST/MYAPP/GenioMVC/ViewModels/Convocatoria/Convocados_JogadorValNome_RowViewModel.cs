@@ -6,16 +6,16 @@ using GenioMVC.Models.Navigation;
 
 namespace GenioMVC.ViewModels.Convocatoria;
 
-public class Convocatoria_ValConvocados_RowViewModel : Models.Convocatoria
+public class Convocados_JogadorValNome_RowViewModel : Models.Jogador
 {
 	#region Constructors
 
-	public Convocatoria_ValConvocados_RowViewModel(UserContext userContext, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, isEmpty, fieldsToSerialize)
+	public Convocados_JogadorValNome_RowViewModel(UserContext userContext, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, isEmpty, fieldsToSerialize)
 	{
 		InitRowProperties();
 	}
 
-	public Convocatoria_ValConvocados_RowViewModel(UserContext userContext, CSGenioAconvocatoria val, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, val, isEmpty, fieldsToSerialize)
+	public Convocados_JogadorValNome_RowViewModel(UserContext userContext, CSGenioAjogador val, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, val, isEmpty, fieldsToSerialize)
 	{
 		InitRowProperties();
 	}
@@ -33,6 +33,12 @@ public class Convocatoria_ValConvocados_RowViewModel : Models.Convocatoria
 	private void SetColumns()
 	{
 		Columns ??= [
+			new ListColumn()
+			{
+				Order = 1,
+				Area = "JOGADOR",
+				Field = "NOME",
+			},
 		];
 	}
 
@@ -46,10 +52,6 @@ public class Convocatoria_ValConvocados_RowViewModel : Models.Convocatoria
 		bool canDelete = true;
 		bool canDuplicate = true;
 		bool canInsert = true;
-
-		using (new CSGenio.persistence.ScopedPersistentSupport(m_userContext.PersistentSupport))
-		{
-		}
 
 		BtnPermission = new TableRowCrudButtonPermissions()
 		{

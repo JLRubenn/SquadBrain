@@ -1009,12 +1009,12 @@
 					keys: {
 						/** The primary key of the TREINO table */
 						get treino() { return vm.model.ValCodtreino },
+						/** The foreign key to the TREINADOR table */
+						get treinador() { return vm.model.ValCodtreinador },
 						/** The foreign key to the CLUBE table */
 						get clube() { return vm.model.ValCodclube },
 						/** The foreign key to the JOGADOR table */
 						get jogador() { return vm.model.ValCodjogador },
-						/** The foreign key to the TREINADOR table */
-						get treinador() { return vm.model.ValCodtreinador },
 					},
 					get extraProperties() { return vm.model.extraProperties },
 				},

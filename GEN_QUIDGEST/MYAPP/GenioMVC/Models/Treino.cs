@@ -27,6 +27,26 @@ namespace GenioMVC.Models
 		[ShouldSerialize("Treino.ValCodtreino")]
 		public string ValCodtreino { get { return klass.ValCodtreino; } set { klass.ValCodtreino = value; } }
 
+		[DisplayName("Treinador")]
+		/// <summary>Field : "Treinador" Tipo: "CE" Formula:  ""</summary>
+		[ShouldSerialize("Treino.ValCodtreinador")]
+		public string ValCodtreinador { get { return klass.ValCodtreinador; } set { klass.ValCodtreinador = value; } }
+
+		private Treinador _treinador;
+		[DisplayName("Treinador")]
+		[ShouldSerialize("Treinador")]
+		public virtual Treinador Treinador
+		{
+			get
+			{
+				if (!isEmptyModel && (_treinador == null || (!string.IsNullOrEmpty(ValCodtreinador) && (_treinador.isEmptyModel || _treinador.klass.QPrimaryKey != ValCodtreinador))))
+					_treinador = Models.Treinador.Find(ValCodtreinador, m_userContext, Identifier, _fieldsToSerialize);
+				_treinador ??= new Models.Treinador(m_userContext, true, _fieldsToSerialize);
+				return _treinador;
+			}
+			set { _treinador = value; }
+		}
+
 		[DisplayName("Clube")]
 		/// <summary>Field : "Clube" Tipo: "CE" Formula:  ""</summary>
 		[ShouldSerialize("Treino.ValCodclube")]
@@ -104,26 +124,6 @@ namespace GenioMVC.Models
 			set { _jogador = value; }
 		}
 
-		[DisplayName("Treinador")]
-		/// <summary>Field : "Treinador" Tipo: "CE" Formula:  ""</summary>
-		[ShouldSerialize("Treino.ValCodtreinador")]
-		public string ValCodtreinador { get { return klass.ValCodtreinador; } set { klass.ValCodtreinador = value; } }
-
-		private Treinador _treinador;
-		[DisplayName("Treinador")]
-		[ShouldSerialize("Treinador")]
-		public virtual Treinador Treinador
-		{
-			get
-			{
-				if (!isEmptyModel && (_treinador == null || (!string.IsNullOrEmpty(ValCodtreinador) && (_treinador.isEmptyModel || _treinador.klass.QPrimaryKey != ValCodtreinador))))
-					_treinador = Models.Treinador.Find(ValCodtreinador, m_userContext, Identifier, _fieldsToSerialize);
-				_treinador ??= new Models.Treinador(m_userContext, true, _fieldsToSerialize);
-				return _treinador;
-			}
-			set { _treinador = value; }
-		}
-
 		[DisplayName("ZZSTATE")]
 		[ShouldSerialize("Treino.ValZzstate")]
 		/// <summary>Field: "ZZSTATE", Type: "INT", Formula: ""</summary>
@@ -155,6 +155,10 @@ namespace GenioMVC.Models
 			{
 				switch (Qfield.Area)
 				{
+					case "treinador":
+						_treinador ??= new Treinador(m_userContext, true, _fieldsToSerialize);
+						_treinador.klass.insertNameValueField(Qfield.FullName, Qfield.Value);
+						break;
 					case "clube":
 						_clube ??= new Clube(m_userContext, true, _fieldsToSerialize);
 						_clube.klass.insertNameValueField(Qfield.FullName, Qfield.Value);
@@ -162,10 +166,6 @@ namespace GenioMVC.Models
 					case "jogador":
 						_jogador ??= new Jogador(m_userContext, true, _fieldsToSerialize);
 						_jogador.klass.insertNameValueField(Qfield.FullName, Qfield.Value);
-						break;
-					case "treinador":
-						_treinador ??= new Treinador(m_userContext, true, _fieldsToSerialize);
-						_treinador.klass.insertNameValueField(Qfield.FullName, Qfield.Value);
 						break;
 					default:
 						break;

@@ -54,6 +54,16 @@ namespace CSGenio.business
 			info.RegisterFieldDB(Qfield);
 
 			//- - - - - - - - - - - - - - - - - - -
+			Qfield = new Field(info.Alias, "codtreinador", FieldType.KEY_INT);
+			Qfield.FieldDescription = "Treinador";
+			Qfield.FieldSize =  8;
+			Qfield.MQueue = false;
+			Qfield.CavDesignation = "TREINADOR19936";
+
+			Qfield.Dupmsg = "";
+			info.RegisterFieldDB(Qfield);
+
+			//- - - - - - - - - - - - - - - - - - -
 			Qfield = new Field(info.Alias, "codclube", FieldType.KEY_INT);
 			Qfield.FieldDescription = "Clube";
 			Qfield.FieldSize =  8;
@@ -132,16 +142,6 @@ namespace CSGenio.business
 			Qfield.FieldSize =  8;
 			Qfield.MQueue = false;
 			Qfield.CavDesignation = "JOGADOR55167";
-
-			Qfield.Dupmsg = "";
-			info.RegisterFieldDB(Qfield);
-
-			//- - - - - - - - - - - - - - - - - - -
-			Qfield = new Field(info.Alias, "codtreinador", FieldType.KEY_INT);
-			Qfield.FieldDescription = "Treinador";
-			Qfield.FieldSize =  8;
-			Qfield.MQueue = false;
-			Qfield.CavDesignation = "TREINADOR19936";
 
 			Qfield.Dupmsg = "";
 			info.RegisterFieldDB(Qfield);
@@ -324,6 +324,17 @@ namespace CSGenio.business
 			set { insertNameValueField(FldCodtreino, value); }
 		}
 
+		/// <summary>Field : "Treinador" Tipo: "CE" Formula:  ""</summary>
+		public static FieldRef FldCodtreinador { get { return m_fldCodtreinador; } }
+		private static FieldRef m_fldCodtreinador = new FieldRef("treino", "codtreinador");
+
+		/// <summary>Field : "Treinador" Tipo: "CE" Formula:  ""</summary>
+		public string ValCodtreinador
+		{
+			get { return (string)returnValueField(FldCodtreinador); }
+			set { insertNameValueField(FldCodtreinador, value); }
+		}
+
 		/// <summary>Field : "Clube" Tipo: "CE" Formula:  ""</summary>
 		public static FieldRef FldCodclube { get { return m_fldCodclube; } }
 		private static FieldRef m_fldCodclube = new FieldRef("treino", "codclube");
@@ -410,17 +421,6 @@ namespace CSGenio.business
 		{
 			get { return (string)returnValueField(FldCodjogador); }
 			set { insertNameValueField(FldCodjogador, value); }
-		}
-
-		/// <summary>Field : "Treinador" Tipo: "CE" Formula:  ""</summary>
-		public static FieldRef FldCodtreinador { get { return m_fldCodtreinador; } }
-		private static FieldRef m_fldCodtreinador = new FieldRef("treino", "codtreinador");
-
-		/// <summary>Field : "Treinador" Tipo: "CE" Formula:  ""</summary>
-		public string ValCodtreinador
-		{
-			get { return (string)returnValueField(FldCodtreinador); }
-			set { insertNameValueField(FldCodtreinador, value); }
 		}
 
 		/// <summary>Field : "ZZSTATE" Type: "INT" Formula:  ""</summary>

@@ -19,6 +19,20 @@ export default function getMenusRoutes()
 			}
 		},
 		{
+			path: '/:culture/:system/SQB/menu/SQB_421',
+			name: 'menu-SQB_421',
+			component: () => import('@/views/menus/ModuleSQB/MenuSQB_421/QMenuSqb421.vue'),
+			meta: {
+				routeType: 'menu',
+				module: 'SQB',
+				order: '421',
+				baseArea: 'JOGO',
+				hasInitialPHE: false,
+				humanKeyFields: ['ValTitulo'],
+				isPopup: false
+			}
+		},
+		{
 			path: '/:culture/:system/SQB/menu/SQB_21',
 			name: 'menu-SQB_21',
 			component: () => import('@/views/menus/ModuleSQB/MenuSQB_21/QMenuSqb21.vue'),
@@ -57,20 +71,6 @@ export default function getMenusRoutes()
 				baseArea: 'JOGADOR',
 				hasInitialPHE: false,
 				humanKeyFields: ['ValNome'],
-				isPopup: false
-			}
-		},
-		{
-			path: '/:culture/:system/SQB/menu/SQB_421',
-			name: 'menu-SQB_421',
-			component: () => import('@/views/menus/ModuleSQB/MenuSQB_421/QMenuSqb421.vue'),
-			meta: {
-				routeType: 'menu',
-				module: 'SQB',
-				order: '421',
-				baseArea: 'CONVOCATORIA',
-				hasInitialPHE: false,
-				humanKeyFields: ['ValCodjogo'],
 				isPopup: false
 			}
 		},

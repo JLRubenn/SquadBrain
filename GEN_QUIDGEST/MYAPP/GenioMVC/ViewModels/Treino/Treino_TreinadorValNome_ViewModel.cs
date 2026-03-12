@@ -93,8 +93,6 @@ namespace GenioMVC.ViewModels.Treino
 			return crs;
 		}
 
-		public string ValCodclube { get; set; }
-
 		public override int GetCount(User user)
 		{
 			throw new NotImplementedException("This operation is not supported");
@@ -171,13 +169,6 @@ namespace GenioMVC.ViewModels.Treino
 
 			crs ??= CriteriaSet.And();
 
-			// Limits Generation
-
-			// Area limit
-			tableReload &= AddCriteriaAreaLimit(crs, CSGenio.business.CSGenioAclube.FldCodclube, "clube", this.ValCodclube, true);
-
-			// Area limit
-			tableReload &= AddCriteriaAreaLimit(crs, CSGenio.business.CSGenioAclube.FldCodclube, "clube", this.ValCodclube, true);
 
 			Menu ??= new TablePartial<Treino_TreinadorValNome_RowViewModel>();
 			// Set table name (used in getting searchable column names)
@@ -350,41 +341,6 @@ namespace GenioMVC.ViewModels.Treino
 					this.TableLimits.AddRange(area_EPH_limits);
 			}
 
-			// Tooltips: Making a tooltip for each valid limitation: 2 Limit(s) detected.
-			// Limit origin: form 
-			//Limit type: "A"
-			//Current Area = "TREINADOR"
-			//1st Area Limit: "CLUBE"
-			//1st Area Field: "CODCLUBE"
-			//1st Area Value: ""
-			{
-				Limit limit = new Limit();
-				limit.TipoLimite = LimitType.A;
-				limit.NaoAplicaSeNulo = false;
-				CSGenioAclube model_limit_area = new CSGenioAclube(m_userContext.User);
-				string limit_field = "codclube", limit_field_value = "";
-				object this_limit_field = Navigation.GetValue("clube") == null ? this.ValCodclube : Navigation.GetValue("clube");
-				Limit_Filler(ref limit, model_limit_area, limit_field, limit_field_value, this_limit_field, LimitAreaType.AreaLimita);
-				if (!this.TableLimits.Contains(limit, limitComparer)) //to avoid repetitions (i.e: DB and EPH applying same limit)
-					this.TableLimits.Add(limit);
-			}
-			// Limit origin: form 
-			//Limit type: "A"
-			//Current Area = "TREINADOR"
-			//1st Area Limit: "CLUBE"
-			//1st Area Field: "CODCLUBE"
-			//1st Area Value: ""
-			{
-				Limit limit = new Limit();
-				limit.TipoLimite = LimitType.A;
-				limit.NaoAplicaSeNulo = false;
-				CSGenioAclube model_limit_area = new CSGenioAclube(m_userContext.User);
-				string limit_field = "codclube", limit_field_value = "";
-				object this_limit_field = Navigation.GetValue("clube") == null ? this.ValCodclube : Navigation.GetValue("clube");
-				Limit_Filler(ref limit, model_limit_area, limit_field, limit_field_value, this_limit_field, LimitAreaType.AreaLimita);
-				if (!this.TableLimits.Contains(limit, limitComparer)) //to avoid repetitions (i.e: DB and EPH applying same limit)
-					this.TableLimits.Add(limit);
-			}
 
 			if (conditions == null)
 				conditions = CriteriaSet.And();

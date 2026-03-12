@@ -55,6 +55,22 @@ namespace GenioMVC.Controllers
 
 
 		/// <summary>
+		/// Recalculate formulas of the "Convocatoria" form. (++, CT, SR, CL and U1)
+		/// </summary>
+		/// <param name="formData">Current form data</param>
+		/// <returns></returns>
+		[HttpPost]
+		public JsonResult RecalculateFormulas_Convocatoria([FromBody]Convocatoria_ViewModel formData)
+		{
+			return GenericRecalculateFormulas(formData, "jogo",
+				(primaryKey) => Models.Jogo.Find(primaryKey, UserContext.Current, "FCONVOCATORIA"),
+				(model) => formData.MapToModel(model as Models.Jogo)
+			);
+		}
+
+
+
+		/// <summary>
 		/// Recalculate formulas of the "Jogo" form. (++, CT, SR, CL and U1)
 		/// </summary>
 		/// <param name="formData">Current form data</param>

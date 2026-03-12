@@ -35,7 +35,7 @@ export default class ViewModel extends FormViewModelBase
 		// The view model metadata
 		_merge(this.modelInfo, {
 			name: 'CONVOCATORIA',
-			area: 'CONVOCATORIA',
+			area: 'JOGO',
 			actions: {
 				recalculateFormulas: 'RecalculateFormulas_Convocatoria',
 				updateFilesTickets: 'UpdateFilesTicketsConvocatoria',
@@ -44,82 +44,66 @@ export default class ViewModel extends FormViewModelBase
 		})
 
 		/** The primary key. */
-		this.ValCodconvocatoria = reactive(new modelFieldType.PrimaryKey({
-			id: 'ValCodconvocatoria',
-			originId: 'ValCodconvocatoria',
-			area: 'CONVOCATORIA',
-			field: 'CODCONVOCATORIA',
-			description: '',
-		}).cloneFrom(values?.ValCodconvocatoria))
-		this.stopWatchers.push(watch(() => this.ValCodconvocatoria.value, (newValue, oldValue) => this.onUpdate('convocatoria.codconvocatoria', this.ValCodconvocatoria, newValue, oldValue)))
-
-		/** The hidden foreign keys. */
-		this.ValCodjogador = reactive(new modelFieldType.ForeignKey({
-			id: 'ValCodjogador',
-			originId: 'ValCodjogador',
-			area: 'CONVOCATORIA',
-			field: 'CODJOGADOR',
-			relatedArea: 'JOGADOR',
-			isFixed: true,
-			description: computed(() => this.Resources.JOGADOR34905),
-		}).cloneFrom(values?.ValCodjogador))
-		this.stopWatchers.push(watch(() => this.ValCodjogador.value, (newValue, oldValue) => this.onUpdate('convocatoria.codjogador', this.ValCodjogador, newValue, oldValue)))
-
-		/** The used foreign keys. */
-		this.ValCodjogo = reactive(new modelFieldType.ForeignKey({
+		this.ValCodjogo = reactive(new modelFieldType.PrimaryKey({
 			id: 'ValCodjogo',
 			originId: 'ValCodjogo',
-			area: 'CONVOCATORIA',
+			area: 'JOGO',
 			field: 'CODJOGO',
-			relatedArea: 'JOGO',
-			description: computed(() => this.Resources.JOGO37147),
+			description: '',
 		}).cloneFrom(values?.ValCodjogo))
-		this.stopWatchers.push(watch(() => this.ValCodjogo.value, (newValue, oldValue) => this.onUpdate('convocatoria.codjogo', this.ValCodjogo, newValue, oldValue)))
+		this.stopWatchers.push(watch(() => this.ValCodjogo.value, (newValue, oldValue) => this.onUpdate('jogo.codjogo', this.ValCodjogo, newValue, oldValue)))
+
+		/** The hidden foreign keys. */
+		this.ValCodclube = reactive(new modelFieldType.ForeignKey({
+			id: 'ValCodclube',
+			originId: 'ValCodclube',
+			area: 'JOGO',
+			field: 'CODCLUBE',
+			relatedArea: 'CLUBE',
+			isFixed: true,
+			description: computed(() => this.Resources.EQUIPA06027),
+		}).cloneFrom(values?.ValCodclube))
+		this.stopWatchers.push(watch(() => this.ValCodclube.value, (newValue, oldValue) => this.onUpdate('jogo.codclube', this.ValCodclube, newValue, oldValue)))
 
 		/** The remaining form fields. */
-		this.TableJogoTitulo = reactive(new modelFieldType.String({
-			type: 'Lookup',
-			id: 'TableJogoTitulo',
+		this.ValTitulo = reactive(new modelFieldType.String({
+			id: 'ValTitulo',
 			originId: 'ValTitulo',
 			area: 'JOGO',
 			field: 'TITULO',
 			maxLength: 50,
 			description: computed(() => this.Resources.TITULO23260),
-			ignoreFldSubmit: true,
-		}).cloneFrom(values?.TableJogoTitulo))
-		this.stopWatchers.push(watch(() => this.TableJogoTitulo.value, (newValue, oldValue) => this.onUpdate('jogo.titulo', this.TableJogoTitulo, newValue, oldValue)))
+		}).cloneFrom(values?.ValTitulo))
+		this.stopWatchers.push(watch(() => this.ValTitulo.value, (newValue, oldValue) => this.onUpdate('jogo.titulo', this.ValTitulo, newValue, oldValue)))
 
-		this.JogoValLocal = reactive(new modelFieldType.String({
-			id: 'JogoValLocal',
+		this.ValData = reactive(new modelFieldType.Date({
+			id: 'ValData',
+			originId: 'ValData',
+			area: 'JOGO',
+			field: 'DATA',
+			description: computed(() => this.Resources.DATA18071),
+		}).cloneFrom(values?.ValData))
+		this.stopWatchers.push(watch(() => this.ValData.value, (newValue, oldValue) => this.onUpdate('jogo.data', this.ValData, newValue, oldValue)))
+
+		this.ValLocal = reactive(new modelFieldType.String({
+			id: 'ValLocal',
 			originId: 'ValLocal',
 			area: 'JOGO',
 			field: 'LOCAL',
 			maxLength: 50,
-			isFixed: true,
 			description: computed(() => this.Resources.LOCAL02842),
-		}).cloneFrom(values?.JogoValLocal))
-		this.stopWatchers.push(watch(() => this.JogoValLocal.value, (newValue, oldValue) => this.onUpdate('jogo.local', this.JogoValLocal, newValue, oldValue)))
+		}).cloneFrom(values?.ValLocal))
+		this.stopWatchers.push(watch(() => this.ValLocal.value, (newValue, oldValue) => this.onUpdate('jogo.local', this.ValLocal, newValue, oldValue)))
 
-		this.JogoValData = reactive(new modelFieldType.Date({
-			id: 'JogoValData',
-			originId: 'ValData',
-			area: 'JOGO',
-			field: 'DATA',
-			isFixed: true,
-			description: computed(() => this.Resources.DATA18071),
-		}).cloneFrom(values?.JogoValData))
-		this.stopWatchers.push(watch(() => this.JogoValData.value, (newValue, oldValue) => this.onUpdate('jogo.data', this.JogoValData, newValue, oldValue)))
-
-		this.JogoValEquipaadversaria = reactive(new modelFieldType.String({
-			id: 'JogoValEquipaadversaria',
+		this.ValEquipaadversaria = reactive(new modelFieldType.String({
+			id: 'ValEquipaadversaria',
 			originId: 'ValEquipaadversaria',
 			area: 'JOGO',
 			field: 'EQUIPAADVERSARIA',
 			maxLength: 50,
-			isFixed: true,
 			description: computed(() => this.Resources.EQUIPA_ADVERSARIA15813),
-		}).cloneFrom(values?.JogoValEquipaadversaria))
-		this.stopWatchers.push(watch(() => this.JogoValEquipaadversaria.value, (newValue, oldValue) => this.onUpdate('jogo.equipaadversaria', this.JogoValEquipaadversaria, newValue, oldValue)))
+		}).cloneFrom(values?.ValEquipaadversaria))
+		this.stopWatchers.push(watch(() => this.ValEquipaadversaria.value, (newValue, oldValue) => this.onUpdate('jogo.equipaadversaria', this.ValEquipaadversaria, newValue, oldValue)))
 	}
 
 	/**
@@ -131,8 +115,8 @@ export default class ViewModel extends FormViewModelBase
 		return new ViewModel(this.vueContext, { callbacks: this.externalCallbacks }, this)
 	}
 
-	static QPrimaryKeyName = 'ValCodconvocatoria'
+	static QPrimaryKeyName = 'ValCodjogo'
 
-	get QPrimaryKey() { return this.ValCodconvocatoria.value }
-	set QPrimaryKey(value) { this.ValCodconvocatoria.updateValue(value) }
+	get QPrimaryKey() { return this.ValCodjogo.value }
+	set QPrimaryKey(value) { this.ValCodjogo.updateValue(value) }
 }

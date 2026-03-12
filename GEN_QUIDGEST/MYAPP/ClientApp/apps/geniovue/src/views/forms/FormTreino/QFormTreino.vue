@@ -739,18 +739,6 @@
 							set 'treinador.nome'(value) { vm.model.TableTreinadorNome.updateValue(value) },
 						}),
 						controlLimits: [
-							{
-								identifier: ['clube', 'treino.codclube'],
-								dependencyEvents: ['fieldChange:treino.codclube'],
-								dependencyField: 'TREINO.CODCLUBE',
-								fnValueSelector: (model) => model.ValCodclube.value
-							},
-							{
-								identifier: ['clube', 'treino.codclube'],
-								dependencyEvents: ['fieldChange:treino.codclube'],
-								dependencyField: 'TREINO.CODCLUBE',
-								fnValueSelector: (model) => model.ValCodclube.value
-							},
 						],
 					}, this),
 					TREINO__PSEUDNEWGRP02: new fieldControlClass.GroupControl({

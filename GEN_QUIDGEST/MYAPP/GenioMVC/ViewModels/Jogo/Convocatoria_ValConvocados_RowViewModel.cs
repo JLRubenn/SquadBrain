@@ -4,7 +4,7 @@ using CSGenio.business;
 using CSGenio.framework;
 using GenioMVC.Models.Navigation;
 
-namespace GenioMVC.ViewModels.Convocatoria;
+namespace GenioMVC.ViewModels.Jogo;
 
 public class Convocatoria_ValConvocados_RowViewModel : Models.Convocatoria
 {

@@ -34,8 +34,8 @@ export default function getFormsRoutes()
 			component: () => import('@/views/forms/FormConvocatoria/QFormConvocatoria.vue'),
 			meta: {
 				routeType: 'form',
-				baseArea: 'CONVOCATORIA',
-				humanKeyFields: ['ValCodjogo'],
+				baseArea: 'JOGO',
+				humanKeyFields: ['ValTitulo'],
 				isPopup: false
 			}
 		},

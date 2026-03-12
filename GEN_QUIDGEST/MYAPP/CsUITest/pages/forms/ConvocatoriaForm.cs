@@ -10,13 +10,12 @@ public class ConvocatoriaForm : Form
 	/// <summary>
 	/// Jogo
 	/// </summary>
-	public LookupControl JogoTitulo => new LookupControl(driver, ContainerLocator, "container-CONVOCATORIA__JOGO__TITULO");
-	public SeeMorePage JogoTituloSeeMorePage => new SeeMorePage(driver, "CONVOCATORIA", "CONVOCATORIA__JOGO__TITULO");
+	public BaseInputControl JogoTitulo => new BaseInputControl(driver, ContainerLocator, "container-CONVOCATORIA__JOGO__TITULO", "#CONVOCATORIA__JOGO__TITULO");
 
 	/// <summary>
-	/// Local
+	/// Convocados
 	/// </summary>
-	public BaseInputControl JogoLocal => new BaseInputControl(driver, ContainerLocator, "container-CONVOCATORIA__JOGO__LOCAL", "#CONVOCATORIA__JOGO__LOCAL");
+	public ListControl PseudConvocados => new ListControl(driver, ContainerLocator, "#CONVOCATORIA__PSEUD__CONVOCADOS");
 
 	/// <summary>
 	/// Data
@@ -24,14 +23,14 @@ public class ConvocatoriaForm : Form
 	public DateInputControl JogoData => new DateInputControl(driver, ContainerLocator, "#CONVOCATORIA__JOGO__DATA");
 
 	/// <summary>
+	/// Local
+	/// </summary>
+	public BaseInputControl JogoLocal => new BaseInputControl(driver, ContainerLocator, "container-CONVOCATORIA__JOGO__LOCAL", "#CONVOCATORIA__JOGO__LOCAL");
+
+	/// <summary>
 	/// Équipa Adversaria
 	/// </summary>
 	public BaseInputControl JogoEquipaadversaria => new BaseInputControl(driver, ContainerLocator, "container-CONVOCATORIA__JOGO__EQUIPAADVERSARIA", "#CONVOCATORIA__JOGO__EQUIPAADVERSARIA");
-
-	/// <summary>
-	/// Convocados
-	/// </summary>
-	public ListControl PseudConvocados => new ListControl(driver, ContainerLocator, "#CONVOCATORIA__PSEUD__CONVOCADOS");
 
 	public ConvocatoriaForm(IWebDriver driver, FORM_MODE mode, By? containerLocator = null)
 		: base(driver, mode, "CONVOCATORIA", containerLocator: containerLocator) { }

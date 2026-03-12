@@ -22,23 +22,23 @@ using GenioMVC.Models.Exception;
 using GenioMVC.Models.Navigation;
 using GenioMVC.Resources;
 using GenioMVC.ViewModels;
-using GenioMVC.ViewModels.Convocatoria;
+using GenioMVC.ViewModels.Jogo;
 using Quidgest.Persistence.GenericQuery;
 
-// USE /[MANUAL SQB INCLUDE_CONTROLLER CONVOCATORIA]/
+// USE /[MANUAL SQB INCLUDE_CONTROLLER JOGO]/
 
 namespace GenioMVC.Controllers
 {
-	public partial class ConvocatoriaController : ControllerBase
+	public partial class JogoController : ControllerBase
 	{
 		#region NavigationLocation Names
 
-		private static readonly NavigationLocation ACTION_CONVOCATORIA_CANCEL = new("CONVOCATORIA23089", "Convocatoria_Cancel", "Convocatoria") { vueRouteName = "form-CONVOCATORIA", mode = "CANCEL" };
-		private static readonly NavigationLocation ACTION_CONVOCATORIA_SHOW = new("CONVOCATORIA23089", "Convocatoria_Show", "Convocatoria") { vueRouteName = "form-CONVOCATORIA", mode = "SHOW" };
-		private static readonly NavigationLocation ACTION_CONVOCATORIA_NEW = new("CONVOCATORIA23089", "Convocatoria_New", "Convocatoria") { vueRouteName = "form-CONVOCATORIA", mode = "NEW" };
-		private static readonly NavigationLocation ACTION_CONVOCATORIA_EDIT = new("CONVOCATORIA23089", "Convocatoria_Edit", "Convocatoria") { vueRouteName = "form-CONVOCATORIA", mode = "EDIT" };
-		private static readonly NavigationLocation ACTION_CONVOCATORIA_DUPLICATE = new("CONVOCATORIA23089", "Convocatoria_Duplicate", "Convocatoria") { vueRouteName = "form-CONVOCATORIA", mode = "DUPLICATE" };
-		private static readonly NavigationLocation ACTION_CONVOCATORIA_DELETE = new("CONVOCATORIA23089", "Convocatoria_Delete", "Convocatoria") { vueRouteName = "form-CONVOCATORIA", mode = "DELETE" };
+		private static readonly NavigationLocation ACTION_CONVOCATORIA_CANCEL = new("JOGO37147", "Convocatoria_Cancel", "Jogo") { vueRouteName = "form-CONVOCATORIA", mode = "CANCEL" };
+		private static readonly NavigationLocation ACTION_CONVOCATORIA_SHOW = new("JOGO37147", "Convocatoria_Show", "Jogo") { vueRouteName = "form-CONVOCATORIA", mode = "SHOW" };
+		private static readonly NavigationLocation ACTION_CONVOCATORIA_NEW = new("JOGO37147", "Convocatoria_New", "Jogo") { vueRouteName = "form-CONVOCATORIA", mode = "NEW" };
+		private static readonly NavigationLocation ACTION_CONVOCATORIA_EDIT = new("JOGO37147", "Convocatoria_Edit", "Jogo") { vueRouteName = "form-CONVOCATORIA", mode = "EDIT" };
+		private static readonly NavigationLocation ACTION_CONVOCATORIA_DUPLICATE = new("JOGO37147", "Convocatoria_Duplicate", "Jogo") { vueRouteName = "form-CONVOCATORIA", mode = "DUPLICATE" };
+		private static readonly NavigationLocation ACTION_CONVOCATORIA_DELETE = new("JOGO37147", "Convocatoria_Delete", "Jogo") { vueRouteName = "form-CONVOCATORIA", mode = "DELETE" };
 
 		#endregion
 
@@ -63,7 +63,7 @@ namespace GenioMVC.Controllers
 			EventSink eventSink = new()
 			{
 				MethodName = "Convocatoria_Show_GET",
-				AreaName = "convocatoria",
+				AreaName = "jogo",
 				Location = ACTION_CONVOCATORIA_SHOW,
 				BeforeOp = (sink, sp) =>
 				{
@@ -95,7 +95,7 @@ namespace GenioMVC.Controllers
 			EventSink eventSink = new()
 			{
 				MethodName = "Convocatoria_New_GET",
-				AreaName = "convocatoria",
+				AreaName = "jogo",
 				FormName = "CONVOCATORIA",
 				Location = ACTION_CONVOCATORIA_NEW,
 				BeforeAll = (sink, sp) =>
@@ -116,7 +116,7 @@ namespace GenioMVC.Controllers
 		}
 
 		//
-		// POST: /Convocatoria/Convocatoria_New
+		// POST: /Jogo/Convocatoria_New
 // USE /[MANUAL SQB CONTROLLER_NEW_POST CONVOCATORIA]/
 		[HttpPost]
 		public ActionResult Convocatoria_New([FromBody]Convocatoria_ViewModel model, [FromQuery]bool redirect = true)
@@ -125,7 +125,7 @@ namespace GenioMVC.Controllers
 			{
 				MethodName = "Convocatoria_New",
 				ViewName = "Convocatoria",
-				AreaName = "convocatoria",
+				AreaName = "jogo",
 				Location = ACTION_CONVOCATORIA_NEW,
 				Redirect = redirect,
 				BeforeOp = (sink, sp) =>
@@ -162,7 +162,7 @@ namespace GenioMVC.Controllers
 			EventSink eventSink = new()
 			{
 				MethodName = "Convocatoria_Edit_GET",
-				AreaName = "convocatoria",
+				AreaName = "jogo",
 				FormName = "CONVOCATORIA",
 				Location = ACTION_CONVOCATORIA_EDIT,
 				BeforeOp = (sink, sp) =>
@@ -180,7 +180,7 @@ namespace GenioMVC.Controllers
 		}
 
 		//
-		// POST: /Convocatoria/Convocatoria_Edit
+		// POST: /Jogo/Convocatoria_Edit
 // USE /[MANUAL SQB CONTROLLER_EDIT_POST CONVOCATORIA]/
 		[HttpPost]
 		public ActionResult Convocatoria_Edit([FromBody]Convocatoria_ViewModel model, [FromQuery]bool redirect)
@@ -189,7 +189,7 @@ namespace GenioMVC.Controllers
 			{
 				MethodName = "Convocatoria_Edit",
 				ViewName = "Convocatoria",
-				AreaName = "convocatoria",
+				AreaName = "jogo",
 				Location = ACTION_CONVOCATORIA_EDIT,
 				Redirect = redirect,
 				BeforeOp = (sink, sp) =>
@@ -226,7 +226,7 @@ namespace GenioMVC.Controllers
 			EventSink eventSink = new()
 			{
 				MethodName = "Convocatoria_Delete_GET",
-				AreaName = "convocatoria",
+				AreaName = "jogo",
 				FormName = "CONVOCATORIA",
 				Location = ACTION_CONVOCATORIA_DELETE,
 				BeforeOp = (sink, sp) =>
@@ -244,7 +244,7 @@ namespace GenioMVC.Controllers
 		}
 
 		//
-		// POST: /Convocatoria/Convocatoria_Delete
+		// POST: /Jogo/Convocatoria_Delete
 // USE /[MANUAL SQB CONTROLLER_DELETE_POST CONVOCATORIA]/
 		[HttpPost]
 		public ActionResult Convocatoria_Delete([FromBody] RequestIdModel requestModel)
@@ -257,7 +257,7 @@ namespace GenioMVC.Controllers
 			{
 				MethodName = "Convocatoria_Delete",
 				ViewName = "Convocatoria",
-				AreaName = "convocatoria",
+				AreaName = "jogo",
 				Location = ACTION_CONVOCATORIA_DELETE,
 				BeforeOp = (sink, sp) =>
 				{
@@ -294,7 +294,7 @@ namespace GenioMVC.Controllers
 			EventSink eventSink = new()
 			{
 				MethodName = "Convocatoria_Duplicate_GET",
-				AreaName = "convocatoria",
+				AreaName = "jogo",
 				FormName = "CONVOCATORIA",
 				Location = ACTION_CONVOCATORIA_DUPLICATE,
 				BeforeOp = (sink, sp) =>
@@ -311,7 +311,7 @@ namespace GenioMVC.Controllers
 		}
 
 		//
-		// POST: /Convocatoria/Convocatoria_Duplicate
+		// POST: /Jogo/Convocatoria_Duplicate
 // USE /[MANUAL SQB CONTROLLER_DUPLICATE_POST CONVOCATORIA]/
 		[HttpPost]
 		public ActionResult Convocatoria_Duplicate([FromBody]Convocatoria_ViewModel model, [FromQuery]bool redirect = true)
@@ -320,7 +320,7 @@ namespace GenioMVC.Controllers
 			{
 				MethodName = "Convocatoria_Duplicate",
 				ViewName = "Convocatoria",
-				AreaName = "convocatoria",
+				AreaName = "jogo",
 				Location = ACTION_CONVOCATORIA_DUPLICATE,
 				Redirect = redirect,
 				BeforeOp = (sink, sp) =>
@@ -349,7 +349,7 @@ namespace GenioMVC.Controllers
 		#region Convocatoria_Cancel
 
 		//
-		// GET: /Convocatoria/Convocatoria_Cancel
+		// GET: /Jogo/Convocatoria_Cancel
 // USE /[MANUAL SQB CONTROLLER_CANCEL_GET CONVOCATORIA]/
 		public ActionResult Convocatoria_Cancel()
 		{
@@ -358,8 +358,8 @@ namespace GenioMVC.Controllers
 				PersistentSupport sp = UserContext.Current.PersistentSupport;
 				try
 				{
-					GenioMVC.Models.Convocatoria model = new(UserContext.Current);
-					model.klass.QPrimaryKey = Navigation.GetStrValue("convocatoria");
+					GenioMVC.Models.Jogo model = new(UserContext.Current);
+					model.klass.QPrimaryKey = Navigation.GetStrValue("jogo");
 
 // USE /[MANUAL SQB BEFORE_CANCEL CONVOCATORIA]/
 
@@ -381,10 +381,10 @@ namespace GenioMVC.Controllers
 					return JsonERROR(exceptionUserMessage);
 				}
 
-				Navigation.SetValue("ForcePrimaryRead_convocatoria", "true", true);
+				Navigation.SetValue("ForcePrimaryRead_jogo", "true", true);
 			}
 
-			Navigation.ClearValue("convocatoria");
+			Navigation.ClearValue("jogo");
 
 			return JsonOK(new { Success = true, currentNavigationLevel = Navigation.CurrentLevel.Level });
 		}
@@ -392,59 +392,14 @@ namespace GenioMVC.Controllers
 		#endregion
 
 
-		public class Convocatoria_JogoValTituloModel : RequestLookupModel
-		{
-			public Convocatoria_ViewModel Model { get; set; }
-		}
-
-		//
-		// GET: /Convocatoria/Convocatoria_JogoValTitulo
-		// POST: /Convocatoria/Convocatoria_JogoValTitulo
-		[ActionName("Convocatoria_JogoValTitulo")]
-		public ActionResult Convocatoria_JogoValTitulo([FromBody] Convocatoria_JogoValTituloModel requestModel)
-		{
-			var queryParams = requestModel.QueryParams;
-
-			// If there was a recent operation on this table then force the primary persistence server to be called and ignore the read only feature
-			if (string.IsNullOrEmpty(Navigation.GetStrValue("ForcePrimaryRead_jogo")))
-				UserContext.Current.SetPersistenceReadOnly(true);
-			else
-			{
-				Navigation.DestroyEntry("ForcePrimaryRead_jogo");
-				UserContext.Current.SetPersistenceReadOnly(false);
-			}
-
-			NameValueCollection requestValues = [];
-			if (queryParams != null)
-			{
-				// Add to request values
-				foreach (var kv in queryParams)
-					requestValues.Add(kv.Key, kv.Value);
-			}
-
-			IsStateReadonly = true;
-
-			Models.Convocatoria parentCtx = requestModel.Model == null ? null : new(m_userContext);
-			requestModel.Model?.Init(m_userContext);
-			requestModel.Model?.MapToModel(parentCtx);
-			Convocatoria_JogoValTitulo_ViewModel model = new(m_userContext, parentCtx);
-
-			CSGenio.core.framework.table.TableConfiguration tableConfig = model.GetTableConfig(requestModel.TableConfiguration);
-
-			model.setModes(Request.Query["m"].ToString());
-			model.Load(tableConfig, requestValues, Request.IsAjaxRequest());
-
-			return JsonOK(model);
-		}
-
 		public class Convocatoria_ValConvocadosModel : RequestLookupModel
 		{
 			public Convocatoria_ViewModel Model { get; set; }
 		}
 
 		//
-		// GET: /Convocatoria/Convocatoria_ValConvocados
-		// POST: /Convocatoria/Convocatoria_ValConvocados
+		// GET: /Jogo/Convocatoria_ValConvocados
+		// POST: /Jogo/Convocatoria_ValConvocados
 		[ActionName("Convocatoria_ValConvocados")]
 		public ActionResult Convocatoria_ValConvocados([FromBody] Convocatoria_ValConvocadosModel requestModel)
 		{
@@ -467,7 +422,7 @@ namespace GenioMVC.Controllers
 					requestValues.Add(kv.Key, kv.Value);
 			}
 
-			Models.Convocatoria parentCtx = requestModel.Model == null ? null : new(m_userContext);
+			Models.Jogo parentCtx = requestModel.Model == null ? null : new(m_userContext);
 			requestModel.Model?.Init(m_userContext);
 			requestModel.Model?.MapToModel(parentCtx);
 			Convocatoria_ValConvocados_ViewModel model = new(m_userContext, parentCtx);
@@ -486,7 +441,7 @@ namespace GenioMVC.Controllers
 			return JsonOK(model);
 		}
 
-		// POST: /Convocatoria/Convocatoria_SaveEdit
+		// POST: /Jogo/Convocatoria_SaveEdit
 		[HttpPost]
 		public ActionResult Convocatoria_SaveEdit([FromBody] Convocatoria_ViewModel model)
 		{
@@ -494,7 +449,7 @@ namespace GenioMVC.Controllers
 			{
 				MethodName = "Convocatoria_SaveEdit",
 				ViewName = "Convocatoria",
-				AreaName = "convocatoria",
+				AreaName = "jogo",
 				BeforeOp = (sink, sp) =>
 				{
 // USE /[MANUAL SQB BEFORE_APPLY_EDIT CONVOCATORIA]/

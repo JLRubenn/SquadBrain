@@ -493,13 +493,6 @@ namespace GenioMVC.ViewModels.Treino
 					this.ValCodtreinador = DBConversion.ToString(hValue);
 				}
 			}
-			// Limits Generation
-
-			// Area limit
-			treino__treinador__nomeDoLoad &= AddCriteriaAreaLimit(treino__treinador__nomeConds, CSGenio.business.CSGenioAclube.FldCodclube, "clube", this.ValCodclube, true);
-
-			// Area limit
-			treino__treinador__nomeDoLoad &= AddCriteriaAreaLimit(treino__treinador__nomeConds, CSGenio.business.CSGenioAclube.FldCodclube, "clube", this.ValCodclube, true);
 
 			TableTreinadorNome = new TableDBEdit<Models.Treinador>
 			{
@@ -516,11 +509,6 @@ namespace GenioMVC.ViewModels.Treino
 				FillDependant_TreinoTableTreinadorNome(lazyLoad);
 				return;
 			}
-
-			if (string.IsNullOrEmpty(this.ValCodclube))
-				treino__treinador__nomeDoLoad = false;
-			if (string.IsNullOrEmpty(this.ValCodclube))
-				treino__treinador__nomeDoLoad = false;
 
 			if (treino__treinador__nomeDoLoad)
 			{
@@ -605,24 +593,6 @@ namespace GenioMVC.ViewModels.Treino
 				returnEmptyDependants = true;
 
 			// Check if the limit(s) is filled if exists
-			{
-				object hValue = Navigation.GetValue("clube");
-				if (!(hValue is Array))
-				{
-					if (GenFunctions.emptyG(hValue) == 1)
-						returnEmptyDependants = true;
-					wherecodition.Equal(CSGenioAtreinador.FldCodclube, hValue);
-				}
-			}
-			{
-				object hValue = Navigation.GetValue("clube");
-				if (!(hValue is Array))
-				{
-					if (GenFunctions.emptyG(hValue) == 1)
-						returnEmptyDependants = true;
-					wherecodition.Equal(CSGenioAtreinador.FldCodclube, hValue);
-				}
-			}
 			// - - - - - - - - - - - - - - - - - - - - -
 
 			if (returnEmptyDependants)

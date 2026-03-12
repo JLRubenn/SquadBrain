@@ -144,6 +144,17 @@ export default class ViewModel extends FormViewModelBase
 			area: 'JOGADOR',
 			field: 'SPPOSICAOMEDIO',
 			maxLength: 3,
+			showWhen: {
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
+				fnFormula(params)
+				{
+					// Formula: [JOGADOR->POSICAO] == "Medio"
+					return this.ValPosicao.value==="Medio"
+				},
+				dependencyEvents: ['fieldChange:jogador.posicao'],
+				isServerRecalc: false,
+				isEmpty: qApi.emptyC,
+			},
 			arrayOptions: computed(() => new qProjArrays.QArraySpposicaomedio(vm.$getResource).elements),
 			description: computed(() => this.Resources.ESPECIFICACAO_POSICA24622),
 		}).cloneFrom(values?.ValSpposicaomedio))
@@ -155,6 +166,17 @@ export default class ViewModel extends FormViewModelBase
 			area: 'JOGADOR',
 			field: 'SPPOSICAOAT',
 			maxLength: 1,
+			showWhen: {
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
+				fnFormula(params)
+				{
+					// Formula: [JOGADOR->POSICAO] == "Atacante"
+					return this.ValPosicao.value==="Atacante"
+				},
+				dependencyEvents: ['fieldChange:jogador.posicao'],
+				isServerRecalc: false,
+				isEmpty: qApi.emptyC,
+			},
 			arrayOptions: computed(() => new qProjArrays.QArraySpposicao(vm.$getResource).elements),
 			description: computed(() => this.Resources.ESPECIFICACAO_POSICA24622),
 		}).cloneFrom(values?.ValSpposicaoat))
@@ -166,6 +188,17 @@ export default class ViewModel extends FormViewModelBase
 			area: 'JOGADOR',
 			field: 'SPPOSICAODEF',
 			maxLength: 1,
+			showWhen: {
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
+				fnFormula(params)
+				{
+					// Formula: [JOGADOR->POSICAO] == "Defesa"
+					return this.ValPosicao.value==="Defesa"
+				},
+				dependencyEvents: ['fieldChange:jogador.posicao'],
+				isServerRecalc: false,
+				isEmpty: qApi.emptyC,
+			},
 			arrayOptions: computed(() => new qProjArrays.QArraySpposicao(vm.$getResource).elements),
 			description: computed(() => this.Resources.ESPECIFICACAO_POSICA24622),
 		}).cloneFrom(values?.ValSpposicaodef))

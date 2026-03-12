@@ -164,6 +164,11 @@ namespace CSGenio.business
 			Qfield.CavDesignation = "ESPECIFICACAO_POSICA24622";
 
 			Qfield.Dupmsg = "";
+			argumentsListByArea = new List<ByAreaArguments>();
+			argumentsListByArea.Add(new ByAreaArguments(new string[] {"posicao"}, new int[] {0}, "jogador", "codjogador"));
+			Qfield.ShowWhen = new ConditionFormula(argumentsListByArea, 1, delegate(object[] args, User user, string module, PersistentSupport sp) {
+				return ((string)args[0])=="Medio";
+			});
             Qfield.ArrayName = "dbo.GetValArrayCspposicaomedio";
             Qfield.ArrayClassName = "Spposicaomedio";
 			info.RegisterFieldDB(Qfield);
@@ -176,6 +181,11 @@ namespace CSGenio.business
 			Qfield.CavDesignation = "ESPECIFICACAO_POSICA24622";
 
 			Qfield.Dupmsg = "";
+			argumentsListByArea = new List<ByAreaArguments>();
+			argumentsListByArea.Add(new ByAreaArguments(new string[] {"posicao"}, new int[] {0}, "jogador", "codjogador"));
+			Qfield.ShowWhen = new ConditionFormula(argumentsListByArea, 1, delegate(object[] args, User user, string module, PersistentSupport sp) {
+				return ((string)args[0])=="Atacante";
+			});
             Qfield.ArrayName = "dbo.GetValArrayCspposicao";
             Qfield.ArrayClassName = "Spposicao";
 			info.RegisterFieldDB(Qfield);
@@ -188,6 +198,11 @@ namespace CSGenio.business
 			Qfield.CavDesignation = "ESPECIFICACAO_POSICA24622";
 
 			Qfield.Dupmsg = "";
+			argumentsListByArea = new List<ByAreaArguments>();
+			argumentsListByArea.Add(new ByAreaArguments(new string[] {"posicao"}, new int[] {0}, "jogador", "codjogador"));
+			Qfield.ShowWhen = new ConditionFormula(argumentsListByArea, 1, delegate(object[] args, User user, string module, PersistentSupport sp) {
+				return ((string)args[0])=="Defesa";
+			});
             Qfield.ArrayName = "dbo.GetValArrayCspposicao";
             Qfield.ArrayClassName = "Spposicao";
 			info.RegisterFieldDB(Qfield);

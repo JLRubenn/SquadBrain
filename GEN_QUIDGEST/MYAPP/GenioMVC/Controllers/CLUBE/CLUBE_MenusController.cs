@@ -1,0 +1,102 @@
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+
+using CSGenio.business;
+using CSGenio.framework;
+using CSGenio.persistence;
+using CSGenio.reporting;
+using CSGenio.core.persistence;
+using GenioMVC.Helpers;
+using GenioMVC.Models;
+using GenioMVC.Models.Exception;
+using GenioMVC.Models.Navigation;
+using GenioMVC.Resources;
+using GenioMVC.ViewModels.Clube;
+using Quidgest.Persistence.GenericQuery;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
+// USE /[MANUAL SQB INCLUDE_CONTROLLER CLUBE]/
+
+namespace GenioMVC.Controllers
+{
+	public partial class ClubeController : ControllerBase
+	{
+		private static readonly NavigationLocation ACTION_SQB_MENU_11 = new NavigationLocation("CLUBES32887", "SQB_Menu_11", "Clube") { vueRouteName = "menu-SQB_11" };
+
+
+		//
+		// GET: /Clube/SQB_Menu_11
+		[ActionName("SQB_Menu_11")]
+		[HttpPost]
+		public ActionResult SQB_Menu_11([FromBody] RequestMenuModel requestModel)
+		{
+			var queryParams = requestModel.QueryParams;
+
+			SQB_Menu_11_ViewModel model = new(m_userContext);
+
+			CSGenio.core.framework.table.TableConfiguration tableConfig = model.GetTableConfig(
+				requestModel.TableConfiguration,
+				requestModel.UserTableConfigName,
+				requestModel.LoadDefaultView);
+
+			// Determine rows per page
+			tableConfig.RowsPerPage = tableConfig.DetermineRowsPerPage(CSGenio.framework.Configuration.NrRegDBedit, "");
+
+			bool isHomePage = RouteData.Values.ContainsKey("isHomePage") ? (bool)RouteData.Values["isHomePage"] : false;
+			if (isHomePage)
+				Navigation.SetValue("HomePage", "SQB_Menu_11");
+
+			//If there was a recent operation on this table then force the primary persistence server to be called and ignore the read only feature
+			if (string.IsNullOrEmpty(Navigation.GetStrValue("ForcePrimaryRead_clube")))
+				UserContext.Current.SetPersistenceReadOnly(true);
+			else
+			{
+				Navigation.DestroyEntry("ForcePrimaryRead_clube");
+				UserContext.Current.SetPersistenceReadOnly(false);
+			}
+			CSGenio.framework.StatusMessage result = model.CheckPermissions(FormMode.List);
+			if (result.Status.Equals(CSGenio.framework.Status.E))
+				return PermissionError(result.Message);
+
+			NameValueCollection querystring = [];
+			if (queryParams != null && queryParams.Count > 0)
+				querystring.AddRange(queryParams);
+
+			if (!isHomePage &&
+				(Navigation.CurrentLevel == null || !ACTION_SQB_MENU_11.IsSameAction(Navigation.CurrentLevel.Location)) &&
+				Navigation.CurrentLevel.Location.Action != ACTION_SQB_MENU_11.Action)
+				CSGenio.framework.Audit.registAction(UserContext.Current.User, Resources.Resources.MENU01948 + " " + Navigation.CurrentLevel.Location.ShortDescription());
+			else if (isHomePage)
+			{
+				CSGenio.framework.Audit.registAction(UserContext.Current.User, Resources.Resources.MENU01948 + " " + ACTION_SQB_MENU_11.ShortDescription());
+				Navigation.SetValue("HomePageContainsList", true);
+			}
+
+
+
+// USE /[MANUAL SQB MENU_GET 11]/
+
+			try
+			{
+				model.Load(tableConfig, querystring, Request.IsAjaxRequest());
+			}
+			catch (Exception e)
+			{
+				return JsonERROR(HandleException(e), model);
+			}
+
+
+			return JsonOK(model);
+		}
+
+
+
+	}
+}

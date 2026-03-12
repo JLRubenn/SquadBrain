@@ -159,6 +159,9 @@
   <msg id="Salt" code="SALT05277">
     <ENUS>Salt</ENUS>
   </msg>
+  <msg id="Treinos por Treinador" code="TREINOS_POR_TREINADO60536">
+    <ENUS>Treinos por Treinador</ENUS>
+  </msg>
   <msg id="Plantel" code="PLANTEL10373">
     <ENUS>Plantel</ENUS>
   </msg>

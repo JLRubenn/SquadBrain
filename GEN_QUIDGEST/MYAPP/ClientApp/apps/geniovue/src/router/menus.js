@@ -61,6 +61,20 @@ export default function getMenusRoutes()
 			}
 		},
 		{
+			path: '/:culture/:system/SQB/menu/SQB_431',
+			name: 'menu-SQB_431',
+			component: () => import('@/views/menus/ModuleSQB/MenuSQB_431/QMenuSqb431.vue'),
+			meta: {
+				routeType: 'menu',
+				module: 'SQB',
+				order: '431',
+				baseArea: 'TREINADOR',
+				hasInitialPHE: false,
+				humanKeyFields: ['ValNome'],
+				isPopup: false
+			}
+		},
+		{
 			path: '/:culture/:system/SQB/menu/SQB_31',
 			name: 'menu-SQB_31',
 			component: () => import('@/views/menus/ModuleSQB/MenuSQB_31/QMenuSqb31.vue'),
@@ -99,6 +113,22 @@ export default function getMenusRoutes()
 				baseArea: 'TREINO',
 				hasInitialPHE: false,
 				humanKeyFields: ['ValData'],
+				isPopup: false
+			}
+		},
+		{
+			path: '/:culture/:system/SQB/menu/SQB_4311',
+			name: 'menu-SQB_4311',
+			component: () => import('@/views/menus/ModuleSQB/MenuSQB_4311/QMenuSqb4311.vue'),
+			beforeEnter: [updateQueryParams],
+			meta: {
+				routeType: 'menu',
+				module: 'SQB',
+				order: '4311',
+				baseArea: 'TREINO',
+				hasInitialPHE: false,
+				humanKeyFields: ['ValData'],
+				limitations: ['treinador' /* DB */],
 				isPopup: false
 			}
 		},

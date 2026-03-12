@@ -540,6 +540,15 @@ namespace GenioMVC.Resources
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to "Treinos por Treinador"
+		/// </summary>
+		public static string TREINOS_POR_TREINADO60536 {
+			get {
+				return ResourceManager.GetString("TREINOS_POR_TREINADO60536", resourceCulture);
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to "Plantel"
 		/// </summary>
 		public static string PLANTEL10373 {

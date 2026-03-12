@@ -276,6 +276,9 @@
 	<data name="SALT05277" xml:space="preserve">
 		<value>Salt</value>
 	</data>
+	<data name="TREINOS_POR_TREINADO60536" xml:space="preserve">
+		<value>Treinos por Treinador</value>
+	</data>
 	<data name="PLANTEL10373" xml:space="preserve">
 		<value>Plantel</value>
 	</data>

@@ -4,18 +4,18 @@ using CSGenio.business;
 using CSGenio.framework;
 using GenioMVC.Models.Navigation;
 
-namespace GenioMVC.ViewModels.Presenca;
+namespace GenioMVC.ViewModels.Jogo;
 
-public class SQB_Menu_121_RowViewModel : Models.Presenca
+public class SQB_Menu_521_RowViewModel : Models.Jogo
 {
 	#region Constructors
 
-	public SQB_Menu_121_RowViewModel(UserContext userContext, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, isEmpty, fieldsToSerialize)
+	public SQB_Menu_521_RowViewModel(UserContext userContext, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, isEmpty, fieldsToSerialize)
 	{
 		InitRowProperties();
 	}
 
-	public SQB_Menu_121_RowViewModel(UserContext userContext, CSGenioApresenca val, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, val, isEmpty, fieldsToSerialize)
+	public SQB_Menu_521_RowViewModel(UserContext userContext, CSGenioAjogo val, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, val, isEmpty, fieldsToSerialize)
 	{
 		InitRowProperties();
 	}
@@ -36,20 +36,38 @@ public class SQB_Menu_121_RowViewModel : Models.Presenca
 			new ListColumn()
 			{
 				Order = 1,
-				Area = "TREINO",
-				Field = "DATA",
-			},
-			new ListColumn()
-			{
-				Order = 2,
-				Area = "JOGADOR",
+				Area = "CLUBE",
 				Field = "NOME",
 			},
 			new ListColumn()
 			{
+				Order = 2,
+				Area = "JOGO",
+				Field = "DATA",
+			},
+			new ListColumn()
+			{
 				Order = 3,
-				Area = "PRESENCA",
-				Field = "ESTADO",
+				Area = "JOGO",
+				Field = "LOCAL",
+			},
+			new ListColumn()
+			{
+				Order = 4,
+				Area = "JOGO",
+				Field = "RESULTADO",
+			},
+			new ListColumn()
+			{
+				Order = 5,
+				Area = "JOGO",
+				Field = "TITULO",
+			},
+			new ListColumn()
+			{
+				Order = 6,
+				Area = "JOGO",
+				Field = "EQUIPAADVERSARIA",
 			},
 		];
 	}
@@ -61,9 +79,9 @@ public class SQB_Menu_121_RowViewModel : Models.Presenca
 
 		bool canView = true;
 		bool canEdit = true;
-		bool canDelete = true;
-		bool canDuplicate = true;
-		bool canInsert = true;
+		bool canDelete = false;
+		bool canDuplicate = false;
+		bool canInsert = false;
 
 		using (new CSGenio.persistence.ScopedPersistentSupport(m_userContext.PersistentSupport))
 		{

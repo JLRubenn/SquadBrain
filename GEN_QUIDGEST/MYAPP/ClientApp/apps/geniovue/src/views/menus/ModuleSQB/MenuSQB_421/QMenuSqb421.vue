@@ -121,12 +121,12 @@
 				menuInfo: {
 					id: '421',
 					isMenuList: true,
-					designation: computed(() => this.Resources.JOGOS19503),
+					designation: computed(() => this.Resources.PRESENCAS23345),
 					acronym: 'SQB_421',
-					name: 'JOGO',
+					name: 'PRESENCA',
 					route: 'menu-SQB_421',
 					order: '421',
-					controller: 'JOGO',
+					controller: 'PRESENCA',
 					action: 'SQB_Menu_421',
 					isPopup: false
 				},
@@ -137,7 +137,7 @@
 					menu: new controlClass.TableListControl({
 						fnHydrateViewModel: (data) => vm.model.hydrate(data),
 						id: 'SQB_Menu_421',
-						controller: 'JOGO',
+						controller: 'PRESENCA',
 						action: 'SQB_Menu_421',
 						hasDependencies: false,
 						isInCollapsible: false,
@@ -146,82 +146,53 @@
 							'page-full-height'
 						],
 						columnsOriginal: [
-							new listColumnTypes.TextColumn({
+							new listColumnTypes.DateColumn({
 								order: 1,
-								name: 'Clube.ValNome',
-								area: 'CLUBE',
+								name: 'Treino.ValData',
+								area: 'TREINO',
+								field: 'DATA',
+								label: computed(() => this.Resources.DATA18071),
+								scrollData: 16,
+								dateTimeType: 'dateTime',
+								export: 1,
+								pkColumn: 'ValCodtreino',
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.TextColumn({
+								order: 2,
+								name: 'Jogador.ValNome',
+								area: 'JOGADOR',
 								field: 'NOME',
 								label: computed(() => this.Resources.NOME47814),
 								dataLength: 50,
 								scrollData: 30,
 								export: 1,
-								pkColumn: 'ValCodclube',
+								pkColumn: 'ValCodjogador',
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.DateColumn({
-								order: 2,
-								name: 'ValData',
-								area: 'JOGO',
-								field: 'DATA',
-								label: computed(() => this.Resources.DATA18071),
-								scrollData: 8,
-								dateTimeType: 'date',
-								export: 1,
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.TextColumn({
+							new listColumnTypes.ArrayColumn({
 								order: 3,
-								name: 'ValLocal',
-								area: 'JOGO',
-								field: 'LOCAL',
-								label: computed(() => this.Resources.LOCAL02842),
-								dataLength: 50,
-								scrollData: 30,
+								name: 'ValEstado',
+								area: 'PRESENCA',
+								field: 'ESTADO',
+								label: computed(() => this.Resources.ESTADO07788),
+								dataLength: 2,
+								scrollData: 2,
 								export: 1,
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.TextColumn({
-								order: 4,
-								name: 'ValResultado',
-								area: 'JOGO',
-								field: 'RESULTADO',
-								label: computed(() => this.Resources.RESULTADO50955),
-								dataLength: 50,
-								scrollData: 30,
-								export: 1,
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.TextColumn({
-								order: 5,
-								name: 'ValTitulo',
-								area: 'JOGO',
-								field: 'TITULO',
-								label: computed(() => this.Resources.TITULO23260),
-								dataLength: 50,
-								scrollData: 30,
-								export: 1,
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.TextColumn({
-								order: 6,
-								name: 'ValEquipaadversaria',
-								area: 'JOGO',
-								field: 'EQUIPAADVERSARIA',
-								label: computed(() => this.Resources.EQUIPA_ADVERSARIA15813),
-								dataLength: 50,
-								scrollData: 30,
-								export: 1,
+								array: computed(() => new qProjArrays.QArrayEstado_presenca(vm.$getResource).elements),
+								arrayType: qProjArrays.QArrayEstado_presenca.type,
+								arrayDisplayMode: 'D',
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 						],
 						config: {
 							name: 'SQB_Menu_421',
 							serverMode: true,
-							pkColumn: 'ValCodjogo',
-							tableAlias: 'JOGO',
-							tableNamePlural: computed(() => this.Resources.JOGOS19503),
+							pkColumn: 'ValCodpresenca',
+							tableAlias: 'PRESENCA',
+							tableNamePlural: computed(() => this.Resources.PRESENCAS23345),
 							viewManagement: '',
 							showLimitsInfo: true,
-							tableTitle: computed(() => this.Resources.JOGOS19503),
+							tableTitle: computed(() => this.Resources.PRESENCAS23345),
 							showAlternatePagination: true,
 							permissions: {
-								canDuplicate: false,
-								canDelete: false,
-								canInsert: false
 							},
 							searchBarConfig: {
 								visibility: true
@@ -240,7 +211,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'CONVOCATORIA',
+										formName: 'PRESENCA',
 										mode: 'SHOW',
 										isControlled: true
 									}
@@ -256,13 +227,62 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'CONVOCATORIA',
+										formName: 'PRESENCA',
 										mode: 'EDIT',
 										isControlled: true
 									}
 								},
+								{
+									id: 'duplicate',
+									name: 'duplicate',
+									title: computed(() => this.Resources.DUPLICAR09748),
+									icon: {
+										icon: 'duplicate'
+									},
+									isInReadOnly: true,
+									params: {
+										action: vm.openFormAction,
+										type: 'form',
+										formName: 'PRESENCA',
+										mode: 'DUPLICATE',
+										isControlled: true
+									}
+								},
+								{
+									id: 'delete',
+									name: 'delete',
+									title: computed(() => this.Resources.ELIMINAR21155),
+									icon: {
+										icon: 'delete'
+									},
+									isInReadOnly: true,
+									params: {
+										action: vm.openFormAction,
+										type: 'form',
+										formName: 'PRESENCA',
+										mode: 'DELETE',
+										isControlled: true
+									}
+								}
 							],
 							generalActions: [
+								{
+									id: 'insert',
+									name: 'insert',
+									title: computed(() => this.Resources.INSERIR43365),
+									icon: {
+										icon: 'add'
+									},
+									isInReadOnly: true,
+									params: {
+										action: vm.openFormAction,
+										type: 'form',
+										formName: 'PRESENCA',
+										mode: 'NEW',
+										repeatInsertion: false,
+										isControlled: true
+									}
+								},
 							],
 							generalCustomActions: [
 							],
@@ -273,34 +293,36 @@
 							MCActions: [
 							],
 							rowClickAction: {
-								id: 'RCA_EDIT_CONVOCATORIA',
-								name: 'EDIT_CONVOCATORIA',
-								title: '',
-								isInReadOnly: true,
+								id: 'RCA_SQB_4211',
+								name: 'form-PRESENCA',
+								isVisible: true,
 								params: {
 									isRoute: true,
-									action: vm.openFormAction,
-									type: 'form',
-									formName: 'CONVOCATORIA',
-									mode: 'EDIT',
-									isControlled: true
+									limits: [
+										{
+											identifier: 'id',
+											fnValueSelector: (row) => row.ValCodpresenca
+										},
+									],
+									isControlled: true,
+									action: vm.openFormAction, type: 'form', mode: 'SHOW', formName: 'PRESENCA'
 								}
 							},
 							formsDefinition: {
-								'CONVOCATORIA': {
-									fnKeySelector: (row) => row.Fields.ValCodjogo,
+								'PRESENCA': {
+									fnKeySelector: (row) => row.Fields.ValCodpresenca,
 									isPopup: false
 								},
 							},
-							defaultSearchColumnName: 'ValTitulo',
-							defaultSearchColumnNameOriginal: 'ValTitulo',
+							defaultSearchColumnName: '',
+							defaultSearchColumnNameOriginal: '',
 							defaultColumnSorting: {
-								columnName: 'ValData',
+								columnName: '',
 								sortOrder: 'asc'
 							}
 						},
-						globalEvents: ['changed-CLUBE', 'changed-JOGO'],
-						uuid: 'd1d1fb8c-2ecb-4105-b577-84ea2b2390f8',
+						globalEvents: ['changed-PRESENCA', 'changed-TREINO', 'changed-JOGADOR'],
+						uuid: '5f5fbc25-85cb-40bf-ac6f-c482b7dfff34',
 						allSelectedRows: 'false',
 						headerLevel: 1,
 						isActiveControl: computed(() => this.isActiveMenu)

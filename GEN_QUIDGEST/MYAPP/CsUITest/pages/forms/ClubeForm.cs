@@ -33,6 +33,11 @@ public class ClubeForm : Form
 	public BaseInputControl ClubeEpoca => new BaseInputControl(driver, ContainerLocator, "container-CLUBE___CLUBEEPOCA___", "#CLUBE___CLUBEEPOCA___");
 
 	/// <summary>
+	/// Valor Mercado Equipa (M)
+	/// </summary>
+	public BaseInputControl ClubeValormercadoequipa => new BaseInputControl(driver, ContainerLocator, "container-CLUBE__CLUBE__VALORMERCADOEQUIPA", "#CLUBE__CLUBE__VALORMERCADOEQUIPA");
+
+	/// <summary>
 	/// responsaveis do clube
 	/// </summary>
 	public CollapsibleZoneControl PseudNewgrp02 => new CollapsibleZoneControl(driver, ContainerLocator, "#CLUBE___PSEUDNEWGRP02-container");

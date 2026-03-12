@@ -182,9 +182,9 @@
 									</base-input-structure>
 								</q-col>
 							</q-row>
-							<q-row v-if="controls.JOGADOR__JOGADOR__DATANASCIMENTO.isVisible">
+							<q-row v-if="controls.JOGADOR__JOGADOR__DATANASCIMENTO.isVisible || controls.JOGADOR__JOGADOR__IDADEJOGADOR.isVisible">
 								<q-col
-									v-if="controls.JOGADOR__JOGADOR__DATANASCIMENTO.isVisible"
+									v-if="controls.JOGADOR__JOGADOR__DATANASCIMENTO.isVisible || controls.JOGADOR__JOGADOR__IDADEJOGADOR.isVisible"
 									cols="auto">
 									<base-input-structure
 										v-if="controls.JOGADOR__JOGADOR__DATANASCIMENTO.isVisible"
@@ -200,6 +200,19 @@
 											:model-value="model.ValDatanascimento.value"
 											@reset-icon-click="model.ValDatanascimento.fnUpdateValue(model.ValDatanascimento.originalValue ?? new Date())"
 											@update:model-value="model.ValDatanascimento.fnUpdateValue($event ?? '')" />
+									</base-input-structure>
+									<base-input-structure
+										v-if="controls.JOGADOR__JOGADOR__IDADEJOGADOR.isVisible"
+										class="i-text"
+										v-bind="controls.JOGADOR__JOGADOR__IDADEJOGADOR"
+										v-on="controls.JOGADOR__JOGADOR__IDADEJOGADOR.handlers"
+										:loading="controls.JOGADOR__JOGADOR__IDADEJOGADOR.props.loading"
+										:reporting-mode-on="reportingModeCAV"
+										:suggestion-mode-on="suggestionModeOn">
+										<q-numeric-input
+											v-if="controls.JOGADOR__JOGADOR__IDADEJOGADOR.isVisible"
+											v-bind="controls.JOGADOR__JOGADOR__IDADEJOGADOR.props"
+											@update:model-value="model.ValIdadejogador.fnUpdateValue" />
 									</base-input-structure>
 								</q-col>
 							</q-row>
@@ -327,6 +340,25 @@
 											v-bind="controls.JOGADOR__JOGADOR__EQUIPAANTERIOR.props"
 											@blur="onBlur(controls.JOGADOR__JOGADOR__EQUIPAANTERIOR, model.ValEquipaanterior.value)"
 											@change="model.ValEquipaanterior.fnUpdateValueOnChange" />
+									</base-input-structure>
+								</q-col>
+							</q-row>
+							<q-row v-if="controls.JOGADOR__JOGADOR__VALORMERCADO.isVisible">
+								<q-col
+									v-if="controls.JOGADOR__JOGADOR__VALORMERCADO.isVisible"
+									cols="auto">
+									<base-input-structure
+										v-if="controls.JOGADOR__JOGADOR__VALORMERCADO.isVisible"
+										class="i-text"
+										v-bind="controls.JOGADOR__JOGADOR__VALORMERCADO"
+										v-on="controls.JOGADOR__JOGADOR__VALORMERCADO.handlers"
+										:loading="controls.JOGADOR__JOGADOR__VALORMERCADO.props.loading"
+										:reporting-mode-on="reportingModeCAV"
+										:suggestion-mode-on="suggestionModeOn">
+										<q-numeric-input
+											v-if="controls.JOGADOR__JOGADOR__VALORMERCADO.isVisible"
+											v-bind="controls.JOGADOR__JOGADOR__VALORMERCADO.props"
+											@update:model-value="model.ValValormercado.fnUpdateValue" />
 									</base-input-structure>
 								</q-col>
 							</q-row>
@@ -707,7 +739,7 @@
 						labelPosition: computed(() => this.labelAlignment.topleft),
 						isCollapsible: false,
 						anchored: false,
-						directChildren: ['JOGADOR_CLUBENOME____', 'JOGADOR__JOGADOR__NUMEROCAMISOLA', 'JOGADOR__JOGADOR__NOME', 'JOGADOR__JOGADOR__DATANASCIMENTO', 'JOGADOR__JOGADOR__PEDOMINANTE', 'JOGADOR__JOGADOR__POSICAO', 'JOGADOR__JOGADOR__SPPOSICAOMEDIO', 'JOGADOR__JOGADOR__SPPOSICAOAT', 'JOGADOR__JOGADOR__SPPOSICAODEF', 'JOGADOR__JOGADOR__POSICAOSEGUNDARIA', 'JOGADOR__JOGADOR__EQUIPAANTERIOR'],
+						directChildren: ['JOGADOR_CLUBENOME____', 'JOGADOR__JOGADOR__NUMEROCAMISOLA', 'JOGADOR__JOGADOR__NOME', 'JOGADOR__JOGADOR__DATANASCIMENTO', 'JOGADOR__JOGADOR__IDADEJOGADOR', 'JOGADOR__JOGADOR__PEDOMINANTE', 'JOGADOR__JOGADOR__POSICAO', 'JOGADOR__JOGADOR__SPPOSICAOMEDIO', 'JOGADOR__JOGADOR__SPPOSICAOAT', 'JOGADOR__JOGADOR__SPPOSICAODEF', 'JOGADOR__JOGADOR__POSICAOSEGUNDARIA', 'JOGADOR__JOGADOR__EQUIPAANTERIOR', 'JOGADOR__JOGADOR__VALORMERCADO'],
 						mustBeFilled: true,
 						controlLimits: [
 						],
@@ -784,6 +816,22 @@
 						container: 'JOGADOR_PSEUDNEWGRP01',
 						dateTimeType: 'date',
 						mustBeFilled: true,
+						controlLimits: [
+						],
+					}, this),
+					JOGADOR__JOGADOR__IDADEJOGADOR: new fieldControlClass.NumberControl({
+						modelField: 'ValIdadejogador',
+						valueChangeEvent: 'fieldChange:jogador.idadejogador',
+						id: 'JOGADOR__JOGADOR__IDADEJOGADOR',
+						name: 'IDADEJOGADOR',
+						size: 'mini',
+						label: computed(() => this.Resources.IDADE29819),
+						placeholder: '',
+						labelPosition: computed(() => this.labelAlignment.topleft),
+						container: 'JOGADOR_PSEUDNEWGRP01',
+						isFormulaBlocked: true,
+						maxIntegers: 3,
+						maxDecimals: 0,
 						controlLimits: [
 						],
 					}, this),
@@ -935,6 +983,21 @@
 						controlLimits: [
 						],
 					}, this),
+					JOGADOR__JOGADOR__VALORMERCADO: new fieldControlClass.CurrencyControl({
+						modelField: 'ValValormercado',
+						valueChangeEvent: 'fieldChange:jogador.valormercado',
+						id: 'JOGADOR__JOGADOR__VALORMERCADO',
+						name: 'VALORMERCADO',
+						size: 'medium',
+						label: computed(() => this.Resources.VALOR_MERCADO__M_33616),
+						placeholder: '',
+						labelPosition: computed(() => this.labelAlignment.topleft),
+						container: 'JOGADOR_PSEUDNEWGRP01',
+						maxIntegers: 12,
+						maxDecimals: 2,
+						controlLimits: [
+						],
+					}, this),
 				},
 
 				model: new FormViewModel(this, {
@@ -971,6 +1034,8 @@
 						set ValEquipaanterior(value) { vm.model.ValEquipaanterior.updateValue(value) },
 						get ValFoto() { return vm.model.ValFoto.value },
 						set ValFoto(value) { vm.model.ValFoto.updateValue(value) },
+						get ValIdadejogador() { return vm.model.ValIdadejogador.value },
+						set ValIdadejogador(value) { vm.model.ValIdadejogador.updateValue(value) },
 						get ValNome() { return vm.model.ValNome.value },
 						set ValNome(value) { vm.model.ValNome.updateValue(value) },
 						get ValNumerocamisola() { return vm.model.ValNumerocamisola.value },
@@ -987,6 +1052,8 @@
 						set ValSpposicaodef(value) { vm.model.ValSpposicaodef.updateValue(value) },
 						get ValSpposicaomedio() { return vm.model.ValSpposicaomedio.value },
 						set ValSpposicaomedio(value) { vm.model.ValSpposicaomedio.updateValue(value) },
+						get ValValormercado() { return vm.model.ValValormercado.value },
+						set ValValormercado(value) { vm.model.ValValormercado.updateValue(value) },
 					},
 					keys: {
 						/** The primary key of the JOGADOR table */

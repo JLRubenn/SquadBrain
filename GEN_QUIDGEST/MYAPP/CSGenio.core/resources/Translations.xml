@@ -261,6 +261,9 @@
   <msg id="Numero de Jogadoes" code="NUMERO_DE_JOGADOES35633">
     <ENUS>Numero de Jogadoes</ENUS>
   </msg>
+  <msg id="Idade" code="IDADE29819">
+    <ENUS>Idade</ENUS>
+  </msg>
   <msg id="LASTTREINOCRIADO" code="LASTTREINOCRIADO36042">
     <ENUS>LASTTREINOCRIADO</ENUS>
   </msg>
@@ -357,6 +360,9 @@
   <msg id="Nome" code="NOME47814">
     <ENUS>Nome</ENUS>
   </msg>
+  <msg id="Valor Mercado Equipa (M)" code="VALOR_MERCADO_EQUIPA38351">
+    <ENUS>Valor Mercado Equipa (M)</ENUS>
+  </msg>
   <msg id="Process type" code="PROCESS_TYPE25967">
     <ENUS>Process type</ENUS>
   </msg>
@@ -452,6 +458,9 @@
   </msg>
   <msg id="Status" code="STATUS62033">
     <ENUS>Status</ENUS>
+  </msg>
+  <msg id="Valor Mercado (M)" code="VALOR_MERCADO__M_33616">
+    <ENUS>Valor Mercado (M)</ENUS>
   </msg>
   <msg id="Password type" code="PASSWORD_TYPE03035">
     <ENUS>Password type</ENUS>

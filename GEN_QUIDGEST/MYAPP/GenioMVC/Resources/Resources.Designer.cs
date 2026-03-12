@@ -846,6 +846,15 @@ namespace GenioMVC.Resources
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to "Idade"
+		/// </summary>
+		public static string IDADE29819 {
+			get {
+				return ResourceManager.GetString("IDADE29819", resourceCulture);
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to "LASTTREINOCRIADO"
 		/// </summary>
 		public static string LASTTREINOCRIADO36042 {
@@ -1134,6 +1143,15 @@ namespace GenioMVC.Resources
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to "Valor Mercado Equipa (M)"
+		/// </summary>
+		public static string VALOR_MERCADO_EQUIPA38351 {
+			get {
+				return ResourceManager.GetString("VALOR_MERCADO_EQUIPA38351", resourceCulture);
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to "Process type"
 		/// </summary>
 		public static string PROCESS_TYPE25967 {
@@ -1418,6 +1436,15 @@ namespace GenioMVC.Resources
 		public static string STATUS62033 {
 			get {
 				return ResourceManager.GetString("STATUS62033", resourceCulture);
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to "Valor Mercado (M)"
+		/// </summary>
+		public static string VALOR_MERCADO__M_33616 {
+			get {
+				return ResourceManager.GetString("VALOR_MERCADO__M_33616", resourceCulture);
 			}
 		}
 

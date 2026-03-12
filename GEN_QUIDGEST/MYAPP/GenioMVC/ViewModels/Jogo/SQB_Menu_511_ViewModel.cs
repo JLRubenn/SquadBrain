@@ -17,13 +17,13 @@ using Quidgest.Persistence.GenericQuery;
 
 namespace GenioMVC.ViewModels.Jogo
 {
-	public class SQB_Menu_411_ViewModel : MenuListViewModel<Models.Jogo>
+	public class SQB_Menu_511_ViewModel : MenuListViewModel<Models.Jogo>
 	{
 		/// <summary>
 		/// Gets or sets the object that represents the table and its elements.
 		/// </summary>
 		[JsonPropertyName("table")]
-		public TablePartial<SQB_Menu_411_RowViewModel> Menu { get; set; }
+		public TablePartial<SQB_Menu_511_RowViewModel> Menu { get; set; }
 
 		/// <inheritdoc/>
 		[JsonIgnore]
@@ -82,7 +82,7 @@ namespace GenioMVC.ViewModels.Jogo
 
 		public override CriteriaSet GetCustomizedStaticLimits(CriteriaSet crs)
 		{
-// USE /[MANUAL SQB LIST_LIMITS 411]/
+// USE /[MANUAL SQB LIST_LIMITS 511]/
 
 			return crs;
 		}
@@ -93,7 +93,7 @@ namespace GenioMVC.ViewModels.Jogo
 			var areaBase = CSGenio.business.Area.createArea("jogo", user, "SQB");
 
 			//gets eph conditions to be applied in listing
-			CriteriaSet conditions = CSGenio.business.Listing.CalculateConditionsEphGeneric(areaBase, "ML411");
+			CriteriaSet conditions = CSGenio.business.Listing.CalculateConditionsEphGeneric(areaBase, "ML511");
 			conditions.Equal(CSGenioAjogo.FldZzstate, 0); //valid zzstate only
 
 			// Fixed limits and relations:
@@ -120,23 +120,23 @@ namespace GenioMVC.ViewModels.Jogo
 		/// FOR DESERIALIZATION ONLY
 		/// </summary>
 		[Obsolete("For deserialization only")]
-		public SQB_Menu_411_ViewModel() : base(null!) { }
+		public SQB_Menu_511_ViewModel() : base(null!) { }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="SQB_Menu_411_ViewModel" /> class.
+		/// Initializes a new instance of the <see cref="SQB_Menu_511_ViewModel" /> class.
 		/// </summary>
 		/// <param name="userContext">The current user request context</param>
-		public SQB_Menu_411_ViewModel(UserContext userContext) : base(userContext)
+		public SQB_Menu_511_ViewModel(UserContext userContext) : base(userContext)
 		{
 			this.RoleToShow = CSGenio.framework.Role.ROLE_1;
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="SQB_Menu_411_ViewModel" /> class.
+		/// Initializes a new instance of the <see cref="SQB_Menu_511_ViewModel" /> class.
 		/// </summary>
 		/// <param name="userContext">The current user request context</param>
 		/// <param name="parentCtx">The context of the parent</param>
-		public SQB_Menu_411_ViewModel(UserContext userContext, Models.ModelBase parentCtx) : this(userContext)
+		public SQB_Menu_511_ViewModel(UserContext userContext, Models.ModelBase parentCtx) : this(userContext)
 		{
 			ParentCtx = parentCtx;
 		}
@@ -192,7 +192,7 @@ namespace GenioMVC.ViewModels.Jogo
 
 			crs ??= CriteriaSet.And();
 
-			Menu ??= new TablePartial<SQB_Menu_411_RowViewModel>();
+			Menu ??= new TablePartial<SQB_Menu_511_RowViewModel>();
 			// Set table name (used in getting searchable column names)
 			Menu.TableName = TableAlias;
 
@@ -215,7 +215,7 @@ namespace GenioMVC.ViewModels.Jogo
 			if (isToExport)
 			{
 				// EPH
-				crs = Models.Jogo.AddEPH<CSGenioAjogo>(ref u, crs, "ML411");
+				crs = Models.Jogo.AddEPH<CSGenioAjogo>(ref u, crs, "ML511");
 
 				// Export only records with ZZState == 0
 				crs.Equal(CSGenioAjogo.FldZzstate, 0);
@@ -233,7 +233,7 @@ namespace GenioMVC.ViewModels.Jogo
 				string QMVC_POS_RECORD = Navigation.GetStrValue("QMVC_POS_RECORD_jogo");
 				Navigation.DestroyEntry("QMVC_POS_RECORD_jogo");
 				if (!string.IsNullOrEmpty(QMVC_POS_RECORD))
-					crs.Equals(Models.Jogo.AddEPH<CSGenioAjogo>(ref u, null, "ML411"));
+					crs.Equals(Models.Jogo.AddEPH<CSGenioAjogo>(ref u, null, "ML511"));
 			}
 
 			return crs;
@@ -308,9 +308,9 @@ namespace GenioMVC.ViewModels.Jogo
 		public void Load(CSGenio.core.framework.table.TableConfiguration tableConfig, NameValueCollection requestValues, bool ajaxRequest, bool isToExport, ref ListingMVC<CSGenioAjogo> Qlisting, ref CriteriaSet conditions)
 		{
 			User u = m_userContext.User;
-			Menu = new TablePartial<SQB_Menu_411_RowViewModel>();
+			Menu = new TablePartial<SQB_Menu_511_RowViewModel>();
 
-			CriteriaSet sqb_menu_411Conds = CriteriaSet.And();
+			CriteriaSet sqb_menu_511Conds = CriteriaSet.And();
 			bool tableReload = true;
 
 			//FOR: MENU LIST SORTING
@@ -359,7 +359,7 @@ namespace GenioMVC.ViewModels.Jogo
 				Limit limit = new Limit();
 				limit.TipoLimite = LimitType.EPH;
 				CSGenioAjogo model_limit_area = new CSGenioAjogo(m_userContext.User);
-				List<Limit> area_EPH_limits = EPH_Limit_Filler(ref limit, model_limit_area, "ML411");
+				List<Limit> area_EPH_limits = EPH_Limit_Filler(ref limit, model_limit_area, "ML511");
 				if (area_EPH_limits.Count > 0)
 					this.TableLimits.AddRange(area_EPH_limits);
 			}
@@ -368,11 +368,11 @@ namespace GenioMVC.ViewModels.Jogo
 			if (conditions == null)
 				conditions = CriteriaSet.And();
 
-			conditions.SubSets.Add(sqb_menu_411Conds);
-			sqb_menu_411Conds = BuildCriteriaSet(tableConfig, requestValues, out bool hasAllRequiredLimits, conditions, isToExport);
+			conditions.SubSets.Add(sqb_menu_511Conds);
+			sqb_menu_511Conds = BuildCriteriaSet(tableConfig, requestValues, out bool hasAllRequiredLimits, conditions, isToExport);
 			tableReload &= hasAllRequiredLimits;
 
-// USE /[MANUAL SQB OVERRQ 411]/
+// USE /[MANUAL SQB OVERRQ 511]/
 
 			bool distinct = false;
 
@@ -384,16 +384,16 @@ namespace GenioMVC.ViewModels.Jogo
 				var exportColumns = GetExportColumns(tableConfig.ColumnConfigurations);
 				var exportFieldRefs = exportColumns.Select(eCol => eCol.Field).Where(fldRef => fldRef != null).ToArray();
 
-				Qlisting = Models.ModelBase.BuildListingForExport<CSGenioAjogo>(m_userContext, false, ref sqb_menu_411Conds, exportFieldRefs, (pageNumber - 1) * numberListItems, numberListItems, sorts, "ML411", true, firstVisibleColumn: firstVisibleColumn);
+				Qlisting = Models.ModelBase.BuildListingForExport<CSGenioAjogo>(m_userContext, false, ref sqb_menu_511Conds, exportFieldRefs, (pageNumber - 1) * numberListItems, numberListItems, sorts, "ML511", true, firstVisibleColumn: firstVisibleColumn);
 
-// USE /[MANUAL SQB OVERRQLSTEXP 411]/
+// USE /[MANUAL SQB OVERRQLSTEXP 511]/
 
 				return;
 			}
 
 			if (tableReload)
 			{
-// USE /[MANUAL SQB OVERRQLIST 411]/
+// USE /[MANUAL SQB OVERRQLIST 511]/
 
 				string QMVC_POS_RECORD = Navigation.GetStrValue("QMVC_POS_RECORD_jogo");
 				Navigation.DestroyEntry("QMVC_POS_RECORD_jogo");
@@ -401,12 +401,12 @@ namespace GenioMVC.ViewModels.Jogo
 
 				if (!string.IsNullOrEmpty(QMVC_POS_RECORD))
 				{
-					var m_iCurPag = m_userContext.PersistentSupport.getPagingPos(CSGenioAjogo.GetInformation(), QMVC_POS_RECORD, sorts, sqb_menu_411Conds, m_PagingPosEPHs, firstVisibleColumn: firstVisibleColumn);
+					var m_iCurPag = m_userContext.PersistentSupport.getPagingPos(CSGenioAjogo.GetInformation(), QMVC_POS_RECORD, sorts, sqb_menu_511Conds, m_PagingPosEPHs, firstVisibleColumn: firstVisibleColumn);
 					if (m_iCurPag != -1)
 						pageNumber = ((m_iCurPag - 1) / numberListItems) + 1;
 				}
 
-				ListingMVC<CSGenioAjogo> listing = Models.ModelBase.Where<CSGenioAjogo>(m_userContext, distinct, sqb_menu_411Conds, fields, (pageNumber - 1) * numberListItems, numberListItems, sorts, "ML411", true, false, QMVC_POS_RECORD, m_PagingPosEPHs, firstVisibleColumn, fieldsWithTotalizers, tableConfig.SelectedRows);
+				ListingMVC<CSGenioAjogo> listing = Models.ModelBase.Where<CSGenioAjogo>(m_userContext, distinct, sqb_menu_511Conds, fields, (pageNumber - 1) * numberListItems, numberListItems, sorts, "ML511", true, false, QMVC_POS_RECORD, m_PagingPosEPHs, firstVisibleColumn, fieldsWithTotalizers, tableConfig.SelectedRows);
 
 				if (listing.CurrentPage > 0)
 					pageNumber = listing.CurrentPage;
@@ -418,15 +418,15 @@ namespace GenioMVC.ViewModels.Jogo
 				//Set document field values to objects
 				SetDocumentFields(listing);
 
-				Menu.Elements = MapSQB_Menu_411(listing);
+				Menu.Elements = MapSQB_Menu_511(listing);
 
-				Menu.Identifier = "ML411";
+				Menu.Identifier = "ML511";
 				Menu.Slots = new Dictionary<string, List<object>>();
 
 				// Last updated by [CJP] at [2015.02.03]
 				// Adds the identifier to each element
 				foreach (var element in Menu.Elements)
-					element.Identifier = "ML411";
+					element.Identifier = "ML511";
 
 				Menu.SetPagination(pageNumber, listing.NumRegs, listing.HasMore, listing.GetTotal, listing.TotalRecords);
 
@@ -445,9 +445,9 @@ namespace GenioMVC.ViewModels.Jogo
 			LoadUserTableConfigNameProperties();
 		}
 
-		private List<SQB_Menu_411_RowViewModel> MapSQB_Menu_411(ListingMVC<CSGenioAjogo> Qlisting)
+		private List<SQB_Menu_511_RowViewModel> MapSQB_Menu_511(ListingMVC<CSGenioAjogo> Qlisting)
 		{
-			List<SQB_Menu_411_RowViewModel> Elements = [];
+			List<SQB_Menu_511_RowViewModel> Elements = [];
 			int i = 0;
 
 			if (Qlisting.Rows != null)
@@ -456,7 +456,7 @@ namespace GenioMVC.ViewModels.Jogo
 				{
 					if (Qlisting.NumRegs > 0 && i >= Qlisting.NumRegs) // Copiado da versão antiga do RowsToViewModels
 						break;
-					Elements.Add(MapSQB_Menu_411(row));
+					Elements.Add(MapSQB_Menu_511(row));
 					i++;
 				}
 			}
@@ -466,12 +466,12 @@ namespace GenioMVC.ViewModels.Jogo
 
 		/// <summary>
 		/// Maps a single CSGenioAjogo row
-		/// to a SQB_Menu_411_RowViewModel object.
+		/// to a SQB_Menu_511_RowViewModel object.
 		/// </summary>
 		/// <param name="row">The row.</param>
-		private SQB_Menu_411_RowViewModel MapSQB_Menu_411(CSGenioAjogo row)
+		private SQB_Menu_511_RowViewModel MapSQB_Menu_511(CSGenioAjogo row)
 		{
-			var model = new SQB_Menu_411_RowViewModel(m_userContext, true, _fieldsToSerialize);
+			var model = new SQB_Menu_511_RowViewModel(m_userContext, true, _fieldsToSerialize);
 			if (row == null)
 				return model;
 
@@ -528,7 +528,7 @@ namespace GenioMVC.ViewModels.Jogo
 
 		#region Custom code
 
-// USE /[MANUAL SQB VIEWMODEL_CUSTOM SQB_MENU_411]/
+// USE /[MANUAL SQB VIEWMODEL_CUSTOM SQB_MENU_511]/
 
 		#endregion
 

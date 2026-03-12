@@ -126,6 +126,18 @@ namespace GenioMVC.Models
 		[JsonIgnore]
 		public SelectList ArrayValspposicaodef { get { return new SelectList(CSGenio.business.ArraySpposicao.GetDictionary(), "Key", "Value", ValSpposicaodef); } set { ValSpposicaodef = value.SelectedValue as string; } }
 
+		[DisplayName("Idade")]
+		/// <summary>Field : "Idade" Tipo: "N" Formula: + "floor(DateDiffPart([JOGADOR->DATANASCIMENTO], [Today], "D")/365))"</summary>
+		[ShouldSerialize("Jogador.ValIdadejogador")]
+		[NumericAttribute(0)]
+		public decimal? ValIdadejogador { get { return Convert.ToDecimal(GenFunctions.RoundQG(klass.ValIdadejogador, 0)); } set { klass.ValIdadejogador = Convert.ToDecimal(value); } }
+
+		[DisplayName("Valor Mercado (M)")]
+		/// <summary>Field : "Valor Mercado (M)" Tipo: "$" Formula:  ""</summary>
+		[ShouldSerialize("Jogador.ValValormercado")]
+		[CurrencyAttribute("EUR", 2)]
+		public decimal? ValValormercado { get { return Convert.ToDecimal(GenFunctions.RoundQG(klass.ValValormercado, 2)); } set { klass.ValValormercado = Convert.ToDecimal(value); } }
+
 		[DisplayName("ZZSTATE")]
 		[ShouldSerialize("Jogador.ValZzstate")]
 		/// <summary>Field: "ZZSTATE", Type: "INT", Formula: ""</summary>

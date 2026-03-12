@@ -59,6 +59,11 @@ namespace GenioMVC.ViewModels.Jogador
 		/// </summary>
 		public DateTime? ValDatanascimento { get; set; }
 		/// <summary>
+		/// Title: "Idade" | Type: "N"
+		/// </summary>
+		[ValidateSetAccess]
+		public decimal? ValIdadejogador { get; set; }
+		/// <summary>
 		/// Title: "Pé Dominante" | Type: "AC"
 		/// </summary>
 		public string ValPedominante { get; set; }
@@ -86,6 +91,10 @@ namespace GenioMVC.ViewModels.Jogador
 		/// Title: "Equipa Anterior" | Type: "C"
 		/// </summary>
 		public string ValEquipaanterior { get; set; }
+		/// <summary>
+		/// Title: "Valor Mercado (M)" | Type: "$"
+		/// </summary>
+		public decimal? ValValormercado { get; set; }
 
 		#region Navigations
 		#endregion
@@ -222,6 +231,7 @@ namespace GenioMVC.ViewModels.Jogador
 				ValNumerocamisola = ViewModelConversion.ToNumeric(m.ValNumerocamisola);
 				ValNome = ViewModelConversion.ToString(m.ValNome);
 				ValDatanascimento = ViewModelConversion.ToDateTime(m.ValDatanascimento);
+				ValIdadejogador = ViewModelConversion.ToNumeric(m.ValIdadejogador);
 				ValPedominante = ViewModelConversion.ToString(m.ValPedominante);
 				ValPosicao = ViewModelConversion.ToString(m.ValPosicao);
 				ValSpposicaomedio = ViewModelConversion.ToString(m.ValSpposicaomedio);
@@ -229,6 +239,7 @@ namespace GenioMVC.ViewModels.Jogador
 				ValSpposicaodef = ViewModelConversion.ToString(m.ValSpposicaodef);
 				ValPosicaosegundaria = ViewModelConversion.ToString(m.ValPosicaosegundaria);
 				ValEquipaanterior = ViewModelConversion.ToString(m.ValEquipaanterior);
+				ValValormercado = ViewModelConversion.ToNumeric(m.ValValormercado);
 				ValCodjogador = ViewModelConversion.ToString(m.ValCodjogador);
 			}
 			catch (Exception)
@@ -268,7 +279,17 @@ namespace GenioMVC.ViewModels.Jogador
 				m.ValSpposicaodef = ViewModelConversion.ToString(ValSpposicaodef);
 				m.ValPosicaosegundaria = ViewModelConversion.ToString(ValPosicaosegundaria);
 				m.ValEquipaanterior = ViewModelConversion.ToString(ValEquipaanterior);
+				m.ValValormercado = ViewModelConversion.ToNumeric(ValValormercado);
 				m.ValCodjogador = ViewModelConversion.ToString(ValCodjogador);
+
+				/*
+					At this moment, in the case of runtime calculation of server-side formulas, to improve performance and reduce database load,
+						the values coming from the client-side will be accepted as valid, since they will not be saved and are only being used for calculation.
+				*/
+				if (!HasDisabledUserValuesSecurity)
+					return;
+
+				m.ValIdadejogador = ViewModelConversion.ToNumeric(ValIdadejogador);
 			}
 			catch (Exception)
 			{
@@ -328,6 +349,9 @@ namespace GenioMVC.ViewModels.Jogador
 						break;
 					case "jogador.equipaanterior":
 						this.ValEquipaanterior = ViewModelConversion.ToString(_value);
+						break;
+					case "jogador.valormercado":
+						this.ValValormercado = ViewModelConversion.ToNumeric(_value);
 						break;
 					case "jogador.codjogador":
 						this.ValCodjogador = ViewModelConversion.ToString(_value);
@@ -703,6 +727,7 @@ namespace GenioMVC.ViewModels.Jogador
 				"jogador.numerocamisola" => ViewModelConversion.ToNumeric(modelValue),
 				"jogador.nome" => ViewModelConversion.ToString(modelValue),
 				"jogador.datanascimento" => ViewModelConversion.ToDateTime(modelValue),
+				"jogador.idadejogador" => ViewModelConversion.ToNumeric(modelValue),
 				"jogador.pedominante" => ViewModelConversion.ToString(modelValue),
 				"jogador.posicao" => ViewModelConversion.ToString(modelValue),
 				"jogador.spposicaomedio" => ViewModelConversion.ToString(modelValue),
@@ -710,6 +735,7 @@ namespace GenioMVC.ViewModels.Jogador
 				"jogador.spposicaodef" => ViewModelConversion.ToString(modelValue),
 				"jogador.posicaosegundaria" => ViewModelConversion.ToString(modelValue),
 				"jogador.equipaanterior" => ViewModelConversion.ToString(modelValue),
+				"jogador.valormercado" => ViewModelConversion.ToNumeric(modelValue),
 				"jogador.codjogador" => ViewModelConversion.ToString(modelValue),
 				"clube.codclube" => ViewModelConversion.ToString(modelValue),
 				"clube.nome" => ViewModelConversion.ToString(modelValue),

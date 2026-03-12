@@ -178,6 +178,25 @@
 									</base-input-structure>
 								</q-col>
 							</q-row>
+							<q-row v-if="controls.CLUBE__CLUBE__VALORMERCADOEQUIPA.isVisible">
+								<q-col
+									v-if="controls.CLUBE__CLUBE__VALORMERCADOEQUIPA.isVisible"
+									cols="auto">
+									<base-input-structure
+										v-if="controls.CLUBE__CLUBE__VALORMERCADOEQUIPA.isVisible"
+										class="i-text"
+										v-bind="controls.CLUBE__CLUBE__VALORMERCADOEQUIPA"
+										v-on="controls.CLUBE__CLUBE__VALORMERCADOEQUIPA.handlers"
+										:loading="controls.CLUBE__CLUBE__VALORMERCADOEQUIPA.props.loading"
+										:reporting-mode-on="reportingModeCAV"
+										:suggestion-mode-on="suggestionModeOn">
+										<q-numeric-input
+											v-if="controls.CLUBE__CLUBE__VALORMERCADOEQUIPA.isVisible"
+											v-bind="controls.CLUBE__CLUBE__VALORMERCADOEQUIPA.props"
+											@update:model-value="model.ValValormercadoequipa.fnUpdateValue" />
+									</base-input-structure>
+								</q-col>
+							</q-row>
 							<!-- End CLUBE___PSEUDNEWGRP01 -->
 						</q-group-collapsible>
 					</q-col>
@@ -674,7 +693,7 @@
 						startsExpanded: false,
 						isCollapsible: true,
 						anchored: false,
-						directChildren: ['CLUBE___CLUBENOME____', 'CLUBE___CLUBEESCALAO_', 'CLUBE___CLUBEEPOCA___'],
+						directChildren: ['CLUBE___CLUBENOME____', 'CLUBE___CLUBEESCALAO_', 'CLUBE___CLUBEEPOCA___', 'CLUBE__CLUBE__VALORMERCADOEQUIPA'],
 						mustBeFilled: true,
 						controlLimits: [
 						],
@@ -719,6 +738,22 @@
 						labelPosition: computed(() => this.labelAlignment.topleft),
 						container: 'CLUBE___PSEUDNEWGRP01',
 						maxLength: 50,
+						controlLimits: [
+						],
+					}, this),
+					CLUBE__CLUBE__VALORMERCADOEQUIPA: new fieldControlClass.CurrencyControl({
+						modelField: 'ValValormercadoequipa',
+						valueChangeEvent: 'fieldChange:clube.valormercadoequipa',
+						id: 'CLUBE__CLUBE__VALORMERCADOEQUIPA',
+						name: 'VALORMERCADOEQUIPA',
+						size: 'large',
+						label: computed(() => this.Resources.VALOR_MERCADO_EQUIPA38351),
+						placeholder: '',
+						labelPosition: computed(() => this.labelAlignment.topleft),
+						container: 'CLUBE___PSEUDNEWGRP01',
+						isFormulaBlocked: true,
+						maxIntegers: 12,
+						maxDecimals: 2,
 						controlLimits: [
 						],
 					}, this),
@@ -864,6 +899,8 @@
 						set ValTreinadoradjunto(value) { vm.model.ValTreinadoradjunto.updateValue(value) },
 						get ValTreinadorprincipal() { return vm.model.ValTreinadorprincipal.value },
 						set ValTreinadorprincipal(value) { vm.model.ValTreinadorprincipal.updateValue(value) },
+						get ValValormercadoequipa() { return vm.model.ValValormercadoequipa.value },
+						set ValValormercadoequipa(value) { vm.model.ValValormercadoequipa.updateValue(value) },
 					},
 					keys: {
 						/** The primary key of the CLUBE table */

@@ -93,6 +93,18 @@ export default class ViewModel extends FormViewModelBase
 		}).cloneFrom(values?.ValEpoca))
 		this.stopWatchers.push(watch(() => this.ValEpoca.value, (newValue, oldValue) => this.onUpdate('clube.epoca', this.ValEpoca, newValue, oldValue)))
 
+		this.ValValormercadoequipa = reactive(new modelFieldType.Number({
+			id: 'ValValormercadoequipa',
+			originId: 'ValValormercadoequipa',
+			area: 'CLUBE',
+			field: 'VALORMERCADOEQUIPA',
+			maxDigits: 12,
+			decimalDigits: 2,
+			isFixed: true,
+			description: computed(() => this.Resources.VALOR_MERCADO_EQUIPA38351),
+		}).cloneFrom(values?.ValValormercadoequipa))
+		this.stopWatchers.push(watch(() => this.ValValormercadoequipa.value, (newValue, oldValue) => this.onUpdate('clube.valormercadoequipa', this.ValValormercadoequipa, newValue, oldValue)))
+
 		this.ValPresidente = reactive(new modelFieldType.String({
 			id: 'ValPresidente',
 			originId: 'ValPresidente',

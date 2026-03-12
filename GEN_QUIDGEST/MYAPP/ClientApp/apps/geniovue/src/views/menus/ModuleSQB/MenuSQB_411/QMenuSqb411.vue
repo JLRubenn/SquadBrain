@@ -121,12 +121,12 @@
 				menuInfo: {
 					id: '411',
 					isMenuList: true,
-					designation: computed(() => this.Resources.JOGOS19503),
+					designation: computed(() => this.Resources.TREINOS59076),
 					acronym: 'SQB_411',
-					name: 'JOGO',
+					name: 'TREINO',
 					route: 'menu-SQB_411',
 					order: '411',
-					controller: 'JOGO',
+					controller: 'TREINO',
 					action: 'SQB_Menu_411',
 					isPopup: false
 				},
@@ -134,10 +134,10 @@
 				model: new MenuViewModel(this),
 
 				controls: {
-					menu: new controlClass.TableSpecialRenderingControl({
+					menu: new controlClass.TableListControl({
 						fnHydrateViewModel: (data) => vm.model.hydrate(data),
 						id: 'SQB_Menu_411',
-						controller: 'JOGO',
+						controller: 'TREINO',
 						action: 'SQB_Menu_411',
 						hasDependencies: false,
 						isInCollapsible: false,
@@ -146,64 +146,64 @@
 							'page-full-height'
 						],
 						columnsOriginal: [
-							new listColumnTypes.TextColumn({
-								order: 1,
-								name: 'Clube.ValNome',
-								area: 'CLUBE',
-								field: 'NOME',
-								label: computed(() => this.Resources.NOME47814),
-								dataLength: 50,
-								scrollData: 30,
-								export: 1,
-								pkColumn: 'ValCodclube',
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 							new listColumnTypes.DateColumn({
-								order: 2,
+								order: 1,
 								name: 'ValData',
-								area: 'JOGO',
+								area: 'TREINO',
 								field: 'DATA',
 								label: computed(() => this.Resources.DATA18071),
-								scrollData: 8,
-								dateTimeType: 'date',
+								scrollData: 16,
+								dateTimeType: 'dateTime',
 								export: 1,
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.TextColumn({
+							new listColumnTypes.NumericColumn({
+								order: 2,
+								name: 'ValMesociclos',
+								area: 'TREINO',
+								field: 'MESOCICLOS',
+								label: computed(() => this.Resources.MESOCICLOS42559),
+								scrollData: 3,
+								maxDigits: 3,
+								decimalPlaces: 0,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.NumericColumn({
 								order: 3,
-								name: 'ValLocal',
-								area: 'JOGO',
-								field: 'LOCAL',
-								label: computed(() => this.Resources.LOCAL02842),
-								dataLength: 50,
-								scrollData: 30,
+								name: 'ValMicrociclo',
+								area: 'TREINO',
+								field: 'MICROCICLO',
+								label: computed(() => this.Resources.MICROCICLO36882),
+								scrollData: 3,
+								maxDigits: 3,
+								decimalPlaces: 0,
 								export: 1,
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.TextColumn({
+							new listColumnTypes.NumericColumn({
 								order: 4,
-								name: 'ValResultado',
-								area: 'JOGO',
-								field: 'RESULTADO',
-								label: computed(() => this.Resources.RESULTADO50955),
-								dataLength: 50,
-								scrollData: 30,
+								name: 'ValNumjogadores',
+								area: 'TREINO',
+								field: 'NUMJOGADORES',
+								label: computed(() => this.Resources.NUMERO_JOGADORES22289),
+								scrollData: 3,
+								maxDigits: 3,
+								decimalPlaces: 0,
 								export: 1,
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 							new listColumnTypes.TextColumn({
 								order: 5,
-								name: 'ValTitulo',
-								area: 'JOGO',
-								field: 'TITULO',
-								label: computed(() => this.Resources.TITULO23260),
-								dataLength: 50,
+								name: 'ValObjetivo',
+								area: 'TREINO',
+								field: 'OBJETIVO',
+								label: computed(() => this.Resources.OBJETIVO56787),
 								scrollData: 30,
 								export: 1,
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 							new listColumnTypes.TextColumn({
 								order: 6,
-								name: 'ValEquipaadversaria',
-								area: 'JOGO',
-								field: 'EQUIPAADVERSARIA',
-								label: computed(() => this.Resources.EQUIPA_ADVERSARIA15813),
-								dataLength: 50,
+								name: 'ValMaterial',
+								area: 'TREINO',
+								field: 'MATERIAL',
+								label: computed(() => this.Resources.MATERIAL33877),
 								scrollData: 30,
 								export: 1,
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
@@ -211,12 +211,12 @@
 						config: {
 							name: 'SQB_Menu_411',
 							serverMode: true,
-							pkColumn: 'ValCodjogo',
-							tableAlias: 'JOGO',
-							tableNamePlural: computed(() => this.Resources.JOGOS19503),
+							pkColumn: 'ValCodtreino',
+							tableAlias: 'TREINO',
+							tableNamePlural: computed(() => this.Resources.TREINOS59076),
 							viewManagement: '',
 							showLimitsInfo: true,
-							tableTitle: computed(() => this.Resources.JOGOS19503),
+							tableTitle: computed(() => this.Resources.TREINOS59076),
 							showAlternatePagination: true,
 							permissions: {
 							},
@@ -237,7 +237,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'JOGO',
+										formName: 'TREINO',
 										mode: 'SHOW',
 										isControlled: true
 									}
@@ -253,7 +253,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'JOGO',
+										formName: 'TREINO',
 										mode: 'EDIT',
 										isControlled: true
 									}
@@ -269,7 +269,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'JOGO',
+										formName: 'TREINO',
 										mode: 'DUPLICATE',
 										isControlled: true
 									}
@@ -285,7 +285,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'JOGO',
+										formName: 'TREINO',
 										mode: 'DELETE',
 										isControlled: true
 									}
@@ -303,7 +303,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'JOGO',
+										formName: 'TREINO',
 										mode: 'NEW',
 										repeatInsertion: false,
 										isControlled: true
@@ -320,121 +320,36 @@
 							],
 							rowClickAction: {
 								id: 'RCA_SQB_4111',
-								name: 'form-JOGO',
+								name: 'form-TREINO',
 								isVisible: true,
 								params: {
 									isRoute: true,
 									limits: [
 										{
 											identifier: 'id',
-											fnValueSelector: (row) => row.ValCodjogo
+											fnValueSelector: (row) => row.ValCodtreino
 										},
 									],
 									isControlled: true,
-									action: vm.openFormAction, type: 'form', mode: 'SHOW', formName: 'JOGO'
+									action: vm.openFormAction, type: 'form', mode: 'SHOW', formName: 'TREINO'
 								}
 							},
 							formsDefinition: {
-								'JOGO': {
-									fnKeySelector: (row) => row.Fields.ValCodjogo,
+								'TREINO': {
+									fnKeySelector: (row) => row.Fields.ValCodtreino,
 									isPopup: false
 								},
 							},
-							defaultSearchColumnName: 'ValTitulo',
-							defaultSearchColumnNameOriginal: 'ValTitulo',
+							defaultSearchColumnName: 'ValData',
+							defaultSearchColumnNameOriginal: 'ValData',
 							defaultColumnSorting: {
 								columnName: 'ValData',
 								sortOrder: 'asc'
 							}
 						},
-						globalEvents: ['changed-CLUBE', 'changed-JOGO'],
-						uuid: 'da00c309-0491-44d2-a8c0-78e91aaaafd3',
+						globalEvents: ['changed-CLUBE', 'changed-TREINADOR', 'changed-JOGADOR', 'changed-TREINO'],
+						uuid: '56d5cd62-4ccc-4a55-8702-497ddbfaac70',
 						allSelectedRows: 'false',
-						viewModes: [
-							{
-								id: 'CARDS',
-								type: 'cards',
-								subtype: 'card-horizontal',
-								label: computed(() => this.Resources.CARTOES27587),
-								order: 1,
-								mappingVariables: readonly({
-									title: {
-										allowsMultiple: false,
-										sources: [
-											'JOGO.TITULO',
-										]
-									},
-									subtitle: {
-										allowsMultiple: false,
-										sources: [
-											'JOGO.DATA',
-										]
-									},
-									text: {
-										allowsMultiple: true,
-										sources: [
-											'JOGO.LOCAL',
-										]
-									},
-								}),
-								styleVariables: {
-									actionsAlignment: {
-										rawValue: 'left',
-										isMapped: false
-									},
-									actionsStyle: {
-										rawValue: 'dropdown',
-										isMapped: false
-									},
-									backgroundColor: {
-										rawValue: 'auto',
-										isMapped: false
-									},
-									customFollowupDefaultTarget: {
-										rawValue: 'blank',
-										isMapped: false
-									},
-									customInsertCard: {
-										rawValue: false,
-										isMapped: false
-									},
-									customInsertCardStyle: {
-										rawValue: 'secondary',
-										isMapped: false
-									},
-									displayMode: {
-										rawValue: 'grid',
-										isMapped: false
-									},
-									gridMode: {
-										rawValue: 'fixed',
-										isMapped: false
-									},
-									containerAlignment: {
-										rawValue: 'left',
-										isMapped: false
-									},
-									hoverScaleAmount: {
-										rawValue: '1.00',
-										isMapped: false
-									},
-									showColumnTitles: {
-										rawValue: false,
-										isMapped: false
-									},
-									showEmptyColumnTitles: {
-										rawValue: true,
-										isMapped: false
-									},
-									size: {
-										rawValue: 'regular',
-										isMapped: false
-									},
-								},
-								groups: {
-								}
-							},
-						],
 						headerLevel: 1,
 						isActiveControl: computed(() => this.isActiveMenu)
 					}, this),

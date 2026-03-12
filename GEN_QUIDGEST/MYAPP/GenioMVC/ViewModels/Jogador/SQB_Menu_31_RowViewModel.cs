@@ -6,16 +6,16 @@ using GenioMVC.Models.Navigation;
 
 namespace GenioMVC.ViewModels.Jogador;
 
-public class SQB_Menu_51_RowViewModel : Models.Jogador
+public class SQB_Menu_31_RowViewModel : Models.Jogador
 {
 	#region Constructors
 
-	public SQB_Menu_51_RowViewModel(UserContext userContext, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, isEmpty, fieldsToSerialize)
+	public SQB_Menu_31_RowViewModel(UserContext userContext, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, isEmpty, fieldsToSerialize)
 	{
 		InitRowProperties();
 	}
 
-	public SQB_Menu_51_RowViewModel(UserContext userContext, CSGenioAjogador val, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, val, isEmpty, fieldsToSerialize)
+	public SQB_Menu_31_RowViewModel(UserContext userContext, CSGenioAjogador val, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, val, isEmpty, fieldsToSerialize)
 	{
 		InitRowProperties();
 	}

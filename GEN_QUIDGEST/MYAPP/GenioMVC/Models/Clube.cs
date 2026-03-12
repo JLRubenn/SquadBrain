@@ -75,6 +75,12 @@ namespace GenioMVC.Models
 		[ShouldSerialize("Clube.ValTreinadoradjunto")]
 		public string ValTreinadoradjunto { get { return klass.ValTreinadoradjunto; } set { klass.ValTreinadoradjunto = value; } }
 
+		[DisplayName("Valor Mercado Equipa (M)")]
+		/// <summary>Field : "Valor Mercado Equipa (M)" Tipo: "$" Formula: SR "[JOGADOR->VALORMERCADO]"</summary>
+		[ShouldSerialize("Clube.ValValormercadoequipa")]
+		[CurrencyAttribute("EUR", 2)]
+		public decimal? ValValormercadoequipa { get { return Convert.ToDecimal(GenFunctions.RoundQG(klass.ValValormercadoequipa, 2)); } set { klass.ValValormercadoequipa = Convert.ToDecimal(value); } }
+
 		[DisplayName("ZZSTATE")]
 		[ShouldSerialize("Clube.ValZzstate")]
 		/// <summary>Field: "ZZSTATE", Type: "INT", Formula: ""</summary>

@@ -378,6 +378,9 @@
 	<data name="NUMERO_DE_JOGADOES35633" xml:space="preserve">
 		<value>Numero de Jogadoes</value>
 	</data>
+	<data name="IDADE29819" xml:space="preserve">
+		<value>Idade</value>
+	</data>
 	<data name="LASTTREINOCRIADO36042" xml:space="preserve">
 		<value>LASTTREINOCRIADO</value>
 	</data>
@@ -474,6 +477,9 @@
 	<data name="NOME47814" xml:space="preserve">
 		<value>Nome</value>
 	</data>
+	<data name="VALOR_MERCADO_EQUIPA38351" xml:space="preserve">
+		<value>Valor Mercado Equipa (M)</value>
+	</data>
 	<data name="PROCESS_TYPE25967" xml:space="preserve">
 		<value>Process type</value>
 	</data>
@@ -569,6 +575,9 @@
 	</data>
 	<data name="STATUS62033" xml:space="preserve">
 		<value>Status</value>
+	</data>
+	<data name="VALOR_MERCADO__M_33616" xml:space="preserve">
+		<value>Valor Mercado (M)</value>
 	</data>
 	<data name="PASSWORD_TYPE03035" xml:space="preserve">
 		<value>Password type</value>

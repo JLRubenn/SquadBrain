@@ -116,6 +116,30 @@ export default class ViewModel extends FormViewModelBase
 		}).cloneFrom(values?.ValDatanascimento))
 		this.stopWatchers.push(watch(() => this.ValDatanascimento.value, (newValue, oldValue) => this.onUpdate('jogador.datanascimento', this.ValDatanascimento, newValue, oldValue)))
 
+		this.ValIdadejogador = reactive(new modelFieldType.Number({
+			id: 'ValIdadejogador',
+			originId: 'ValIdadejogador',
+			area: 'JOGADOR',
+			field: 'IDADEJOGADOR',
+			maxDigits: 3,
+			decimalDigits: 0,
+			isFixed: true,
+			valueFormula: {
+				stopRecalcCondition() { return false },
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
+				fnFormula(params)
+				{
+					// Formula: floor(DateDiffPart([JOGADOR->DATANASCIMENTO], [Today], "D")/365))
+					return qApi.Floor(qApi.DateDiffPart(this.ValDatanascimento.value,qApi.Today(),"D")/365)
+				},
+				dependencyEvents: ['fieldChange:jogador.datanascimento'],
+				isServerRecalc: false,
+				isEmpty: qApi.emptyN,
+			},
+			description: computed(() => this.Resources.IDADE29819),
+		}).cloneFrom(values?.ValIdadejogador))
+		this.stopWatchers.push(watch(() => this.ValIdadejogador.value, (newValue, oldValue) => this.onUpdate('jogador.idadejogador', this.ValIdadejogador, newValue, oldValue)))
+
 		this.ValPedominante = reactive(new modelFieldType.String({
 			id: 'ValPedominante',
 			originId: 'ValPedominante',
@@ -148,8 +172,8 @@ export default class ViewModel extends FormViewModelBase
 				// eslint-disable-next-line @typescript-eslint/no-unused-vars
 				fnFormula(params)
 				{
-					// Formula: [JOGADOR->POSICAO] == "Medio"
-					return this.ValPosicao.value==="Medio"
+					// Formula: [JOGADOR->POSICAO] == "MD"
+					return this.ValPosicao.value==="MD"
 				},
 				dependencyEvents: ['fieldChange:jogador.posicao'],
 				isServerRecalc: false,
@@ -170,8 +194,8 @@ export default class ViewModel extends FormViewModelBase
 				// eslint-disable-next-line @typescript-eslint/no-unused-vars
 				fnFormula(params)
 				{
-					// Formula: [JOGADOR->POSICAO] == "Atacante"
-					return this.ValPosicao.value==="Atacante"
+					// Formula: [JOGADOR->POSICAO] == "AT"
+					return this.ValPosicao.value==="AT"
 				},
 				dependencyEvents: ['fieldChange:jogador.posicao'],
 				isServerRecalc: false,
@@ -192,8 +216,8 @@ export default class ViewModel extends FormViewModelBase
 				// eslint-disable-next-line @typescript-eslint/no-unused-vars
 				fnFormula(params)
 				{
-					// Formula: [JOGADOR->POSICAO] == "Defesa"
-					return this.ValPosicao.value==="Defesa"
+					// Formula: [JOGADOR->POSICAO] == "DEF"
+					return this.ValPosicao.value==="DEF"
 				},
 				dependencyEvents: ['fieldChange:jogador.posicao'],
 				isServerRecalc: false,
@@ -224,6 +248,17 @@ export default class ViewModel extends FormViewModelBase
 			description: computed(() => this.Resources.EQUIPA_ANTERIOR39393),
 		}).cloneFrom(values?.ValEquipaanterior))
 		this.stopWatchers.push(watch(() => this.ValEquipaanterior.value, (newValue, oldValue) => this.onUpdate('jogador.equipaanterior', this.ValEquipaanterior, newValue, oldValue)))
+
+		this.ValValormercado = reactive(new modelFieldType.Number({
+			id: 'ValValormercado',
+			originId: 'ValValormercado',
+			area: 'JOGADOR',
+			field: 'VALORMERCADO',
+			maxDigits: 12,
+			decimalDigits: 2,
+			description: computed(() => this.Resources.VALOR_MERCADO__M_33616),
+		}).cloneFrom(values?.ValValormercado))
+		this.stopWatchers.push(watch(() => this.ValValormercado.value, (newValue, oldValue) => this.onUpdate('jogador.valormercado', this.ValValormercado, newValue, oldValue)))
 	}
 
 	/**

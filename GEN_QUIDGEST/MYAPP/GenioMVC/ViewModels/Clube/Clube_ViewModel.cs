@@ -50,6 +50,11 @@ namespace GenioMVC.ViewModels.Clube
 		/// </summary>
 		public string ValEpoca { get; set; }
 		/// <summary>
+		/// Title: "Valor Mercado Equipa (M)" | Type: "$"
+		/// </summary>
+		[ValidateSetAccess]
+		public decimal? ValValormercadoequipa { get; set; }
+		/// <summary>
 		/// Title: "Presidente" | Type: "C"
 		/// </summary>
 		public string ValPresidente { get; set; }
@@ -204,6 +209,7 @@ namespace GenioMVC.ViewModels.Clube
 				ValNome = ViewModelConversion.ToString(m.ValNome);
 				ValEscalao = ViewModelConversion.ToString(m.ValEscalao);
 				ValEpoca = ViewModelConversion.ToString(m.ValEpoca);
+				ValValormercadoequipa = ViewModelConversion.ToNumeric(m.ValValormercadoequipa);
 				ValPresidente = ViewModelConversion.ToString(m.ValPresidente);
 				ValCoordtecn = ViewModelConversion.ToString(m.ValCoordtecn);
 				ValCoordform = ViewModelConversion.ToString(m.ValCoordform);
@@ -246,6 +252,15 @@ namespace GenioMVC.ViewModels.Clube
 				m.ValTreinadorprincipal = ViewModelConversion.ToString(ValTreinadorprincipal);
 				m.ValTreinadoradjunto = ViewModelConversion.ToString(ValTreinadoradjunto);
 				m.ValCodclube = ViewModelConversion.ToString(ValCodclube);
+
+				/*
+					At this moment, in the case of runtime calculation of server-side formulas, to improve performance and reduce database load,
+						the values coming from the client-side will be accepted as valid, since they will not be saved and are only being used for calculation.
+				*/
+				if (!HasDisabledUserValuesSecurity)
+					return;
+
+				m.ValValormercadoequipa = ViewModelConversion.ToNumeric(ValValormercadoequipa);
 			}
 			catch (Exception)
 			{
@@ -477,6 +492,7 @@ namespace GenioMVC.ViewModels.Clube
 				"clube.nome" => ViewModelConversion.ToString(modelValue),
 				"clube.escalao" => ViewModelConversion.ToString(modelValue),
 				"clube.epoca" => ViewModelConversion.ToString(modelValue),
+				"clube.valormercadoequipa" => ViewModelConversion.ToNumeric(modelValue),
 				"clube.presidente" => ViewModelConversion.ToString(modelValue),
 				"clube.coordtecn" => ViewModelConversion.ToString(modelValue),
 				"clube.coordform" => ViewModelConversion.ToString(modelValue),

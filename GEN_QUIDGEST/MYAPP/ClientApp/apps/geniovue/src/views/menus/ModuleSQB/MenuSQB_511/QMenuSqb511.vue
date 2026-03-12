@@ -15,7 +15,7 @@
 							:table-ctrl="controls.menu"
 							v-on="controls.menu.handlers" />
 					</template>
-					<!-- USE /[MANUAL SQB CUSTOM_TABLE SQB_Menu_121]/ -->
+					<!-- USE /[MANUAL SQB CUSTOM_TABLE SQB_Menu_511]/ -->
 				</q-table>
 			</q-row-container>
 		</form>
@@ -72,17 +72,17 @@
 	import qProjArrays from '@/api/genio/projectArrays.js'
 	/* eslint-enable @typescript-eslint/no-unused-vars */
 
-	import MenuViewModel from './QMenuSQB_121ViewModel.js'
+	import MenuViewModel from './QMenuSQB_511ViewModel.js'
 
-	const requiredTextResources = ['QMenuSQB_121', 'hardcoded', 'messages']
+	const requiredTextResources = ['QMenuSQB_511', 'hardcoded', 'messages']
 
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB FORM_INCLUDEJS SQB_MENU_121]/
+// USE /[MANUAL SQB FORM_INCLUDEJS SQB_MENU_511]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 
 	export default {
-		name: 'QMenuSqb121',
+		name: 'QMenuSqb511',
 
 		mixins: [
 			MenuHandlers
@@ -111,34 +111,34 @@
 			// eslint-disable-next-line
 			const vm = this
 			return {
-				componentOnLoadProc: asyncProcM.getProcListMonitor('QMenuSQB_121', false),
+				componentOnLoadProc: asyncProcM.getProcListMonitor('QMenuSQB_511', false),
 
 				interfaceMetadata: {
-					id: 'QMenuSQB_121', // Used for resources
+					id: 'QMenuSQB_511', // Used for resources
 					requiredTextResources
 				},
 
 				menuInfo: {
-					id: '121',
+					id: '511',
 					isMenuList: true,
-					designation: computed(() => this.Resources.PRESENCAS23345),
-					acronym: 'SQB_121',
-					name: 'PRESENCA',
-					route: 'menu-SQB_121',
-					order: '121',
-					controller: 'PRESENCA',
-					action: 'SQB_Menu_121',
+					designation: computed(() => this.Resources.JOGOS19503),
+					acronym: 'SQB_511',
+					name: 'JOGO',
+					route: 'menu-SQB_511',
+					order: '511',
+					controller: 'JOGO',
+					action: 'SQB_Menu_511',
 					isPopup: false
 				},
 
 				model: new MenuViewModel(this),
 
 				controls: {
-					menu: new controlClass.TableListControl({
+					menu: new controlClass.TableSpecialRenderingControl({
 						fnHydrateViewModel: (data) => vm.model.hydrate(data),
-						id: 'SQB_Menu_121',
-						controller: 'PRESENCA',
-						action: 'SQB_Menu_121',
+						id: 'SQB_Menu_511',
+						controller: 'JOGO',
+						action: 'SQB_Menu_511',
 						hasDependencies: false,
 						isInCollapsible: false,
 						tableModeClasses: [
@@ -146,51 +146,77 @@
 							'page-full-height'
 						],
 						columnsOriginal: [
-							new listColumnTypes.DateColumn({
-								order: 1,
-								name: 'Treino.ValData',
-								area: 'TREINO',
-								field: 'DATA',
-								label: computed(() => this.Resources.DATA18071),
-								scrollData: 16,
-								dateTimeType: 'dateTime',
-								export: 1,
-								pkColumn: 'ValCodtreino',
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 							new listColumnTypes.TextColumn({
-								order: 2,
-								name: 'Jogador.ValNome',
-								area: 'JOGADOR',
+								order: 1,
+								name: 'Clube.ValNome',
+								area: 'CLUBE',
 								field: 'NOME',
 								label: computed(() => this.Resources.NOME47814),
 								dataLength: 50,
 								scrollData: 30,
 								export: 1,
-								pkColumn: 'ValCodjogador',
+								pkColumn: 'ValCodclube',
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.ArrayColumn({
-								order: 3,
-								name: 'ValEstado',
-								area: 'PRESENCA',
-								field: 'ESTADO',
-								label: computed(() => this.Resources.ESTADO07788),
-								dataLength: 2,
-								scrollData: 2,
+							new listColumnTypes.DateColumn({
+								order: 2,
+								name: 'ValData',
+								area: 'JOGO',
+								field: 'DATA',
+								label: computed(() => this.Resources.DATA18071),
+								scrollData: 8,
+								dateTimeType: 'date',
 								export: 1,
-								array: computed(() => new qProjArrays.QArrayEstado_presenca(vm.$getResource).elements),
-								arrayType: qProjArrays.QArrayEstado_presenca.type,
-								arrayDisplayMode: 'D',
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.TextColumn({
+								order: 3,
+								name: 'ValLocal',
+								area: 'JOGO',
+								field: 'LOCAL',
+								label: computed(() => this.Resources.LOCAL02842),
+								dataLength: 50,
+								scrollData: 30,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.TextColumn({
+								order: 4,
+								name: 'ValResultado',
+								area: 'JOGO',
+								field: 'RESULTADO',
+								label: computed(() => this.Resources.RESULTADO50955),
+								dataLength: 50,
+								scrollData: 30,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.TextColumn({
+								order: 5,
+								name: 'ValTitulo',
+								area: 'JOGO',
+								field: 'TITULO',
+								label: computed(() => this.Resources.TITULO23260),
+								dataLength: 50,
+								scrollData: 30,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.TextColumn({
+								order: 6,
+								name: 'ValEquipaadversaria',
+								area: 'JOGO',
+								field: 'EQUIPAADVERSARIA',
+								label: computed(() => this.Resources.EQUIPA_ADVERSARIA15813),
+								dataLength: 50,
+								scrollData: 30,
+								export: 1,
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 						],
 						config: {
-							name: 'SQB_Menu_121',
+							name: 'SQB_Menu_511',
 							serverMode: true,
-							pkColumn: 'ValCodpresenca',
-							tableAlias: 'PRESENCA',
-							tableNamePlural: computed(() => this.Resources.PRESENCAS23345),
+							pkColumn: 'ValCodjogo',
+							tableAlias: 'JOGO',
+							tableNamePlural: computed(() => this.Resources.JOGOS19503),
 							viewManagement: '',
 							showLimitsInfo: true,
-							tableTitle: computed(() => this.Resources.PRESENCAS23345),
+							tableTitle: computed(() => this.Resources.JOGOS19503),
 							showAlternatePagination: true,
 							permissions: {
 							},
@@ -211,7 +237,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'PRESENCA',
+										formName: 'JOGO',
 										mode: 'SHOW',
 										isControlled: true
 									}
@@ -227,7 +253,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'PRESENCA',
+										formName: 'JOGO',
 										mode: 'EDIT',
 										isControlled: true
 									}
@@ -243,7 +269,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'PRESENCA',
+										formName: 'JOGO',
 										mode: 'DUPLICATE',
 										isControlled: true
 									}
@@ -259,7 +285,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'PRESENCA',
+										formName: 'JOGO',
 										mode: 'DELETE',
 										isControlled: true
 									}
@@ -277,7 +303,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'PRESENCA',
+										formName: 'JOGO',
 										mode: 'NEW',
 										repeatInsertion: false,
 										isControlled: true
@@ -293,37 +319,122 @@
 							MCActions: [
 							],
 							rowClickAction: {
-								id: 'RCA_SQB_1211',
-								name: 'form-PRESENCA',
+								id: 'RCA_SQB_5111',
+								name: 'form-JOGO',
 								isVisible: true,
 								params: {
 									isRoute: true,
 									limits: [
 										{
 											identifier: 'id',
-											fnValueSelector: (row) => row.ValCodpresenca
+											fnValueSelector: (row) => row.ValCodjogo
 										},
 									],
 									isControlled: true,
-									action: vm.openFormAction, type: 'form', mode: 'SHOW', formName: 'PRESENCA'
+									action: vm.openFormAction, type: 'form', mode: 'SHOW', formName: 'JOGO'
 								}
 							},
 							formsDefinition: {
-								'PRESENCA': {
-									fnKeySelector: (row) => row.Fields.ValCodpresenca,
+								'JOGO': {
+									fnKeySelector: (row) => row.Fields.ValCodjogo,
 									isPopup: false
 								},
 							},
-							defaultSearchColumnName: '',
-							defaultSearchColumnNameOriginal: '',
+							defaultSearchColumnName: 'ValTitulo',
+							defaultSearchColumnNameOriginal: 'ValTitulo',
 							defaultColumnSorting: {
-								columnName: '',
+								columnName: 'ValData',
 								sortOrder: 'asc'
 							}
 						},
-						globalEvents: ['changed-PRESENCA', 'changed-TREINO', 'changed-JOGADOR'],
-						uuid: '5f5fbc25-85cb-40bf-ac6f-c482b7dfff34',
+						globalEvents: ['changed-CLUBE', 'changed-JOGO'],
+						uuid: 'da00c309-0491-44d2-a8c0-78e91aaaafd3',
 						allSelectedRows: 'false',
+						viewModes: [
+							{
+								id: 'CARDS',
+								type: 'cards',
+								subtype: 'card-horizontal',
+								label: computed(() => this.Resources.CARTOES27587),
+								order: 1,
+								mappingVariables: readonly({
+									title: {
+										allowsMultiple: false,
+										sources: [
+											'JOGO.TITULO',
+										]
+									},
+									subtitle: {
+										allowsMultiple: false,
+										sources: [
+											'JOGO.DATA',
+										]
+									},
+									text: {
+										allowsMultiple: true,
+										sources: [
+											'JOGO.LOCAL',
+										]
+									},
+								}),
+								styleVariables: {
+									actionsAlignment: {
+										rawValue: 'left',
+										isMapped: false
+									},
+									actionsStyle: {
+										rawValue: 'dropdown',
+										isMapped: false
+									},
+									backgroundColor: {
+										rawValue: 'auto',
+										isMapped: false
+									},
+									customFollowupDefaultTarget: {
+										rawValue: 'blank',
+										isMapped: false
+									},
+									customInsertCard: {
+										rawValue: false,
+										isMapped: false
+									},
+									customInsertCardStyle: {
+										rawValue: 'secondary',
+										isMapped: false
+									},
+									displayMode: {
+										rawValue: 'grid',
+										isMapped: false
+									},
+									gridMode: {
+										rawValue: 'fixed',
+										isMapped: false
+									},
+									containerAlignment: {
+										rawValue: 'left',
+										isMapped: false
+									},
+									hoverScaleAmount: {
+										rawValue: '1.00',
+										isMapped: false
+									},
+									showColumnTitles: {
+										rawValue: false,
+										isMapped: false
+									},
+									showEmptyColumnTitles: {
+										rawValue: true,
+										isMapped: false
+									},
+									size: {
+										rawValue: 'regular',
+										isMapped: false
+									},
+								},
+								groups: {
+								}
+							},
+						],
 						headerLevel: 1,
 						isActiveControl: computed(() => this.isActiveMenu)
 					}, this),
@@ -348,7 +459,7 @@
 		mounted()
 		{
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB FORM_CODEJS SQB_MENU_121]/
+// USE /[MANUAL SQB FORM_CODEJS SQB_MENU_511]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 		},
@@ -356,18 +467,18 @@
 		beforeUnmount()
 		{
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB COMPONENT_BEFORE_UNMOUNT SQB_MENU_121]/
+// USE /[MANUAL SQB COMPONENT_BEFORE_UNMOUNT SQB_MENU_511]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 		},
 
 		methods: {
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB FUNCTIONS_JS SQB_121]/
+// USE /[MANUAL SQB FUNCTIONS_JS SQB_511]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB LISTING_CODEJS SQB_MENU_121]/
+// USE /[MANUAL SQB LISTING_CODEJS SQB_MENU_511]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 		}

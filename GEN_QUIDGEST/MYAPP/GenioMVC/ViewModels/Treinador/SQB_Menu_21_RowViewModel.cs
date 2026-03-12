@@ -4,9 +4,9 @@ using CSGenio.business;
 using CSGenio.framework;
 using GenioMVC.Models.Navigation;
 
-namespace GenioMVC.ViewModels.Clube;
+namespace GenioMVC.ViewModels.Treinador;
 
-public class SQB_Menu_21_RowViewModel : Models.Clube
+public class SQB_Menu_21_RowViewModel : Models.Treinador
 {
 	#region Constructors
 
@@ -15,7 +15,7 @@ public class SQB_Menu_21_RowViewModel : Models.Clube
 		InitRowProperties();
 	}
 
-	public SQB_Menu_21_RowViewModel(UserContext userContext, CSGenioAclube val, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, val, isEmpty, fieldsToSerialize)
+	public SQB_Menu_21_RowViewModel(UserContext userContext, CSGenioAtreinador val, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, val, isEmpty, fieldsToSerialize)
 	{
 		InitRowProperties();
 	}
@@ -36,56 +36,26 @@ public class SQB_Menu_21_RowViewModel : Models.Clube
 			new ListColumn()
 			{
 				Order = 1,
-				Area = "CLUBE",
-				Field = "NOME",
+				Area = "TREINADOR",
+				Field = "FUNCAO",
 			},
 			new ListColumn()
 			{
 				Order = 2,
-				Area = "CLUBE",
-				Field = "EPOCA",
+				Area = "TREINADOR",
+				Field = "NOME",
 			},
 			new ListColumn()
 			{
 				Order = 3,
 				Area = "CLUBE",
-				Field = "COORDTECN",
+				Field = "NOME",
 			},
 			new ListColumn()
 			{
 				Order = 4,
-				Area = "CLUBE",
-				Field = "TREINADORPRINCIPAL",
-			},
-			new ListColumn()
-			{
-				Order = 5,
-				Area = "CLUBE",
-				Field = "ESCALAO",
-			},
-			new ListColumn()
-			{
-				Order = 6,
-				Area = "CLUBE",
-				Field = "PRESIDENTE",
-			},
-			new ListColumn()
-			{
-				Order = 7,
-				Area = "CLUBE",
-				Field = "FOTO",
-			},
-			new ListColumn()
-			{
-				Order = 8,
-				Area = "CLUBE",
-				Field = "TREINADORADJUNTO",
-			},
-			new ListColumn()
-			{
-				Order = 9,
-				Area = "CLUBE",
-				Field = "COORDFORM",
+				Area = "TREINADOR",
+				Field = "LASTTREINOCRIADO",
 			},
 		];
 	}

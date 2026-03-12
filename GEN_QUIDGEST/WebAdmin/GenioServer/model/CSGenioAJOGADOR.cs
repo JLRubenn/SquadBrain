@@ -167,7 +167,7 @@ namespace CSGenio.business
 			argumentsListByArea = new List<ByAreaArguments>();
 			argumentsListByArea.Add(new ByAreaArguments(new string[] {"posicao"}, new int[] {0}, "jogador", "codjogador"));
 			Qfield.ShowWhen = new ConditionFormula(argumentsListByArea, 1, delegate(object[] args, User user, string module, PersistentSupport sp) {
-				return ((string)args[0])=="Medio";
+				return ((string)args[0])=="MD";
 			});
             Qfield.ArrayName = "dbo.GetValArrayCspposicaomedio";
             Qfield.ArrayClassName = "Spposicaomedio";
@@ -184,7 +184,7 @@ namespace CSGenio.business
 			argumentsListByArea = new List<ByAreaArguments>();
 			argumentsListByArea.Add(new ByAreaArguments(new string[] {"posicao"}, new int[] {0}, "jogador", "codjogador"));
 			Qfield.ShowWhen = new ConditionFormula(argumentsListByArea, 1, delegate(object[] args, User user, string module, PersistentSupport sp) {
-				return ((string)args[0])=="Atacante";
+				return ((string)args[0])=="AT";
 			});
             Qfield.ArrayName = "dbo.GetValArrayCspposicao";
             Qfield.ArrayClassName = "Spposicao";
@@ -201,10 +201,38 @@ namespace CSGenio.business
 			argumentsListByArea = new List<ByAreaArguments>();
 			argumentsListByArea.Add(new ByAreaArguments(new string[] {"posicao"}, new int[] {0}, "jogador", "codjogador"));
 			Qfield.ShowWhen = new ConditionFormula(argumentsListByArea, 1, delegate(object[] args, User user, string module, PersistentSupport sp) {
-				return ((string)args[0])=="Defesa";
+				return ((string)args[0])=="DEF";
 			});
             Qfield.ArrayName = "dbo.GetValArrayCspposicao";
             Qfield.ArrayClassName = "Spposicao";
+			info.RegisterFieldDB(Qfield);
+
+			//- - - - - - - - - - - - - - - - - - -
+			Qfield = new Field(info.Alias, "idadejogador", FieldType.NUMERIC);
+			Qfield.FieldDescription = "Idade";
+			Qfield.FieldSize =  3;
+			Qfield.MQueue = false;
+			Qfield.IntegerDigits = 3;
+			Qfield.CavDesignation = "IDADE29819";
+
+			Qfield.Dupmsg = "";
+			argumentsListByArea = new List<ByAreaArguments>();
+			argumentsListByArea.Add(new ByAreaArguments(new string[] {"datanascimento"}, new int[] {0}, "jogador", "codjogador"));
+			Qfield.Formula = new InternalOperationFormula(argumentsListByArea, 1, delegate(object[] args, User user, string module, PersistentSupport sp) {
+				return Math.Floor(GenFunctions.DateDiffPart(((DateTime)args[0]),DateTime.Today,"D")/365);
+			});
+			info.RegisterFieldDB(Qfield);
+
+			//- - - - - - - - - - - - - - - - - - -
+			Qfield = new Field(info.Alias, "valormercado", FieldType.CURRENCY);
+			Qfield.FieldDescription = "Valor Mercado (M)";
+			Qfield.FieldSize =  15;
+			Qfield.MQueue = false;
+			Qfield.IntegerDigits = 12;
+			Qfield.Decimals = 2;
+			Qfield.CavDesignation = "VALOR_MERCADO__M_33616";
+
+			Qfield.Dupmsg = "";
 			info.RegisterFieldDB(Qfield);
 
 			//- - - - - - - - - - - - - - - - - - -
@@ -250,8 +278,15 @@ namespace CSGenio.business
 		{
 			// Formulas
 			//------------------------------
+			//Actualiza as seguintes somas relacionadas:
+			info.RelatedSumArgs = new List<RelatedSumArgument>();
+			info.RelatedSumArgs.Add( new RelatedSumArgument("jogador", "clube", "valormercadoequipa", "valormercado", '+', true));
 
 
+
+			info.InternalOperationFields = new string[] {
+			 "idadejogador"
+			};
 
 
 
@@ -518,6 +553,28 @@ namespace CSGenio.business
 			set { insertNameValueField(FldSpposicaodef, value); }
 		}
 
+		/// <summary>Field : "Idade" Tipo: "N" Formula: + "floor(DateDiffPart([JOGADOR->DATANASCIMENTO], [Today], "D")/365))"</summary>
+		public static FieldRef FldIdadejogador { get { return m_fldIdadejogador; } }
+		private static FieldRef m_fldIdadejogador = new FieldRef("jogador", "idadejogador");
+
+		/// <summary>Field : "Idade" Tipo: "N" Formula: + "floor(DateDiffPart([JOGADOR->DATANASCIMENTO], [Today], "D")/365))"</summary>
+		public decimal ValIdadejogador
+		{
+			get { return (decimal)returnValueField(FldIdadejogador); }
+			set { insertNameValueField(FldIdadejogador, value); }
+		}
+
+		/// <summary>Field : "Valor Mercado (M)" Tipo: "$" Formula:  ""</summary>
+		public static FieldRef FldValormercado { get { return m_fldValormercado; } }
+		private static FieldRef m_fldValormercado = new FieldRef("jogador", "valormercado");
+
+		/// <summary>Field : "Valor Mercado (M)" Tipo: "$" Formula:  ""</summary>
+		public decimal ValValormercado
+		{
+			get { return (decimal)returnValueField(FldValormercado); }
+			set { insertNameValueField(FldValormercado, value); }
+		}
+
 		/// <summary>Field : "ZZSTATE" Type: "INT" Formula:  ""</summary>
 		public static FieldRef FldZzstate { get { return m_fldZzstate; } }
 		private static FieldRef m_fldZzstate = new FieldRef("jogador", "zzstate");
@@ -615,7 +672,7 @@ namespace CSGenio.business
 		// USE /[MANUAL SQB TABAUX JOGADOR]/
 
  
-              
+                
 
 	}
 }

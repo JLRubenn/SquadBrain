@@ -145,6 +145,18 @@ namespace CSGenio.business
 			info.RegisterFieldDB(Qfield);
 
 			//- - - - - - - - - - - - - - - - - - -
+			Qfield = new Field(info.Alias, "valormercadoequipa", FieldType.CURRENCY);
+			Qfield.FieldDescription = "Valor Mercado Equipa (M)";
+			Qfield.FieldSize =  15;
+			Qfield.MQueue = false;
+			Qfield.IntegerDigits = 12;
+			Qfield.Decimals = 2;
+			Qfield.CavDesignation = "VALOR_MERCADO_EQUIPA38351";
+
+			Qfield.Dupmsg = "";
+			info.RegisterFieldDB(Qfield);
+
+			//- - - - - - - - - - - - - - - - - - -
 			Qfield = new Field(info.Alias, "zzstate", FieldType.INTEGER);
 			Qfield.FieldDescription = "Estado da ficha";
 			info.RegisterFieldDB(Qfield);
@@ -189,6 +201,10 @@ namespace CSGenio.business
 
 
 
+
+			info.RelatedSumFields = new string[] {
+			 "valormercadoequipa"
+			};
 
 
 
@@ -406,6 +422,17 @@ namespace CSGenio.business
 			set { insertNameValueField(FldTreinadoradjunto, value); }
 		}
 
+		/// <summary>Field : "Valor Mercado Equipa (M)" Tipo: "$" Formula: SR "[JOGADOR->VALORMERCADO]"</summary>
+		public static FieldRef FldValormercadoequipa { get { return m_fldValormercadoequipa; } }
+		private static FieldRef m_fldValormercadoequipa = new FieldRef("clube", "valormercadoequipa");
+
+		/// <summary>Field : "Valor Mercado Equipa (M)" Tipo: "$" Formula: SR "[JOGADOR->VALORMERCADO]"</summary>
+		public decimal ValValormercadoequipa
+		{
+			get { return (decimal)returnValueField(FldValormercadoequipa); }
+			set { insertNameValueField(FldValormercadoequipa, value); }
+		}
+
 		/// <summary>Field : "ZZSTATE" Type: "INT" Formula:  ""</summary>
 		public static FieldRef FldZzstate { get { return m_fldZzstate; } }
 		private static FieldRef m_fldZzstate = new FieldRef("clube", "zzstate");
@@ -503,7 +530,7 @@ namespace CSGenio.business
 		// USE /[MANUAL SQB TABAUX CLUBE]/
 
  
-           
+            
 
 	}
 }

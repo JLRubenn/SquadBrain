@@ -39,6 +39,11 @@ public class JogadorForm : Form
 	public DateInputControl JogadorDatanascimento => new DateInputControl(driver, ContainerLocator, "#JOGADOR__JOGADOR__DATANASCIMENTO");
 
 	/// <summary>
+	/// Idade
+	/// </summary>
+	public BaseInputControl JogadorIdadejogador => new BaseInputControl(driver, ContainerLocator, "container-JOGADOR__JOGADOR__IDADEJOGADOR", "#JOGADOR__JOGADOR__IDADEJOGADOR");
+
+	/// <summary>
 	/// Pé Dominante
 	/// </summary>
 	public EnumControl JogadorPedominante => new EnumControl(driver, ContainerLocator, "container-JOGADOR__JOGADOR__PEDOMINANTE");
@@ -72,6 +77,11 @@ public class JogadorForm : Form
 	/// Equipa Anterior
 	/// </summary>
 	public BaseInputControl JogadorEquipaanterior => new BaseInputControl(driver, ContainerLocator, "container-JOGADOR__JOGADOR__EQUIPAANTERIOR", "#JOGADOR__JOGADOR__EQUIPAANTERIOR");
+
+	/// <summary>
+	/// Valor Mercado (M)
+	/// </summary>
+	public BaseInputControl JogadorValormercado => new BaseInputControl(driver, ContainerLocator, "container-JOGADOR__JOGADOR__VALORMERCADO", "#JOGADOR__JOGADOR__VALORMERCADO");
 
 	public JogadorForm(IWebDriver driver, FORM_MODE mode, By? containerLocator = null)
 		: base(driver, mode, "JOGADOR", containerLocator: containerLocator) { }

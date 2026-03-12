@@ -108,6 +108,16 @@ namespace CSGenio.business
 			info.RegisterFieldDB(Qfield);
 
 			//- - - - - - - - - - - - - - - - - - -
+			Qfield = new Field(info.Alias, "titulo", FieldType.TEXT);
+			Qfield.FieldDescription = "Titulo";
+			Qfield.FieldSize =  50;
+			Qfield.MQueue = false;
+			Qfield.CavDesignation = "TITULO23260";
+
+			Qfield.Dupmsg = "";
+			info.RegisterFieldDB(Qfield);
+
+			//- - - - - - - - - - - - - - - - - - -
 			Qfield = new Field(info.Alias, "zzstate", FieldType.INTEGER);
 			Qfield.FieldDescription = "Estado da ficha";
 			info.RegisterFieldDB(Qfield);
@@ -177,7 +187,7 @@ namespace CSGenio.business
 			info.ShadowTabKeyName="";
 
 			info.PrimaryKeyName="codjogo";
-			info.HumanKeyName="data,".TrimEnd(',');
+			info.HumanKeyName="titulo,".TrimEnd(',');
 			info.Alias="jogo";
 			info.IsDomain = true;
 			info.PersistenceType = PersistenceType.Database;
@@ -324,6 +334,17 @@ namespace CSGenio.business
 			set { insertNameValueField(FldEquipaadversaria, value); }
 		}
 
+		/// <summary>Field : "Titulo" Tipo: "C" Formula:  ""</summary>
+		public static FieldRef FldTitulo { get { return m_fldTitulo; } }
+		private static FieldRef m_fldTitulo = new FieldRef("jogo", "titulo");
+
+		/// <summary>Field : "Titulo" Tipo: "C" Formula:  ""</summary>
+		public string ValTitulo
+		{
+			get { return (string)returnValueField(FldTitulo); }
+			set { insertNameValueField(FldTitulo, value); }
+		}
+
 		/// <summary>Field : "ZZSTATE" Type: "INT" Formula:  ""</summary>
 		public static FieldRef FldZzstate { get { return m_fldZzstate; } }
 		private static FieldRef m_fldZzstate = new FieldRef("jogo", "zzstate");
@@ -421,7 +442,7 @@ namespace CSGenio.business
 		// USE /[MANUAL SQB TABAUX JOGO]/
 
  
-       
+        
 
 	}
 }

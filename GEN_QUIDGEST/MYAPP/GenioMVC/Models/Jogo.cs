@@ -69,6 +69,11 @@ namespace GenioMVC.Models
 		[ShouldSerialize("Jogo.ValEquipaadversaria")]
 		public string ValEquipaadversaria { get { return klass.ValEquipaadversaria; } set { klass.ValEquipaadversaria = value; } }
 
+		[DisplayName("Titulo")]
+		/// <summary>Field : "Titulo" Tipo: "C" Formula:  ""</summary>
+		[ShouldSerialize("Jogo.ValTitulo")]
+		public string ValTitulo { get { return klass.ValTitulo; } set { klass.ValTitulo = value; } }
+
 		[DisplayName("ZZSTATE")]
 		[ShouldSerialize("Jogo.ValZzstate")]
 		/// <summary>Field: "ZZSTATE", Type: "INT", Formula: ""</summary>

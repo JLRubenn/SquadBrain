@@ -97,6 +97,15 @@ namespace Administration.Resources {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to "Equipa Atual"
+        /// </summary>
+        public static string EQUIPA_ATUAL12425 {
+            get {
+                return ResourceManager.GetString("EQUIPA_ATUAL12425", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to "Numero Jogadores"
         /// </summary>
         public static string NUMERO_JOGADORES22289 {
@@ -205,6 +214,15 @@ namespace Administration.Resources {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to "Defesas"
+        /// </summary>
+        public static string DEFESAS04709 {
+            get {
+                return ResourceManager.GetString("DEFESAS04709", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to "Coordenador Formação"
         /// </summary>
         public static string COORDENADOR_FORMACAO06004 {
@@ -273,6 +291,15 @@ namespace Administration.Resources {
         public static string NUMERO_CAMISOLA34511 {
             get {
                 return ResourceManager.GetString("NUMERO_CAMISOLA34511", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to "Todos"
+        /// </summary>
+        public static string TODOS59977 {
+            get {
+                return ResourceManager.GetString("TODOS59977", resourceCulture);
             }
         }
 
@@ -745,6 +772,15 @@ namespace Administration.Resources {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to "Atacantes"
+        /// </summary>
+        public static string ATACANTES25618 {
+            get {
+                return ResourceManager.GetString("ATACANTES25618", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to "Presente"
         /// </summary>
         public static string PRESENTE06127 {
@@ -777,6 +813,15 @@ namespace Administration.Resources {
         public static string BCC22049 {
             get {
                 return ResourceManager.GetString("BCC22049", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to "Convocados"
+        /// </summary>
+        public static string CONVOCADOS52577 {
+            get {
+                return ResourceManager.GetString("CONVOCADOS52577", resourceCulture);
             }
         }
 
@@ -1461,6 +1506,15 @@ namespace Administration.Resources {
         public static string NOTIFICATION_EMAIL_S62518 {
             get {
                 return ResourceManager.GetString("NOTIFICATION_EMAIL_S62518", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to "Médios"
+        /// </summary>
+        public static string MEDIOS52631 {
+            get {
+                return ResourceManager.GetString("MEDIOS52631", resourceCulture);
             }
         }
 
@@ -5583,15 +5637,6 @@ namespace Administration.Resources {
         public static string CONTAR00983 {
             get {
                 return ResourceManager.GetString("CONTAR00983", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to "Todos"
-        /// </summary>
-        public static string TODOS59977 {
-            get {
-                return ResourceManager.GetString("TODOS59977", resourceCulture);
             }
         }
 

@@ -6,16 +6,16 @@ using GenioMVC.Models.Navigation;
 
 namespace GenioMVC.ViewModels.Presenca;
 
-public class Presenca_ValPresenca_RowViewModel : Models.Presenca
+public class Presenca_TreinoValData_RowViewModel : Models.Treino
 {
 	#region Constructors
 
-	public Presenca_ValPresenca_RowViewModel(UserContext userContext, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, isEmpty, fieldsToSerialize)
+	public Presenca_TreinoValData_RowViewModel(UserContext userContext, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, isEmpty, fieldsToSerialize)
 	{
 		InitRowProperties();
 	}
 
-	public Presenca_ValPresenca_RowViewModel(UserContext userContext, CSGenioApresenca val, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, val, isEmpty, fieldsToSerialize)
+	public Presenca_TreinoValData_RowViewModel(UserContext userContext, CSGenioAtreino val, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, val, isEmpty, fieldsToSerialize)
 	{
 		InitRowProperties();
 	}
@@ -36,24 +36,6 @@ public class Presenca_ValPresenca_RowViewModel : Models.Presenca
 			new ListColumn()
 			{
 				Order = 1,
-				Area = "JOGADOR",
-				Field = "NOME",
-			},
-			new ListColumn()
-			{
-				Order = 2,
-				Area = "PRESENCA",
-				Field = "ESTADO",
-			},
-			new ListColumn()
-			{
-				Order = 3,
-				Area = "PRESENCA",
-				Field = "CODTREINO",
-			},
-			new ListColumn()
-			{
-				Order = 4,
 				Area = "TREINO",
 				Field = "DATA",
 			},
@@ -70,10 +52,6 @@ public class Presenca_ValPresenca_RowViewModel : Models.Presenca
 		bool canDelete = true;
 		bool canDuplicate = true;
 		bool canInsert = true;
-
-		using (new CSGenio.persistence.ScopedPersistentSupport(m_userContext.PersistentSupport))
-		{
-		}
 
 		BtnPermission = new TableRowCrudButtonPermissions()
 		{

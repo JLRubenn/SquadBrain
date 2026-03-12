@@ -8,9 +8,16 @@ namespace quidgest.uitests.pages.forms;
 public class PresencaForm : Form
 {
 	/// <summary>
-	/// 
+	/// Data
 	/// </summary>
-	public ListControl PseudPresenca => new ListControl(driver, ContainerLocator, "#PRESENCAPSEUDPRESENCA");
+	public LookupControl TreinoData => new LookupControl(driver, ContainerLocator, "container-PRESENCA__TREINO__DATA");
+	public SeeMorePage TreinoDataSeeMorePage => new SeeMorePage(driver, "PRESENCA", "PRESENCA__TREINO__DATA");
+
+	/// <summary>
+	/// Nome
+	/// </summary>
+	public LookupControl JogadorNome => new LookupControl(driver, ContainerLocator, "container-PRESENCA__JOGADOR__NOME");
+	public SeeMorePage JogadorNomeSeeMorePage => new SeeMorePage(driver, "PRESENCA", "PRESENCA__JOGADOR__NOME");
 
 	/// <summary>
 	/// Estado
@@ -18,10 +25,9 @@ public class PresencaForm : Form
 	public EnumControl PresencaEstado => new EnumControl(driver, ContainerLocator, "container-PRESENCA__PRESENCA__ESTADO");
 
 	/// <summary>
-	/// Nome
+	/// 
 	/// </summary>
-	public LookupControl JogadorNome => new LookupControl(driver, ContainerLocator, "container-PRESENCA__JOGADOR__NOME");
-	public SeeMorePage JogadorNomeSeeMorePage => new SeeMorePage(driver, "PRESENCA", "PRESENCA__JOGADOR__NOME");
+	public ListControl PseudPresenca => new ListControl(driver, ContainerLocator, "#PRESENCAPSEUDPRESENCA");
 
 	public PresencaForm(IWebDriver driver, FORM_MODE mode, By? containerLocator = null)
 		: base(driver, mode, "PRESENCA", containerLocator: containerLocator) { }

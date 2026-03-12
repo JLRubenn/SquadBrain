@@ -437,6 +437,55 @@ namespace GenioMVC.Controllers
 			return JsonOK(model);
 		}
 
+		public class Convocatoria_ValConvocadosModel : RequestLookupModel
+		{
+			public Convocatoria_ViewModel Model { get; set; }
+		}
+
+		//
+		// GET: /Convocatoria/Convocatoria_ValConvocados
+		// POST: /Convocatoria/Convocatoria_ValConvocados
+		[ActionName("Convocatoria_ValConvocados")]
+		public ActionResult Convocatoria_ValConvocados([FromBody] Convocatoria_ValConvocadosModel requestModel)
+		{
+			var queryParams = requestModel.QueryParams;
+
+			// If there was a recent operation on this table then force the primary persistence server to be called and ignore the read only feature
+			if (string.IsNullOrEmpty(Navigation.GetStrValue("ForcePrimaryRead_jogador")))
+				UserContext.Current.SetPersistenceReadOnly(true);
+			else
+			{
+				Navigation.DestroyEntry("ForcePrimaryRead_jogador");
+				UserContext.Current.SetPersistenceReadOnly(false);
+			}
+
+			NameValueCollection requestValues = [];
+			if (queryParams != null)
+			{
+				// Add to request values
+				foreach (var kv in queryParams)
+					requestValues.Add(kv.Key, kv.Value);
+			}
+
+			Models.Convocatoria parentCtx = requestModel.Model == null ? null : new(m_userContext);
+			requestModel.Model?.Init(m_userContext);
+			requestModel.Model?.MapToModel(parentCtx);
+			Convocatoria_ValConvocados_ViewModel model = new(m_userContext, parentCtx);
+
+			CSGenio.core.framework.table.TableConfiguration tableConfig = model.GetTableConfig(
+				requestModel.TableConfiguration,
+				requestModel.UserTableConfigName,
+				requestModel.LoadDefaultView);
+
+			// Determine rows per page
+			tableConfig.RowsPerPage = tableConfig.DetermineRowsPerPage(CSGenio.framework.Configuration.NrRegDBedit, "");
+
+			model.setModes(Request.Query["m"].ToString());
+			model.Load(tableConfig, requestValues, Request.IsAjaxRequest());
+
+			return JsonOK(model);
+		}
+
 		// POST: /Convocatoria/Convocatoria_SaveEdit
 		[HttpPost]
 		public ActionResult Convocatoria_SaveEdit([FromBody] Convocatoria_ViewModel model)

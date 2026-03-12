@@ -8,7 +8,7 @@ namespace quidgest.uitests.pages.forms;
 public class ConvocatoriaForm : Form
 {
 	/// <summary>
-	/// Titulo
+	/// Jogo
 	/// </summary>
 	public LookupControl JogoTitulo => new LookupControl(driver, ContainerLocator, "container-CONVOCATORIA__JOGO__TITULO");
 	public SeeMorePage JogoTituloSeeMorePage => new SeeMorePage(driver, "CONVOCATORIA", "CONVOCATORIA__JOGO__TITULO");
@@ -27,6 +27,11 @@ public class ConvocatoriaForm : Form
 	/// Équipa Adversaria
 	/// </summary>
 	public BaseInputControl JogoEquipaadversaria => new BaseInputControl(driver, ContainerLocator, "container-CONVOCATORIA__JOGO__EQUIPAADVERSARIA", "#CONVOCATORIA__JOGO__EQUIPAADVERSARIA");
+
+	/// <summary>
+	/// Convocados
+	/// </summary>
+	public ListControl PseudConvocados => new ListControl(driver, ContainerLocator, "#CONVOCATORIA__PSEUD__CONVOCADOS");
 
 	public ConvocatoriaForm(IWebDriver driver, FORM_MODE mode, By? containerLocator = null)
 		: base(driver, mode, "CONVOCATORIA", containerLocator: containerLocator) { }

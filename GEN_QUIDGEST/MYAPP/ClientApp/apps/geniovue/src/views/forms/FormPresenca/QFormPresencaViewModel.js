@@ -53,19 +53,17 @@ export default class ViewModel extends FormViewModelBase
 		}).cloneFrom(values?.ValCodpresenca))
 		this.stopWatchers.push(watch(() => this.ValCodpresenca.value, (newValue, oldValue) => this.onUpdate('presenca.codpresenca', this.ValCodpresenca, newValue, oldValue)))
 
-		/** The hidden foreign keys. */
+		/** The used foreign keys. */
 		this.ValCodtreino = reactive(new modelFieldType.ForeignKey({
 			id: 'ValCodtreino',
 			originId: 'ValCodtreino',
 			area: 'PRESENCA',
 			field: 'CODTREINO',
 			relatedArea: 'TREINO',
-			isFixed: true,
 			description: computed(() => this.Resources.TREINO06086),
 		}).cloneFrom(values?.ValCodtreino))
 		this.stopWatchers.push(watch(() => this.ValCodtreino.value, (newValue, oldValue) => this.onUpdate('presenca.codtreino', this.ValCodtreino, newValue, oldValue)))
 
-		/** The used foreign keys. */
 		this.ValCodjogador = reactive(new modelFieldType.ForeignKey({
 			id: 'ValCodjogador',
 			originId: 'ValCodjogador',
@@ -77,16 +75,16 @@ export default class ViewModel extends FormViewModelBase
 		this.stopWatchers.push(watch(() => this.ValCodjogador.value, (newValue, oldValue) => this.onUpdate('presenca.codjogador', this.ValCodjogador, newValue, oldValue)))
 
 		/** The remaining form fields. */
-		this.ValEstado = reactive(new modelFieldType.String({
-			id: 'ValEstado',
-			originId: 'ValEstado',
-			area: 'PRESENCA',
-			field: 'ESTADO',
-			maxLength: 2,
-			arrayOptions: computed(() => new qProjArrays.QArrayEstado_presenca(vm.$getResource).elements),
-			description: computed(() => this.Resources.ESTADO07788),
-		}).cloneFrom(values?.ValEstado))
-		this.stopWatchers.push(watch(() => this.ValEstado.value, (newValue, oldValue) => this.onUpdate('presenca.estado', this.ValEstado, newValue, oldValue)))
+		this.TableTreinoData = reactive(new modelFieldType.DateTime({
+			type: 'Lookup',
+			id: 'TableTreinoData',
+			originId: 'ValData',
+			area: 'TREINO',
+			field: 'DATA',
+			description: computed(() => this.Resources.DATA18071),
+			ignoreFldSubmit: true,
+		}).cloneFrom(values?.TableTreinoData))
+		this.stopWatchers.push(watch(() => this.TableTreinoData.value, (newValue, oldValue) => this.onUpdate('treino.data', this.TableTreinoData, newValue, oldValue)))
 
 		this.TableJogadorNome = reactive(new modelFieldType.String({
 			type: 'Lookup',
@@ -99,6 +97,17 @@ export default class ViewModel extends FormViewModelBase
 			ignoreFldSubmit: true,
 		}).cloneFrom(values?.TableJogadorNome))
 		this.stopWatchers.push(watch(() => this.TableJogadorNome.value, (newValue, oldValue) => this.onUpdate('jogador.nome', this.TableJogadorNome, newValue, oldValue)))
+
+		this.ValEstado = reactive(new modelFieldType.String({
+			id: 'ValEstado',
+			originId: 'ValEstado',
+			area: 'PRESENCA',
+			field: 'ESTADO',
+			maxLength: 2,
+			arrayOptions: computed(() => new qProjArrays.QArrayEstado_presenca(vm.$getResource).elements),
+			description: computed(() => this.Resources.ESTADO07788),
+		}).cloneFrom(values?.ValEstado))
+		this.stopWatchers.push(watch(() => this.ValEstado.value, (newValue, oldValue) => this.onUpdate('presenca.estado', this.ValEstado, newValue, oldValue)))
 	}
 
 	/**

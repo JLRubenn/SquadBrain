@@ -36,13 +36,13 @@ namespace GenioMVC.ViewModels.Convocatoria
 		[ValidateSetAccess]
 		public string ValCodjogador { get; set; }
 		/// <summary>
-		/// Title: "Titulo" | Type: "CE"
+		/// Title: "Jogo" | Type: "CE"
 		/// </summary>
 		public string ValCodjogo { get; set; }
 
 		#endregion
 		/// <summary>
-		/// Title: "Titulo" | Type: "C"
+		/// Title: "Jogo" | Type: "C"
 		/// </summary>
 		[ValidateSetAccess]
 		public TableDBEdit<GenioMVC.Models.Jogo> TableJogoTitulo { get; set; }

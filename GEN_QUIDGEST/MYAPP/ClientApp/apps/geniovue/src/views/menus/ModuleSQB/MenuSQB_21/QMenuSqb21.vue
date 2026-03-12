@@ -146,18 +146,51 @@
 							'page-full-height'
 						],
 						columnsOriginal: [
-							new listColumnTypes.TextColumn({
+							new listColumnTypes.ImageColumn({
 								order: 1,
-								name: 'ValEquipaanterior',
+								name: 'ValFoto',
 								area: 'JOGADOR',
-								field: 'EQUIPAANTERIOR',
-								label: computed(() => this.Resources.EQUIPA_ANTERIOR39393),
+								field: 'FOTO',
+								label: computed(() => this.Resources.FOTO19492),
+								dataTitle: computed(() => genericFunctions.formatString(vm.Resources.IMAGEM_UTILIZADA_PAR58591, vm.Resources.FOTO19492)),
+								scrollData: 3,
+								sortable: false,
+								searchable: false,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.TextColumn({
+								order: 2,
+								name: 'ValNome',
+								area: 'JOGADOR',
+								field: 'NOME',
+								label: computed(() => this.Resources.NOME47814),
 								dataLength: 50,
 								scrollData: 30,
 								export: 1,
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.NumericColumn({
+								order: 3,
+								name: 'ValNumerocamisola',
+								area: 'JOGADOR',
+								field: 'NUMEROCAMISOLA',
+								label: computed(() => this.Resources.NUMERO_CAMISOLA34511),
+								scrollData: 2,
+								maxDigits: 2,
+								decimalPlaces: 0,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.DateColumn({
+								order: 4,
+								name: 'ValDatanascimento',
+								area: 'JOGADOR',
+								field: 'DATANASCIMENTO',
+								label: computed(() => this.Resources.DATA_NASCIMENTO26850),
+								scrollData: 8,
+								dateTimeType: 'date',
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 							new listColumnTypes.ArrayColumn({
-								order: 2,
+								order: 5,
 								name: 'ValPedominante',
 								area: 'JOGADOR',
 								field: 'PEDOMINANTE',
@@ -168,39 +201,6 @@
 								array: computed(() => new qProjArrays.QArrayPe(vm.$getResource).elements),
 								arrayType: qProjArrays.QArrayPe.type,
 								arrayDisplayMode: 'D',
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.TextColumn({
-								order: 3,
-								name: 'ValNome',
-								area: 'JOGADOR',
-								field: 'NOME',
-								label: computed(() => this.Resources.NOME47814),
-								dataLength: 50,
-								scrollData: 30,
-								export: 1,
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.NumericColumn({
-								order: 4,
-								name: 'ValNumerocamisola',
-								area: 'JOGADOR',
-								field: 'NUMEROCAMISOLA',
-								label: computed(() => this.Resources.NUMERO_CAMISOLA34511),
-								scrollData: 2,
-								maxDigits: 2,
-								decimalPlaces: 0,
-								export: 1,
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.ImageColumn({
-								order: 5,
-								name: 'ValFoto',
-								area: 'JOGADOR',
-								field: 'FOTO',
-								label: computed(() => this.Resources.FOTO19492),
-								dataTitle: computed(() => genericFunctions.formatString(vm.Resources.IMAGEM_UTILIZADA_PAR58591, vm.Resources.FOTO19492)),
-								scrollData: 3,
-								sortable: false,
-								searchable: false,
-								export: 1,
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 							new listColumnTypes.ArrayColumn({
 								order: 6,
@@ -215,29 +215,8 @@
 								arrayType: qProjArrays.QArrayPosicao.type,
 								arrayDisplayMode: 'D',
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.DateColumn({
-								order: 7,
-								name: 'ValDatanascimento',
-								area: 'JOGADOR',
-								field: 'DATANASCIMENTO',
-								label: computed(() => this.Resources.DATA_NASCIMENTO26850),
-								scrollData: 8,
-								dateTimeType: 'date',
-								export: 1,
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.TextColumn({
-								order: 8,
-								name: 'Clube.ValNome',
-								area: 'CLUBE',
-								field: 'NOME',
-								label: computed(() => this.Resources.NOME47814),
-								dataLength: 50,
-								scrollData: 30,
-								export: 1,
-								pkColumn: 'ValCodclube',
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 							new listColumnTypes.ArrayColumn({
-								order: 9,
+								order: 7,
 								name: 'ValPosicaosegundaria',
 								area: 'JOGADOR',
 								field: 'POSICAOSEGUNDARIA',
@@ -248,6 +227,27 @@
 								array: computed(() => new qProjArrays.QArrayPosicao(vm.$getResource).elements),
 								arrayType: qProjArrays.QArrayPosicao.type,
 								arrayDisplayMode: 'D',
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.TextColumn({
+								order: 8,
+								name: 'Clube.ValNome',
+								area: 'CLUBE',
+								field: 'NOME',
+								label: computed(() => this.Resources.EQUIPA_ATUAL12425),
+								dataLength: 50,
+								scrollData: 30,
+								export: 1,
+								pkColumn: 'ValCodclube',
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.TextColumn({
+								order: 9,
+								name: 'ValEquipaanterior',
+								area: 'JOGADOR',
+								field: 'EQUIPAANTERIOR',
+								label: computed(() => this.Resources.EQUIPA_ANTERIOR39393),
+								dataLength: 50,
+								scrollData: 30,
+								export: 1,
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 						],
 						config: {
@@ -385,10 +385,45 @@
 							defaultSearchColumnName: 'ValNome',
 							defaultSearchColumnNameOriginal: 'ValNome',
 							defaultColumnSorting: {
-								columnName: 'ValEquipaanterior',
+								columnName: '',
 								sortOrder: 'asc'
 							}
 						},
+						groupFilters: [
+							{
+								id: 'filter_SQB_Menu_21_TYPEFILTER',
+								isMultiple: false,
+								items: [
+									{
+										id: 'filter_SQB_Menu_21_TYPEFILTER_1',
+										value: computed(() => this.Resources.TODOS59977),
+										key: '1'
+									},
+									{
+										id: 'filter_SQB_Menu_21_TYPEFILTER_2',
+										value: computed(() => this.Resources.GUARDA_REDES05920),
+										key: '2'
+									},
+									{
+										id: 'filter_SQB_Menu_21_TYPEFILTER_3',
+										value: computed(() => this.Resources.DEFESAS04709),
+										key: '3'
+									},
+									{
+										id: 'filter_SQB_Menu_21_TYPEFILTER_4',
+										value: computed(() => this.Resources.MEDIOS52631),
+										key: '4'
+									},
+									{
+										id: 'filter_SQB_Menu_21_TYPEFILTER_5',
+										value: computed(() => this.Resources.ATACANTES25618),
+										key: '5'
+									},
+								],
+								selected: '1',
+								default: '1'
+							},
+						],
 						globalEvents: ['changed-JOGADOR', 'changed-CLUBE'],
 						uuid: '952b6b6f-99bd-4342-a146-b6c0e1e1ee45',
 						allSelectedRows: 'false',

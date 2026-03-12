@@ -41,6 +41,8 @@ namespace GenioMVC.Controllers
 
 			SQB_Menu_21_ViewModel model = new(m_userContext);
 
+			CSGenio.core.framework.table.legacy.v1.TableConfigurationUpdate.SetFilterShiftValue(model.Uuid, "filter_SQB_Menu_21_TYPEFILTER", 0);
+
 			CSGenio.core.framework.table.TableConfiguration tableConfig = model.GetTableConfig(
 				requestModel.TableConfiguration,
 				requestModel.UserTableConfigName,

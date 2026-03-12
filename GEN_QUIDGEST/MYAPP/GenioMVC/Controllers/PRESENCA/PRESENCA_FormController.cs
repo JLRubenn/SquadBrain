@@ -392,25 +392,25 @@ namespace GenioMVC.Controllers
 		#endregion
 
 
-		public class Presenca_ValPresencaModel : RequestLookupModel
+		public class Presenca_TreinoValDataModel : RequestLookupModel
 		{
 			public Presenca_ViewModel Model { get; set; }
 		}
 
 		//
-		// GET: /Presenca/Presenca_ValPresenca
-		// POST: /Presenca/Presenca_ValPresenca
-		[ActionName("Presenca_ValPresenca")]
-		public ActionResult Presenca_ValPresenca([FromBody] Presenca_ValPresencaModel requestModel)
+		// GET: /Presenca/Presenca_TreinoValData
+		// POST: /Presenca/Presenca_TreinoValData
+		[ActionName("Presenca_TreinoValData")]
+		public ActionResult Presenca_TreinoValData([FromBody] Presenca_TreinoValDataModel requestModel)
 		{
 			var queryParams = requestModel.QueryParams;
 
 			// If there was a recent operation on this table then force the primary persistence server to be called and ignore the read only feature
-			if (string.IsNullOrEmpty(Navigation.GetStrValue("ForcePrimaryRead_presenca")))
+			if (string.IsNullOrEmpty(Navigation.GetStrValue("ForcePrimaryRead_treino")))
 				UserContext.Current.SetPersistenceReadOnly(true);
 			else
 			{
-				Navigation.DestroyEntry("ForcePrimaryRead_presenca");
+				Navigation.DestroyEntry("ForcePrimaryRead_treino");
 				UserContext.Current.SetPersistenceReadOnly(false);
 			}
 
@@ -422,18 +422,14 @@ namespace GenioMVC.Controllers
 					requestValues.Add(kv.Key, kv.Value);
 			}
 
+			IsStateReadonly = true;
+
 			Models.Presenca parentCtx = requestModel.Model == null ? null : new(m_userContext);
 			requestModel.Model?.Init(m_userContext);
 			requestModel.Model?.MapToModel(parentCtx);
-			Presenca_ValPresenca_ViewModel model = new(m_userContext, parentCtx);
+			Presenca_TreinoValData_ViewModel model = new(m_userContext, parentCtx);
 
-			CSGenio.core.framework.table.TableConfiguration tableConfig = model.GetTableConfig(
-				requestModel.TableConfiguration,
-				requestModel.UserTableConfigName,
-				requestModel.LoadDefaultView);
-
-			// Determine rows per page
-			tableConfig.RowsPerPage = tableConfig.DetermineRowsPerPage(CSGenio.framework.Configuration.NrRegDBedit, "");
+			CSGenio.core.framework.table.TableConfiguration tableConfig = model.GetTableConfig(requestModel.TableConfiguration);
 
 			model.setModes(Request.Query["m"].ToString());
 			model.Load(tableConfig, requestValues, Request.IsAjaxRequest());
@@ -479,6 +475,55 @@ namespace GenioMVC.Controllers
 			Presenca_JogadorValNome_ViewModel model = new(m_userContext, parentCtx);
 
 			CSGenio.core.framework.table.TableConfiguration tableConfig = model.GetTableConfig(requestModel.TableConfiguration);
+
+			model.setModes(Request.Query["m"].ToString());
+			model.Load(tableConfig, requestValues, Request.IsAjaxRequest());
+
+			return JsonOK(model);
+		}
+
+		public class Presenca_ValPresencaModel : RequestLookupModel
+		{
+			public Presenca_ViewModel Model { get; set; }
+		}
+
+		//
+		// GET: /Presenca/Presenca_ValPresenca
+		// POST: /Presenca/Presenca_ValPresenca
+		[ActionName("Presenca_ValPresenca")]
+		public ActionResult Presenca_ValPresenca([FromBody] Presenca_ValPresencaModel requestModel)
+		{
+			var queryParams = requestModel.QueryParams;
+
+			// If there was a recent operation on this table then force the primary persistence server to be called and ignore the read only feature
+			if (string.IsNullOrEmpty(Navigation.GetStrValue("ForcePrimaryRead_presenca")))
+				UserContext.Current.SetPersistenceReadOnly(true);
+			else
+			{
+				Navigation.DestroyEntry("ForcePrimaryRead_presenca");
+				UserContext.Current.SetPersistenceReadOnly(false);
+			}
+
+			NameValueCollection requestValues = [];
+			if (queryParams != null)
+			{
+				// Add to request values
+				foreach (var kv in queryParams)
+					requestValues.Add(kv.Key, kv.Value);
+			}
+
+			Models.Presenca parentCtx = requestModel.Model == null ? null : new(m_userContext);
+			requestModel.Model?.Init(m_userContext);
+			requestModel.Model?.MapToModel(parentCtx);
+			Presenca_ValPresenca_ViewModel model = new(m_userContext, parentCtx);
+
+			CSGenio.core.framework.table.TableConfiguration tableConfig = model.GetTableConfig(
+				requestModel.TableConfiguration,
+				requestModel.UserTableConfigName,
+				requestModel.LoadDefaultView);
+
+			// Determine rows per page
+			tableConfig.RowsPerPage = tableConfig.DetermineRowsPerPage(CSGenio.framework.Configuration.NrRegDBedit, "");
 
 			model.setModes(Request.Query["m"].ToString());
 			model.Load(tableConfig, requestValues, Request.IsAjaxRequest());

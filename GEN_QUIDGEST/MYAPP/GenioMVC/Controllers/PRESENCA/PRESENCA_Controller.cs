@@ -80,6 +80,14 @@ namespace GenioMVC.Controllers
 			{
 				switch (string.IsNullOrEmpty(Identifier) ? "" : Identifier)
 				{
+					case "PRESENCA__TREINO__DATA":	// Field (DB)
+						{
+							var model = new Presenca_ViewModel(UserContext.Current) { editable = false };
+							model.MapFromModel(row);
+							model.Load_Presenca__treino__data(qs);
+							result = model.TableTreinoData;
+						}
+						break;
 					case "PRESENCA__JOGADOR__NOME":	// Field (DB)
 						{
 							var model = new Presenca_ViewModel(UserContext.Current) { editable = false };
@@ -121,6 +129,9 @@ namespace GenioMVC.Controllers
 				UserContext.Current.PersistentSupport.openConnection();
 				switch (string.IsNullOrEmpty(Identifier) ? "" : Identifier)
 				{
+					case "PRESENCA__TREINO__DATA":	// Field (DB)
+						values = new Presenca_ViewModel(UserContext.Current).GetDependant_PresencaTableTreinoData(Selected);
+						break;
 					case "PRESENCA__JOGADOR__NOME":	// Field (DB)
 						values = new Presenca_ViewModel(UserContext.Current).GetDependant_PresencaTableJogadorNome(Selected);
 						break;

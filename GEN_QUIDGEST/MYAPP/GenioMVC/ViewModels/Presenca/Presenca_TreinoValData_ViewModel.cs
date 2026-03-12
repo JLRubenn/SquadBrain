@@ -15,15 +15,15 @@ using GenioMVC.Models.Navigation;
 using Quidgest.Persistence;
 using Quidgest.Persistence.GenericQuery;
 
-namespace GenioMVC.ViewModels.Treino
+namespace GenioMVC.ViewModels.Presenca
 {
-	public class SQB_Menu_31_ViewModel : MenuListViewModel<Models.Treino>
+	public class Presenca_TreinoValData_ViewModel : MenuListViewModel<Models.Treino>
 	{
 		/// <summary>
 		/// Gets or sets the object that represents the table and its elements.
 		/// </summary>
 		[JsonPropertyName("table")]
-		public TablePartial<SQB_Menu_31_RowViewModel> Menu { get; set; }
+		public TablePartial<Presenca_TreinoValData_RowViewModel> Menu { get; set; }
 
 		/// <inheritdoc/>
 		[JsonIgnore]
@@ -31,13 +31,19 @@ namespace GenioMVC.ViewModels.Treino
 
 		/// <inheritdoc/>
 		[JsonPropertyName("uuid")]
-		public override string Uuid => "72c7269d-70ae-4b1d-a7b8-595a69ad7ffd";
+		public override string Uuid => "Presenca_TreinoValData";
 
 		/// <inheritdoc/>
 		protected override string[] FieldsToSerialize => _fieldsToSerialize;
 
 		/// <inheritdoc/>
 		protected override List<TableSearchColumn> SearchableColumns => _searchableColumns;
+
+		/// <summary>
+		/// The primary key field.
+		/// </summary>
+		[JsonIgnore]
+		public string ValCodpresenca { get; set; }
 
 		/// <summary>
 		/// The context of the parent.
@@ -82,60 +88,37 @@ namespace GenioMVC.ViewModels.Treino
 
 		public override CriteriaSet GetCustomizedStaticLimits(CriteriaSet crs)
 		{
-// USE /[MANUAL SQB LIST_LIMITS 31]/
+// USE /[MANUAL SQB LIST_LIMITS PRESENCA_TREINODATA]/
 
 			return crs;
 		}
 
 		public override int GetCount(User user)
 		{
-			CSGenio.persistence.PersistentSupport sp = m_userContext.PersistentSupport;
-			var areaBase = CSGenio.business.Area.createArea("treino", user, "SQB");
-
-			//gets eph conditions to be applied in listing
-			CriteriaSet conditions = CSGenio.business.Listing.CalculateConditionsEphGeneric(areaBase, "ML31");
-			conditions.Equal(CSGenioAtreino.FldZzstate, 0); //valid zzstate only
-
-			// Fixed limits and relations:
-			conditions.SubSets.Add(GetCustomizedStaticLimits(StaticLimits));
-
-			// Checks for foreign tables in fields and conditions
-			FieldRef[] fields = new FieldRef[] { CSGenioAtreino.FldCodtreino, CSGenioAtreino.FldZzstate, CSGenioAtreino.FldData, CSGenioAtreino.FldMesociclos, CSGenioAtreino.FldMicrociclo, CSGenioAtreino.FldNumjogadores, CSGenioAtreino.FldObjetivo, CSGenioAtreino.FldMaterial };
-
-			ListingMVC<CSGenioAtreino> listing = new(fields, null, 1, 1, false, user, true, string.Empty, false);
-			SelectQuery qs = sp.getSelectQueryFromListingMVC(conditions, listing);
-
-			// Menu relations:
-			if (qs.FromTable == null)
-				qs.From(areaBase.QSystem, areaBase.TableName, areaBase.Alias);
-
-
-
-			//operation: Count menu records
-			return CSGenio.persistence.DBConversion.ToInteger(sp.ExecuteScalar(CSGenio.persistence.QueryUtils.buildQueryCount(qs)));
+			throw new NotImplementedException("This operation is not supported");
 		}
 
 		/// <summary>
 		/// FOR DESERIALIZATION ONLY
 		/// </summary>
 		[Obsolete("For deserialization only")]
-		public SQB_Menu_31_ViewModel() : base(null!) { }
+		public Presenca_TreinoValData_ViewModel() : base(null!) { }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="SQB_Menu_31_ViewModel" /> class.
+		/// Initializes a new instance of the <see cref="Presenca_TreinoValData_ViewModel" /> class.
 		/// </summary>
 		/// <param name="userContext">The current user request context</param>
-		public SQB_Menu_31_ViewModel(UserContext userContext) : base(userContext)
+		public Presenca_TreinoValData_ViewModel(UserContext userContext) : base(userContext)
 		{
-			this.RoleToShow = CSGenio.framework.Role.ROLE_1;
+			ValCodpresenca = userContext.CurrentNavigation.CurrentLevel.GetEntry("presenca")?.ToString();
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="SQB_Menu_31_ViewModel" /> class.
+		/// Initializes a new instance of the <see cref="Presenca_TreinoValData_ViewModel" /> class.
 		/// </summary>
 		/// <param name="userContext">The current user request context</param>
 		/// <param name="parentCtx">The context of the parent</param>
-		public SQB_Menu_31_ViewModel(UserContext userContext, Models.ModelBase parentCtx) : this(userContext)
+		public Presenca_TreinoValData_ViewModel(UserContext userContext, Models.ModelBase parentCtx) : this(userContext)
 		{
 			ParentCtx = parentCtx;
 		}
@@ -146,11 +129,6 @@ namespace GenioMVC.ViewModels.Treino
 			return
 			[
 				new Exports.QColumn(CSGenioAtreino.FldData, FieldType.DATETIME, Resources.Resources.DATA18071, 16, 0, true),
-				new Exports.QColumn(CSGenioAtreino.FldMesociclos, FieldType.NUMERIC, Resources.Resources.MESOCICLOS42559, 3, 0, true),
-				new Exports.QColumn(CSGenioAtreino.FldMicrociclo, FieldType.NUMERIC, Resources.Resources.MICROCICLO36882, 3, 0, true),
-				new Exports.QColumn(CSGenioAtreino.FldNumjogadores, FieldType.NUMERIC, Resources.Resources.NUMERO_JOGADORES22289, 3, 0, true),
-				new Exports.QColumn(CSGenioAtreino.FldObjetivo, FieldType.MEMO, Resources.Resources.OBJETIVO56787, 30, 0, true),
-				new Exports.QColumn(CSGenioAtreino.FldMaterial, FieldType.MEMO, Resources.Resources.MATERIAL33877, 30, 0, true),
 			];
 		}
 
@@ -191,7 +169,8 @@ namespace GenioMVC.ViewModels.Treino
 
 			crs ??= CriteriaSet.And();
 
-			Menu ??= new TablePartial<SQB_Menu_31_RowViewModel>();
+
+			Menu ??= new TablePartial<Presenca_TreinoValData_RowViewModel>();
 			// Set table name (used in getting searchable column names)
 			Menu.TableName = TableAlias;
 
@@ -209,12 +188,13 @@ namespace GenioMVC.ViewModels.Treino
 			// Form field filters
 			crs.SubSets.Add(ProcessFieldFilters(tableConfig.GlobalFilters));
 
+
 			crs.SubSets.Add(GetCustomizedStaticLimits(StaticLimits));
 
 			if (isToExport)
 			{
 				// EPH
-				crs = Models.Treino.AddEPH<CSGenioAtreino>(ref u, crs, "ML31");
+				crs = Models.Treino.AddEPH<CSGenioAtreino>(ref u, crs, "IBL_PRESENCA__TREINO__DATA");
 
 				// Export only records with ZZState == 0
 				crs.Equal(CSGenioAtreino.FldZzstate, 0);
@@ -223,16 +203,14 @@ namespace GenioMVC.ViewModels.Treino
 			}
 
 			// Limitation by Zzstate
-			if (!Navigation.checkFormMode("TREINO", FormMode.New)) // TODO: Check in Duplicate mode
-				crs = extendWithZzstateCondition(crs, CSGenioAtreino.FldZzstate, null);
+			crs.Criterias.Add(new Criteria(new ColumnReference(CSGenioAtreino.FldZzstate), CriteriaOperator.Equal, 0));
 
 
 			if (tableReload)
 			{
-				string QMVC_POS_RECORD = Navigation.GetStrValue("QMVC_POS_RECORD_treino");
-				Navigation.DestroyEntry("QMVC_POS_RECORD_treino");
+				string QMVC_POS_RECORD = requestValues["Q_POS_RECORD_treino"];
 				if (!string.IsNullOrEmpty(QMVC_POS_RECORD))
-					crs.Equals(Models.Treino.AddEPH<CSGenioAtreino>(ref u, null, "ML31"));
+					crs.Equals(Models.Treino.AddEPH<CSGenioAtreino>(ref u, null, "IBL_PRESENCA__TREINO__DATA"));
 			}
 
 			return crs;
@@ -307,9 +285,9 @@ namespace GenioMVC.ViewModels.Treino
 		public void Load(CSGenio.core.framework.table.TableConfiguration tableConfig, NameValueCollection requestValues, bool ajaxRequest, bool isToExport, ref ListingMVC<CSGenioAtreino> Qlisting, ref CriteriaSet conditions)
 		{
 			User u = m_userContext.User;
-			Menu = new TablePartial<SQB_Menu_31_RowViewModel>();
+			Menu = new TablePartial<Presenca_TreinoValData_RowViewModel>();
 
-			CriteriaSet sqb_menu_31Conds = CriteriaSet.And();
+			CriteriaSet presenca__treino__dataConds = CriteriaSet.And();
 			bool tableReload = true;
 
 			//FOR: MENU LIST SORTING
@@ -334,7 +312,7 @@ namespace GenioMVC.ViewModels.Treino
 
 			}
 
-			FieldRef[] fields = new FieldRef[] { CSGenioAtreino.FldCodtreino, CSGenioAtreino.FldZzstate, CSGenioAtreino.FldData, CSGenioAtreino.FldMesociclos, CSGenioAtreino.FldMicrociclo, CSGenioAtreino.FldNumjogadores, CSGenioAtreino.FldObjetivo, CSGenioAtreino.FldMaterial };
+			FieldRef[] fields = new FieldRef[] { CSGenioAtreino.FldCodtreino, CSGenioAtreino.FldZzstate, CSGenioAtreino.FldData };
 
 
 			// Totalizers
@@ -358,7 +336,7 @@ namespace GenioMVC.ViewModels.Treino
 				Limit limit = new Limit();
 				limit.TipoLimite = LimitType.EPH;
 				CSGenioAtreino model_limit_area = new CSGenioAtreino(m_userContext.User);
-				List<Limit> area_EPH_limits = EPH_Limit_Filler(ref limit, model_limit_area, "ML31");
+				List<Limit> area_EPH_limits = EPH_Limit_Filler(ref limit, model_limit_area, "IBL_PRESENCA__TREINO__DATA");
 				if (area_EPH_limits.Count > 0)
 					this.TableLimits.AddRange(area_EPH_limits);
 			}
@@ -367,11 +345,11 @@ namespace GenioMVC.ViewModels.Treino
 			if (conditions == null)
 				conditions = CriteriaSet.And();
 
-			conditions.SubSets.Add(sqb_menu_31Conds);
-			sqb_menu_31Conds = BuildCriteriaSet(tableConfig, requestValues, out bool hasAllRequiredLimits, conditions, isToExport);
+			conditions.SubSets.Add(presenca__treino__dataConds);
+			presenca__treino__dataConds = BuildCriteriaSet(tableConfig, requestValues, out bool hasAllRequiredLimits, conditions, isToExport);
 			tableReload &= hasAllRequiredLimits;
 
-// USE /[MANUAL SQB OVERRQ 31]/
+// USE /[MANUAL SQB OVERRQ PRESENCA_TREINODATA]/
 
 			bool distinct = false;
 
@@ -383,29 +361,28 @@ namespace GenioMVC.ViewModels.Treino
 				var exportColumns = GetExportColumns(tableConfig.ColumnConfigurations);
 				var exportFieldRefs = exportColumns.Select(eCol => eCol.Field).Where(fldRef => fldRef != null).ToArray();
 
-				Qlisting = Models.ModelBase.BuildListingForExport<CSGenioAtreino>(m_userContext, false, ref sqb_menu_31Conds, exportFieldRefs, (pageNumber - 1) * numberListItems, numberListItems, sorts, "ML31", true, firstVisibleColumn: firstVisibleColumn);
+				Qlisting = Models.ModelBase.BuildListingForExport<CSGenioAtreino>(m_userContext, false, ref presenca__treino__dataConds, exportFieldRefs, (pageNumber - 1) * numberListItems, numberListItems, sorts, "IBL_PRESENCA__TREINO__DATA", true, firstVisibleColumn: firstVisibleColumn);
 
-// USE /[MANUAL SQB OVERRQLSTEXP 31]/
+// USE /[MANUAL SQB OVERRQLSTEXP PRESENCA_TREINODATA]/
 
 				return;
 			}
 
 			if (tableReload)
 			{
-// USE /[MANUAL SQB OVERRQLIST 31]/
+// USE /[MANUAL SQB OVERRQLIST PRESENCA_TREINODATA]/
 
-				string QMVC_POS_RECORD = Navigation.GetStrValue("QMVC_POS_RECORD_treino");
-				Navigation.DestroyEntry("QMVC_POS_RECORD_treino");
+				string QMVC_POS_RECORD = requestValues["Q_POS_RECORD_treino"];
 				CriteriaSet m_PagingPosEPHs = null;
 
 				if (!string.IsNullOrEmpty(QMVC_POS_RECORD))
 				{
-					var m_iCurPag = m_userContext.PersistentSupport.getPagingPos(CSGenioAtreino.GetInformation(), QMVC_POS_RECORD, sorts, sqb_menu_31Conds, m_PagingPosEPHs, firstVisibleColumn: firstVisibleColumn);
+					var m_iCurPag = m_userContext.PersistentSupport.getPagingPos(CSGenioAtreino.GetInformation(), QMVC_POS_RECORD, sorts, presenca__treino__dataConds, m_PagingPosEPHs, firstVisibleColumn: firstVisibleColumn);
 					if (m_iCurPag != -1)
 						pageNumber = ((m_iCurPag - 1) / numberListItems) + 1;
 				}
 
-				ListingMVC<CSGenioAtreino> listing = Models.ModelBase.Where<CSGenioAtreino>(m_userContext, distinct, sqb_menu_31Conds, fields, (pageNumber - 1) * numberListItems, numberListItems, sorts, "ML31", true, false, QMVC_POS_RECORD, m_PagingPosEPHs, firstVisibleColumn, fieldsWithTotalizers, tableConfig.SelectedRows);
+				ListingMVC<CSGenioAtreino> listing = Models.ModelBase.Where<CSGenioAtreino>(m_userContext, distinct, presenca__treino__dataConds, fields, (pageNumber - 1) * numberListItems, numberListItems, sorts, "IBL_PRESENCA__TREINO__DATA", true, false, QMVC_POS_RECORD, m_PagingPosEPHs, firstVisibleColumn, fieldsWithTotalizers, tableConfig.SelectedRows);
 
 				if (listing.CurrentPage > 0)
 					pageNumber = listing.CurrentPage;
@@ -417,15 +394,14 @@ namespace GenioMVC.ViewModels.Treino
 				//Set document field values to objects
 				SetDocumentFields(listing);
 
-				Menu.Elements = MapSQB_Menu_31(listing);
+				Menu.Elements = MapPresenca_TreinoValData(listing);
 
-				Menu.Identifier = "ML31";
-				Menu.Slots = new Dictionary<string, List<object>>();
+				Menu.Identifier = "IBL_PRESENCA__TREINO__DATA";
 
 				// Last updated by [CJP] at [2015.02.03]
 				// Adds the identifier to each element
 				foreach (var element in Menu.Elements)
-					element.Identifier = "ML31";
+					element.Identifier = "IBL_PRESENCA__TREINO__DATA";
 
 				Menu.SetPagination(pageNumber, listing.NumRegs, listing.HasMore, listing.GetTotal, listing.TotalRecords);
 
@@ -444,9 +420,9 @@ namespace GenioMVC.ViewModels.Treino
 			LoadUserTableConfigNameProperties();
 		}
 
-		private List<SQB_Menu_31_RowViewModel> MapSQB_Menu_31(ListingMVC<CSGenioAtreino> Qlisting)
+		private List<Presenca_TreinoValData_RowViewModel> MapPresenca_TreinoValData(ListingMVC<CSGenioAtreino> Qlisting)
 		{
-			List<SQB_Menu_31_RowViewModel> Elements = [];
+			List<Presenca_TreinoValData_RowViewModel> Elements = [];
 			int i = 0;
 
 			if (Qlisting.Rows != null)
@@ -455,7 +431,7 @@ namespace GenioMVC.ViewModels.Treino
 				{
 					if (Qlisting.NumRegs > 0 && i >= Qlisting.NumRegs) // Copiado da versão antiga do RowsToViewModels
 						break;
-					Elements.Add(MapSQB_Menu_31(row));
+					Elements.Add(MapPresenca_TreinoValData(row));
 					i++;
 				}
 			}
@@ -465,12 +441,12 @@ namespace GenioMVC.ViewModels.Treino
 
 		/// <summary>
 		/// Maps a single CSGenioAtreino row
-		/// to a SQB_Menu_31_RowViewModel object.
+		/// to a Presenca_TreinoValData_RowViewModel object.
 		/// </summary>
 		/// <param name="row">The row.</param>
-		private SQB_Menu_31_RowViewModel MapSQB_Menu_31(CSGenioAtreino row)
+		private Presenca_TreinoValData_RowViewModel MapPresenca_TreinoValData(CSGenioAtreino row)
 		{
-			var model = new SQB_Menu_31_RowViewModel(m_userContext, true, _fieldsToSerialize);
+			var model = new Presenca_TreinoValData_RowViewModel(m_userContext, true, _fieldsToSerialize);
 			if (row == null)
 				return model;
 
@@ -525,23 +501,18 @@ namespace GenioMVC.ViewModels.Treino
 
 		#region Custom code
 
-// USE /[MANUAL SQB VIEWMODEL_CUSTOM SQB_MENU_31]/
+// USE /[MANUAL SQB VIEWMODEL_CUSTOM PRESENCA_TREINOVALDATA]/
 
 		#endregion
 
 		private static readonly string[] _fieldsToSerialize =
 		[
-			"Treino", "Treino.ValCodtreino", "Treino.ValZzstate", "Treino.ValData", "Treino.ValMesociclos", "Treino.ValMicrociclo", "Treino.ValNumjogadores", "Treino.ValObjetivo", "Treino.ValMaterial", "Treino.ValCodclube"
+			"Treino", "Treino.ValCodtreino", "Treino.ValZzstate", "Treino.ValData", "Treino.ValCodclube"
 		];
 
 		private static readonly List<TableSearchColumn> _searchableColumns =
 		[
 			new TableSearchColumn("ValData", CSGenioAtreino.FldData, typeof(DateTime?), defaultSearch : true),
-			new TableSearchColumn("ValMesociclos", CSGenioAtreino.FldMesociclos, typeof(decimal?)),
-			new TableSearchColumn("ValMicrociclo", CSGenioAtreino.FldMicrociclo, typeof(decimal?)),
-			new TableSearchColumn("ValNumjogadores", CSGenioAtreino.FldNumjogadores, typeof(decimal?)),
-			new TableSearchColumn("ValObjetivo", CSGenioAtreino.FldObjetivo, typeof(string)),
-			new TableSearchColumn("ValMaterial", CSGenioAtreino.FldMaterial, typeof(string)),
 		];
 	}
 }

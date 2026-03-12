@@ -13,9 +13,9 @@ public class ClubeForm : Form
 	public BaseInputControl ClubeFoto => new BaseInputControl(driver, ContainerLocator, "container-CLUBE___CLUBEFOTO____", "#CLUBE___CLUBEFOTO____");
 
 	/// <summary>
-	/// New Group
+	/// 
 	/// </summary>
-	public IWebElement PseudNewgrp04 => throw new NotImplementedException();
+	public CollapsibleZoneControl PseudNewgrp04 => new CollapsibleZoneControl(driver, ContainerLocator, "#CLUBE___PSEUDNEWGRP04-container");
 
 	/// <summary>
 	/// Informações DO clube

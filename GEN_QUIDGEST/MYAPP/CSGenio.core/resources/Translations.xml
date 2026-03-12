@@ -12,6 +12,9 @@
   <msg id="Équipa" code="EQUIPA06027">
     <ENUS>Équipa</ENUS>
   </msg>
+  <msg id="Equipa Atual" code="EQUIPA_ATUAL12425">
+    <ENUS>Equipa Atual</ENUS>
+  </msg>
   <msg id="Numero Jogadores" code="NUMERO_JOGADORES22289">
     <ENUS>Numero Jogadores</ENUS>
   </msg>
@@ -48,6 +51,9 @@
   <msg id="Informações DO clube" code="INFORMACOES_DO_CLUBE41671">
     <ENUS>Informações DO clube</ENUS>
   </msg>
+  <msg id="Defesas" code="DEFESAS04709">
+    <ENUS>Defesas</ENUS>
+  </msg>
   <msg id="Coordenador Formação" code="COORDENADOR_FORMACAO06004">
     <ENUS>Coordenador Formação</ENUS>
   </msg>
@@ -71,6 +77,9 @@
   </msg>
   <msg id="Numero Camisola" code="NUMERO_CAMISOLA34511">
     <ENUS>Numero Camisola</ENUS>
+  </msg>
+  <msg id="Todos" code="TODOS59977">
+    <ENUS>Todos</ENUS>
   </msg>
   <msg id="Treinador Principal" code="TREINADOR_PRINCIPAL45661">
     <ENUS>Treinador Principal</ENUS>
@@ -228,6 +237,9 @@
   <msg id="Equipa Técnica" code="EQUIPA_TECNICA24280">
     <ENUS>Equipa Técnica</ENUS>
   </msg>
+  <msg id="Atacantes" code="ATACANTES25618">
+    <ENUS>Atacantes</ENUS>
+  </msg>
   <msg id="Presente" code="PRESENTE06127">
     <ENUS>Presente</ENUS>
   </msg>
@@ -239,6 +251,9 @@
   </msg>
   <msg id="Bcc" code="BCC22049">
     <ENUS>Bcc</ENUS>
+  </msg>
+  <msg id="Convocados" code="CONVOCADOS52577">
+    <ENUS>Convocados</ENUS>
   </msg>
   <msg id="Presidente" code="PRESIDENTE51745">
     <ENUS>Presidente</ENUS>
@@ -467,6 +482,9 @@
   </msg>
   <msg id="Notification Email Signature" code="NOTIFICATION_EMAIL_S62518">
     <ENUS>Notification Email Signature</ENUS>
+  </msg>
+  <msg id="Médios" code="MEDIOS52631">
+    <ENUS>Médios</ENUS>
   </msg>
   <msg id="Process Type" code="PROCESS_TYPE50593">
     <ENUS>Process Type</ENUS>
@@ -1841,9 +1859,6 @@
   </msg>
   <msg id="Contar" code="CONTAR00983">
     <ENUS>Count</ENUS>
-  </msg>
-  <msg id="Todos" code="TODOS59977">
-    <ENUS>All</ENUS>
   </msg>
   <msg id="validade" code="VALIDADE39904">
     <ENUS>validity</ENUS>

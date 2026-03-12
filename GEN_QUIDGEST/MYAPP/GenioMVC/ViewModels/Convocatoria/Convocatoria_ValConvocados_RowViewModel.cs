@@ -4,18 +4,18 @@ using CSGenio.business;
 using CSGenio.framework;
 using GenioMVC.Models.Navigation;
 
-namespace GenioMVC.ViewModels.Presenca;
+namespace GenioMVC.ViewModels.Convocatoria;
 
-public class Presenca_ValPresenca_RowViewModel : Models.Presenca
+public class Convocatoria_ValConvocados_RowViewModel : Models.Jogador
 {
 	#region Constructors
 
-	public Presenca_ValPresenca_RowViewModel(UserContext userContext, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, isEmpty, fieldsToSerialize)
+	public Convocatoria_ValConvocados_RowViewModel(UserContext userContext, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, isEmpty, fieldsToSerialize)
 	{
 		InitRowProperties();
 	}
 
-	public Presenca_ValPresenca_RowViewModel(UserContext userContext, CSGenioApresenca val, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, val, isEmpty, fieldsToSerialize)
+	public Convocatoria_ValConvocados_RowViewModel(UserContext userContext, CSGenioAjogador val, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, val, isEmpty, fieldsToSerialize)
 	{
 		InitRowProperties();
 	}
@@ -37,25 +37,13 @@ public class Presenca_ValPresenca_RowViewModel : Models.Presenca
 			{
 				Order = 1,
 				Area = "JOGADOR",
-				Field = "NOME",
+				Field = "NUMEROCAMISOLA",
 			},
 			new ListColumn()
 			{
 				Order = 2,
-				Area = "PRESENCA",
-				Field = "ESTADO",
-			},
-			new ListColumn()
-			{
-				Order = 3,
-				Area = "PRESENCA",
-				Field = "CODTREINO",
-			},
-			new ListColumn()
-			{
-				Order = 4,
-				Area = "TREINO",
-				Field = "DATA",
+				Area = "JOGADOR",
+				Field = "NOME",
 			},
 		];
 	}

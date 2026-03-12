@@ -96,6 +96,67 @@
 			data-key="PRESENCA"
 			:data-loading="!formInitialDataLoaded || !isActiveForm">
 			<template v-if="formControl.initialized && showFormBody">
+				<q-row v-if="controls.PRESENCA__TREINO__DATA.isVisible || controls.PRESENCA__JOGADOR__NOME.isVisible || controls.PRESENCA__PRESENCA__ESTADO.isVisible">
+					<q-col
+						v-if="controls.PRESENCA__TREINO__DATA.isVisible"
+						cols="auto">
+						<base-input-structure
+							v-if="controls.PRESENCA__TREINO__DATA.isVisible"
+							class="i-text"
+							v-bind="controls.PRESENCA__TREINO__DATA"
+							v-on="controls.PRESENCA__TREINO__DATA.handlers"
+							:loading="controls.PRESENCA__TREINO__DATA.props.loading"
+							:reporting-mode-on="reportingModeCAV"
+							:suggestion-mode-on="suggestionModeOn">
+							<q-lookup
+								v-if="controls.PRESENCA__TREINO__DATA.isVisible"
+								v-bind="controls.PRESENCA__TREINO__DATA.props"
+								v-on="controls.PRESENCA__TREINO__DATA.handlers" />
+							<q-see-more-presenca-treino-data
+								v-if="controls.PRESENCA__TREINO__DATA.seeMoreIsVisible"
+								v-bind="controls.PRESENCA__TREINO__DATA.seeMoreParams"
+								v-on="controls.PRESENCA__TREINO__DATA.handlers" />
+						</base-input-structure>
+					</q-col>
+					<q-col
+						v-if="controls.PRESENCA__JOGADOR__NOME.isVisible"
+						cols="auto">
+						<base-input-structure
+							v-if="controls.PRESENCA__JOGADOR__NOME.isVisible"
+							class="i-text"
+							v-bind="controls.PRESENCA__JOGADOR__NOME"
+							v-on="controls.PRESENCA__JOGADOR__NOME.handlers"
+							:loading="controls.PRESENCA__JOGADOR__NOME.props.loading"
+							:reporting-mode-on="reportingModeCAV"
+							:suggestion-mode-on="suggestionModeOn">
+							<q-lookup
+								v-if="controls.PRESENCA__JOGADOR__NOME.isVisible"
+								v-bind="controls.PRESENCA__JOGADOR__NOME.props"
+								v-on="controls.PRESENCA__JOGADOR__NOME.handlers" />
+							<q-see-more-presenca-jogador-nome
+								v-if="controls.PRESENCA__JOGADOR__NOME.seeMoreIsVisible"
+								v-bind="controls.PRESENCA__JOGADOR__NOME.seeMoreParams"
+								v-on="controls.PRESENCA__JOGADOR__NOME.handlers" />
+						</base-input-structure>
+					</q-col>
+					<q-col
+						v-if="controls.PRESENCA__PRESENCA__ESTADO.isVisible"
+						cols="auto">
+						<base-input-structure
+							v-if="controls.PRESENCA__PRESENCA__ESTADO.isVisible"
+							class="i-text"
+							v-bind="controls.PRESENCA__PRESENCA__ESTADO"
+							v-on="controls.PRESENCA__PRESENCA__ESTADO.handlers"
+							:loading="controls.PRESENCA__PRESENCA__ESTADO.props.loading"
+							:reporting-mode-on="reportingModeCAV"
+							:suggestion-mode-on="suggestionModeOn">
+							<q-select
+								v-if="controls.PRESENCA__PRESENCA__ESTADO.isVisible"
+								v-bind="controls.PRESENCA__PRESENCA__ESTADO.props"
+								@update:model-value="model.ValEstado.fnUpdateValue" />
+						</base-input-structure>
+					</q-col>
+				</q-row>
 				<q-row v-if="controls.PRESENCAPSEUDPRESENCA.isVisible">
 					<q-col v-if="controls.PRESENCAPSEUDPRESENCA.isVisible">
 						<q-table
@@ -182,6 +243,8 @@
 		name: 'QFormPresenca',
 
 		components: {
+			QSeeMorePresencaTreinoData: defineAsyncComponent(() => import('@/views/forms/FormPresenca/dbedits/PresencaTreinoDataSeeMore.vue')),
+			QSeeMorePresencaJogadorNome: defineAsyncComponent(() => import('@/views/forms/FormPresenca/dbedits/PresencaJogadorNomeSeeMore.vue')),
 		},
 
 		mixins: [
@@ -457,6 +520,80 @@
 				},
 
 				controls: {
+					PRESENCA__TREINO__DATA: new fieldControlClass.LookupControl({
+						modelField: 'TableTreinoData',
+						valueChangeEvent: 'fieldChange:treino.data',
+						id: 'PRESENCA__TREINO__DATA',
+						name: 'DATA',
+						size: 'large',
+						label: computed(() => this.Resources.DATA18071),
+						placeholder: '',
+						labelPosition: computed(() => this.labelAlignment.topleft),
+						externalCallbacks: {
+							getModelField: vm.getModelField,
+							getModelFieldValue: vm.getModelFieldValue,
+							setModelFieldValue: vm.setModelFieldValue
+						},
+						externalProperties: {
+							modelKeys: computed(() => vm.modelKeys)
+						},
+						lookupKeyModelField: {
+							name: 'ValCodtreino',
+							dependencyEvent: 'fieldChange:presenca.codtreino'
+						},
+						dependentFields: () => ({
+							set 'treino.codtreino'(value) { vm.model.ValCodtreino.updateValue(value) },
+							set 'treino.data'(value) { vm.model.TableTreinoData.updateValue(value) },
+						}),
+						controlLimits: [
+						],
+					}, this),
+					PRESENCA__JOGADOR__NOME: new fieldControlClass.LookupControl({
+						modelField: 'TableJogadorNome',
+						valueChangeEvent: 'fieldChange:jogador.nome',
+						id: 'PRESENCA__JOGADOR__NOME',
+						name: 'NOME',
+						size: 'xxlarge',
+						label: computed(() => this.Resources.NOME47814),
+						placeholder: '',
+						labelPosition: computed(() => this.labelAlignment.topleft),
+						externalCallbacks: {
+							getModelField: vm.getModelField,
+							getModelFieldValue: vm.getModelFieldValue,
+							setModelFieldValue: vm.setModelFieldValue
+						},
+						externalProperties: {
+							modelKeys: computed(() => vm.modelKeys)
+						},
+						lookupKeyModelField: {
+							name: 'ValCodjogador',
+							dependencyEvent: 'fieldChange:presenca.codjogador'
+						},
+						dependentFields: () => ({
+							set 'jogador.codjogador'(value) { vm.model.ValCodjogador.updateValue(value) },
+							set 'jogador.nome'(value) { vm.model.TableJogadorNome.updateValue(value) },
+						}),
+						mustBeFilled: true,
+						controlLimits: [
+						],
+					}, this),
+					PRESENCA__PRESENCA__ESTADO: new fieldControlClass.ArrayStringControl({
+						modelField: 'ValEstado',
+						valueChangeEvent: 'fieldChange:presenca.estado',
+						id: 'PRESENCA__PRESENCA__ESTADO',
+						name: 'ESTADO',
+						size: 'mini',
+						label: computed(() => this.Resources.ESTADO07788),
+						placeholder: '',
+						labelPosition: computed(() => this.labelAlignment.topleft),
+						maxLength: 2,
+						mustBeFilled: true,
+						arrayName: 'estado_presenca',
+						helpShortItem: 'None',
+						helpDetailedItem: 'None',
+						controlLimits: [
+						],
+					}, this),
 					PRESENCAPSEUDPRESENCA: new fieldControlClass.TableListControl({
 						id: 'PRESENCAPSEUDPRESENCA',
 						name: 'PRESENCA',
@@ -502,6 +639,18 @@
 								dataLength: 8,
 								scrollData: 8,
 								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.DateColumn({
+								order: 4,
+								name: 'Treino.ValData',
+								area: 'TREINO',
+								field: 'DATA',
+								label: computed(() => this.Resources.DATA18071),
+								scrollData: 16,
+								dateTimeType: 'dateTime',
+								isVisible: false,
+								export: 1,
+								pkColumn: 'ValCodtreino',
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 						],
 						config: {
@@ -633,8 +782,8 @@
 									isPopup: false
 								},
 							},
-							defaultSearchColumnName: 'Jogador.ValNome',
-							defaultSearchColumnNameOriginal: 'Jogador.ValNome',
+							defaultSearchColumnName: 'Treino.ValData',
+							defaultSearchColumnNameOriginal: 'Treino.ValData',
 							defaultColumnSorting: {
 								columnName: '',
 								sortOrder: 'asc'
@@ -686,6 +835,10 @@
 						set ValCodtreino(value) { vm.model.ValCodtreino.updateValue(value) },
 						get ValEstado() { return vm.model.ValEstado.value },
 						set ValEstado(value) { vm.model.ValEstado.updateValue(value) },
+					},
+					Treino: {
+						get ValData() { return vm.model.TableTreinoData.value },
+						set ValData(value) { vm.model.TableTreinoData.updateValue(value) },
 					},
 					keys: {
 						/** The primary key of the PRESENCA table */

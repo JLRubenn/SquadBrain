@@ -131,6 +131,7 @@ namespace GenioMVC.ViewModels.Presenca
 				new Exports.QColumn(CSGenioAjogador.FldNome, FieldType.TEXT, Resources.Resources.NOME47814, 30, 0, true),
 				new Exports.QColumn(CSGenioApresenca.FldEstado, FieldType.ARRAY_TEXT, Resources.Resources.ESTADO07788, 2, 0, true, "estado_presenca"),
 				new Exports.QColumn(CSGenioApresenca.FldCodtreino, FieldType.KEY_INT, Resources.Resources.TREINO06086, 8, 0, true),
+				new Exports.QColumn(CSGenioAtreino.FldData, FieldType.DATETIME, Resources.Resources.DATA18071, 16, 0, false),
 			];
 		}
 
@@ -308,7 +309,7 @@ namespace GenioMVC.ViewModels.Presenca
 			List<ColumnSort> sorts = GetRequestSorts(this.Menu, tableConfig, "presenca", allSortOrders);
 
 
-			FieldRef[] fields = new FieldRef[] { CSGenioApresenca.FldCodpresenca, CSGenioApresenca.FldZzstate, CSGenioApresenca.FldCodjogador, CSGenioAjogador.FldCodjogador, CSGenioAjogador.FldNome, CSGenioApresenca.FldEstado, CSGenioApresenca.FldCodtreino };
+			FieldRef[] fields = new FieldRef[] { CSGenioApresenca.FldCodpresenca, CSGenioApresenca.FldZzstate, CSGenioApresenca.FldCodjogador, CSGenioAjogador.FldCodjogador, CSGenioAjogador.FldNome, CSGenioApresenca.FldEstado, CSGenioApresenca.FldCodtreino, CSGenioAtreino.FldCodtreino, CSGenioAtreino.FldData };
 
 
 			// Totalizers
@@ -455,6 +456,8 @@ namespace GenioMVC.ViewModels.Presenca
 						model.klass.insertNameValueField(Qfield.FullName, Qfield.Value); break;
 					case "jogador":
 						model.Jogador.klass.insertNameValueField(Qfield.FullName, Qfield.Value); break;
+					case "treino":
+						model.Treino.klass.insertNameValueField(Qfield.FullName, Qfield.Value); break;
 					default:
 						break;
 				}
@@ -506,7 +509,7 @@ namespace GenioMVC.ViewModels.Presenca
 
 		private static readonly string[] _fieldsToSerialize =
 		[
-			"Presenca", "Presenca.ValCodpresenca", "Presenca.ValZzstate", "Jogador", "Jogador.ValNome", "Presenca.ValEstado", "Presenca.ValCodtreino", "Presenca.ValCodjogador"
+			"Presenca", "Presenca.ValCodpresenca", "Presenca.ValZzstate", "Jogador", "Jogador.ValNome", "Presenca.ValEstado", "Presenca.ValCodtreino", "Treino", "Treino.ValData", "Presenca.ValCodjogador"
 		];
 
 		private static readonly List<TableSearchColumn> _searchableColumns =
@@ -514,6 +517,7 @@ namespace GenioMVC.ViewModels.Presenca
 			new TableSearchColumn("Jogador_ValNome", CSGenioAjogador.FldNome, typeof(string), defaultSearch : true),
 			new TableSearchColumn("ValEstado", CSGenioApresenca.FldEstado, typeof(string), array : "estado_presenca"),
 			new TableSearchColumn("ValCodtreino", CSGenioApresenca.FldCodtreino, typeof(string)),
+			new TableSearchColumn("Treino_ValData", CSGenioAtreino.FldData, typeof(DateTime?), visible : false, defaultSearch : true),
 		];
 	}
 }

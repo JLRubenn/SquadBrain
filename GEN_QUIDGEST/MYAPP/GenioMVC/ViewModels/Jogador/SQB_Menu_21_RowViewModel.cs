@@ -37,31 +37,31 @@ public class SQB_Menu_21_RowViewModel : Models.Jogador
 			{
 				Order = 1,
 				Area = "JOGADOR",
-				Field = "EQUIPAANTERIOR",
+				Field = "FOTO",
 			},
 			new ListColumn()
 			{
 				Order = 2,
 				Area = "JOGADOR",
-				Field = "PEDOMINANTE",
+				Field = "NOME",
 			},
 			new ListColumn()
 			{
 				Order = 3,
 				Area = "JOGADOR",
-				Field = "NOME",
+				Field = "NUMEROCAMISOLA",
 			},
 			new ListColumn()
 			{
 				Order = 4,
 				Area = "JOGADOR",
-				Field = "NUMEROCAMISOLA",
+				Field = "DATANASCIMENTO",
 			},
 			new ListColumn()
 			{
 				Order = 5,
 				Area = "JOGADOR",
-				Field = "FOTO",
+				Field = "PEDOMINANTE",
 			},
 			new ListColumn()
 			{
@@ -73,7 +73,7 @@ public class SQB_Menu_21_RowViewModel : Models.Jogador
 			{
 				Order = 7,
 				Area = "JOGADOR",
-				Field = "DATANASCIMENTO",
+				Field = "POSICAOSEGUNDARIA",
 			},
 			new ListColumn()
 			{
@@ -85,7 +85,7 @@ public class SQB_Menu_21_RowViewModel : Models.Jogador
 			{
 				Order = 9,
 				Area = "JOGADOR",
-				Field = "POSICAOSEGUNDARIA",
+				Field = "EQUIPAANTERIOR",
 			},
 		];
 	}

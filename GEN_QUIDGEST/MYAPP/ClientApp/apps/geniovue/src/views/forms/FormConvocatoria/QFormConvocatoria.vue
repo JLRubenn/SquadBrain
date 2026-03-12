@@ -98,7 +98,7 @@
 			<template v-if="formControl.initialized && showFormBody">
 				<q-row v-if="controls.CONVOCATORIA__JOGO__TITULO.isVisible || controls.CONVOCATORIA__JOGO__LOCAL.isVisible || controls.CONVOCATORIA__JOGO__DATA.isVisible || controls.CONVOCATORIA__JOGO__EQUIPAADVERSARIA.isVisible">
 					<q-col
-						v-if="controls.CONVOCATORIA__JOGO__TITULO.isVisible"
+						v-if="controls.CONVOCATORIA__JOGO__TITULO.isVisible || controls.CONVOCATORIA__JOGO__LOCAL.isVisible || controls.CONVOCATORIA__JOGO__DATA.isVisible || controls.CONVOCATORIA__JOGO__EQUIPAADVERSARIA.isVisible"
 						cols="auto">
 						<base-input-structure
 							v-if="controls.CONVOCATORIA__JOGO__TITULO.isVisible"
@@ -117,10 +117,6 @@
 								v-bind="controls.CONVOCATORIA__JOGO__TITULO.seeMoreParams"
 								v-on="controls.CONVOCATORIA__JOGO__TITULO.handlers" />
 						</base-input-structure>
-					</q-col>
-					<q-col
-						v-if="controls.CONVOCATORIA__JOGO__LOCAL.isVisible"
-						cols="auto">
 						<base-input-structure
 							v-if="controls.CONVOCATORIA__JOGO__LOCAL.isVisible"
 							class="i-text"
@@ -134,10 +130,6 @@
 								@blur="onBlur(controls.CONVOCATORIA__JOGO__LOCAL, model.JogoValLocal.value)"
 								@change="model.JogoValLocal.fnUpdateValueOnChange" />
 						</base-input-structure>
-					</q-col>
-					<q-col
-						v-if="controls.CONVOCATORIA__JOGO__DATA.isVisible"
-						cols="auto">
 						<base-input-structure
 							v-if="controls.CONVOCATORIA__JOGO__DATA.isVisible"
 							class="i-text"
@@ -153,10 +145,6 @@
 								@reset-icon-click="model.JogoValData.fnUpdateValue(model.JogoValData.originalValue ?? new Date())"
 								@update:model-value="model.JogoValData.fnUpdateValue($event ?? '')" />
 						</base-input-structure>
-					</q-col>
-					<q-col
-						v-if="controls.CONVOCATORIA__JOGO__EQUIPAADVERSARIA.isVisible"
-						cols="auto">
 						<base-input-structure
 							v-if="controls.CONVOCATORIA__JOGO__EQUIPAADVERSARIA.isVisible"
 							class="i-text"
@@ -170,6 +158,21 @@
 								@blur="onBlur(controls.CONVOCATORIA__JOGO__EQUIPAADVERSARIA, model.JogoValEquipaadversaria.value)"
 								@change="model.JogoValEquipaadversaria.fnUpdateValueOnChange" />
 						</base-input-structure>
+					</q-col>
+				</q-row>
+				<q-row v-if="controls.CONVOCATORIA__PSEUD__CONVOCADOS.isVisible">
+					<q-col v-if="controls.CONVOCATORIA__PSEUD__CONVOCADOS.isVisible">
+						<q-table
+							v-if="controls.CONVOCATORIA__PSEUD__CONVOCADOS.isVisible"
+							v-bind="controls.CONVOCATORIA__PSEUD__CONVOCADOS"
+							v-on="controls.CONVOCATORIA__PSEUD__CONVOCADOS.handlers">
+							<template #header>
+								<q-table-config
+									:table-ctrl="controls.CONVOCATORIA__PSEUD__CONVOCADOS"
+									v-on="controls.CONVOCATORIA__PSEUD__CONVOCADOS.handlers" />
+							</template>
+							<!-- USE /[MANUAL SQB CUSTOM_TABLE CONVOCATORIA__PSEUD__CONVOCADOS]/ -->
+						</q-table>
 					</q-col>
 				</q-row>
 			</template>
@@ -524,8 +527,8 @@
 						valueChangeEvent: 'fieldChange:jogo.titulo',
 						id: 'CONVOCATORIA__JOGO__TITULO',
 						name: 'TITULO',
-						size: 'xxlarge',
-						label: computed(() => this.Resources.TITULO23260),
+						size: 'large',
+						label: computed(() => this.Resources.JOGO37147),
 						placeholder: '',
 						labelPosition: computed(() => this.labelAlignment.topleft),
 						externalCallbacks: {
@@ -557,7 +560,7 @@
 						dependentChangeEvent: 'fieldChange:convocatoria.codjogo',
 						id: 'CONVOCATORIA__JOGO__LOCAL',
 						name: 'LOCAL',
-						size: 'xlarge',
+						size: 'large',
 						label: computed(() => this.Resources.LOCAL02842),
 						placeholder: '',
 						labelPosition: computed(() => this.labelAlignment.topleft),
@@ -572,7 +575,7 @@
 						dependentChangeEvent: 'fieldChange:convocatoria.codjogo',
 						id: 'CONVOCATORIA__JOGO__DATA',
 						name: 'DATA',
-						size: 'small',
+						size: 'large',
 						label: computed(() => this.Resources.DATA18071),
 						placeholder: '',
 						labelPosition: computed(() => this.labelAlignment.topleft),
@@ -587,12 +590,195 @@
 						dependentChangeEvent: 'fieldChange:convocatoria.codjogo',
 						id: 'CONVOCATORIA__JOGO__EQUIPAADVERSARIA',
 						name: 'EQUIPAADVERSARIA',
-						size: 'xlarge',
+						size: 'large',
 						label: computed(() => this.Resources.EQUIPA_ADVERSARIA15813),
 						placeholder: '',
 						labelPosition: computed(() => this.labelAlignment.topleft),
 						maxLength: 50,
 						controlLimits: [
+						],
+					}, this),
+					CONVOCATORIA__PSEUD__CONVOCADOS: new fieldControlClass.TableListControl({
+						id: 'CONVOCATORIA__PSEUD__CONVOCADOS',
+						name: 'CONVOCADOS',
+						size: 'block',
+						label: computed(() => this.Resources.CONVOCADOS52577),
+						placeholder: '',
+						labelPosition: computed(() => this.labelAlignment.topleft),
+						controller: 'CONVOCATORIA',
+						action: 'Convocatoria_ValConvocados',
+						hasDependencies: false,
+						isInCollapsible: false,
+						columnsOriginal: [
+							new listColumnTypes.NumericColumn({
+								order: 1,
+								name: 'ValNumerocamisola',
+								area: 'JOGADOR',
+								field: 'NUMEROCAMISOLA',
+								label: computed(() => this.Resources.NUMERO_CAMISOLA34511),
+								scrollData: 2,
+								maxDigits: 2,
+								decimalPlaces: 0,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.TextColumn({
+								order: 2,
+								name: 'ValNome',
+								area: 'JOGADOR',
+								field: 'NOME',
+								label: computed(() => this.Resources.NOME47814),
+								dataLength: 50,
+								scrollData: 30,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+						],
+						config: {
+							name: 'ValConvocados',
+							serverMode: true,
+							pkColumn: 'ValCodjogador',
+							tableAlias: 'JOGADOR',
+							tableNamePlural: computed(() => this.Resources.JOGADORES08991),
+							viewManagement: '',
+							showLimitsInfo: true,
+							tableTitle: computed(() => this.Resources.CONVOCADOS52577),
+							showAlternatePagination: true,
+							permissions: {
+							},
+							searchBarConfig: {
+								visibility: false
+							},
+							allowColumnFilters: false,
+							allowColumnSort: true,
+							crudActions: [
+								{
+									id: 'show',
+									name: 'show',
+									title: computed(() => this.Resources.CONSULTAR57388),
+									icon: {
+										icon: 'view'
+									},
+									isInReadOnly: true,
+									params: {
+										action: vm.openFormAction,
+										type: 'form',
+										formName: 'JOGADOR',
+										mode: 'SHOW',
+										isControlled: true
+									}
+								},
+								{
+									id: 'edit',
+									name: 'edit',
+									title: computed(() => this.Resources.EDITAR11616),
+									icon: {
+										icon: 'pencil'
+									},
+									isInReadOnly: false,
+									params: {
+										action: vm.openFormAction,
+										type: 'form',
+										formName: 'JOGADOR',
+										mode: 'EDIT',
+										isControlled: true
+									}
+								},
+								{
+									id: 'duplicate',
+									name: 'duplicate',
+									title: computed(() => this.Resources.DUPLICAR09748),
+									icon: {
+										icon: 'duplicate'
+									},
+									isInReadOnly: false,
+									params: {
+										action: vm.openFormAction,
+										type: 'form',
+										formName: 'JOGADOR',
+										mode: 'DUPLICATE',
+										isControlled: true
+									}
+								},
+								{
+									id: 'delete',
+									name: 'delete',
+									title: computed(() => this.Resources.ELIMINAR21155),
+									icon: {
+										icon: 'delete'
+									},
+									isInReadOnly: false,
+									params: {
+										action: vm.openFormAction,
+										type: 'form',
+										formName: 'JOGADOR',
+										mode: 'DELETE',
+										isControlled: true
+									}
+								}
+							],
+							generalActions: [
+								{
+									id: 'insert',
+									name: 'insert',
+									title: computed(() => this.Resources.INSERIR43365),
+									icon: {
+										icon: 'add'
+									},
+									isInReadOnly: false,
+									params: {
+										action: vm.openFormAction,
+										type: 'form',
+										formName: 'JOGADOR',
+										mode: 'NEW',
+										repeatInsertion: false,
+										isControlled: true
+									}
+								},
+							],
+							generalCustomActions: [
+							],
+							groupActions: [
+							],
+							customActions: [
+							],
+							MCActions: [
+							],
+							rowClickAction: {
+								id: 'RCA__JOGADOR',
+								name: '_JOGADOR',
+								title: '',
+								isInReadOnly: true,
+								params: {
+									isRoute: true,
+									action: vm.openFormAction,
+									type: 'form',
+									formName: 'JOGADOR',
+									mode: 'SHOW',
+									isControlled: true
+								}
+							},
+							formsDefinition: {
+								'JOGADOR': {
+									fnKeySelector: (row) => row.Fields.ValCodjogador,
+									isPopup: false
+								},
+							},
+							defaultSearchColumnName: 'ValNome',
+							defaultSearchColumnNameOriginal: 'ValNome',
+							defaultColumnSorting: {
+								columnName: '',
+								sortOrder: 'asc'
+							}
+						},
+						globalEvents: ['changed-JOGADOR', 'changed-CLUBE'],
+						uuid: 'Convocatoria_ValConvocados',
+						allSelectedRows: 'false',
+						controlLimits: [
+							{
+								identifier: ['id', 'convocatoria'],
+								dependencyEvents: ['fieldChange:convocatoria.codconvocatoria'],
+								dependencyField: 'CONVOCATORIA.CODCONVOCATORIA',
+								fnValueSelector: (model) => model.ValCodconvocatoria.value
+							},
 						],
 					}, this),
 				},
@@ -608,6 +794,7 @@
 				]),
 
 				tableFields: readonly([
+					'CONVOCATORIA__PSEUD__CONVOCADOS',
 				]),
 
 				timelineFields: readonly([

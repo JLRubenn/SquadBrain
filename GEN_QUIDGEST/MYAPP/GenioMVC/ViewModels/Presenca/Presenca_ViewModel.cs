@@ -35,21 +35,25 @@ namespace GenioMVC.ViewModels.Presenca
 		/// </summary>
 		public string ValCodjogador { get; set; }
 		/// <summary>
-		/// Title: "" | Type: "CE"
+		/// Title: "Data" | Type: "CE"
 		/// </summary>
-		[ValidateSetAccess]
 		public string ValCodtreino { get; set; }
 
 		#endregion
 		/// <summary>
-		/// Title: "Estado" | Type: "AC"
+		/// Title: "Data" | Type: "DT"
 		/// </summary>
-		public string ValEstado { get; set; }
+		[ValidateSetAccess]
+		public TableDBEdit<GenioMVC.Models.Treino> TableTreinoData { get; set; }
 		/// <summary>
 		/// Title: "Nome" | Type: "C"
 		/// </summary>
 		[ValidateSetAccess]
 		public TableDBEdit<GenioMVC.Models.Jogador> TableJogadorNome { get; set; }
+		/// <summary>
+		/// Title: "Estado" | Type: "AC"
+		/// </summary>
+		public string ValEstado { get; set; }
 
 		#region Navigations
 		#endregion
@@ -211,17 +215,9 @@ namespace GenioMVC.ViewModels.Presenca
 			try
 			{
 				m.ValCodjogador = ViewModelConversion.ToString(ValCodjogador);
+				m.ValCodtreino = ViewModelConversion.ToString(ValCodtreino);
 				m.ValEstado = ViewModelConversion.ToString(ValEstado);
 				m.ValCodpresenca = ViewModelConversion.ToString(ValCodpresenca);
-
-				/*
-					At this moment, in the case of runtime calculation of server-side formulas, to improve performance and reduce database load,
-						the values coming from the client-side will be accepted as valid, since they will not be saved and are only being used for calculation.
-				*/
-				if (!HasDisabledUserValuesSecurity)
-					return;
-
-				m.ValCodtreino = ViewModelConversion.ToString(ValCodtreino);
 			}
 			catch (Exception)
 			{
@@ -248,6 +244,9 @@ namespace GenioMVC.ViewModels.Presenca
 				{
 					case "presenca.codjogador":
 						this.ValCodjogador = ViewModelConversion.ToString(_value);
+						break;
+					case "presenca.codtreino":
+						this.ValCodtreino = ViewModelConversion.ToString(_value);
 						break;
 					case "presenca.estado":
 						this.ValEstado = ViewModelConversion.ToString(_value);
@@ -362,6 +361,7 @@ namespace GenioMVC.ViewModels.Presenca
 			// Add characteristics
 			Characs = new List<string>();
 
+			Load_Presenca__treino__data(qs, lazyLoad);
 			Load_Presenca__jogador__nome(qs, lazyLoad);
 
 // USE /[MANUAL SQB VIEWMODEL_LOADPARTIAL PRESENCA]/
@@ -418,6 +418,196 @@ namespace GenioMVC.ViewModels.Presenca
 		public void LoadChecklistsSelectedIDs()
 		{
 		}
+
+		/// <summary>
+		/// TableTreinoData -> (DB)
+		/// </summary>
+		/// <param name="qs"></param>
+		/// <param name="lazyLoad">Lazy loading of dropdown items</param>
+		public void Load_Presenca__treino__data(NameValueCollection qs, bool lazyLoad = false)
+		{
+			bool presenca__treino__dataDoLoad = true;
+			CriteriaSet presenca__treino__dataConds = CriteriaSet.And();
+			{
+				object hValue = Navigation.GetValue("treino", true);
+				if (hValue != null && !(hValue is Array) && !string.IsNullOrEmpty(Convert.ToString(hValue)))
+				{
+					presenca__treino__dataConds.Equal(CSGenioAtreino.FldCodtreino, hValue);
+					this.ValCodtreino = DBConversion.ToString(hValue);
+				}
+			}
+
+			TableTreinoData = new TableDBEdit<Models.Treino>
+			{
+				IsLazyLoad = lazyLoad
+			};
+
+			if (lazyLoad)
+			{
+				if (Navigation.CurrentLevel.GetEntry("RETURN_treino") != null)
+				{
+					this.ValCodtreino = Navigation.GetStrValue("RETURN_treino");
+					Navigation.CurrentLevel.SetEntry("RETURN_treino", null);
+				}
+				FillDependant_PresencaTableTreinoData(lazyLoad);
+				return;
+			}
+
+			if (presenca__treino__dataDoLoad)
+			{
+				List<ColumnSort> sorts = [];
+				ColumnSort requestedSort = GetRequestSort(TableTreinoData, "sTableTreinoData", "dTableTreinoData", qs, "treino");
+				if (requestedSort != null)
+					sorts.Add(requestedSort);
+				sorts.Add(new ColumnSort(new ColumnReference(CSGenioAtreino.FldData), SortOrder.Ascending));
+
+				string query = "";
+				if (!string.IsNullOrEmpty(qs["TableTreinoData_tableFilters"]))
+					TableTreinoData.TableFilters = bool.Parse(qs["TableTreinoData_tableFilters"]);
+				else
+					TableTreinoData.TableFilters = false;
+
+				query = qs["qTableTreinoData"];
+
+				//RS 26.07.2016 O preenchimento da lista de ajuda dos Dbedits passa a basear-se apenas no campo do próprio DbEdit
+				// O interface de pesquisa rápida não fica coerente quando se visualiza apenas uma coluna mas a pesquisa faz matching com 5 ou 6 colunas diferentes
+				//  tornando confuso to o user porque determinada row foi devolvida quando o Qresult não mostra como o matching foi feito
+				CriteriaSet search_filters = CriteriaSet.And();
+				if (!string.IsNullOrEmpty(query))
+				{
+					search_filters.Like(CSGenioAtreino.FldData, query + "%");
+				}
+				presenca__treino__dataConds.SubSet(search_filters);
+
+				string tryParsePage = qs["pTableTreinoData"] != null ? qs["pTableTreinoData"].ToString() : "1";
+				int page = !string.IsNullOrEmpty(tryParsePage) ? int.Parse(tryParsePage) : 1;
+				int numberItems = CSGenio.framework.Configuration.NrRegDBedit;
+				int offset = (page - 1) * numberItems;
+
+				FieldRef[] fields = [CSGenioAtreino.FldCodtreino, CSGenioAtreino.FldData, CSGenioAtreino.FldZzstate];
+
+// USE /[MANUAL SQB OVERRQ PRESENCA_TREINODATA]/
+
+				// Limitation by Zzstate
+				/*
+					Records that are currently being inserted or duplicated will also be included.
+					Client-side persistence will try to fill the "text" value of that option.
+				*/
+				if (Navigation.checkFormMode("treino", FormMode.New) || Navigation.checkFormMode("treino", FormMode.Duplicate))
+					presenca__treino__dataConds.SubSet(CriteriaSet.Or()
+						.Equal(CSGenioAtreino.FldZzstate, 0)
+						.Equal(CSGenioAtreino.FldCodtreino, Navigation.GetStrValue("treino")));
+				else
+					presenca__treino__dataConds.Criterias.Add(new Criteria(new ColumnReference(CSGenioAtreino.FldZzstate), CriteriaOperator.Equal, 0));
+
+				FieldRef firstVisibleColumn = new FieldRef("treino", "data");
+				ListingMVC<CSGenioAtreino> listing = Models.ModelBase.Where<CSGenioAtreino>(m_userContext, false, presenca__treino__dataConds, fields, offset, numberItems, sorts, "LED_PRESENCA__TREINO__DATA", true, false, firstVisibleColumn: firstVisibleColumn);
+
+				TableTreinoData.SetPagination(page, numberItems, listing.HasMore, listing.GetTotal, listing.TotalRecords);
+				TableTreinoData.Query = query;
+				TableTreinoData.Elements = listing.RowsForViewModel((r) => new GenioMVC.Models.Treino(m_userContext, r, true, _fieldsToSerialize_PRESENCA__TREINO__DATA));
+
+				//created by [ MH ] at [ 14.04.2016 ] - Foi alterada a forma de retornar a key do novo registo inserido / editado no form de apoio do DBEdit.
+				//last update by [ MH ] at [ 10.05.2016 ] - Validação se key encontra-se no level atual, as chaves dos niveis anteriores devem ser ignorados.
+				if (Navigation.CurrentLevel.GetEntry("RETURN_treino") != null)
+				{
+					this.ValCodtreino = Navigation.GetStrValue("RETURN_treino");
+					Navigation.CurrentLevel.SetEntry("RETURN_treino", null);
+				}
+
+				TableTreinoData.List = new SelectList(TableTreinoData.Elements.ToSelectList(x => x.ValData, x => x.ValCodtreino,  x => x.ValCodtreino == this.ValCodtreino), "Value", "Text", this.ValCodtreino);
+				FillDependant_PresencaTableTreinoData();
+			}
+		}
+
+		/// <summary>
+		/// Get Dependant fields values -> TableTreinoData (DB)
+		/// </summary>
+		/// <param name="PKey">Primary Key of Treino</param>
+		public ConcurrentDictionary<string, object> GetDependant_PresencaTableTreinoData(string PKey)
+		{
+			FieldRef[] refDependantFields = [CSGenioAtreino.FldCodtreino, CSGenioAtreino.FldData];
+
+			var returnEmptyDependants = false;
+			CriteriaSet wherecodition = CriteriaSet.And();
+
+			// Return default values
+			if (GenFunctions.emptyG(PKey) == 1)
+				returnEmptyDependants = true;
+
+			// Check if the limit(s) is filled if exists
+			// - - - - - - - - - - - - - - - - - - - - -
+
+			if (returnEmptyDependants)
+				return GetViewModelFieldValues(refDependantFields);
+
+			PersistentSupport sp = m_userContext.PersistentSupport;
+			User u = m_userContext.User;
+
+			CSGenioAtreino tempArea = new(u);
+
+			// Fields to select
+			SelectQuery querySelect = new();
+			querySelect.PageSize(1);
+			foreach (FieldRef field in refDependantFields)
+				querySelect.Select(field);
+
+			querySelect.From(tempArea.QSystem, tempArea.TableName, tempArea.Alias)
+				.Where(wherecodition.Equal(CSGenioAtreino.FldCodtreino, PKey));
+
+			string[] dependantFields = refDependantFields.Select(f => f.FullName).ToArray();
+			QueryUtils.SetInnerJoins(dependantFields, null, tempArea, querySelect);
+
+			ArrayList values = sp.executeReaderOneRow(querySelect);
+			bool useDefaults = values.Count == 0;
+
+			if (useDefaults)
+				return GetViewModelFieldValues(refDependantFields);
+			return GetViewModelFieldValues(refDependantFields, values);
+		}
+
+		/// <summary>
+		/// Fill Dependant fields values -> TableTreinoData (DB)
+		/// </summary>
+		/// <param name="lazyLoad">Lazy loading of dropdown items</param>
+		public void FillDependant_PresencaTableTreinoData(bool lazyLoad = false)
+		{
+			var row = GetDependant_PresencaTableTreinoData(this.ValCodtreino);
+			try
+			{
+
+				// Fill List fields
+				this.ValCodtreino = ViewModelConversion.ToString(row["treino.codtreino"]);
+				TableTreinoData.Value = (DateTime?)row["treino.data"];
+				if (GenFunctions.emptyG(this.ValCodtreino) == 1)
+				{
+					this.ValCodtreino = "";
+					TableTreinoData.Value = DateTime.MinValue;
+					Navigation.ClearValue("treino");
+				}
+				else if (lazyLoad)
+				{
+					TableTreinoData.SetPagination(1, 0, false, false, 1);
+					TableTreinoData.List = new SelectList(new List<SelectListItem>()
+					{
+						new SelectListItem
+						{
+							Value = Convert.ToString(this.ValCodtreino),
+							Text = Convert.ToString(TableTreinoData.Value),
+							Selected = true
+						}
+					}, "Value", "Text", this.ValCodtreino);
+				}
+
+				TableTreinoData.Selected = this.ValCodtreino;
+			}
+			catch (Exception ex)
+			{
+				CSGenio.framework.Log.Error(string.Format("FillDependant_Error (TableTreinoData): {0}; {1}", ex.Message, ex.InnerException != null ? ex.InnerException.Message : ""));
+			}
+		}
+
+		private readonly string[] _fieldsToSerialize_PRESENCA__TREINO__DATA = ["Treino", "Treino.ValCodtreino", "Treino.ValZzstate", "Treino.ValData"];
 
 		/// <summary>
 		/// TableJogadorNome -> (DB)
@@ -616,6 +806,8 @@ namespace GenioMVC.ViewModels.Presenca
 				"presenca.codtreino" => ViewModelConversion.ToString(modelValue),
 				"presenca.estado" => ViewModelConversion.ToString(modelValue),
 				"presenca.codpresenca" => ViewModelConversion.ToString(modelValue),
+				"treino.codtreino" => ViewModelConversion.ToString(modelValue),
+				"treino.data" => ViewModelConversion.ToDateTime(modelValue),
 				"jogador.codjogador" => ViewModelConversion.ToString(modelValue),
 				"jogador.nome" => ViewModelConversion.ToString(modelValue),
 				_ => modelValue

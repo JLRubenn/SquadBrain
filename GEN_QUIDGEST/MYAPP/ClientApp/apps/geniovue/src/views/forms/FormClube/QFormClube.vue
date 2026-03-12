@@ -115,189 +115,202 @@
 				</q-row>
 				<q-row v-if="controls.CLUBE___PSEUDNEWGRP04.isVisible">
 					<q-col v-if="controls.CLUBE___PSEUDNEWGRP04.isVisible">
-						<q-accordion
+						<q-group-collapsible
 							v-if="controls.CLUBE___PSEUDNEWGRP04.isVisible"
 							id="CLUBE___PSEUDNEWGRP04"
-							v-model="controls.CLUBE___PSEUDNEWGRP04.openChild">
+							v-bind="controls.CLUBE___PSEUDNEWGRP04"
+							v-on="controls.CLUBE___PSEUDNEWGRP04.handlers">
 							<!-- Start CLUBE___PSEUDNEWGRP04 -->
-							<q-accordion-item
-								v-if="controls.CLUBE___PSEUDNEWGRP01.isVisible"
-								id="CLUBE___PSEUDNEWGRP01-container"
-								value="CLUBE___PSEUDNEWGRP01"
-								:title="controls.CLUBE___PSEUDNEWGRP01.label">
-								<!-- Start CLUBE___PSEUDNEWGRP01 -->
-								<q-row v-if="controls.CLUBE___CLUBENOME____.isVisible">
-									<q-col
-										v-if="controls.CLUBE___CLUBENOME____.isVisible"
-										cols="auto">
-										<base-input-structure
-											v-if="controls.CLUBE___CLUBENOME____.isVisible"
-											class="i-text"
-											v-bind="controls.CLUBE___CLUBENOME____"
-											v-on="controls.CLUBE___CLUBENOME____.handlers"
-											:loading="controls.CLUBE___CLUBENOME____.props.loading"
-											:reporting-mode-on="reportingModeCAV"
-											:suggestion-mode-on="suggestionModeOn">
-											<q-text-field
-												v-bind="controls.CLUBE___CLUBENOME____.props"
-												@blur="onBlur(controls.CLUBE___CLUBENOME____, model.ValNome.value)"
-												@change="model.ValNome.fnUpdateValueOnChange" />
-										</base-input-structure>
-									</q-col>
-								</q-row>
-								<q-row v-if="controls.CLUBE___CLUBEESCALAO_.isVisible">
-									<q-col
-										v-if="controls.CLUBE___CLUBEESCALAO_.isVisible"
-										cols="auto">
-										<base-input-structure
-											v-if="controls.CLUBE___CLUBEESCALAO_.isVisible"
-											class="i-text"
-											v-bind="controls.CLUBE___CLUBEESCALAO_"
-											v-on="controls.CLUBE___CLUBEESCALAO_.handlers"
-											:loading="controls.CLUBE___CLUBEESCALAO_.props.loading"
-											:reporting-mode-on="reportingModeCAV"
-											:suggestion-mode-on="suggestionModeOn">
-											<q-text-field
-												v-bind="controls.CLUBE___CLUBEESCALAO_.props"
-												@blur="onBlur(controls.CLUBE___CLUBEESCALAO_, model.ValEscalao.value)"
-												@change="model.ValEscalao.fnUpdateValueOnChange" />
-										</base-input-structure>
-									</q-col>
-								</q-row>
-								<q-row v-if="controls.CLUBE___CLUBEEPOCA___.isVisible">
-									<q-col
-										v-if="controls.CLUBE___CLUBEEPOCA___.isVisible"
-										cols="auto">
-										<base-input-structure
-											v-if="controls.CLUBE___CLUBEEPOCA___.isVisible"
-											class="i-text"
-											v-bind="controls.CLUBE___CLUBEEPOCA___"
-											v-on="controls.CLUBE___CLUBEEPOCA___.handlers"
-											:loading="controls.CLUBE___CLUBEEPOCA___.props.loading"
-											:reporting-mode-on="reportingModeCAV"
-											:suggestion-mode-on="suggestionModeOn">
-											<q-text-field
-												v-bind="controls.CLUBE___CLUBEEPOCA___.props"
-												@blur="onBlur(controls.CLUBE___CLUBEEPOCA___, model.ValEpoca.value)"
-												@change="model.ValEpoca.fnUpdateValueOnChange" />
-										</base-input-structure>
-									</q-col>
-								</q-row>
-								<!-- End CLUBE___PSEUDNEWGRP01 -->
-							</q-accordion-item>
-							<q-accordion-item
-								v-if="controls.CLUBE___PSEUDNEWGRP02.isVisible"
-								id="CLUBE___PSEUDNEWGRP02-container"
-								value="CLUBE___PSEUDNEWGRP02"
-								:title="controls.CLUBE___PSEUDNEWGRP02.label">
-								<!-- Start CLUBE___PSEUDNEWGRP02 -->
-								<q-row v-if="controls.CLUBE__CLUBE__PRESIDENTE.isVisible">
-									<q-col
-										v-if="controls.CLUBE__CLUBE__PRESIDENTE.isVisible"
-										cols="auto">
-										<base-input-structure
-											v-if="controls.CLUBE__CLUBE__PRESIDENTE.isVisible"
-											class="i-text"
-											v-bind="controls.CLUBE__CLUBE__PRESIDENTE"
-											v-on="controls.CLUBE__CLUBE__PRESIDENTE.handlers"
-											:loading="controls.CLUBE__CLUBE__PRESIDENTE.props.loading"
-											:reporting-mode-on="reportingModeCAV"
-											:suggestion-mode-on="suggestionModeOn">
-											<q-text-field
-												v-bind="controls.CLUBE__CLUBE__PRESIDENTE.props"
-												@blur="onBlur(controls.CLUBE__CLUBE__PRESIDENTE, model.ValPresidente.value)"
-												@change="model.ValPresidente.fnUpdateValueOnChange" />
-										</base-input-structure>
-									</q-col>
-								</q-row>
-								<q-row v-if="controls.CLUBE__CLUBE__COORDTECN.isVisible">
-									<q-col
-										v-if="controls.CLUBE__CLUBE__COORDTECN.isVisible"
-										cols="auto">
-										<base-input-structure
-											v-if="controls.CLUBE__CLUBE__COORDTECN.isVisible"
-											class="i-text"
-											v-bind="controls.CLUBE__CLUBE__COORDTECN"
-											v-on="controls.CLUBE__CLUBE__COORDTECN.handlers"
-											:loading="controls.CLUBE__CLUBE__COORDTECN.props.loading"
-											:reporting-mode-on="reportingModeCAV"
-											:suggestion-mode-on="suggestionModeOn">
-											<q-text-field
-												v-bind="controls.CLUBE__CLUBE__COORDTECN.props"
-												@blur="onBlur(controls.CLUBE__CLUBE__COORDTECN, model.ValCoordtecn.value)"
-												@change="model.ValCoordtecn.fnUpdateValueOnChange" />
-										</base-input-structure>
-									</q-col>
-								</q-row>
-								<q-row v-if="controls.CLUBE__CLUBE__COORDFORM.isVisible">
-									<q-col
-										v-if="controls.CLUBE__CLUBE__COORDFORM.isVisible"
-										cols="auto">
-										<base-input-structure
-											v-if="controls.CLUBE__CLUBE__COORDFORM.isVisible"
-											class="i-text"
-											v-bind="controls.CLUBE__CLUBE__COORDFORM"
-											v-on="controls.CLUBE__CLUBE__COORDFORM.handlers"
-											:loading="controls.CLUBE__CLUBE__COORDFORM.props.loading"
-											:reporting-mode-on="reportingModeCAV"
-											:suggestion-mode-on="suggestionModeOn">
-											<q-text-field
-												v-bind="controls.CLUBE__CLUBE__COORDFORM.props"
-												@blur="onBlur(controls.CLUBE__CLUBE__COORDFORM, model.ValCoordform.value)"
-												@change="model.ValCoordform.fnUpdateValueOnChange" />
-										</base-input-structure>
-									</q-col>
-								</q-row>
-								<!-- End CLUBE___PSEUDNEWGRP02 -->
-							</q-accordion-item>
-							<q-accordion-item
-								v-if="controls.CLUBE___PSEUDNEWGRP03.isVisible"
-								id="CLUBE___PSEUDNEWGRP03-container"
-								value="CLUBE___PSEUDNEWGRP03"
-								:title="controls.CLUBE___PSEUDNEWGRP03.label">
-								<!-- Start CLUBE___PSEUDNEWGRP03 -->
-								<q-row v-if="controls.CLUBE__CLUBE__TREINADORPRINCIPAL.isVisible">
-									<q-col
-										v-if="controls.CLUBE__CLUBE__TREINADORPRINCIPAL.isVisible"
-										cols="auto">
-										<base-input-structure
-											v-if="controls.CLUBE__CLUBE__TREINADORPRINCIPAL.isVisible"
-											class="i-text"
-											v-bind="controls.CLUBE__CLUBE__TREINADORPRINCIPAL"
-											v-on="controls.CLUBE__CLUBE__TREINADORPRINCIPAL.handlers"
-											:loading="controls.CLUBE__CLUBE__TREINADORPRINCIPAL.props.loading"
-											:reporting-mode-on="reportingModeCAV"
-											:suggestion-mode-on="suggestionModeOn">
-											<q-text-field
-												v-bind="controls.CLUBE__CLUBE__TREINADORPRINCIPAL.props"
-												@blur="onBlur(controls.CLUBE__CLUBE__TREINADORPRINCIPAL, model.ValTreinadorprincipal.value)"
-												@change="model.ValTreinadorprincipal.fnUpdateValueOnChange" />
-										</base-input-structure>
-									</q-col>
-								</q-row>
-								<q-row v-if="controls.CLUBE__CLUBE__TREINADORADJUNTO.isVisible">
-									<q-col
-										v-if="controls.CLUBE__CLUBE__TREINADORADJUNTO.isVisible"
-										cols="auto">
-										<base-input-structure
-											v-if="controls.CLUBE__CLUBE__TREINADORADJUNTO.isVisible"
-											class="i-text"
-											v-bind="controls.CLUBE__CLUBE__TREINADORADJUNTO"
-											v-on="controls.CLUBE__CLUBE__TREINADORADJUNTO.handlers"
-											:loading="controls.CLUBE__CLUBE__TREINADORADJUNTO.props.loading"
-											:reporting-mode-on="reportingModeCAV"
-											:suggestion-mode-on="suggestionModeOn">
-											<q-text-field
-												v-bind="controls.CLUBE__CLUBE__TREINADORADJUNTO.props"
-												@blur="onBlur(controls.CLUBE__CLUBE__TREINADORADJUNTO, model.ValTreinadoradjunto.value)"
-												@change="model.ValTreinadoradjunto.fnUpdateValueOnChange" />
-										</base-input-structure>
-									</q-col>
-								</q-row>
-								<!-- End CLUBE___PSEUDNEWGRP03 -->
-							</q-accordion-item>
+							<q-row v-if="controls.CLUBE___PSEUDNEWGRP01.isVisible">
+								<q-col v-if="controls.CLUBE___PSEUDNEWGRP01.isVisible">
+									<q-group-box-container
+										v-if="controls.CLUBE___PSEUDNEWGRP01.isVisible"
+										id="CLUBE___PSEUDNEWGRP01"
+										v-bind="controls.CLUBE___PSEUDNEWGRP01"
+										:is-visible="controls.CLUBE___PSEUDNEWGRP01.isVisible">
+										<!-- Start CLUBE___PSEUDNEWGRP01 -->
+										<q-row v-if="controls.CLUBE___CLUBENOME____.isVisible">
+											<q-col
+												v-if="controls.CLUBE___CLUBENOME____.isVisible"
+												cols="auto">
+												<base-input-structure
+													v-if="controls.CLUBE___CLUBENOME____.isVisible"
+													class="i-text"
+													v-bind="controls.CLUBE___CLUBENOME____"
+													v-on="controls.CLUBE___CLUBENOME____.handlers"
+													:loading="controls.CLUBE___CLUBENOME____.props.loading"
+													:reporting-mode-on="reportingModeCAV"
+													:suggestion-mode-on="suggestionModeOn">
+													<q-text-field
+														v-bind="controls.CLUBE___CLUBENOME____.props"
+														@blur="onBlur(controls.CLUBE___CLUBENOME____, model.ValNome.value)"
+														@change="model.ValNome.fnUpdateValueOnChange" />
+												</base-input-structure>
+											</q-col>
+										</q-row>
+										<q-row v-if="controls.CLUBE___CLUBEESCALAO_.isVisible">
+											<q-col
+												v-if="controls.CLUBE___CLUBEESCALAO_.isVisible"
+												cols="auto">
+												<base-input-structure
+													v-if="controls.CLUBE___CLUBEESCALAO_.isVisible"
+													class="i-text"
+													v-bind="controls.CLUBE___CLUBEESCALAO_"
+													v-on="controls.CLUBE___CLUBEESCALAO_.handlers"
+													:loading="controls.CLUBE___CLUBEESCALAO_.props.loading"
+													:reporting-mode-on="reportingModeCAV"
+													:suggestion-mode-on="suggestionModeOn">
+													<q-text-field
+														v-bind="controls.CLUBE___CLUBEESCALAO_.props"
+														@blur="onBlur(controls.CLUBE___CLUBEESCALAO_, model.ValEscalao.value)"
+														@change="model.ValEscalao.fnUpdateValueOnChange" />
+												</base-input-structure>
+											</q-col>
+										</q-row>
+										<q-row v-if="controls.CLUBE___CLUBEEPOCA___.isVisible">
+											<q-col
+												v-if="controls.CLUBE___CLUBEEPOCA___.isVisible"
+												cols="auto">
+												<base-input-structure
+													v-if="controls.CLUBE___CLUBEEPOCA___.isVisible"
+													class="i-text"
+													v-bind="controls.CLUBE___CLUBEEPOCA___"
+													v-on="controls.CLUBE___CLUBEEPOCA___.handlers"
+													:loading="controls.CLUBE___CLUBEEPOCA___.props.loading"
+													:reporting-mode-on="reportingModeCAV"
+													:suggestion-mode-on="suggestionModeOn">
+													<q-text-field
+														v-bind="controls.CLUBE___CLUBEEPOCA___.props"
+														@blur="onBlur(controls.CLUBE___CLUBEEPOCA___, model.ValEpoca.value)"
+														@change="model.ValEpoca.fnUpdateValueOnChange" />
+												</base-input-structure>
+											</q-col>
+										</q-row>
+										<!-- End CLUBE___PSEUDNEWGRP01 -->
+									</q-group-box-container>
+								</q-col>
+							</q-row>
+							<q-row v-if="controls.CLUBE___PSEUDNEWGRP02.isVisible">
+								<q-col v-if="controls.CLUBE___PSEUDNEWGRP02.isVisible">
+									<q-group-box-container
+										v-if="controls.CLUBE___PSEUDNEWGRP02.isVisible"
+										id="CLUBE___PSEUDNEWGRP02"
+										v-bind="controls.CLUBE___PSEUDNEWGRP02"
+										:is-visible="controls.CLUBE___PSEUDNEWGRP02.isVisible">
+										<!-- Start CLUBE___PSEUDNEWGRP02 -->
+										<q-row v-if="controls.CLUBE__CLUBE__PRESIDENTE.isVisible">
+											<q-col
+												v-if="controls.CLUBE__CLUBE__PRESIDENTE.isVisible"
+												cols="auto">
+												<base-input-structure
+													v-if="controls.CLUBE__CLUBE__PRESIDENTE.isVisible"
+													class="i-text"
+													v-bind="controls.CLUBE__CLUBE__PRESIDENTE"
+													v-on="controls.CLUBE__CLUBE__PRESIDENTE.handlers"
+													:loading="controls.CLUBE__CLUBE__PRESIDENTE.props.loading"
+													:reporting-mode-on="reportingModeCAV"
+													:suggestion-mode-on="suggestionModeOn">
+													<q-text-field
+														v-bind="controls.CLUBE__CLUBE__PRESIDENTE.props"
+														@blur="onBlur(controls.CLUBE__CLUBE__PRESIDENTE, model.ValPresidente.value)"
+														@change="model.ValPresidente.fnUpdateValueOnChange" />
+												</base-input-structure>
+											</q-col>
+										</q-row>
+										<q-row v-if="controls.CLUBE__CLUBE__COORDTECN.isVisible">
+											<q-col
+												v-if="controls.CLUBE__CLUBE__COORDTECN.isVisible"
+												cols="auto">
+												<base-input-structure
+													v-if="controls.CLUBE__CLUBE__COORDTECN.isVisible"
+													class="i-text"
+													v-bind="controls.CLUBE__CLUBE__COORDTECN"
+													v-on="controls.CLUBE__CLUBE__COORDTECN.handlers"
+													:loading="controls.CLUBE__CLUBE__COORDTECN.props.loading"
+													:reporting-mode-on="reportingModeCAV"
+													:suggestion-mode-on="suggestionModeOn">
+													<q-text-field
+														v-bind="controls.CLUBE__CLUBE__COORDTECN.props"
+														@blur="onBlur(controls.CLUBE__CLUBE__COORDTECN, model.ValCoordtecn.value)"
+														@change="model.ValCoordtecn.fnUpdateValueOnChange" />
+												</base-input-structure>
+											</q-col>
+										</q-row>
+										<q-row v-if="controls.CLUBE__CLUBE__COORDFORM.isVisible">
+											<q-col
+												v-if="controls.CLUBE__CLUBE__COORDFORM.isVisible"
+												cols="auto">
+												<base-input-structure
+													v-if="controls.CLUBE__CLUBE__COORDFORM.isVisible"
+													class="i-text"
+													v-bind="controls.CLUBE__CLUBE__COORDFORM"
+													v-on="controls.CLUBE__CLUBE__COORDFORM.handlers"
+													:loading="controls.CLUBE__CLUBE__COORDFORM.props.loading"
+													:reporting-mode-on="reportingModeCAV"
+													:suggestion-mode-on="suggestionModeOn">
+													<q-text-field
+														v-bind="controls.CLUBE__CLUBE__COORDFORM.props"
+														@blur="onBlur(controls.CLUBE__CLUBE__COORDFORM, model.ValCoordform.value)"
+														@change="model.ValCoordform.fnUpdateValueOnChange" />
+												</base-input-structure>
+											</q-col>
+										</q-row>
+										<!-- End CLUBE___PSEUDNEWGRP02 -->
+									</q-group-box-container>
+								</q-col>
+							</q-row>
+							<q-row v-if="controls.CLUBE___PSEUDNEWGRP03.isVisible">
+								<q-col v-if="controls.CLUBE___PSEUDNEWGRP03.isVisible">
+									<q-group-box-container
+										v-if="controls.CLUBE___PSEUDNEWGRP03.isVisible"
+										id="CLUBE___PSEUDNEWGRP03"
+										v-bind="controls.CLUBE___PSEUDNEWGRP03"
+										:is-visible="controls.CLUBE___PSEUDNEWGRP03.isVisible">
+										<!-- Start CLUBE___PSEUDNEWGRP03 -->
+										<q-row v-if="controls.CLUBE__CLUBE__TREINADORPRINCIPAL.isVisible">
+											<q-col
+												v-if="controls.CLUBE__CLUBE__TREINADORPRINCIPAL.isVisible"
+												cols="auto">
+												<base-input-structure
+													v-if="controls.CLUBE__CLUBE__TREINADORPRINCIPAL.isVisible"
+													class="i-text"
+													v-bind="controls.CLUBE__CLUBE__TREINADORPRINCIPAL"
+													v-on="controls.CLUBE__CLUBE__TREINADORPRINCIPAL.handlers"
+													:loading="controls.CLUBE__CLUBE__TREINADORPRINCIPAL.props.loading"
+													:reporting-mode-on="reportingModeCAV"
+													:suggestion-mode-on="suggestionModeOn">
+													<q-text-field
+														v-bind="controls.CLUBE__CLUBE__TREINADORPRINCIPAL.props"
+														@blur="onBlur(controls.CLUBE__CLUBE__TREINADORPRINCIPAL, model.ValTreinadorprincipal.value)"
+														@change="model.ValTreinadorprincipal.fnUpdateValueOnChange" />
+												</base-input-structure>
+											</q-col>
+										</q-row>
+										<q-row v-if="controls.CLUBE__CLUBE__TREINADORADJUNTO.isVisible">
+											<q-col
+												v-if="controls.CLUBE__CLUBE__TREINADORADJUNTO.isVisible"
+												cols="auto">
+												<base-input-structure
+													v-if="controls.CLUBE__CLUBE__TREINADORADJUNTO.isVisible"
+													class="i-text"
+													v-bind="controls.CLUBE__CLUBE__TREINADORADJUNTO"
+													v-on="controls.CLUBE__CLUBE__TREINADORADJUNTO.handlers"
+													:loading="controls.CLUBE__CLUBE__TREINADORADJUNTO.props.loading"
+													:reporting-mode-on="reportingModeCAV"
+													:suggestion-mode-on="suggestionModeOn">
+													<q-text-field
+														v-bind="controls.CLUBE__CLUBE__TREINADORADJUNTO.props"
+														@blur="onBlur(controls.CLUBE__CLUBE__TREINADORADJUNTO, model.ValTreinadoradjunto.value)"
+														@change="model.ValTreinadoradjunto.fnUpdateValueOnChange" />
+												</base-input-structure>
+											</q-col>
+										</q-row>
+										<!-- End CLUBE___PSEUDNEWGRP03 -->
+									</q-group-box-container>
+								</q-col>
+							</q-row>
 							<!-- End CLUBE___PSEUDNEWGRP04 -->
-						</q-accordion>
+						</q-group-collapsible>
 					</q-col>
 				</q-row>
 			</template>
@@ -663,14 +676,15 @@
 						controlLimits: [
 						],
 					}, this),
-					CLUBE___PSEUDNEWGRP04: new fieldControlClass.AccordionControl({
+					CLUBE___PSEUDNEWGRP04: new fieldControlClass.GroupControl({
 						id: 'CLUBE___PSEUDNEWGRP04',
 						name: 'NEWGRP04',
 						size: 'block',
-						label: computed(() => this.Resources.NEW_GROUP63448),
+						label: '',
 						placeholder: '',
 						labelPosition: computed(() => this.labelAlignment.topleft),
-						isCollapsible: false,
+						startsExpanded: false,
+						isCollapsible: true,
 						anchored: false,
 						directChildren: ['CLUBE___PSEUDNEWGRP01', 'CLUBE___PSEUDNEWGRP02', 'CLUBE___PSEUDNEWGRP03'],
 						mustBeFilled: true,
@@ -685,8 +699,7 @@
 						placeholder: '',
 						labelPosition: computed(() => this.labelAlignment.topleft),
 						container: 'CLUBE___PSEUDNEWGRP04',
-						isInAccordion: true,
-						isCollapsible: true,
+						isCollapsible: false,
 						anchored: false,
 						directChildren: ['CLUBE___CLUBENOME____', 'CLUBE___CLUBEESCALAO_', 'CLUBE___CLUBEEPOCA___'],
 						mustBeFilled: true,
@@ -744,8 +757,7 @@
 						placeholder: '',
 						labelPosition: computed(() => this.labelAlignment.topleft),
 						container: 'CLUBE___PSEUDNEWGRP04',
-						isInAccordion: true,
-						isCollapsible: true,
+						isCollapsible: false,
 						anchored: false,
 						directChildren: ['CLUBE__CLUBE__PRESIDENTE', 'CLUBE__CLUBE__COORDTECN', 'CLUBE__CLUBE__COORDFORM'],
 						controlLimits: [
@@ -801,8 +813,7 @@
 						placeholder: '',
 						labelPosition: computed(() => this.labelAlignment.topleft),
 						container: 'CLUBE___PSEUDNEWGRP04',
-						isInAccordion: true,
-						isCollapsible: true,
+						isCollapsible: false,
 						anchored: false,
 						directChildren: ['CLUBE__CLUBE__TREINADORPRINCIPAL', 'CLUBE__CLUBE__TREINADORADJUNTO'],
 						controlLimits: [

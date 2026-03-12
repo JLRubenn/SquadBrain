@@ -15,7 +15,7 @@
 							:table-ctrl="controls.menu"
 							v-on="controls.menu.handlers" />
 					</template>
-					<!-- USE /[MANUAL SQB CUSTOM_TABLE SQB_Menu_31]/ -->
+					<!-- USE /[MANUAL SQB CUSTOM_TABLE SQB_Menu_61]/ -->
 				</q-table>
 			</q-row-container>
 		</form>
@@ -72,17 +72,17 @@
 	import qProjArrays from '@/api/genio/projectArrays.js'
 	/* eslint-enable @typescript-eslint/no-unused-vars */
 
-	import MenuViewModel from './QMenuSQB_31ViewModel.js'
+	import MenuViewModel from './QMenuSQB_61ViewModel.js'
 
-	const requiredTextResources = ['QMenuSQB_31', 'hardcoded', 'messages']
+	const requiredTextResources = ['QMenuSQB_61', 'hardcoded', 'messages']
 
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB FORM_INCLUDEJS SQB_MENU_31]/
+// USE /[MANUAL SQB FORM_INCLUDEJS SQB_MENU_61]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 
 	export default {
-		name: 'QMenuSqb31',
+		name: 'QMenuSqb61',
 
 		mixins: [
 			MenuHandlers
@@ -111,23 +111,23 @@
 			// eslint-disable-next-line
 			const vm = this
 			return {
-				componentOnLoadProc: asyncProcM.getProcListMonitor('QMenuSQB_31', false),
+				componentOnLoadProc: asyncProcM.getProcListMonitor('QMenuSQB_61', false),
 
 				interfaceMetadata: {
-					id: 'QMenuSQB_31', // Used for resources
+					id: 'QMenuSQB_61', // Used for resources
 					requiredTextResources
 				},
 
 				menuInfo: {
-					id: '31',
+					id: '61',
 					isMenuList: true,
-					designation: computed(() => this.Resources.JOGADORES08991),
-					acronym: 'SQB_31',
-					name: 'JOGADOR',
-					route: 'menu-SQB_31',
-					order: '31',
-					controller: 'JOGADOR',
-					action: 'SQB_Menu_31',
+					designation: computed(() => this.Resources.CONVOCATORIAS26754),
+					acronym: 'SQB_61',
+					name: 'CONVOCATORIA',
+					route: 'menu-SQB_61',
+					order: '61',
+					controller: 'CONVOCATORIA',
+					action: 'SQB_Menu_61',
 					isPopup: false
 				},
 
@@ -136,9 +136,9 @@
 				controls: {
 					menu: new controlClass.TableListControl({
 						fnHydrateViewModel: (data) => vm.model.hydrate(data),
-						id: 'SQB_Menu_31',
-						controller: 'JOGADOR',
-						action: 'SQB_Menu_31',
+						id: 'SQB_Menu_61',
+						controller: 'CONVOCATORIA',
+						action: 'SQB_Menu_61',
 						hasDependencies: false,
 						isInCollapsible: false,
 						tableModeClasses: [
@@ -146,119 +146,38 @@
 							'page-full-height'
 						],
 						columnsOriginal: [
-							new listColumnTypes.ImageColumn({
+							new listColumnTypes.DateColumn({
 								order: 1,
-								name: 'ValFoto',
-								area: 'JOGADOR',
-								field: 'FOTO',
-								label: computed(() => this.Resources.FOTO19492),
-								dataTitle: computed(() => genericFunctions.formatString(vm.Resources.IMAGEM_UTILIZADA_PAR58591, vm.Resources.FOTO19492)),
-								scrollData: 3,
-								sortable: false,
-								searchable: false,
+								name: 'Jogo.ValData',
+								area: 'JOGO',
+								field: 'DATA',
+								label: computed(() => this.Resources.DATA18071),
+								scrollData: 8,
+								dateTimeType: 'date',
 								export: 1,
+								pkColumn: 'ValCodjogo',
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 							new listColumnTypes.TextColumn({
 								order: 2,
-								name: 'ValNome',
+								name: 'Jogador.ValNome',
 								area: 'JOGADOR',
 								field: 'NOME',
 								label: computed(() => this.Resources.NOME47814),
 								dataLength: 50,
 								scrollData: 30,
 								export: 1,
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.NumericColumn({
-								order: 3,
-								name: 'ValNumerocamisola',
-								area: 'JOGADOR',
-								field: 'NUMEROCAMISOLA',
-								label: computed(() => this.Resources.NUMERO_CAMISOLA34511),
-								scrollData: 2,
-								maxDigits: 2,
-								decimalPlaces: 0,
-								export: 1,
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.DateColumn({
-								order: 4,
-								name: 'ValDatanascimento',
-								area: 'JOGADOR',
-								field: 'DATANASCIMENTO',
-								label: computed(() => this.Resources.DATA_NASCIMENTO26850),
-								scrollData: 8,
-								dateTimeType: 'date',
-								export: 1,
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.ArrayColumn({
-								order: 5,
-								name: 'ValPedominante',
-								area: 'JOGADOR',
-								field: 'PEDOMINANTE',
-								label: computed(() => this.Resources.PE_DOMINANTE49350),
-								dataLength: 3,
-								scrollData: 3,
-								export: 1,
-								array: computed(() => new qProjArrays.QArrayPe(vm.$getResource).elements),
-								arrayType: qProjArrays.QArrayPe.type,
-								arrayDisplayMode: 'D',
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.ArrayColumn({
-								order: 6,
-								name: 'ValPosicao',
-								area: 'JOGADOR',
-								field: 'POSICAO',
-								label: computed(() => this.Resources.POSICAO07486),
-								dataLength: 3,
-								scrollData: 3,
-								export: 1,
-								array: computed(() => new qProjArrays.QArrayPosicao(vm.$getResource).elements),
-								arrayType: qProjArrays.QArrayPosicao.type,
-								arrayDisplayMode: 'D',
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.ArrayColumn({
-								order: 7,
-								name: 'ValPosicaosegundaria',
-								area: 'JOGADOR',
-								field: 'POSICAOSEGUNDARIA',
-								label: computed(() => this.Resources.POSICAO_SEGUNDARIA49537),
-								dataLength: 3,
-								scrollData: 3,
-								export: 1,
-								array: computed(() => new qProjArrays.QArrayPosicao(vm.$getResource).elements),
-								arrayType: qProjArrays.QArrayPosicao.type,
-								arrayDisplayMode: 'D',
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.TextColumn({
-								order: 8,
-								name: 'Clube.ValNome',
-								area: 'CLUBE',
-								field: 'NOME',
-								label: computed(() => this.Resources.EQUIPA_ATUAL12425),
-								dataLength: 50,
-								scrollData: 30,
-								export: 1,
-								pkColumn: 'ValCodclube',
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.TextColumn({
-								order: 9,
-								name: 'ValEquipaanterior',
-								area: 'JOGADOR',
-								field: 'EQUIPAANTERIOR',
-								label: computed(() => this.Resources.EQUIPA_ANTERIOR39393),
-								dataLength: 50,
-								scrollData: 30,
-								export: 1,
+								pkColumn: 'ValCodjogador',
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 						],
 						config: {
-							name: 'SQB_Menu_31',
+							name: 'SQB_Menu_61',
 							serverMode: true,
-							pkColumn: 'ValCodjogador',
-							tableAlias: 'JOGADOR',
-							tableNamePlural: computed(() => this.Resources.JOGADORES08991),
+							pkColumn: 'ValCodconvocatoria',
+							tableAlias: 'CONVOCATORIA',
+							tableNamePlural: computed(() => this.Resources.CONVOCATORIAS26754),
 							viewManagement: '',
 							showLimitsInfo: true,
-							tableTitle: computed(() => this.Resources.JOGADORES08991),
+							tableTitle: computed(() => this.Resources.CONVOCATORIAS26754),
 							showAlternatePagination: true,
 							permissions: {
 							},
@@ -279,7 +198,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'JOGADOR',
+										formName: 'CONVOCATORIA',
 										mode: 'SHOW',
 										isControlled: true
 									}
@@ -295,7 +214,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'JOGADOR',
+										formName: 'CONVOCATORIA',
 										mode: 'EDIT',
 										isControlled: true
 									}
@@ -311,7 +230,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'JOGADOR',
+										formName: 'CONVOCATORIA',
 										mode: 'DUPLICATE',
 										isControlled: true
 									}
@@ -327,7 +246,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'JOGADOR',
+										formName: 'CONVOCATORIA',
 										mode: 'DELETE',
 										isControlled: true
 									}
@@ -345,7 +264,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'JOGADOR',
+										formName: 'CONVOCATORIA',
 										mode: 'NEW',
 										repeatInsertion: false,
 										isControlled: true
@@ -361,71 +280,36 @@
 							MCActions: [
 							],
 							rowClickAction: {
-								id: 'RCA_SQB_311',
-								name: 'form-JOGADOR',
+								id: 'RCA_SQB_611',
+								name: 'form-CONVOCATORIA',
 								isVisible: true,
 								params: {
 									isRoute: true,
 									limits: [
 										{
 											identifier: 'id',
-											fnValueSelector: (row) => row.ValCodjogador
+											fnValueSelector: (row) => row.ValCodconvocatoria
 										},
 									],
 									isControlled: true,
-									action: vm.openFormAction, type: 'form', mode: 'SHOW', formName: 'JOGADOR'
+									action: vm.openFormAction, type: 'form', mode: 'SHOW', formName: 'CONVOCATORIA'
 								}
 							},
 							formsDefinition: {
-								'JOGADOR': {
-									fnKeySelector: (row) => row.Fields.ValCodjogador,
+								'CONVOCATORIA': {
+									fnKeySelector: (row) => row.Fields.ValCodconvocatoria,
 									isPopup: false
 								},
 							},
-							defaultSearchColumnName: 'ValNome',
-							defaultSearchColumnNameOriginal: 'ValNome',
+							defaultSearchColumnName: '',
+							defaultSearchColumnNameOriginal: '',
 							defaultColumnSorting: {
-								columnName: 'Clube.ValNome',
+								columnName: '',
 								sortOrder: 'asc'
 							}
 						},
-						groupFilters: [
-							{
-								id: 'filter_SQB_Menu_31_TYPEFILTER',
-								isMultiple: false,
-								items: [
-									{
-										id: 'filter_SQB_Menu_31_TYPEFILTER_1',
-										value: computed(() => this.Resources.TODOS59977),
-										key: '1'
-									},
-									{
-										id: 'filter_SQB_Menu_31_TYPEFILTER_2',
-										value: computed(() => this.Resources.GUARDA_REDES05920),
-										key: '2'
-									},
-									{
-										id: 'filter_SQB_Menu_31_TYPEFILTER_3',
-										value: computed(() => this.Resources.DEFESAS04709),
-										key: '3'
-									},
-									{
-										id: 'filter_SQB_Menu_31_TYPEFILTER_4',
-										value: computed(() => this.Resources.MEDIOS52631),
-										key: '4'
-									},
-									{
-										id: 'filter_SQB_Menu_31_TYPEFILTER_5',
-										value: computed(() => this.Resources.ATACANTES25618),
-										key: '5'
-									},
-								],
-								selected: undefined,
-								default: undefined
-							},
-						],
-						globalEvents: ['changed-JOGADOR', 'changed-CLUBE'],
-						uuid: '952b6b6f-99bd-4342-a146-b6c0e1e1ee45',
+						globalEvents: ['changed-CONVOCATORIA', 'changed-JOGO', 'changed-JOGADOR'],
+						uuid: '8d1fb414-669b-46b2-a06f-2b8747534ac0',
 						allSelectedRows: 'false',
 						headerLevel: 1,
 						isActiveControl: computed(() => this.isActiveMenu)
@@ -451,7 +335,7 @@
 		mounted()
 		{
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB FORM_CODEJS SQB_MENU_31]/
+// USE /[MANUAL SQB FORM_CODEJS SQB_MENU_61]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 		},
@@ -459,18 +343,18 @@
 		beforeUnmount()
 		{
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB COMPONENT_BEFORE_UNMOUNT SQB_MENU_31]/
+// USE /[MANUAL SQB COMPONENT_BEFORE_UNMOUNT SQB_MENU_61]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 		},
 
 		methods: {
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB FUNCTIONS_JS SQB_31]/
+// USE /[MANUAL SQB FUNCTIONS_JS SQB_61]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
-// USE /[MANUAL SQB LISTING_CODEJS SQB_MENU_31]/
+// USE /[MANUAL SQB LISTING_CODEJS SQB_MENU_61]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */
 		}

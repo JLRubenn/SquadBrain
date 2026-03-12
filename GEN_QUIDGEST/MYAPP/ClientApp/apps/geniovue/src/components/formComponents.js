@@ -8,6 +8,7 @@ export default {
 		app.component('QFormConvocatoria', defineAsyncComponent(() => import('@/views/forms/FormConvocatoria/QFormConvocatoria.vue')))
 		app.component('QFormExercicio', defineAsyncComponent(() => import('@/views/forms/FormExercicio/QFormExercicio.vue')))
 		app.component('QFormJogador', defineAsyncComponent(() => import('@/views/forms/FormJogador/QFormJogador.vue')))
+		app.component('QFormJogo', defineAsyncComponent(() => import('@/views/forms/FormJogo/QFormJogo.vue')))
 		app.component('QFormPresenca', defineAsyncComponent(() => import('@/views/forms/FormPresenca/QFormPresenca.vue')))
 		app.component('QFormTreino', defineAsyncComponent(() => import('@/views/forms/FormTreino/QFormTreino.vue')))
 	}

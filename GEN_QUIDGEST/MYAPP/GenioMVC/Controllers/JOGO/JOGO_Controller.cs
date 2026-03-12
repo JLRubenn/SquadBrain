@@ -20,6 +20,7 @@ using GenioMVC.Models.Exception;
 using GenioMVC.Models.Navigation;
 using GenioMVC.Resources;
 using GenioMVC.ViewModels;
+using GenioMVC.ViewModels.Jogo;
 using GenioServer.business;
 using CSGenio.core.ai;
 
@@ -50,6 +51,22 @@ namespace GenioMVC.Controllers
 // USE /[MANUAL SQB MANUAL_CONTROLLER JOGO]/
 
 
+
+
+
+		/// <summary>
+		/// Recalculate formulas of the "Jogo" form. (++, CT, SR, CL and U1)
+		/// </summary>
+		/// <param name="formData">Current form data</param>
+		/// <returns></returns>
+		[HttpPost]
+		public JsonResult RecalculateFormulas_Jogo([FromBody]Jogo_ViewModel formData)
+		{
+			return GenericRecalculateFormulas(formData, "jogo",
+				(primaryKey) => Models.Jogo.Find(primaryKey, UserContext.Current, "FJOGO"),
+				(model) => formData.MapToModel(model as Models.Jogo)
+			);
+		}
 
 		/// <summary>
 		/// Get "See more..." tree structure

@@ -17,13 +17,13 @@ using Quidgest.Persistence.GenericQuery;
 
 namespace GenioMVC.ViewModels.Convocatoria
 {
-	public class SQB_Menu_51_ViewModel : MenuListViewModel<Models.Convocatoria>
+	public class SQB_Menu_61_ViewModel : MenuListViewModel<Models.Convocatoria>
 	{
 		/// <summary>
 		/// Gets or sets the object that represents the table and its elements.
 		/// </summary>
 		[JsonPropertyName("table")]
-		public TablePartial<SQB_Menu_51_RowViewModel> Menu { get; set; }
+		public TablePartial<SQB_Menu_61_RowViewModel> Menu { get; set; }
 
 		/// <inheritdoc/>
 		[JsonIgnore]
@@ -82,7 +82,7 @@ namespace GenioMVC.ViewModels.Convocatoria
 
 		public override CriteriaSet GetCustomizedStaticLimits(CriteriaSet crs)
 		{
-// USE /[MANUAL SQB LIST_LIMITS 51]/
+// USE /[MANUAL SQB LIST_LIMITS 61]/
 
 			return crs;
 		}
@@ -93,7 +93,7 @@ namespace GenioMVC.ViewModels.Convocatoria
 			var areaBase = CSGenio.business.Area.createArea("convocatoria", user, "SQB");
 
 			//gets eph conditions to be applied in listing
-			CriteriaSet conditions = CSGenio.business.Listing.CalculateConditionsEphGeneric(areaBase, "ML51");
+			CriteriaSet conditions = CSGenio.business.Listing.CalculateConditionsEphGeneric(areaBase, "ML61");
 			conditions.Equal(CSGenioAconvocatoria.FldZzstate, 0); //valid zzstate only
 
 			// Fixed limits and relations:
@@ -119,23 +119,23 @@ namespace GenioMVC.ViewModels.Convocatoria
 		/// FOR DESERIALIZATION ONLY
 		/// </summary>
 		[Obsolete("For deserialization only")]
-		public SQB_Menu_51_ViewModel() : base(null!) { }
+		public SQB_Menu_61_ViewModel() : base(null!) { }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="SQB_Menu_51_ViewModel" /> class.
+		/// Initializes a new instance of the <see cref="SQB_Menu_61_ViewModel" /> class.
 		/// </summary>
 		/// <param name="userContext">The current user request context</param>
-		public SQB_Menu_51_ViewModel(UserContext userContext) : base(userContext)
+		public SQB_Menu_61_ViewModel(UserContext userContext) : base(userContext)
 		{
 			this.RoleToShow = CSGenio.framework.Role.ROLE_1;
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="SQB_Menu_51_ViewModel" /> class.
+		/// Initializes a new instance of the <see cref="SQB_Menu_61_ViewModel" /> class.
 		/// </summary>
 		/// <param name="userContext">The current user request context</param>
 		/// <param name="parentCtx">The context of the parent</param>
-		public SQB_Menu_51_ViewModel(UserContext userContext, Models.ModelBase parentCtx) : this(userContext)
+		public SQB_Menu_61_ViewModel(UserContext userContext, Models.ModelBase parentCtx) : this(userContext)
 		{
 			ParentCtx = parentCtx;
 		}
@@ -187,7 +187,7 @@ namespace GenioMVC.ViewModels.Convocatoria
 
 			crs ??= CriteriaSet.And();
 
-			Menu ??= new TablePartial<SQB_Menu_51_RowViewModel>();
+			Menu ??= new TablePartial<SQB_Menu_61_RowViewModel>();
 			// Set table name (used in getting searchable column names)
 			Menu.TableName = TableAlias;
 
@@ -210,7 +210,7 @@ namespace GenioMVC.ViewModels.Convocatoria
 			if (isToExport)
 			{
 				// EPH
-				crs = Models.Convocatoria.AddEPH<CSGenioAconvocatoria>(ref u, crs, "ML51");
+				crs = Models.Convocatoria.AddEPH<CSGenioAconvocatoria>(ref u, crs, "ML61");
 
 				// Export only records with ZZState == 0
 				crs.Equal(CSGenioAconvocatoria.FldZzstate, 0);
@@ -228,7 +228,7 @@ namespace GenioMVC.ViewModels.Convocatoria
 				string QMVC_POS_RECORD = Navigation.GetStrValue("QMVC_POS_RECORD_convocatoria");
 				Navigation.DestroyEntry("QMVC_POS_RECORD_convocatoria");
 				if (!string.IsNullOrEmpty(QMVC_POS_RECORD))
-					crs.Equals(Models.Convocatoria.AddEPH<CSGenioAconvocatoria>(ref u, null, "ML51"));
+					crs.Equals(Models.Convocatoria.AddEPH<CSGenioAconvocatoria>(ref u, null, "ML61"));
 			}
 
 			return crs;
@@ -303,9 +303,9 @@ namespace GenioMVC.ViewModels.Convocatoria
 		public void Load(CSGenio.core.framework.table.TableConfiguration tableConfig, NameValueCollection requestValues, bool ajaxRequest, bool isToExport, ref ListingMVC<CSGenioAconvocatoria> Qlisting, ref CriteriaSet conditions)
 		{
 			User u = m_userContext.User;
-			Menu = new TablePartial<SQB_Menu_51_RowViewModel>();
+			Menu = new TablePartial<SQB_Menu_61_RowViewModel>();
 
-			CriteriaSet sqb_menu_51Conds = CriteriaSet.And();
+			CriteriaSet sqb_menu_61Conds = CriteriaSet.And();
 			bool tableReload = true;
 
 			//FOR: MENU LIST SORTING
@@ -346,7 +346,7 @@ namespace GenioMVC.ViewModels.Convocatoria
 				Limit limit = new Limit();
 				limit.TipoLimite = LimitType.EPH;
 				CSGenioAconvocatoria model_limit_area = new CSGenioAconvocatoria(m_userContext.User);
-				List<Limit> area_EPH_limits = EPH_Limit_Filler(ref limit, model_limit_area, "ML51");
+				List<Limit> area_EPH_limits = EPH_Limit_Filler(ref limit, model_limit_area, "ML61");
 				if (area_EPH_limits.Count > 0)
 					this.TableLimits.AddRange(area_EPH_limits);
 			}
@@ -355,11 +355,11 @@ namespace GenioMVC.ViewModels.Convocatoria
 			if (conditions == null)
 				conditions = CriteriaSet.And();
 
-			conditions.SubSets.Add(sqb_menu_51Conds);
-			sqb_menu_51Conds = BuildCriteriaSet(tableConfig, requestValues, out bool hasAllRequiredLimits, conditions, isToExport);
+			conditions.SubSets.Add(sqb_menu_61Conds);
+			sqb_menu_61Conds = BuildCriteriaSet(tableConfig, requestValues, out bool hasAllRequiredLimits, conditions, isToExport);
 			tableReload &= hasAllRequiredLimits;
 
-// USE /[MANUAL SQB OVERRQ 51]/
+// USE /[MANUAL SQB OVERRQ 61]/
 
 			bool distinct = false;
 
@@ -371,16 +371,16 @@ namespace GenioMVC.ViewModels.Convocatoria
 				var exportColumns = GetExportColumns(tableConfig.ColumnConfigurations);
 				var exportFieldRefs = exportColumns.Select(eCol => eCol.Field).Where(fldRef => fldRef != null).ToArray();
 
-				Qlisting = Models.ModelBase.BuildListingForExport<CSGenioAconvocatoria>(m_userContext, false, ref sqb_menu_51Conds, exportFieldRefs, (pageNumber - 1) * numberListItems, numberListItems, sorts, "ML51", true, firstVisibleColumn: firstVisibleColumn);
+				Qlisting = Models.ModelBase.BuildListingForExport<CSGenioAconvocatoria>(m_userContext, false, ref sqb_menu_61Conds, exportFieldRefs, (pageNumber - 1) * numberListItems, numberListItems, sorts, "ML61", true, firstVisibleColumn: firstVisibleColumn);
 
-// USE /[MANUAL SQB OVERRQLSTEXP 51]/
+// USE /[MANUAL SQB OVERRQLSTEXP 61]/
 
 				return;
 			}
 
 			if (tableReload)
 			{
-// USE /[MANUAL SQB OVERRQLIST 51]/
+// USE /[MANUAL SQB OVERRQLIST 61]/
 
 				string QMVC_POS_RECORD = Navigation.GetStrValue("QMVC_POS_RECORD_convocatoria");
 				Navigation.DestroyEntry("QMVC_POS_RECORD_convocatoria");
@@ -388,12 +388,12 @@ namespace GenioMVC.ViewModels.Convocatoria
 
 				if (!string.IsNullOrEmpty(QMVC_POS_RECORD))
 				{
-					var m_iCurPag = m_userContext.PersistentSupport.getPagingPos(CSGenioAconvocatoria.GetInformation(), QMVC_POS_RECORD, sorts, sqb_menu_51Conds, m_PagingPosEPHs, firstVisibleColumn: firstVisibleColumn);
+					var m_iCurPag = m_userContext.PersistentSupport.getPagingPos(CSGenioAconvocatoria.GetInformation(), QMVC_POS_RECORD, sorts, sqb_menu_61Conds, m_PagingPosEPHs, firstVisibleColumn: firstVisibleColumn);
 					if (m_iCurPag != -1)
 						pageNumber = ((m_iCurPag - 1) / numberListItems) + 1;
 				}
 
-				ListingMVC<CSGenioAconvocatoria> listing = Models.ModelBase.Where<CSGenioAconvocatoria>(m_userContext, distinct, sqb_menu_51Conds, fields, (pageNumber - 1) * numberListItems, numberListItems, sorts, "ML51", true, false, QMVC_POS_RECORD, m_PagingPosEPHs, firstVisibleColumn, fieldsWithTotalizers, tableConfig.SelectedRows);
+				ListingMVC<CSGenioAconvocatoria> listing = Models.ModelBase.Where<CSGenioAconvocatoria>(m_userContext, distinct, sqb_menu_61Conds, fields, (pageNumber - 1) * numberListItems, numberListItems, sorts, "ML61", true, false, QMVC_POS_RECORD, m_PagingPosEPHs, firstVisibleColumn, fieldsWithTotalizers, tableConfig.SelectedRows);
 
 				if (listing.CurrentPage > 0)
 					pageNumber = listing.CurrentPage;
@@ -405,15 +405,15 @@ namespace GenioMVC.ViewModels.Convocatoria
 				//Set document field values to objects
 				SetDocumentFields(listing);
 
-				Menu.Elements = MapSQB_Menu_51(listing);
+				Menu.Elements = MapSQB_Menu_61(listing);
 
-				Menu.Identifier = "ML51";
+				Menu.Identifier = "ML61";
 				Menu.Slots = new Dictionary<string, List<object>>();
 
 				// Last updated by [CJP] at [2015.02.03]
 				// Adds the identifier to each element
 				foreach (var element in Menu.Elements)
-					element.Identifier = "ML51";
+					element.Identifier = "ML61";
 
 				Menu.SetPagination(pageNumber, listing.NumRegs, listing.HasMore, listing.GetTotal, listing.TotalRecords);
 
@@ -432,9 +432,9 @@ namespace GenioMVC.ViewModels.Convocatoria
 			LoadUserTableConfigNameProperties();
 		}
 
-		private List<SQB_Menu_51_RowViewModel> MapSQB_Menu_51(ListingMVC<CSGenioAconvocatoria> Qlisting)
+		private List<SQB_Menu_61_RowViewModel> MapSQB_Menu_61(ListingMVC<CSGenioAconvocatoria> Qlisting)
 		{
-			List<SQB_Menu_51_RowViewModel> Elements = [];
+			List<SQB_Menu_61_RowViewModel> Elements = [];
 			int i = 0;
 
 			if (Qlisting.Rows != null)
@@ -443,7 +443,7 @@ namespace GenioMVC.ViewModels.Convocatoria
 				{
 					if (Qlisting.NumRegs > 0 && i >= Qlisting.NumRegs) // Copiado da versão antiga do RowsToViewModels
 						break;
-					Elements.Add(MapSQB_Menu_51(row));
+					Elements.Add(MapSQB_Menu_61(row));
 					i++;
 				}
 			}
@@ -453,12 +453,12 @@ namespace GenioMVC.ViewModels.Convocatoria
 
 		/// <summary>
 		/// Maps a single CSGenioAconvocatoria row
-		/// to a SQB_Menu_51_RowViewModel object.
+		/// to a SQB_Menu_61_RowViewModel object.
 		/// </summary>
 		/// <param name="row">The row.</param>
-		private SQB_Menu_51_RowViewModel MapSQB_Menu_51(CSGenioAconvocatoria row)
+		private SQB_Menu_61_RowViewModel MapSQB_Menu_61(CSGenioAconvocatoria row)
 		{
-			var model = new SQB_Menu_51_RowViewModel(m_userContext, true, _fieldsToSerialize);
+			var model = new SQB_Menu_61_RowViewModel(m_userContext, true, _fieldsToSerialize);
 			if (row == null)
 				return model;
 
@@ -517,7 +517,7 @@ namespace GenioMVC.ViewModels.Convocatoria
 
 		#region Custom code
 
-// USE /[MANUAL SQB VIEWMODEL_CUSTOM SQB_MENU_51]/
+// USE /[MANUAL SQB VIEWMODEL_CUSTOM SQB_MENU_61]/
 
 		#endregion
 

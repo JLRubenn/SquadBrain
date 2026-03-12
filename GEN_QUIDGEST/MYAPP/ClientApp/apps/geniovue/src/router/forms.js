@@ -64,6 +64,18 @@ export default function getFormsRoutes()
 			}
 		},
 		{
+			path: '/:culture/:system/:module/form/JOGO/:mode/:id?',
+			name: 'form-JOGO',
+			props: route => propsConverter(route),
+			component: () => import('@/views/forms/FormJogo/QFormJogo.vue'),
+			meta: {
+				routeType: 'form',
+				baseArea: 'JOGO',
+				humanKeyFields: ['ValTitulo'],
+				isPopup: false
+			}
+		},
+		{
 			path: '/:culture/:system/:module/form/PRESENCA/:mode/:id?',
 			name: 'form-PRESENCA',
 			props: route => propsConverter(route),

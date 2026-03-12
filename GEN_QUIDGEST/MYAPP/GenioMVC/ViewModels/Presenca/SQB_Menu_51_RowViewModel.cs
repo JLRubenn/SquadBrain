@@ -4,18 +4,18 @@ using CSGenio.business;
 using CSGenio.framework;
 using GenioMVC.Models.Navigation;
 
-namespace GenioMVC.ViewModels.Treino;
+namespace GenioMVC.ViewModels.Presenca;
 
-public class SQB_Menu_31_RowViewModel : Models.Treino
+public class SQB_Menu_51_RowViewModel : Models.Presenca
 {
 	#region Constructors
 
-	public SQB_Menu_31_RowViewModel(UserContext userContext, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, isEmpty, fieldsToSerialize)
+	public SQB_Menu_51_RowViewModel(UserContext userContext, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, isEmpty, fieldsToSerialize)
 	{
 		InitRowProperties();
 	}
 
-	public SQB_Menu_31_RowViewModel(UserContext userContext, CSGenioAtreino val, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, val, isEmpty, fieldsToSerialize)
+	public SQB_Menu_51_RowViewModel(UserContext userContext, CSGenioApresenca val, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, val, isEmpty, fieldsToSerialize)
 	{
 		InitRowProperties();
 	}
@@ -42,32 +42,14 @@ public class SQB_Menu_31_RowViewModel : Models.Treino
 			new ListColumn()
 			{
 				Order = 2,
-				Area = "TREINO",
-				Field = "MESOCICLOS",
+				Area = "JOGADOR",
+				Field = "NOME",
 			},
 			new ListColumn()
 			{
 				Order = 3,
-				Area = "TREINO",
-				Field = "MICROCICLO",
-			},
-			new ListColumn()
-			{
-				Order = 4,
-				Area = "TREINO",
-				Field = "NUMJOGADORES",
-			},
-			new ListColumn()
-			{
-				Order = 5,
-				Area = "TREINO",
-				Field = "OBJETIVO",
-			},
-			new ListColumn()
-			{
-				Order = 6,
-				Area = "TREINO",
-				Field = "MATERIAL",
+				Area = "PRESENCA",
+				Field = "ESTADO",
 			},
 		];
 	}

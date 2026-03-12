@@ -15,9 +15,9 @@ using GenioMVC.Models.Navigation;
 using Quidgest.Persistence;
 using Quidgest.Persistence.GenericQuery;
 
-namespace GenioMVC.ViewModels.Jogador
+namespace GenioMVC.ViewModels.Jogo
 {
-	public class SQB_Menu_21_ViewModel : MenuListViewModel<Models.Jogador>
+	public class SQB_Menu_21_ViewModel : MenuListViewModel<Models.Jogo>
 	{
 		/// <summary>
 		/// Gets or sets the object that represents the table and its elements.
@@ -27,11 +27,11 @@ namespace GenioMVC.ViewModels.Jogador
 
 		/// <inheritdoc/>
 		[JsonIgnore]
-		public override string TableAlias => "jogador";
+		public override string TableAlias => "jogo";
 
 		/// <inheritdoc/>
 		[JsonPropertyName("uuid")]
-		public override string Uuid => "952b6b6f-99bd-4342-a146-b6c0e1e1ee45";
+		public override string Uuid => "44982ae9-9db2-4d57-aabf-110c6c7b71e6";
 
 		/// <inheritdoc/>
 		protected override string[] FieldsToSerialize => _fieldsToSerialize;
@@ -90,19 +90,19 @@ namespace GenioMVC.ViewModels.Jogador
 		public override int GetCount(User user)
 		{
 			CSGenio.persistence.PersistentSupport sp = m_userContext.PersistentSupport;
-			var areaBase = CSGenio.business.Area.createArea("jogador", user, "SQB");
+			var areaBase = CSGenio.business.Area.createArea("jogo", user, "SQB");
 
 			//gets eph conditions to be applied in listing
 			CriteriaSet conditions = CSGenio.business.Listing.CalculateConditionsEphGeneric(areaBase, "ML21");
-			conditions.Equal(CSGenioAjogador.FldZzstate, 0); //valid zzstate only
+			conditions.Equal(CSGenioAjogo.FldZzstate, 0); //valid zzstate only
 
 			// Fixed limits and relations:
 			conditions.SubSets.Add(GetCustomizedStaticLimits(StaticLimits));
 
 			// Checks for foreign tables in fields and conditions
-			FieldRef[] fields = new FieldRef[] { CSGenioAjogador.FldCodjogador, CSGenioAjogador.FldZzstate, CSGenioAjogador.FldFoto, CSGenioAjogador.FldNome, CSGenioAjogador.FldNumerocamisola, CSGenioAjogador.FldDatanascimento, CSGenioAjogador.FldPedominante, CSGenioAjogador.FldPosicao, CSGenioAjogador.FldPosicaosegundaria, CSGenioAjogador.FldCodclube, CSGenioAclube.FldCodclube, CSGenioAclube.FldNome, CSGenioAjogador.FldEquipaanterior };
+			FieldRef[] fields = new FieldRef[] { CSGenioAjogo.FldCodjogo, CSGenioAjogo.FldZzstate, CSGenioAjogo.FldCodclube, CSGenioAclube.FldCodclube, CSGenioAclube.FldNome, CSGenioAjogo.FldData, CSGenioAjogo.FldLocal, CSGenioAjogo.FldResultado, CSGenioAjogo.FldTitulo, CSGenioAjogo.FldEquipaadversaria };
 
-			ListingMVC<CSGenioAjogador> listing = new(fields, null, 1, 1, false, user, true, string.Empty, false);
+			ListingMVC<CSGenioAjogo> listing = new(fields, null, 1, 1, false, user, true, string.Empty, false);
 			SelectQuery qs = sp.getSelectQueryFromListingMVC(conditions, listing);
 
 			// Menu relations:
@@ -145,24 +145,22 @@ namespace GenioMVC.ViewModels.Jogador
 		{
 			return
 			[
-				new Exports.QColumn(CSGenioAjogador.FldNome, FieldType.TEXT, Resources.Resources.NOME47814, 30, 0, true),
-				new Exports.QColumn(CSGenioAjogador.FldNumerocamisola, FieldType.NUMERIC, Resources.Resources.NUMERO_CAMISOLA34511, 2, 0, true),
-				new Exports.QColumn(CSGenioAjogador.FldDatanascimento, FieldType.DATE, Resources.Resources.DATA_NASCIMENTO26850, 8, 0, true),
-				new Exports.QColumn(CSGenioAjogador.FldPedominante, FieldType.ARRAY_TEXT, Resources.Resources.PE_DOMINANTE49350, 3, 0, true, "Pe"),
-				new Exports.QColumn(CSGenioAjogador.FldPosicao, FieldType.ARRAY_TEXT, Resources.Resources.POSICAO07486, 3, 0, true, "Posicao"),
-				new Exports.QColumn(CSGenioAjogador.FldPosicaosegundaria, FieldType.ARRAY_TEXT, Resources.Resources.POSICAO_SEGUNDARIA49537, 3, 0, true, "Posicao"),
-				new Exports.QColumn(CSGenioAclube.FldNome, FieldType.TEXT, Resources.Resources.EQUIPA_ATUAL12425, 30, 0, true),
-				new Exports.QColumn(CSGenioAjogador.FldEquipaanterior, FieldType.TEXT, Resources.Resources.EQUIPA_ANTERIOR39393, 30, 0, true),
+				new Exports.QColumn(CSGenioAclube.FldNome, FieldType.TEXT, Resources.Resources.NOME47814, 30, 0, true),
+				new Exports.QColumn(CSGenioAjogo.FldData, FieldType.DATE, Resources.Resources.DATA18071, 8, 0, true),
+				new Exports.QColumn(CSGenioAjogo.FldLocal, FieldType.TEXT, Resources.Resources.LOCAL02842, 30, 0, true),
+				new Exports.QColumn(CSGenioAjogo.FldResultado, FieldType.TEXT, Resources.Resources.RESULTADO50955, 30, 0, true),
+				new Exports.QColumn(CSGenioAjogo.FldTitulo, FieldType.TEXT, Resources.Resources.TITULO23260, 30, 0, true),
+				new Exports.QColumn(CSGenioAjogo.FldEquipaadversaria, FieldType.TEXT, Resources.Resources.EQUIPA_ADVERSARIA15813, 30, 0, true),
 			];
 		}
 
-		public void LoadToExport(out ListingMVC<CSGenioAjogador> listing, out CriteriaSet conditions, out List<Exports.QColumn> columns, NameValueCollection requestValues, bool ajaxRequest = false)
+		public void LoadToExport(out ListingMVC<CSGenioAjogo> listing, out CriteriaSet conditions, out List<Exports.QColumn> columns, NameValueCollection requestValues, bool ajaxRequest = false)
 		{
 			CSGenio.core.framework.table.TableConfiguration tableConfig = new();
 			LoadToExport(out listing, out conditions, out columns, tableConfig, requestValues, ajaxRequest);
 		}
 
-		public void LoadToExport(out ListingMVC<CSGenioAjogador> listing, out CriteriaSet conditions, out List<Exports.QColumn> columns, CSGenio.core.framework.table.TableConfiguration tableConfig, NameValueCollection requestValues, bool ajaxRequest = false)
+		public void LoadToExport(out ListingMVC<CSGenioAjogo> listing, out CriteriaSet conditions, out List<Exports.QColumn> columns, CSGenio.core.framework.table.TableConfiguration tableConfig, NameValueCollection requestValues, bool ajaxRequest = false)
 		{
 			listing = null;
 			conditions = null;
@@ -197,7 +195,7 @@ namespace GenioMVC.ViewModels.Jogador
 			// Set table name (used in getting searchable column names)
 			Menu.TableName = TableAlias;
 
-			Menu.SetFilters(false, true);
+			Menu.SetFilters(false, false);
 
 			crs.SubSets.Add(ProcessSearchFilters(Menu, GetSearchColumns(tableConfig.ColumnConfigurations), tableConfig));
 
@@ -205,62 +203,6 @@ namespace GenioMVC.ViewModels.Jogador
 			//Subfilters
 			CriteriaSet subfilters = CriteriaSet.And();
 
-			if (!tableConfig.GroupFilters.ContainsKey("filter_SQB_Menu_21_TYPEFILTER"))
-			{
-				string defaultValue = "1";
-				tableConfig.Filters.Add(new GroupFilter { Key = "filter_SQB_Menu_21_TYPEFILTER", Value = defaultValue });
-			}
-
-			{
-				var groupFilters = CriteriaSet.Or();
-				bool filter_SQB_Menu_21_TYPEFILTER_1 = false;
-				if (tableConfig.GroupFilters.ContainsKey("filter_SQB_Menu_21_TYPEFILTER"))
-					filter_SQB_Menu_21_TYPEFILTER_1 = tableConfig.GroupFilters["filter_SQB_Menu_21_TYPEFILTER"].Contains("1");
-				else if (!tableConfig.GroupFilters.ContainsKey("filter_SQB_Menu_21_TYPEFILTER"))
-					filter_SQB_Menu_21_TYPEFILTER_1 = true;
-				if (filter_SQB_Menu_21_TYPEFILTER_1)
-				{
-
-				}
-
-				bool filter_SQB_Menu_21_TYPEFILTER_2 = false;
-				if (tableConfig.GroupFilters.ContainsKey("filter_SQB_Menu_21_TYPEFILTER"))
-					filter_SQB_Menu_21_TYPEFILTER_2 = tableConfig.GroupFilters["filter_SQB_Menu_21_TYPEFILTER"].Contains("2");
-				if (filter_SQB_Menu_21_TYPEFILTER_2)
-				{
-					groupFilters.Equal(CSGenioAjogador.FldPosicao, "Guarda-Redes");
-
-				}
-
-				bool filter_SQB_Menu_21_TYPEFILTER_3 = false;
-				if (tableConfig.GroupFilters.ContainsKey("filter_SQB_Menu_21_TYPEFILTER"))
-					filter_SQB_Menu_21_TYPEFILTER_3 = tableConfig.GroupFilters["filter_SQB_Menu_21_TYPEFILTER"].Contains("3");
-				if (filter_SQB_Menu_21_TYPEFILTER_3)
-				{
-					groupFilters.Equal(CSGenioAjogador.FldPosicao, "Defesa");
-
-				}
-
-				bool filter_SQB_Menu_21_TYPEFILTER_4 = false;
-				if (tableConfig.GroupFilters.ContainsKey("filter_SQB_Menu_21_TYPEFILTER"))
-					filter_SQB_Menu_21_TYPEFILTER_4 = tableConfig.GroupFilters["filter_SQB_Menu_21_TYPEFILTER"].Contains("4");
-				if (filter_SQB_Menu_21_TYPEFILTER_4)
-				{
-					groupFilters.Equal(CSGenioAjogador.FldPosicao, "Medio");
-
-				}
-
-				bool filter_SQB_Menu_21_TYPEFILTER_5 = false;
-				if (tableConfig.GroupFilters.ContainsKey("filter_SQB_Menu_21_TYPEFILTER"))
-					filter_SQB_Menu_21_TYPEFILTER_5 = tableConfig.GroupFilters["filter_SQB_Menu_21_TYPEFILTER"].Contains("5");
-				if (filter_SQB_Menu_21_TYPEFILTER_5)
-				{
-					groupFilters.Equal(CSGenioAjogador.FldPosicao, "Atacante");
-
-				}
-
-				subfilters.SubSets.Add(groupFilters);
-			}
 
 			crs.SubSets.Add(subfilters);
 
@@ -272,25 +214,25 @@ namespace GenioMVC.ViewModels.Jogador
 			if (isToExport)
 			{
 				// EPH
-				crs = Models.Jogador.AddEPH<CSGenioAjogador>(ref u, crs, "ML21");
+				crs = Models.Jogo.AddEPH<CSGenioAjogo>(ref u, crs, "ML21");
 
 				// Export only records with ZZState == 0
-				crs.Equal(CSGenioAjogador.FldZzstate, 0);
+				crs.Equal(CSGenioAjogo.FldZzstate, 0);
 
 				return crs;
 			}
 
 			// Limitation by Zzstate
-			if (!Navigation.checkFormMode("JOGADOR", FormMode.New)) // TODO: Check in Duplicate mode
-				crs = extendWithZzstateCondition(crs, CSGenioAjogador.FldZzstate, null);
+			if (!Navigation.checkFormMode("JOGO", FormMode.New)) // TODO: Check in Duplicate mode
+				crs = extendWithZzstateCondition(crs, CSGenioAjogo.FldZzstate, null);
 
 
 			if (tableReload)
 			{
-				string QMVC_POS_RECORD = Navigation.GetStrValue("QMVC_POS_RECORD_jogador");
-				Navigation.DestroyEntry("QMVC_POS_RECORD_jogador");
+				string QMVC_POS_RECORD = Navigation.GetStrValue("QMVC_POS_RECORD_jogo");
+				Navigation.DestroyEntry("QMVC_POS_RECORD_jogo");
 				if (!string.IsNullOrEmpty(QMVC_POS_RECORD))
-					crs.Equals(Models.Jogador.AddEPH<CSGenioAjogador>(ref u, null, "ML21"));
+					crs.Equals(Models.Jogo.AddEPH<CSGenioAjogo>(ref u, null, "ML21"));
 			}
 
 			return crs;
@@ -315,7 +257,7 @@ namespace GenioMVC.ViewModels.Jogador
 		/// <param name="conditions">The conditions.</param>
 		public void Load(int numberListItems, NameValueCollection requestValues, bool ajaxRequest = false, CriteriaSet conditions = null)
 		{
-			ListingMVC<CSGenioAjogador> listing = null;
+			ListingMVC<CSGenioAjogo> listing = null;
 
 			Load(numberListItems, requestValues, ajaxRequest, false, ref listing, ref conditions);
 		}
@@ -329,7 +271,7 @@ namespace GenioMVC.ViewModels.Jogador
 		/// <param name="isToExport">Whether the list is being loaded to be exported</param>
 		/// <param name="Qlisting">The rows.</param>
 		/// <param name="conditions">The conditions.</param>
-		public void Load(int numberListItems, NameValueCollection requestValues, bool ajaxRequest, bool isToExport, ref ListingMVC<CSGenioAjogador> Qlisting, ref CriteriaSet conditions)
+		public void Load(int numberListItems, NameValueCollection requestValues, bool ajaxRequest, bool isToExport, ref ListingMVC<CSGenioAjogo> Qlisting, ref CriteriaSet conditions)
 		{
 			CSGenio.core.framework.table.TableConfiguration tableConfig = new();
 
@@ -348,7 +290,7 @@ namespace GenioMVC.ViewModels.Jogador
 		/// <param name="conditions">The conditions.</param>
 		public void Load(CSGenio.core.framework.table.TableConfiguration tableConfig, NameValueCollection requestValues, bool ajaxRequest, bool isToExport = false, CriteriaSet conditions = null)
 		{
-			ListingMVC<CSGenioAjogador> listing = null;
+			ListingMVC<CSGenioAjogo> listing = null;
 
 			Load(tableConfig, requestValues, ajaxRequest, isToExport, ref listing, ref conditions);
 		}
@@ -362,7 +304,7 @@ namespace GenioMVC.ViewModels.Jogador
 		/// <param name="isToExport">Whether the list is being loaded to be exported</param>
 		/// <param name="Qlisting">The rows.</param>
 		/// <param name="conditions">The conditions.</param>
-		public void Load(CSGenio.core.framework.table.TableConfiguration tableConfig, NameValueCollection requestValues, bool ajaxRequest, bool isToExport, ref ListingMVC<CSGenioAjogador> Qlisting, ref CriteriaSet conditions)
+		public void Load(CSGenio.core.framework.table.TableConfiguration tableConfig, NameValueCollection requestValues, bool ajaxRequest, bool isToExport, ref ListingMVC<CSGenioAjogo> Qlisting, ref CriteriaSet conditions)
 		{
 			User u = m_userContext.User;
 			Menu = new TablePartial<SQB_Menu_21_RowViewModel>();
@@ -372,6 +314,8 @@ namespace GenioMVC.ViewModels.Jogador
 
 			//FOR: MENU LIST SORTING
 			Dictionary<string, OrderedDictionary> allSortOrders = new Dictionary<string, OrderedDictionary>();
+			allSortOrders.Add("JOGO.DATA", new OrderedDictionary());
+			allSortOrders["JOGO.DATA"].Add("JOGO.DATA", "A");
 
 
 			int numberListItems = tableConfig.RowsPerPage;
@@ -381,10 +325,16 @@ namespace GenioMVC.ViewModels.Jogador
 			if (pageNumber < 1)
 				pageNumber = 1;
 
-			List<ColumnSort> sorts = GetRequestSorts(this.Menu, tableConfig, "jogador", allSortOrders);
+			List<ColumnSort> sorts = GetRequestSorts(this.Menu, tableConfig, "jogo", allSortOrders);
 
+			if (sorts == null || sorts.Count == 0)
+			{
+				sorts = new List<ColumnSort>();
+				sorts.Add(new ColumnSort(new ColumnReference(CSGenioAjogo.FldData), SortOrder.Ascending));
 
-			FieldRef[] fields = new FieldRef[] { CSGenioAjogador.FldCodjogador, CSGenioAjogador.FldZzstate, CSGenioAjogador.FldFoto, CSGenioAjogador.FldNome, CSGenioAjogador.FldNumerocamisola, CSGenioAjogador.FldDatanascimento, CSGenioAjogador.FldPedominante, CSGenioAjogador.FldPosicao, CSGenioAjogador.FldPosicaosegundaria, CSGenioAjogador.FldCodclube, CSGenioAclube.FldCodclube, CSGenioAclube.FldNome, CSGenioAjogador.FldEquipaanterior };
+			}
+
+			FieldRef[] fields = new FieldRef[] { CSGenioAjogo.FldCodjogo, CSGenioAjogo.FldZzstate, CSGenioAjogo.FldCodclube, CSGenioAclube.FldCodclube, CSGenioAclube.FldNome, CSGenioAjogo.FldData, CSGenioAjogo.FldLocal, CSGenioAjogo.FldResultado, CSGenioAjogo.FldTitulo, CSGenioAjogo.FldEquipaadversaria };
 
 
 			// Totalizers
@@ -396,7 +346,7 @@ namespace GenioMVC.ViewModels.Jogador
 			{
 				firstVisibleColumn = tableConfig?.GetFirstVisibleColumn(TableAlias);
 
-				firstVisibleColumn ??= new FieldRef("jogador", "foto");
+				firstVisibleColumn ??= new FieldRef("clube", "nome");
 			}
 			// Limitations
 			this.TableLimits ??= [];
@@ -407,7 +357,7 @@ namespace GenioMVC.ViewModels.Jogador
 			{
 				Limit limit = new Limit();
 				limit.TipoLimite = LimitType.EPH;
-				CSGenioAjogador model_limit_area = new CSGenioAjogador(m_userContext.User);
+				CSGenioAjogo model_limit_area = new CSGenioAjogo(m_userContext.User);
 				List<Limit> area_EPH_limits = EPH_Limit_Filler(ref limit, model_limit_area, "ML21");
 				if (area_EPH_limits.Count > 0)
 					this.TableLimits.AddRange(area_EPH_limits);
@@ -433,7 +383,7 @@ namespace GenioMVC.ViewModels.Jogador
 				var exportColumns = GetExportColumns(tableConfig.ColumnConfigurations);
 				var exportFieldRefs = exportColumns.Select(eCol => eCol.Field).Where(fldRef => fldRef != null).ToArray();
 
-				Qlisting = Models.ModelBase.BuildListingForExport<CSGenioAjogador>(m_userContext, false, ref sqb_menu_21Conds, exportFieldRefs, (pageNumber - 1) * numberListItems, numberListItems, sorts, "ML21", true, firstVisibleColumn: firstVisibleColumn);
+				Qlisting = Models.ModelBase.BuildListingForExport<CSGenioAjogo>(m_userContext, false, ref sqb_menu_21Conds, exportFieldRefs, (pageNumber - 1) * numberListItems, numberListItems, sorts, "ML21", true, firstVisibleColumn: firstVisibleColumn);
 
 // USE /[MANUAL SQB OVERRQLSTEXP 21]/
 
@@ -444,18 +394,18 @@ namespace GenioMVC.ViewModels.Jogador
 			{
 // USE /[MANUAL SQB OVERRQLIST 21]/
 
-				string QMVC_POS_RECORD = Navigation.GetStrValue("QMVC_POS_RECORD_jogador");
-				Navigation.DestroyEntry("QMVC_POS_RECORD_jogador");
+				string QMVC_POS_RECORD = Navigation.GetStrValue("QMVC_POS_RECORD_jogo");
+				Navigation.DestroyEntry("QMVC_POS_RECORD_jogo");
 				CriteriaSet m_PagingPosEPHs = null;
 
 				if (!string.IsNullOrEmpty(QMVC_POS_RECORD))
 				{
-					var m_iCurPag = m_userContext.PersistentSupport.getPagingPos(CSGenioAjogador.GetInformation(), QMVC_POS_RECORD, sorts, sqb_menu_21Conds, m_PagingPosEPHs, firstVisibleColumn: firstVisibleColumn);
+					var m_iCurPag = m_userContext.PersistentSupport.getPagingPos(CSGenioAjogo.GetInformation(), QMVC_POS_RECORD, sorts, sqb_menu_21Conds, m_PagingPosEPHs, firstVisibleColumn: firstVisibleColumn);
 					if (m_iCurPag != -1)
 						pageNumber = ((m_iCurPag - 1) / numberListItems) + 1;
 				}
 
-				ListingMVC<CSGenioAjogador> listing = Models.ModelBase.Where<CSGenioAjogador>(m_userContext, distinct, sqb_menu_21Conds, fields, (pageNumber - 1) * numberListItems, numberListItems, sorts, "ML21", true, false, QMVC_POS_RECORD, m_PagingPosEPHs, firstVisibleColumn, fieldsWithTotalizers, tableConfig.SelectedRows);
+				ListingMVC<CSGenioAjogo> listing = Models.ModelBase.Where<CSGenioAjogo>(m_userContext, distinct, sqb_menu_21Conds, fields, (pageNumber - 1) * numberListItems, numberListItems, sorts, "ML21", true, false, QMVC_POS_RECORD, m_PagingPosEPHs, firstVisibleColumn, fieldsWithTotalizers, tableConfig.SelectedRows);
 
 				if (listing.CurrentPage > 0)
 					pageNumber = listing.CurrentPage;
@@ -494,7 +444,7 @@ namespace GenioMVC.ViewModels.Jogador
 			LoadUserTableConfigNameProperties();
 		}
 
-		private List<SQB_Menu_21_RowViewModel> MapSQB_Menu_21(ListingMVC<CSGenioAjogador> Qlisting)
+		private List<SQB_Menu_21_RowViewModel> MapSQB_Menu_21(ListingMVC<CSGenioAjogo> Qlisting)
 		{
 			List<SQB_Menu_21_RowViewModel> Elements = [];
 			int i = 0;
@@ -514,11 +464,11 @@ namespace GenioMVC.ViewModels.Jogador
 		}
 
 		/// <summary>
-		/// Maps a single CSGenioAjogador row
+		/// Maps a single CSGenioAjogo row
 		/// to a SQB_Menu_21_RowViewModel object.
 		/// </summary>
 		/// <param name="row">The row.</param>
-		private SQB_Menu_21_RowViewModel MapSQB_Menu_21(CSGenioAjogador row)
+		private SQB_Menu_21_RowViewModel MapSQB_Menu_21(CSGenioAjogo row)
 		{
 			var model = new SQB_Menu_21_RowViewModel(m_userContext, true, _fieldsToSerialize);
 			if (row == null)
@@ -528,7 +478,7 @@ namespace GenioMVC.ViewModels.Jogador
 			{
 				switch (Qfield.Area)
 				{
-					case "jogador":
+					case "jogo":
 						model.klass.insertNameValueField(Qfield.FullName, Qfield.Value); break;
 					case "clube":
 						model.Clube.klass.insertNameValueField(Qfield.FullName, Qfield.Value); break;
@@ -539,7 +489,6 @@ namespace GenioMVC.ViewModels.Jogador
 
 			model.InitRowData();
 
-			SetTicketToImageFields(model);
 			return model;
 		}
 
@@ -558,19 +507,19 @@ namespace GenioMVC.ViewModels.Jogador
 		/// Sets the document field values to objects.
 		/// </summary>
 		/// <param name="listing">The rows</param>
-		private void SetDocumentFields(ListingMVC<CSGenioAjogador> listing)
+		private void SetDocumentFields(ListingMVC<CSGenioAjogo> listing)
 		{
 		}
 
 		#region Mapper
 
 		/// <inheritdoc />
-		public override void MapFromModel(Models.Jogador m)
+		public override void MapFromModel(Models.Jogo m)
 		{
 		}
 
 		/// <inheritdoc />
-		public override void MapToModel(Models.Jogador m)
+		public override void MapToModel(Models.Jogo m)
 		{
 		}
 
@@ -584,26 +533,17 @@ namespace GenioMVC.ViewModels.Jogador
 
 		private static readonly string[] _fieldsToSerialize =
 		[
-			"Jogador", "Jogador.ValCodjogador", "Jogador.ValZzstate", "Jogador.ValFoto", "Jogador.ValNome", "Jogador.ValNumerocamisola", "Jogador.ValDatanascimento", "Jogador.ValPedominante", "Jogador.ValPosicao", "Jogador.ValPosicaosegundaria", "Clube", "Clube.ValNome", "Jogador.ValEquipaanterior", "Jogador.ValCodclube"
+			"Jogo", "Jogo.ValCodjogo", "Jogo.ValZzstate", "Clube", "Clube.ValNome", "Jogo.ValData", "Jogo.ValLocal", "Jogo.ValResultado", "Jogo.ValTitulo", "Jogo.ValEquipaadversaria", "Jogo.ValCodclube"
 		];
 
 		private static readonly List<TableSearchColumn> _searchableColumns =
 		[
-			new TableSearchColumn("ValNome", CSGenioAjogador.FldNome, typeof(string), defaultSearch : true),
-			new TableSearchColumn("ValNumerocamisola", CSGenioAjogador.FldNumerocamisola, typeof(decimal?)),
-			new TableSearchColumn("ValDatanascimento", CSGenioAjogador.FldDatanascimento, typeof(DateTime?)),
-			new TableSearchColumn("ValPedominante", CSGenioAjogador.FldPedominante, typeof(string), array : "Pe"),
-			new TableSearchColumn("ValPosicao", CSGenioAjogador.FldPosicao, typeof(string), array : "Posicao"),
-			new TableSearchColumn("ValPosicaosegundaria", CSGenioAjogador.FldPosicaosegundaria, typeof(string), array : "Posicao"),
 			new TableSearchColumn("Clube_ValNome", CSGenioAclube.FldNome, typeof(string)),
-			new TableSearchColumn("ValEquipaanterior", CSGenioAjogador.FldEquipaanterior, typeof(string)),
+			new TableSearchColumn("ValData", CSGenioAjogo.FldData, typeof(DateTime?)),
+			new TableSearchColumn("ValLocal", CSGenioAjogo.FldLocal, typeof(string)),
+			new TableSearchColumn("ValResultado", CSGenioAjogo.FldResultado, typeof(string)),
+			new TableSearchColumn("ValTitulo", CSGenioAjogo.FldTitulo, typeof(string), defaultSearch : true),
+			new TableSearchColumn("ValEquipaadversaria", CSGenioAjogo.FldEquipaadversaria, typeof(string)),
 		];
-		protected void SetTicketToImageFields(Models.Jogador row)
-		{
-			if (row == null)
-				return;
-
-			row.ValFotoQTicket = Helpers.Helpers.GetFileTicket(m_userContext.User, CSGenio.business.Area.AreaJOGADOR, CSGenioAjogador.FldFoto.Field, null, row.ValCodjogador);
-		}
 	}
 }

@@ -4,18 +4,18 @@ using CSGenio.business;
 using CSGenio.framework;
 using GenioMVC.Models.Navigation;
 
-namespace GenioMVC.ViewModels.Convocatoria;
+namespace GenioMVC.ViewModels.Jogador;
 
-public class Convocatoria_ValConvocados_RowViewModel : Models.Convocatoria
+public class SQB_Menu_31_RowViewModel : Models.Jogador
 {
 	#region Constructors
 
-	public Convocatoria_ValConvocados_RowViewModel(UserContext userContext, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, isEmpty, fieldsToSerialize)
+	public SQB_Menu_31_RowViewModel(UserContext userContext, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, isEmpty, fieldsToSerialize)
 	{
 		InitRowProperties();
 	}
 
-	public Convocatoria_ValConvocados_RowViewModel(UserContext userContext, CSGenioAconvocatoria val, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, val, isEmpty, fieldsToSerialize)
+	public SQB_Menu_31_RowViewModel(UserContext userContext, CSGenioAjogador val, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, val, isEmpty, fieldsToSerialize)
 	{
 		InitRowProperties();
 	}
@@ -37,19 +37,55 @@ public class Convocatoria_ValConvocados_RowViewModel : Models.Convocatoria
 			{
 				Order = 1,
 				Area = "JOGADOR",
-				Field = "NOME",
+				Field = "FOTO",
 			},
 			new ListColumn()
 			{
 				Order = 2,
 				Area = "JOGADOR",
-				Field = "NUMEROCAMISOLA",
+				Field = "NOME",
 			},
 			new ListColumn()
 			{
 				Order = 3,
 				Area = "JOGADOR",
+				Field = "NUMEROCAMISOLA",
+			},
+			new ListColumn()
+			{
+				Order = 4,
+				Area = "JOGADOR",
+				Field = "DATANASCIMENTO",
+			},
+			new ListColumn()
+			{
+				Order = 5,
+				Area = "JOGADOR",
+				Field = "PEDOMINANTE",
+			},
+			new ListColumn()
+			{
+				Order = 6,
+				Area = "JOGADOR",
 				Field = "POSICAO",
+			},
+			new ListColumn()
+			{
+				Order = 7,
+				Area = "JOGADOR",
+				Field = "POSICAOSEGUNDARIA",
+			},
+			new ListColumn()
+			{
+				Order = 8,
+				Area = "CLUBE",
+				Field = "NOME",
+			},
+			new ListColumn()
+			{
+				Order = 9,
+				Area = "JOGADOR",
+				Field = "EQUIPAANTERIOR",
 			},
 		];
 	}

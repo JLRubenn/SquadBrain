@@ -249,6 +249,9 @@
   <msg id="Numero de Jogadoes" code="NUMERO_DE_JOGADOES35633">
     <ENUS>Numero de Jogadoes</ENUS>
   </msg>
+  <msg id="LASTTREINOCRIADO" code="LASTTREINOCRIADO36042">
+    <ENUS>LASTTREINOCRIADO</ENUS>
+  </msg>
   <msg id="Bcc" code="BCC22049">
     <ENUS>Bcc</ENUS>
   </msg>
@@ -257,6 +260,9 @@
   </msg>
   <msg id="Presidente" code="PRESIDENTE51745">
     <ENUS>Presidente</ENUS>
+  </msg>
+  <msg id="Feito por..." code="FEITO_POR___22778">
+    <ENUS>Feito por...</ENUS>
   </msg>
   <msg id="Resultado" code="RESULTADO50955">
     <ENUS>Resultado</ENUS>
@@ -318,6 +324,9 @@
   <msg id="Falta Justificada" code="FALTA_JUSTIFICADA27443">
     <ENUS>Falta Justificada</ENUS>
   </msg>
+  <msg id="Ultimo  treino" code="ULTIMO__TREINO56680">
+    <ENUS>Ultimo  treino</ENUS>
+  </msg>
   <msg id="Erro" code="ERRO38355">
     <ENUS>Erro</ENUS>
   </msg>
@@ -353,6 +362,9 @@
   </msg>
   <msg id="Client ip address" code="CLIENT_IP_ADDRESS62089">
     <ENUS>Client ip address</ENUS>
+  </msg>
+  <msg id="JOGADOR" code="JOGADOR55167">
+    <ENUS>JOGADOR</ENUS>
   </msg>
   <msg id="Text after signature" code="TEXT_AFTER_SIGNATURE11837">
     <ENUS>Text after signature</ENUS>

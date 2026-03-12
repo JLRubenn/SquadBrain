@@ -526,7 +526,7 @@ namespace GenioMVC.ViewModels.Presenca
 		/// <param name="PKey">Primary Key of Treino</param>
 		public ConcurrentDictionary<string, object> GetDependant_PresencaTableTreinoData(string PKey)
 		{
-			FieldRef[] refDependantFields = [CSGenioAtreino.FldCodtreino, CSGenioAtreino.FldData];
+			FieldRef[] refDependantFields = [CSGenioAtreino.FldCodtreino, CSGenioAtreino.FldData, CSGenioAjogador.FldCodjogador, CSGenioAjogador.FldNome];
 
 			var returnEmptyDependants = false;
 			CriteriaSet wherecodition = CriteriaSet.And();
@@ -575,6 +575,7 @@ namespace GenioMVC.ViewModels.Presenca
 			var row = GetDependant_PresencaTableTreinoData(this.ValCodtreino);
 			try
 			{
+				this.ValCodjogador = (string)row["jogador.codjogador"];
 
 				// Fill List fields
 				this.ValCodtreino = ViewModelConversion.ToString(row["treino.codtreino"]);

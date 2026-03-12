@@ -121,12 +121,12 @@
 				menuInfo: {
 					id: '61',
 					isMenuList: true,
-					designation: computed(() => this.Resources.CONVOCATORIAS26754),
+					designation: computed(() => this.Resources.PRESENCAS23345),
 					acronym: 'SQB_61',
-					name: 'CONVOCATORIA',
+					name: 'PRESENCA',
 					route: 'menu-SQB_61',
 					order: '61',
-					controller: 'CONVOCATORIA',
+					controller: 'PRESENCA',
 					action: 'SQB_Menu_61',
 					isPopup: false
 				},
@@ -137,7 +137,7 @@
 					menu: new controlClass.TableListControl({
 						fnHydrateViewModel: (data) => vm.model.hydrate(data),
 						id: 'SQB_Menu_61',
-						controller: 'CONVOCATORIA',
+						controller: 'PRESENCA',
 						action: 'SQB_Menu_61',
 						hasDependencies: false,
 						isInCollapsible: false,
@@ -148,14 +148,14 @@
 						columnsOriginal: [
 							new listColumnTypes.DateColumn({
 								order: 1,
-								name: 'Jogo.ValData',
-								area: 'JOGO',
+								name: 'Treino.ValData',
+								area: 'TREINO',
 								field: 'DATA',
 								label: computed(() => this.Resources.DATA18071),
-								scrollData: 8,
-								dateTimeType: 'date',
+								scrollData: 16,
+								dateTimeType: 'dateTime',
 								export: 1,
-								pkColumn: 'ValCodjogo',
+								pkColumn: 'ValCodtreino',
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 							new listColumnTypes.TextColumn({
 								order: 2,
@@ -168,16 +168,29 @@
 								export: 1,
 								pkColumn: 'ValCodjogador',
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.ArrayColumn({
+								order: 3,
+								name: 'ValEstado',
+								area: 'PRESENCA',
+								field: 'ESTADO',
+								label: computed(() => this.Resources.ESTADO07788),
+								dataLength: 2,
+								scrollData: 2,
+								export: 1,
+								array: computed(() => new qProjArrays.QArrayEstado_presenca(vm.$getResource).elements),
+								arrayType: qProjArrays.QArrayEstado_presenca.type,
+								arrayDisplayMode: 'D',
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 						],
 						config: {
 							name: 'SQB_Menu_61',
 							serverMode: true,
-							pkColumn: 'ValCodconvocatoria',
-							tableAlias: 'CONVOCATORIA',
-							tableNamePlural: computed(() => this.Resources.CONVOCATORIAS26754),
+							pkColumn: 'ValCodpresenca',
+							tableAlias: 'PRESENCA',
+							tableNamePlural: computed(() => this.Resources.PRESENCAS23345),
 							viewManagement: '',
 							showLimitsInfo: true,
-							tableTitle: computed(() => this.Resources.CONVOCATORIAS26754),
+							tableTitle: computed(() => this.Resources.PRESENCAS23345),
 							showAlternatePagination: true,
 							permissions: {
 							},
@@ -198,7 +211,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'CONVOCATORIA',
+										formName: 'PRESENCA',
 										mode: 'SHOW',
 										isControlled: true
 									}
@@ -214,7 +227,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'CONVOCATORIA',
+										formName: 'PRESENCA',
 										mode: 'EDIT',
 										isControlled: true
 									}
@@ -230,7 +243,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'CONVOCATORIA',
+										formName: 'PRESENCA',
 										mode: 'DUPLICATE',
 										isControlled: true
 									}
@@ -246,7 +259,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'CONVOCATORIA',
+										formName: 'PRESENCA',
 										mode: 'DELETE',
 										isControlled: true
 									}
@@ -264,7 +277,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'CONVOCATORIA',
+										formName: 'PRESENCA',
 										mode: 'NEW',
 										repeatInsertion: false,
 										isControlled: true
@@ -281,23 +294,23 @@
 							],
 							rowClickAction: {
 								id: 'RCA_SQB_611',
-								name: 'form-CONVOCATORIA',
+								name: 'form-PRESENCA',
 								isVisible: true,
 								params: {
 									isRoute: true,
 									limits: [
 										{
 											identifier: 'id',
-											fnValueSelector: (row) => row.ValCodconvocatoria
+											fnValueSelector: (row) => row.ValCodpresenca
 										},
 									],
 									isControlled: true,
-									action: vm.openFormAction, type: 'form', mode: 'SHOW', formName: 'CONVOCATORIA'
+									action: vm.openFormAction, type: 'form', mode: 'SHOW', formName: 'PRESENCA'
 								}
 							},
 							formsDefinition: {
-								'CONVOCATORIA': {
-									fnKeySelector: (row) => row.Fields.ValCodconvocatoria,
+								'PRESENCA': {
+									fnKeySelector: (row) => row.Fields.ValCodpresenca,
 									isPopup: false
 								},
 							},
@@ -308,8 +321,8 @@
 								sortOrder: 'asc'
 							}
 						},
-						globalEvents: ['changed-CONVOCATORIA', 'changed-JOGO', 'changed-JOGADOR'],
-						uuid: '8d1fb414-669b-46b2-a06f-2b8747534ac0',
+						globalEvents: ['changed-PRESENCA', 'changed-TREINO', 'changed-JOGADOR'],
+						uuid: '5f5fbc25-85cb-40bf-ac6f-c482b7dfff34',
 						allSelectedRows: 'false',
 						headerLevel: 1,
 						isActiveControl: computed(() => this.isActiveMenu)

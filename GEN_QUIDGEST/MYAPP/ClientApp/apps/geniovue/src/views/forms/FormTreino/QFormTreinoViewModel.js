@@ -65,6 +65,28 @@ export default class ViewModel extends FormViewModelBase
 		}).cloneFrom(values?.ValCodclube))
 		this.stopWatchers.push(watch(() => this.ValCodclube.value, (newValue, oldValue) => this.onUpdate('treino.codclube', this.ValCodclube, newValue, oldValue)))
 
+		this.ValCodjogador = reactive(new modelFieldType.ForeignKey({
+			id: 'ValCodjogador',
+			originId: 'ValCodjogador',
+			area: 'TREINO',
+			field: 'CODJOGADOR',
+			relatedArea: 'JOGADOR',
+			isFixed: true,
+			description: computed(() => this.Resources.JOGADOR55167),
+		}).cloneFrom(values?.ValCodjogador))
+		this.stopWatchers.push(watch(() => this.ValCodjogador.value, (newValue, oldValue) => this.onUpdate('treino.codjogador', this.ValCodjogador, newValue, oldValue)))
+
+		/** The used foreign keys. */
+		this.ValCodtreinador = reactive(new modelFieldType.ForeignKey({
+			id: 'ValCodtreinador',
+			originId: 'ValCodtreinador',
+			area: 'TREINO',
+			field: 'CODTREINADOR',
+			relatedArea: 'TREINADOR',
+			description: computed(() => this.Resources.TREINADOR19936),
+		}).cloneFrom(values?.ValCodtreinador))
+		this.stopWatchers.push(watch(() => this.ValCodtreinador.value, (newValue, oldValue) => this.onUpdate('treino.codtreinador', this.ValCodtreinador, newValue, oldValue)))
+
 		/** The remaining form fields. */
 		this.ValNumjogadores = reactive(new modelFieldType.Number({
 			id: 'ValNumjogadores',
@@ -107,6 +129,18 @@ export default class ViewModel extends FormViewModelBase
 			description: computed(() => this.Resources.DATA18071),
 		}).cloneFrom(values?.ValData))
 		this.stopWatchers.push(watch(() => this.ValData.value, (newValue, oldValue) => this.onUpdate('treino.data', this.ValData, newValue, oldValue)))
+
+		this.TableTreinadorNome = reactive(new modelFieldType.String({
+			type: 'Lookup',
+			id: 'TableTreinadorNome',
+			originId: 'ValNome',
+			area: 'TREINADOR',
+			field: 'NOME',
+			maxLength: 50,
+			description: computed(() => this.Resources.NOME47814),
+			ignoreFldSubmit: true,
+		}).cloneFrom(values?.TableTreinadorNome))
+		this.stopWatchers.push(watch(() => this.TableTreinadorNome.value, (newValue, oldValue) => this.onUpdate('treinador.nome', this.TableTreinadorNome, newValue, oldValue)))
 
 		this.ValObjetivo = reactive(new modelFieldType.MultiLineString({
 			id: 'ValObjetivo',

@@ -88,6 +88,18 @@ export default function getFormsRoutes()
 			}
 		},
 		{
+			path: '/:culture/:system/:module/form/TREINADOR/:mode/:id?',
+			name: 'form-TREINADOR',
+			props: route => propsConverter(route),
+			component: () => import('@/views/forms/FormTreinador/QFormTreinador.vue'),
+			meta: {
+				routeType: 'form',
+				baseArea: 'TREINADOR',
+				humanKeyFields: ['ValNome'],
+				isPopup: false
+			}
+		},
+		{
 			path: '/:culture/:system/:module/form/TREINO/:mode/:id?',
 			name: 'form-TREINO',
 			props: route => propsConverter(route),

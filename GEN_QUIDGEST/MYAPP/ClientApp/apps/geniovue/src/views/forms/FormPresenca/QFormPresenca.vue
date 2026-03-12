@@ -529,6 +529,8 @@
 						dependentFields: () => ({
 							set 'treino.codtreino'(value) { vm.model.ValCodtreino.updateValue(value) },
 							set 'treino.data'(value) { vm.model.TableTreinoData.updateValue(value) },
+							set 'presenca.codjogador'(value) { vm.model.ValCodjogador.updateValue(value) },
+							set 'jogador.codjogador'(value) { vm.model.ValCodjogador.updateValue(value) },
 						}),
 						controlLimits: [
 						],

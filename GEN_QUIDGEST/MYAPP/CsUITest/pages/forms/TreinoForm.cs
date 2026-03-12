@@ -33,6 +33,12 @@ public class TreinoForm : Form
 	public DateInputControl TreinoData => new DateInputControl(driver, ContainerLocator, "#TREINO__TREINO__DATA", "dd/MM/yyyy HH:mm");
 
 	/// <summary>
+	/// Feito por...
+	/// </summary>
+	public LookupControl TreinadorNome => new LookupControl(driver, ContainerLocator, "container-TREINO__TREINADOR__NOME");
+	public SeeMorePage TreinadorNomeSeeMorePage => new SeeMorePage(driver, "TREINO", "TREINO__TREINADOR__NOME");
+
+	/// <summary>
 	/// detalhes do treino
 	/// </summary>
 	public CollapsibleZoneControl PseudNewgrp02 => new CollapsibleZoneControl(driver, ContainerLocator, "#TREINO__PSEUDNEWGRP02-container");

@@ -121,12 +121,12 @@
 				menuInfo: {
 					id: '31',
 					isMenuList: true,
-					designation: computed(() => this.Resources.JOGADORES08991),
+					designation: computed(() => this.Resources.JOGOS19503),
 					acronym: 'SQB_31',
-					name: 'JOGADOR',
+					name: 'JOGO',
 					route: 'menu-SQB_31',
 					order: '31',
-					controller: 'JOGADOR',
+					controller: 'JOGO',
 					action: 'SQB_Menu_31',
 					isPopup: false
 				},
@@ -137,7 +137,7 @@
 					menu: new controlClass.TableListControl({
 						fnHydrateViewModel: (data) => vm.model.hydrate(data),
 						id: 'SQB_Menu_31',
-						controller: 'JOGADOR',
+						controller: 'JOGO',
 						action: 'SQB_Menu_31',
 						hasDependencies: false,
 						isInCollapsible: false,
@@ -146,105 +146,63 @@
 							'page-full-height'
 						],
 						columnsOriginal: [
-							new listColumnTypes.ImageColumn({
-								order: 1,
-								name: 'ValFoto',
-								area: 'JOGADOR',
-								field: 'FOTO',
-								label: computed(() => this.Resources.FOTO19492),
-								dataTitle: computed(() => genericFunctions.formatString(vm.Resources.IMAGEM_UTILIZADA_PAR58591, vm.Resources.FOTO19492)),
-								scrollData: 3,
-								sortable: false,
-								searchable: false,
-								export: 1,
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 							new listColumnTypes.TextColumn({
-								order: 2,
-								name: 'ValNome',
-								area: 'JOGADOR',
+								order: 1,
+								name: 'Clube.ValNome',
+								area: 'CLUBE',
 								field: 'NOME',
 								label: computed(() => this.Resources.NOME47814),
 								dataLength: 50,
 								scrollData: 30,
 								export: 1,
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.NumericColumn({
-								order: 3,
-								name: 'ValNumerocamisola',
-								area: 'JOGADOR',
-								field: 'NUMEROCAMISOLA',
-								label: computed(() => this.Resources.NUMERO_CAMISOLA34511),
-								scrollData: 2,
-								maxDigits: 2,
-								decimalPlaces: 0,
-								export: 1,
+								pkColumn: 'ValCodclube',
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 							new listColumnTypes.DateColumn({
-								order: 4,
-								name: 'ValDatanascimento',
-								area: 'JOGADOR',
-								field: 'DATANASCIMENTO',
-								label: computed(() => this.Resources.DATA_NASCIMENTO26850),
+								order: 2,
+								name: 'ValData',
+								area: 'JOGO',
+								field: 'DATA',
+								label: computed(() => this.Resources.DATA18071),
 								scrollData: 8,
 								dateTimeType: 'date',
 								export: 1,
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.ArrayColumn({
-								order: 5,
-								name: 'ValPedominante',
-								area: 'JOGADOR',
-								field: 'PEDOMINANTE',
-								label: computed(() => this.Resources.PE_DOMINANTE49350),
-								dataLength: 3,
-								scrollData: 3,
-								export: 1,
-								array: computed(() => new qProjArrays.QArrayPe(vm.$getResource).elements),
-								arrayType: qProjArrays.QArrayPe.type,
-								arrayDisplayMode: 'D',
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.ArrayColumn({
-								order: 6,
-								name: 'ValPosicao',
-								area: 'JOGADOR',
-								field: 'POSICAO',
-								label: computed(() => this.Resources.POSICAO07486),
-								dataLength: 3,
-								scrollData: 3,
-								export: 1,
-								array: computed(() => new qProjArrays.QArrayPosicao(vm.$getResource).elements),
-								arrayType: qProjArrays.QArrayPosicao.type,
-								arrayDisplayMode: 'D',
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.ArrayColumn({
-								order: 7,
-								name: 'ValPosicaosegundaria',
-								area: 'JOGADOR',
-								field: 'POSICAOSEGUNDARIA',
-								label: computed(() => this.Resources.POSICAO_SEGUNDARIA49537),
-								dataLength: 3,
-								scrollData: 3,
-								export: 1,
-								array: computed(() => new qProjArrays.QArrayPosicao(vm.$getResource).elements),
-								arrayType: qProjArrays.QArrayPosicao.type,
-								arrayDisplayMode: 'D',
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 							new listColumnTypes.TextColumn({
-								order: 8,
-								name: 'Clube.ValNome',
-								area: 'CLUBE',
-								field: 'NOME',
-								label: computed(() => this.Resources.EQUIPA_ATUAL12425),
+								order: 3,
+								name: 'ValLocal',
+								area: 'JOGO',
+								field: 'LOCAL',
+								label: computed(() => this.Resources.LOCAL02842),
 								dataLength: 50,
 								scrollData: 30,
 								export: 1,
-								pkColumn: 'ValCodclube',
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 							new listColumnTypes.TextColumn({
-								order: 9,
-								name: 'ValEquipaanterior',
-								area: 'JOGADOR',
-								field: 'EQUIPAANTERIOR',
-								label: computed(() => this.Resources.EQUIPA_ANTERIOR39393),
+								order: 4,
+								name: 'ValResultado',
+								area: 'JOGO',
+								field: 'RESULTADO',
+								label: computed(() => this.Resources.RESULTADO50955),
+								dataLength: 50,
+								scrollData: 30,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.TextColumn({
+								order: 5,
+								name: 'ValTitulo',
+								area: 'JOGO',
+								field: 'TITULO',
+								label: computed(() => this.Resources.TITULO23260),
+								dataLength: 50,
+								scrollData: 30,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.TextColumn({
+								order: 6,
+								name: 'ValEquipaadversaria',
+								area: 'JOGO',
+								field: 'EQUIPAADVERSARIA',
+								label: computed(() => this.Resources.EQUIPA_ADVERSARIA15813),
 								dataLength: 50,
 								scrollData: 30,
 								export: 1,
@@ -253,12 +211,12 @@
 						config: {
 							name: 'SQB_Menu_31',
 							serverMode: true,
-							pkColumn: 'ValCodjogador',
-							tableAlias: 'JOGADOR',
-							tableNamePlural: computed(() => this.Resources.JOGADORES08991),
+							pkColumn: 'ValCodjogo',
+							tableAlias: 'JOGO',
+							tableNamePlural: computed(() => this.Resources.JOGOS19503),
 							viewManagement: '',
 							showLimitsInfo: true,
-							tableTitle: computed(() => this.Resources.JOGADORES08991),
+							tableTitle: computed(() => this.Resources.JOGOS19503),
 							showAlternatePagination: true,
 							permissions: {
 							},
@@ -279,7 +237,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'JOGADOR',
+										formName: 'JOGO',
 										mode: 'SHOW',
 										isControlled: true
 									}
@@ -295,7 +253,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'JOGADOR',
+										formName: 'JOGO',
 										mode: 'EDIT',
 										isControlled: true
 									}
@@ -311,7 +269,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'JOGADOR',
+										formName: 'JOGO',
 										mode: 'DUPLICATE',
 										isControlled: true
 									}
@@ -327,7 +285,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'JOGADOR',
+										formName: 'JOGO',
 										mode: 'DELETE',
 										isControlled: true
 									}
@@ -345,7 +303,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'JOGADOR',
+										formName: 'JOGO',
 										mode: 'NEW',
 										repeatInsertion: false,
 										isControlled: true
@@ -362,70 +320,35 @@
 							],
 							rowClickAction: {
 								id: 'RCA_SQB_311',
-								name: 'form-JOGADOR',
+								name: 'form-JOGO',
 								isVisible: true,
 								params: {
 									isRoute: true,
 									limits: [
 										{
 											identifier: 'id',
-											fnValueSelector: (row) => row.ValCodjogador
+											fnValueSelector: (row) => row.ValCodjogo
 										},
 									],
 									isControlled: true,
-									action: vm.openFormAction, type: 'form', mode: 'SHOW', formName: 'JOGADOR'
+									action: vm.openFormAction, type: 'form', mode: 'SHOW', formName: 'JOGO'
 								}
 							},
 							formsDefinition: {
-								'JOGADOR': {
-									fnKeySelector: (row) => row.Fields.ValCodjogador,
+								'JOGO': {
+									fnKeySelector: (row) => row.Fields.ValCodjogo,
 									isPopup: false
 								},
 							},
-							defaultSearchColumnName: 'ValNome',
-							defaultSearchColumnNameOriginal: 'ValNome',
+							defaultSearchColumnName: 'ValTitulo',
+							defaultSearchColumnNameOriginal: 'ValTitulo',
 							defaultColumnSorting: {
-								columnName: 'Clube.ValNome',
+								columnName: 'ValData',
 								sortOrder: 'asc'
 							}
 						},
-						groupFilters: [
-							{
-								id: 'filter_SQB_Menu_31_TYPEFILTER',
-								isMultiple: false,
-								items: [
-									{
-										id: 'filter_SQB_Menu_31_TYPEFILTER_1',
-										value: computed(() => this.Resources.TODOS59977),
-										key: '1'
-									},
-									{
-										id: 'filter_SQB_Menu_31_TYPEFILTER_2',
-										value: computed(() => this.Resources.GUARDA_REDES05920),
-										key: '2'
-									},
-									{
-										id: 'filter_SQB_Menu_31_TYPEFILTER_3',
-										value: computed(() => this.Resources.DEFESAS04709),
-										key: '3'
-									},
-									{
-										id: 'filter_SQB_Menu_31_TYPEFILTER_4',
-										value: computed(() => this.Resources.MEDIOS52631),
-										key: '4'
-									},
-									{
-										id: 'filter_SQB_Menu_31_TYPEFILTER_5',
-										value: computed(() => this.Resources.ATACANTES25618),
-										key: '5'
-									},
-								],
-								selected: undefined,
-								default: undefined
-							},
-						],
-						globalEvents: ['changed-JOGADOR', 'changed-CLUBE'],
-						uuid: '952b6b6f-99bd-4342-a146-b6c0e1e1ee45',
+						globalEvents: ['changed-CLUBE', 'changed-JOGO'],
+						uuid: '44982ae9-9db2-4d57-aabf-110c6c7b71e6',
 						allSelectedRows: 'false',
 						headerLevel: 1,
 						isActiveControl: computed(() => this.isActiveMenu)

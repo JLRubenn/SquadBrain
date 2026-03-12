@@ -268,7 +268,7 @@
 								sortOrder: 'asc'
 							}
 						},
-						globalEvents: ['changed-CLUBE', 'changed-TREINO'],
+						globalEvents: ['changed-CLUBE', 'changed-TREINADOR', 'changed-JOGADOR', 'changed-TREINO'],
 						uuid: 'Presenca_Presenca_TreinoValData',
 						allSelectedRows: 'false',
 						handlers: {

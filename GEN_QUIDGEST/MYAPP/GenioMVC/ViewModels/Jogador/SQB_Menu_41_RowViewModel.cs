@@ -4,18 +4,18 @@ using CSGenio.business;
 using CSGenio.framework;
 using GenioMVC.Models.Navigation;
 
-namespace GenioMVC.ViewModels.Jogo;
+namespace GenioMVC.ViewModels.Jogador;
 
-public class SQB_Menu_21_RowViewModel : Models.Jogo
+public class SQB_Menu_41_RowViewModel : Models.Jogador
 {
 	#region Constructors
 
-	public SQB_Menu_21_RowViewModel(UserContext userContext, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, isEmpty, fieldsToSerialize)
+	public SQB_Menu_41_RowViewModel(UserContext userContext, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, isEmpty, fieldsToSerialize)
 	{
 		InitRowProperties();
 	}
 
-	public SQB_Menu_21_RowViewModel(UserContext userContext, CSGenioAjogo val, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, val, isEmpty, fieldsToSerialize)
+	public SQB_Menu_41_RowViewModel(UserContext userContext, CSGenioAjogador val, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, val, isEmpty, fieldsToSerialize)
 	{
 		InitRowProperties();
 	}
@@ -36,38 +36,56 @@ public class SQB_Menu_21_RowViewModel : Models.Jogo
 			new ListColumn()
 			{
 				Order = 1,
+				Area = "JOGADOR",
+				Field = "FOTO",
+			},
+			new ListColumn()
+			{
+				Order = 2,
+				Area = "JOGADOR",
+				Field = "NOME",
+			},
+			new ListColumn()
+			{
+				Order = 3,
+				Area = "JOGADOR",
+				Field = "NUMEROCAMISOLA",
+			},
+			new ListColumn()
+			{
+				Order = 4,
+				Area = "JOGADOR",
+				Field = "DATANASCIMENTO",
+			},
+			new ListColumn()
+			{
+				Order = 5,
+				Area = "JOGADOR",
+				Field = "PEDOMINANTE",
+			},
+			new ListColumn()
+			{
+				Order = 6,
+				Area = "JOGADOR",
+				Field = "POSICAO",
+			},
+			new ListColumn()
+			{
+				Order = 7,
+				Area = "JOGADOR",
+				Field = "POSICAOSEGUNDARIA",
+			},
+			new ListColumn()
+			{
+				Order = 8,
 				Area = "CLUBE",
 				Field = "NOME",
 			},
 			new ListColumn()
 			{
-				Order = 2,
-				Area = "JOGO",
-				Field = "DATA",
-			},
-			new ListColumn()
-			{
-				Order = 3,
-				Area = "JOGO",
-				Field = "LOCAL",
-			},
-			new ListColumn()
-			{
-				Order = 4,
-				Area = "JOGO",
-				Field = "RESULTADO",
-			},
-			new ListColumn()
-			{
-				Order = 5,
-				Area = "JOGO",
-				Field = "TITULO",
-			},
-			new ListColumn()
-			{
-				Order = 6,
-				Area = "JOGO",
-				Field = "EQUIPAADVERSARIA",
+				Order = 9,
+				Area = "JOGADOR",
+				Field = "EQUIPAANTERIOR",
 			},
 		];
 	}

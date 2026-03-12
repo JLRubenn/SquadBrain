@@ -366,6 +366,9 @@
 	<data name="NUMERO_DE_JOGADOES35633" xml:space="preserve">
 		<value>Numero de Jogadoes</value>
 	</data>
+	<data name="LASTTREINOCRIADO36042" xml:space="preserve">
+		<value>LASTTREINOCRIADO</value>
+	</data>
 	<data name="BCC22049" xml:space="preserve">
 		<value>Bcc</value>
 	</data>
@@ -374,6 +377,9 @@
 	</data>
 	<data name="PRESIDENTE51745" xml:space="preserve">
 		<value>Presidente</value>
+	</data>
+	<data name="FEITO_POR___22778" xml:space="preserve">
+		<value>Feito por...</value>
 	</data>
 	<data name="RESULTADO50955" xml:space="preserve">
 		<value>Resultado</value>
@@ -435,6 +441,9 @@
 	<data name="FALTA_JUSTIFICADA27443" xml:space="preserve">
 		<value>Falta Justificada</value>
 	</data>
+	<data name="ULTIMO__TREINO56680" xml:space="preserve">
+		<value>Ultimo  treino</value>
+	</data>
 	<data name="ERRO38355" xml:space="preserve">
 		<value>Erro</value>
 	</data>
@@ -470,6 +479,9 @@
 	</data>
 	<data name="CLIENT_IP_ADDRESS62089" xml:space="preserve">
 		<value>Client ip address</value>
+	</data>
+	<data name="JOGADOR55167" xml:space="preserve">
+		<value>JOGADOR</value>
 	</data>
 	<data name="TEXT_AFTER_SIGNATURE11837" xml:space="preserve">
 		<value>Text after signature</value>

@@ -127,6 +127,26 @@ namespace CSGenio.business
 			info.RegisterFieldDB(Qfield);
 
 			//- - - - - - - - - - - - - - - - - - -
+			Qfield = new Field(info.Alias, "codjogador", FieldType.KEY_INT);
+			Qfield.FieldDescription = "JOGADOR";
+			Qfield.FieldSize =  8;
+			Qfield.MQueue = false;
+			Qfield.CavDesignation = "JOGADOR55167";
+
+			Qfield.Dupmsg = "";
+			info.RegisterFieldDB(Qfield);
+
+			//- - - - - - - - - - - - - - - - - - -
+			Qfield = new Field(info.Alias, "codtreinador", FieldType.KEY_INT);
+			Qfield.FieldDescription = "Treinador";
+			Qfield.FieldSize =  8;
+			Qfield.MQueue = false;
+			Qfield.CavDesignation = "TREINADOR19936";
+
+			Qfield.Dupmsg = "";
+			info.RegisterFieldDB(Qfield);
+
+			//- - - - - - - - - - - - - - - - - - -
 			Qfield = new Field(info.Alias, "zzstate", FieldType.INTEGER);
 			Qfield.FieldDescription = "Estado da ficha";
 			info.RegisterFieldDB(Qfield);
@@ -148,6 +168,8 @@ namespace CSGenio.business
 			//------------------------------
 			info.ParentTables = new Dictionary<string, Relation>();
 			info.ParentTables.Add("clube", new Relation("SQB", "sqbtreino", "treino", "codtreino", "codclube", "SQB", "sqbclube", "clube", "codclube", "codclube"));
+			info.ParentTables.Add("jogador", new Relation("SQB", "sqbtreino", "treino", "codtreino", "codjogador", "SQB", "sqbjogador", "jogador", "codjogador", "codjogador"));
+			info.ParentTables.Add("treinador", new Relation("SQB", "sqbtreino", "treino", "codtreino", "codtreinador", "SQB", "sqbtreinador", "treinador", "codtreinador", "codtreinador"));
 		}
 
 		/// <summary>
@@ -157,8 +179,10 @@ namespace CSGenio.business
 		{
 			// Pathways
 			//------------------------------
-			info.Pathways = new Dictionary<string, string>(1);
+			info.Pathways = new Dictionary<string, string>(3);
 			info.Pathways.Add("clube","clube");
+			info.Pathways.Add("treinador","treinador");
+			info.Pathways.Add("jogador","jogador");
 		}
 
 		/// <summary>
@@ -169,6 +193,17 @@ namespace CSGenio.business
 			// Formulas
 			//------------------------------
 
+
+
+			//Actualiza as seguintes rotinas de ultimo Qvalue:
+			info.LastValueArgs = new List<LastValueArgument>();
+			info.LastValueArgs.Add( new LastValueArgument("treinador",
+				new string [] {"lasttreinocriado"},
+				new string [] {"data"},
+				"data",
+				null,
+
+				null, false));
 
 
 
@@ -366,6 +401,28 @@ namespace CSGenio.business
 			set { insertNameValueField(FldMaterial, value); }
 		}
 
+		/// <summary>Field : "JOGADOR" Tipo: "CE" Formula:  ""</summary>
+		public static FieldRef FldCodjogador { get { return m_fldCodjogador; } }
+		private static FieldRef m_fldCodjogador = new FieldRef("treino", "codjogador");
+
+		/// <summary>Field : "JOGADOR" Tipo: "CE" Formula:  ""</summary>
+		public string ValCodjogador
+		{
+			get { return (string)returnValueField(FldCodjogador); }
+			set { insertNameValueField(FldCodjogador, value); }
+		}
+
+		/// <summary>Field : "Treinador" Tipo: "CE" Formula:  ""</summary>
+		public static FieldRef FldCodtreinador { get { return m_fldCodtreinador; } }
+		private static FieldRef m_fldCodtreinador = new FieldRef("treino", "codtreinador");
+
+		/// <summary>Field : "Treinador" Tipo: "CE" Formula:  ""</summary>
+		public string ValCodtreinador
+		{
+			get { return (string)returnValueField(FldCodtreinador); }
+			set { insertNameValueField(FldCodtreinador, value); }
+		}
+
 		/// <summary>Field : "ZZSTATE" Type: "INT" Formula:  ""</summary>
 		public static FieldRef FldZzstate { get { return m_fldZzstate; } }
 		private static FieldRef m_fldZzstate = new FieldRef("treino", "zzstate");
@@ -463,7 +520,7 @@ namespace CSGenio.business
 		// USE /[MANUAL SQB TABAUX TREINO]/
 
  
-         
+           
 
 	}
 }

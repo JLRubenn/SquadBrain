@@ -5,13 +5,13 @@ export default function getMenusRoutes()
 {
 	return [
 		{
-			path: '/:culture/:system/SQB/menu/SQB_21',
-			name: 'menu-SQB_21',
-			component: () => import('@/views/menus/ModuleSQB/MenuSQB_21/QMenuSqb21.vue'),
+			path: '/:culture/:system/SQB/menu/SQB_31',
+			name: 'menu-SQB_31',
+			component: () => import('@/views/menus/ModuleSQB/MenuSQB_31/QMenuSqb31.vue'),
 			meta: {
 				routeType: 'menu',
 				module: 'SQB',
-				order: '21',
+				order: '31',
 				baseArea: 'JOGO',
 				hasInitialPHE: false,
 				humanKeyFields: ['ValTitulo'],
@@ -33,44 +33,16 @@ export default function getMenusRoutes()
 			}
 		},
 		{
-			path: '/:culture/:system/SQB/menu/SQB_31',
-			name: 'menu-SQB_31',
-			component: () => import('@/views/menus/ModuleSQB/MenuSQB_31/QMenuSqb31.vue'),
+			path: '/:culture/:system/SQB/menu/SQB_21',
+			name: 'menu-SQB_21',
+			component: () => import('@/views/menus/ModuleSQB/MenuSQB_21/QMenuSqb21.vue'),
 			meta: {
 				routeType: 'menu',
 				module: 'SQB',
-				order: '31',
-				baseArea: 'JOGADOR',
+				order: '21',
+				baseArea: 'TREINADOR',
 				hasInitialPHE: false,
 				humanKeyFields: ['ValNome'],
-				isPopup: false
-			}
-		},
-		{
-			path: '/:culture/:system/SQB/menu/SQB_61',
-			name: 'menu-SQB_61',
-			component: () => import('@/views/menus/ModuleSQB/MenuSQB_61/QMenuSqb61.vue'),
-			meta: {
-				routeType: 'menu',
-				module: 'SQB',
-				order: '61',
-				baseArea: 'CONVOCATORIA',
-				hasInitialPHE: false,
-				humanKeyFields: ['ValCodjogo'],
-				isPopup: false
-			}
-		},
-		{
-			path: '/:culture/:system/SQB/menu/SQB_51',
-			name: 'menu-SQB_51',
-			component: () => import('@/views/menus/ModuleSQB/MenuSQB_51/QMenuSqb51.vue'),
-			meta: {
-				routeType: 'menu',
-				module: 'SQB',
-				order: '51',
-				baseArea: 'PRESENCA',
-				hasInitialPHE: false,
-				humanKeyFields: ['ValCodjogador'],
 				isPopup: false
 			}
 		},
@@ -82,6 +54,48 @@ export default function getMenusRoutes()
 				routeType: 'menu',
 				module: 'SQB',
 				order: '41',
+				baseArea: 'JOGADOR',
+				hasInitialPHE: false,
+				humanKeyFields: ['ValNome'],
+				isPopup: false
+			}
+		},
+		{
+			path: '/:culture/:system/SQB/menu/SQB_71',
+			name: 'menu-SQB_71',
+			component: () => import('@/views/menus/ModuleSQB/MenuSQB_71/QMenuSqb71.vue'),
+			meta: {
+				routeType: 'menu',
+				module: 'SQB',
+				order: '71',
+				baseArea: 'CONVOCATORIA',
+				hasInitialPHE: false,
+				humanKeyFields: ['ValCodjogo'],
+				isPopup: false
+			}
+		},
+		{
+			path: '/:culture/:system/SQB/menu/SQB_61',
+			name: 'menu-SQB_61',
+			component: () => import('@/views/menus/ModuleSQB/MenuSQB_61/QMenuSqb61.vue'),
+			meta: {
+				routeType: 'menu',
+				module: 'SQB',
+				order: '61',
+				baseArea: 'PRESENCA',
+				hasInitialPHE: false,
+				humanKeyFields: ['ValCodjogador'],
+				isPopup: false
+			}
+		},
+		{
+			path: '/:culture/:system/SQB/menu/SQB_51',
+			name: 'menu-SQB_51',
+			component: () => import('@/views/menus/ModuleSQB/MenuSQB_51/QMenuSqb51.vue'),
+			meta: {
+				routeType: 'menu',
+				module: 'SQB',
+				order: '51',
 				baseArea: 'TREINO',
 				hasInitialPHE: false,
 				humanKeyFields: ['ValData'],

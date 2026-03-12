@@ -35,6 +35,15 @@ namespace GenioMVC.ViewModels.Treino
 		/// </summary>
 		[ValidateSetAccess]
 		public string ValCodclube { get; set; }
+		/// <summary>
+		/// Title: "" | Type: "CE"
+		/// </summary>
+		[ValidateSetAccess]
+		public string ValCodjogador { get; set; }
+		/// <summary>
+		/// Title: "Feito por..." | Type: "CE"
+		/// </summary>
+		public string ValCodtreinador { get; set; }
 
 		#endregion
 		/// <summary>
@@ -53,6 +62,11 @@ namespace GenioMVC.ViewModels.Treino
 		/// Title: "Data" | Type: "DT"
 		/// </summary>
 		public DateTime? ValData { get; set; }
+		/// <summary>
+		/// Title: "Feito por..." | Type: "C"
+		/// </summary>
+		[ValidateSetAccess]
+		public TableDBEdit<GenioMVC.Models.Treinador> TableTreinadorNome { get; set; }
 		/// <summary>
 		/// Title: "Objetivo" | Type: "MO"
 		/// </summary>
@@ -193,6 +207,8 @@ namespace GenioMVC.ViewModels.Treino
 			try
 			{
 				ValCodclube = ViewModelConversion.ToString(m.ValCodclube);
+				ValCodjogador = ViewModelConversion.ToString(m.ValCodjogador);
+				ValCodtreinador = ViewModelConversion.ToString(m.ValCodtreinador);
 				ValNumjogadores = ViewModelConversion.ToNumeric(m.ValNumjogadores);
 				ValMicrociclo = ViewModelConversion.ToNumeric(m.ValMicrociclo);
 				ValMesociclos = ViewModelConversion.ToNumeric(m.ValMesociclos);
@@ -225,6 +241,7 @@ namespace GenioMVC.ViewModels.Treino
 
 			try
 			{
+				m.ValCodtreinador = ViewModelConversion.ToString(ValCodtreinador);
 				m.ValNumjogadores = ViewModelConversion.ToNumeric(ValNumjogadores);
 				m.ValMicrociclo = ViewModelConversion.ToNumeric(ValMicrociclo);
 				m.ValMesociclos = ViewModelConversion.ToNumeric(ValMesociclos);
@@ -241,6 +258,7 @@ namespace GenioMVC.ViewModels.Treino
 					return;
 
 				m.ValCodclube = ViewModelConversion.ToString(ValCodclube);
+				m.ValCodjogador = ViewModelConversion.ToString(ValCodjogador);
 			}
 			catch (Exception)
 			{
@@ -265,6 +283,9 @@ namespace GenioMVC.ViewModels.Treino
 
 				switch (fullFieldName)
 				{
+					case "treino.codtreinador":
+						this.ValCodtreinador = ViewModelConversion.ToString(_value);
+						break;
 					case "treino.numjogadores":
 						this.ValNumjogadores = ViewModelConversion.ToNumeric(_value);
 						break;
@@ -393,6 +414,7 @@ namespace GenioMVC.ViewModels.Treino
 			// Add characteristics
 			Characs = new List<string>();
 
+			Load_Treino__treinador__nome(qs, lazyLoad);
 
 // USE /[MANUAL SQB VIEWMODEL_LOADPARTIAL TREINO]/
 		}
@@ -445,11 +467,233 @@ namespace GenioMVC.ViewModels.Treino
 		{
 		}
 
+		/// <summary>
+		/// TableTreinadorNome -> (DB)
+		/// </summary>
+		/// <param name="qs"></param>
+		/// <param name="lazyLoad">Lazy loading of dropdown items</param>
+		public void Load_Treino__treinador__nome(NameValueCollection qs, bool lazyLoad = false)
+		{
+			bool treino__treinador__nomeDoLoad = true;
+			CriteriaSet treino__treinador__nomeConds = CriteriaSet.And();
+			{
+				object hValue = Navigation.GetValue("treinador", true);
+				if (hValue != null && !(hValue is Array) && !string.IsNullOrEmpty(Convert.ToString(hValue)))
+				{
+					treino__treinador__nomeConds.Equal(CSGenioAtreinador.FldCodtreinador, hValue);
+					this.ValCodtreinador = DBConversion.ToString(hValue);
+				}
+			}
+			// Limits Generation
+
+			// Area limit
+			treino__treinador__nomeDoLoad &= AddCriteriaAreaLimit(treino__treinador__nomeConds, CSGenio.business.CSGenioAclube.FldCodclube, "clube", this.ValCodclube, true);
+
+			// Area limit
+			treino__treinador__nomeDoLoad &= AddCriteriaAreaLimit(treino__treinador__nomeConds, CSGenio.business.CSGenioAclube.FldCodclube, "clube", this.ValCodclube, true);
+
+			TableTreinadorNome = new TableDBEdit<Models.Treinador>
+			{
+				IsLazyLoad = lazyLoad
+			};
+
+			if (lazyLoad)
+			{
+				if (Navigation.CurrentLevel.GetEntry("RETURN_treinador") != null)
+				{
+					this.ValCodtreinador = Navigation.GetStrValue("RETURN_treinador");
+					Navigation.CurrentLevel.SetEntry("RETURN_treinador", null);
+				}
+				FillDependant_TreinoTableTreinadorNome(lazyLoad);
+				return;
+			}
+
+			if (string.IsNullOrEmpty(this.ValCodclube))
+				treino__treinador__nomeDoLoad = false;
+			if (string.IsNullOrEmpty(this.ValCodclube))
+				treino__treinador__nomeDoLoad = false;
+
+			if (treino__treinador__nomeDoLoad)
+			{
+				List<ColumnSort> sorts = [];
+				ColumnSort requestedSort = GetRequestSort(TableTreinadorNome, "sTableTreinadorNome", "dTableTreinadorNome", qs, "treinador");
+				if (requestedSort != null)
+					sorts.Add(requestedSort);
+				sorts.Add(new ColumnSort(new ColumnReference(CSGenioAtreinador.FldNome), SortOrder.Ascending));
+
+				string query = "";
+				if (!string.IsNullOrEmpty(qs["TableTreinadorNome_tableFilters"]))
+					TableTreinadorNome.TableFilters = bool.Parse(qs["TableTreinadorNome_tableFilters"]);
+				else
+					TableTreinadorNome.TableFilters = false;
+
+				query = qs["qTableTreinadorNome"];
+
+				//RS 26.07.2016 O preenchimento da lista de ajuda dos Dbedits passa a basear-se apenas no campo do próprio DbEdit
+				// O interface de pesquisa rápida não fica coerente quando se visualiza apenas uma coluna mas a pesquisa faz matching com 5 ou 6 colunas diferentes
+				//  tornando confuso to o user porque determinada row foi devolvida quando o Qresult não mostra como o matching foi feito
+				CriteriaSet search_filters = CriteriaSet.And();
+				if (!string.IsNullOrEmpty(query))
+				{
+					search_filters.Like(CSGenioAtreinador.FldNome, query + "%");
+				}
+				treino__treinador__nomeConds.SubSet(search_filters);
+
+				string tryParsePage = qs["pTableTreinadorNome"] != null ? qs["pTableTreinadorNome"].ToString() : "1";
+				int page = !string.IsNullOrEmpty(tryParsePage) ? int.Parse(tryParsePage) : 1;
+				int numberItems = CSGenio.framework.Configuration.NrRegDBedit;
+				int offset = (page - 1) * numberItems;
+
+				FieldRef[] fields = [CSGenioAtreinador.FldCodtreinador, CSGenioAtreinador.FldNome, CSGenioAtreinador.FldZzstate];
+
+// USE /[MANUAL SQB OVERRQ TREINO_TREINADORNOME]/
+
+				// Limitation by Zzstate
+				/*
+					Records that are currently being inserted or duplicated will also be included.
+					Client-side persistence will try to fill the "text" value of that option.
+				*/
+				if (Navigation.checkFormMode("treinador", FormMode.New) || Navigation.checkFormMode("treinador", FormMode.Duplicate))
+					treino__treinador__nomeConds.SubSet(CriteriaSet.Or()
+						.Equal(CSGenioAtreinador.FldZzstate, 0)
+						.Equal(CSGenioAtreinador.FldCodtreinador, Navigation.GetStrValue("treinador")));
+				else
+					treino__treinador__nomeConds.Criterias.Add(new Criteria(new ColumnReference(CSGenioAtreinador.FldZzstate), CriteriaOperator.Equal, 0));
+
+				FieldRef firstVisibleColumn = new FieldRef("treinador", "nome");
+				ListingMVC<CSGenioAtreinador> listing = Models.ModelBase.Where<CSGenioAtreinador>(m_userContext, false, treino__treinador__nomeConds, fields, offset, numberItems, sorts, "LED_TREINO__TREINADOR__NOME", true, false, firstVisibleColumn: firstVisibleColumn);
+
+				TableTreinadorNome.SetPagination(page, numberItems, listing.HasMore, listing.GetTotal, listing.TotalRecords);
+				TableTreinadorNome.Query = query;
+				TableTreinadorNome.Elements = listing.RowsForViewModel((r) => new GenioMVC.Models.Treinador(m_userContext, r, true, _fieldsToSerialize_TREINO__TREINADOR__NOME));
+
+				//created by [ MH ] at [ 14.04.2016 ] - Foi alterada a forma de retornar a key do novo registo inserido / editado no form de apoio do DBEdit.
+				//last update by [ MH ] at [ 10.05.2016 ] - Validação se key encontra-se no level atual, as chaves dos niveis anteriores devem ser ignorados.
+				if (Navigation.CurrentLevel.GetEntry("RETURN_treinador") != null)
+				{
+					this.ValCodtreinador = Navigation.GetStrValue("RETURN_treinador");
+					Navigation.CurrentLevel.SetEntry("RETURN_treinador", null);
+				}
+
+				TableTreinadorNome.List = new SelectList(TableTreinadorNome.Elements.ToSelectList(x => x.ValNome, x => x.ValCodtreinador,  x => x.ValCodtreinador == this.ValCodtreinador), "Value", "Text", this.ValCodtreinador);
+				FillDependant_TreinoTableTreinadorNome();
+			}
+		}
+
+		/// <summary>
+		/// Get Dependant fields values -> TableTreinadorNome (DB)
+		/// </summary>
+		/// <param name="PKey">Primary Key of Treinador</param>
+		public ConcurrentDictionary<string, object> GetDependant_TreinoTableTreinadorNome(string PKey)
+		{
+			FieldRef[] refDependantFields = [CSGenioAtreinador.FldCodtreinador, CSGenioAtreinador.FldNome];
+
+			var returnEmptyDependants = false;
+			CriteriaSet wherecodition = CriteriaSet.And();
+
+			// Return default values
+			if (GenFunctions.emptyG(PKey) == 1)
+				returnEmptyDependants = true;
+
+			// Check if the limit(s) is filled if exists
+			{
+				object hValue = Navigation.GetValue("clube");
+				if (!(hValue is Array))
+				{
+					if (GenFunctions.emptyG(hValue) == 1)
+						returnEmptyDependants = true;
+					wherecodition.Equal(CSGenioAtreinador.FldCodclube, hValue);
+				}
+			}
+			{
+				object hValue = Navigation.GetValue("clube");
+				if (!(hValue is Array))
+				{
+					if (GenFunctions.emptyG(hValue) == 1)
+						returnEmptyDependants = true;
+					wherecodition.Equal(CSGenioAtreinador.FldCodclube, hValue);
+				}
+			}
+			// - - - - - - - - - - - - - - - - - - - - -
+
+			if (returnEmptyDependants)
+				return GetViewModelFieldValues(refDependantFields);
+
+			PersistentSupport sp = m_userContext.PersistentSupport;
+			User u = m_userContext.User;
+
+			CSGenioAtreinador tempArea = new(u);
+
+			// Fields to select
+			SelectQuery querySelect = new();
+			querySelect.PageSize(1);
+			foreach (FieldRef field in refDependantFields)
+				querySelect.Select(field);
+
+			querySelect.From(tempArea.QSystem, tempArea.TableName, tempArea.Alias)
+				.Where(wherecodition.Equal(CSGenioAtreinador.FldCodtreinador, PKey));
+
+			string[] dependantFields = refDependantFields.Select(f => f.FullName).ToArray();
+			QueryUtils.SetInnerJoins(dependantFields, null, tempArea, querySelect);
+
+			ArrayList values = sp.executeReaderOneRow(querySelect);
+			bool useDefaults = values.Count == 0;
+
+			if (useDefaults)
+				return GetViewModelFieldValues(refDependantFields);
+			return GetViewModelFieldValues(refDependantFields, values);
+		}
+
+		/// <summary>
+		/// Fill Dependant fields values -> TableTreinadorNome (DB)
+		/// </summary>
+		/// <param name="lazyLoad">Lazy loading of dropdown items</param>
+		public void FillDependant_TreinoTableTreinadorNome(bool lazyLoad = false)
+		{
+			var row = GetDependant_TreinoTableTreinadorNome(this.ValCodtreinador);
+			try
+			{
+
+				// Fill List fields
+				this.ValCodtreinador = ViewModelConversion.ToString(row["treinador.codtreinador"]);
+				TableTreinadorNome.Value = (string)row["treinador.nome"];
+				if (GenFunctions.emptyG(this.ValCodtreinador) == 1)
+				{
+					this.ValCodtreinador = "";
+					TableTreinadorNome.Value = "";
+					Navigation.ClearValue("treinador");
+				}
+				else if (lazyLoad)
+				{
+					TableTreinadorNome.SetPagination(1, 0, false, false, 1);
+					TableTreinadorNome.List = new SelectList(new List<SelectListItem>()
+					{
+						new SelectListItem
+						{
+							Value = Convert.ToString(this.ValCodtreinador),
+							Text = Convert.ToString(TableTreinadorNome.Value),
+							Selected = true
+						}
+					}, "Value", "Text", this.ValCodtreinador);
+				}
+
+				TableTreinadorNome.Selected = this.ValCodtreinador;
+			}
+			catch (Exception ex)
+			{
+				CSGenio.framework.Log.Error(string.Format("FillDependant_Error (TableTreinadorNome): {0}; {1}", ex.Message, ex.InnerException != null ? ex.InnerException.Message : ""));
+			}
+		}
+
+		private readonly string[] _fieldsToSerialize_TREINO__TREINADOR__NOME = ["Treinador", "Treinador.ValCodtreinador", "Treinador.ValZzstate", "Treinador.ValNome"];
+
 		protected override object GetViewModelValue(string identifier, object modelValue)
 		{
 			return identifier switch
 			{
 				"treino.codclube" => ViewModelConversion.ToString(modelValue),
+				"treino.codjogador" => ViewModelConversion.ToString(modelValue),
+				"treino.codtreinador" => ViewModelConversion.ToString(modelValue),
 				"treino.numjogadores" => ViewModelConversion.ToNumeric(modelValue),
 				"treino.microciclo" => ViewModelConversion.ToNumeric(modelValue),
 				"treino.mesociclos" => ViewModelConversion.ToNumeric(modelValue),
@@ -457,6 +701,8 @@ namespace GenioMVC.ViewModels.Treino
 				"treino.objetivo" => ViewModelConversion.ToString(modelValue),
 				"treino.material" => ViewModelConversion.ToString(modelValue),
 				"treino.codtreino" => ViewModelConversion.ToString(modelValue),
+				"treinador.codtreinador" => ViewModelConversion.ToString(modelValue),
+				"treinador.nome" => ViewModelConversion.ToString(modelValue),
 				_ => modelValue
 			};
 		}

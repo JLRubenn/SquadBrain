@@ -341,18 +341,18 @@ namespace CSGenio.business
             }
                 
 
-            /* --- SQBTREINO --- */
+            /* --- SQBCONVOCATORIA --- */
             dm = sp.Execute(
                 new SelectQuery()
-                .Select(CSGenioAtreino.FldCodtreino)
-                .From(CSGenioAtreino.AreaTREINO)
-                .Where(CriteriaSet.And().In(CSGenioAtreino.FldZzstate, zzstateToRemove))
+                .Select(CSGenioAconvocatoria.FldCodconvocatoria)
+                .From(CSGenioAconvocatoria.AreaCONVOCATORIA)
+                .Where(CriteriaSet.And().In(CSGenioAconvocatoria.FldZzstate, zzstateToRemove))
                 );
 
             for (int i = 0; i < dm.NumRows; i++)
             {
-                CSGenioAtreino model = new CSGenioAtreino(user);
-                model.ValCodtreino = dm.GetKey(i, 0);
+                CSGenioAconvocatoria model = new CSGenioAconvocatoria(user);
+                model.ValCodconvocatoria = dm.GetKey(i, 0);
 
                 try
                 {
@@ -367,18 +367,18 @@ namespace CSGenio.business
             }
                 
 
-            /* --- SQBCONVOCATORIA --- */
+            /* --- SQBTREINO --- */
             dm = sp.Execute(
                 new SelectQuery()
-                .Select(CSGenioAconvocatoria.FldCodconvocatoria)
-                .From(CSGenioAconvocatoria.AreaCONVOCATORIA)
-                .Where(CriteriaSet.And().In(CSGenioAconvocatoria.FldZzstate, zzstateToRemove))
+                .Select(CSGenioAtreino.FldCodtreino)
+                .From(CSGenioAtreino.AreaTREINO)
+                .Where(CriteriaSet.And().In(CSGenioAtreino.FldZzstate, zzstateToRemove))
                 );
 
             for (int i = 0; i < dm.NumRows; i++)
             {
-                CSGenioAconvocatoria model = new CSGenioAconvocatoria(user);
-                model.ValCodconvocatoria = dm.GetKey(i, 0);
+                CSGenioAtreino model = new CSGenioAtreino(user);
+                model.ValCodtreino = dm.GetKey(i, 0);
 
                 try
                 {

@@ -392,6 +392,51 @@ namespace GenioMVC.Controllers
 		#endregion
 
 
+		public class Treino_TreinadorValNomeModel : RequestLookupModel
+		{
+			public Treino_ViewModel Model { get; set; }
+		}
+
+		//
+		// GET: /Treino/Treino_TreinadorValNome
+		// POST: /Treino/Treino_TreinadorValNome
+		[ActionName("Treino_TreinadorValNome")]
+		public ActionResult Treino_TreinadorValNome([FromBody] Treino_TreinadorValNomeModel requestModel)
+		{
+			var queryParams = requestModel.QueryParams;
+
+			// If there was a recent operation on this table then force the primary persistence server to be called and ignore the read only feature
+			if (string.IsNullOrEmpty(Navigation.GetStrValue("ForcePrimaryRead_treinador")))
+				UserContext.Current.SetPersistenceReadOnly(true);
+			else
+			{
+				Navigation.DestroyEntry("ForcePrimaryRead_treinador");
+				UserContext.Current.SetPersistenceReadOnly(false);
+			}
+
+			NameValueCollection requestValues = [];
+			if (queryParams != null)
+			{
+				// Add to request values
+				foreach (var kv in queryParams)
+					requestValues.Add(kv.Key, kv.Value);
+			}
+
+			IsStateReadonly = true;
+
+			Models.Treino parentCtx = requestModel.Model == null ? null : new(m_userContext);
+			requestModel.Model?.Init(m_userContext);
+			requestModel.Model?.MapToModel(parentCtx);
+			Treino_TreinadorValNome_ViewModel model = new(m_userContext, parentCtx);
+
+			CSGenio.core.framework.table.TableConfiguration tableConfig = model.GetTableConfig(requestModel.TableConfiguration);
+
+			model.setModes(Request.Query["m"].ToString());
+			model.Load(tableConfig, requestValues, Request.IsAjaxRequest());
+
+			return JsonOK(model);
+		}
+
 		public class Treino_ValExercicioModel : RequestLookupModel
 		{
 			public Treino_ViewModel Model { get; set; }

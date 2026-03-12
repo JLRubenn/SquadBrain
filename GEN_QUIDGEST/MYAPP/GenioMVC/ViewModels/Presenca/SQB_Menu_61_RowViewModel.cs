@@ -4,9 +4,9 @@ using CSGenio.business;
 using CSGenio.framework;
 using GenioMVC.Models.Navigation;
 
-namespace GenioMVC.ViewModels.Convocatoria;
+namespace GenioMVC.ViewModels.Presenca;
 
-public class SQB_Menu_61_RowViewModel : Models.Convocatoria
+public class SQB_Menu_61_RowViewModel : Models.Presenca
 {
 	#region Constructors
 
@@ -15,7 +15,7 @@ public class SQB_Menu_61_RowViewModel : Models.Convocatoria
 		InitRowProperties();
 	}
 
-	public SQB_Menu_61_RowViewModel(UserContext userContext, CSGenioAconvocatoria val, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, val, isEmpty, fieldsToSerialize)
+	public SQB_Menu_61_RowViewModel(UserContext userContext, CSGenioApresenca val, bool isEmpty = false, string[]? fieldsToSerialize = null) : base(userContext, val, isEmpty, fieldsToSerialize)
 	{
 		InitRowProperties();
 	}
@@ -36,7 +36,7 @@ public class SQB_Menu_61_RowViewModel : Models.Convocatoria
 			new ListColumn()
 			{
 				Order = 1,
-				Area = "JOGO",
+				Area = "TREINO",
 				Field = "DATA",
 			},
 			new ListColumn()
@@ -44,6 +44,12 @@ public class SQB_Menu_61_RowViewModel : Models.Convocatoria
 				Order = 2,
 				Area = "JOGADOR",
 				Field = "NOME",
+			},
+			new ListColumn()
+			{
+				Order = 3,
+				Area = "PRESENCA",
+				Field = "ESTADO",
 			},
 		];
 	}

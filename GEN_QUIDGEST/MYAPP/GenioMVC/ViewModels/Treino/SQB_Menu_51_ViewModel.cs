@@ -15,9 +15,9 @@ using GenioMVC.Models.Navigation;
 using Quidgest.Persistence;
 using Quidgest.Persistence.GenericQuery;
 
-namespace GenioMVC.ViewModels.Presenca
+namespace GenioMVC.ViewModels.Treino
 {
-	public class SQB_Menu_51_ViewModel : MenuListViewModel<Models.Presenca>
+	public class SQB_Menu_51_ViewModel : MenuListViewModel<Models.Treino>
 	{
 		/// <summary>
 		/// Gets or sets the object that represents the table and its elements.
@@ -27,11 +27,11 @@ namespace GenioMVC.ViewModels.Presenca
 
 		/// <inheritdoc/>
 		[JsonIgnore]
-		public override string TableAlias => "presenca";
+		public override string TableAlias => "treino";
 
 		/// <inheritdoc/>
 		[JsonPropertyName("uuid")]
-		public override string Uuid => "5f5fbc25-85cb-40bf-ac6f-c482b7dfff34";
+		public override string Uuid => "72c7269d-70ae-4b1d-a7b8-595a69ad7ffd";
 
 		/// <inheritdoc/>
 		protected override string[] FieldsToSerialize => _fieldsToSerialize;
@@ -90,19 +90,19 @@ namespace GenioMVC.ViewModels.Presenca
 		public override int GetCount(User user)
 		{
 			CSGenio.persistence.PersistentSupport sp = m_userContext.PersistentSupport;
-			var areaBase = CSGenio.business.Area.createArea("presenca", user, "SQB");
+			var areaBase = CSGenio.business.Area.createArea("treino", user, "SQB");
 
 			//gets eph conditions to be applied in listing
 			CriteriaSet conditions = CSGenio.business.Listing.CalculateConditionsEphGeneric(areaBase, "ML51");
-			conditions.Equal(CSGenioApresenca.FldZzstate, 0); //valid zzstate only
+			conditions.Equal(CSGenioAtreino.FldZzstate, 0); //valid zzstate only
 
 			// Fixed limits and relations:
 			conditions.SubSets.Add(GetCustomizedStaticLimits(StaticLimits));
 
 			// Checks for foreign tables in fields and conditions
-			FieldRef[] fields = new FieldRef[] { CSGenioApresenca.FldCodpresenca, CSGenioApresenca.FldZzstate, CSGenioApresenca.FldCodtreino, CSGenioAtreino.FldCodtreino, CSGenioAtreino.FldData, CSGenioApresenca.FldCodjogador, CSGenioAjogador.FldCodjogador, CSGenioAjogador.FldNome, CSGenioApresenca.FldEstado };
+			FieldRef[] fields = new FieldRef[] { CSGenioAtreino.FldCodtreino, CSGenioAtreino.FldZzstate, CSGenioAtreino.FldData, CSGenioAtreino.FldMesociclos, CSGenioAtreino.FldMicrociclo, CSGenioAtreino.FldNumjogadores, CSGenioAtreino.FldObjetivo, CSGenioAtreino.FldMaterial };
 
-			ListingMVC<CSGenioApresenca> listing = new(fields, null, 1, 1, false, user, true, string.Empty, false);
+			ListingMVC<CSGenioAtreino> listing = new(fields, null, 1, 1, false, user, true, string.Empty, false);
 			SelectQuery qs = sp.getSelectQueryFromListingMVC(conditions, listing);
 
 			// Menu relations:
@@ -146,18 +146,21 @@ namespace GenioMVC.ViewModels.Presenca
 			return
 			[
 				new Exports.QColumn(CSGenioAtreino.FldData, FieldType.DATETIME, Resources.Resources.DATA18071, 16, 0, true),
-				new Exports.QColumn(CSGenioAjogador.FldNome, FieldType.TEXT, Resources.Resources.NOME47814, 30, 0, true),
-				new Exports.QColumn(CSGenioApresenca.FldEstado, FieldType.ARRAY_TEXT, Resources.Resources.ESTADO07788, 2, 0, true, "estado_presenca"),
+				new Exports.QColumn(CSGenioAtreino.FldMesociclos, FieldType.NUMERIC, Resources.Resources.MESOCICLOS42559, 3, 0, true),
+				new Exports.QColumn(CSGenioAtreino.FldMicrociclo, FieldType.NUMERIC, Resources.Resources.MICROCICLO36882, 3, 0, true),
+				new Exports.QColumn(CSGenioAtreino.FldNumjogadores, FieldType.NUMERIC, Resources.Resources.NUMERO_JOGADORES22289, 3, 0, true),
+				new Exports.QColumn(CSGenioAtreino.FldObjetivo, FieldType.MEMO, Resources.Resources.OBJETIVO56787, 30, 0, true),
+				new Exports.QColumn(CSGenioAtreino.FldMaterial, FieldType.MEMO, Resources.Resources.MATERIAL33877, 30, 0, true),
 			];
 		}
 
-		public void LoadToExport(out ListingMVC<CSGenioApresenca> listing, out CriteriaSet conditions, out List<Exports.QColumn> columns, NameValueCollection requestValues, bool ajaxRequest = false)
+		public void LoadToExport(out ListingMVC<CSGenioAtreino> listing, out CriteriaSet conditions, out List<Exports.QColumn> columns, NameValueCollection requestValues, bool ajaxRequest = false)
 		{
 			CSGenio.core.framework.table.TableConfiguration tableConfig = new();
 			LoadToExport(out listing, out conditions, out columns, tableConfig, requestValues, ajaxRequest);
 		}
 
-		public void LoadToExport(out ListingMVC<CSGenioApresenca> listing, out CriteriaSet conditions, out List<Exports.QColumn> columns, CSGenio.core.framework.table.TableConfiguration tableConfig, NameValueCollection requestValues, bool ajaxRequest = false)
+		public void LoadToExport(out ListingMVC<CSGenioAtreino> listing, out CriteriaSet conditions, out List<Exports.QColumn> columns, CSGenio.core.framework.table.TableConfiguration tableConfig, NameValueCollection requestValues, bool ajaxRequest = false)
 		{
 			listing = null;
 			conditions = null;
@@ -211,25 +214,25 @@ namespace GenioMVC.ViewModels.Presenca
 			if (isToExport)
 			{
 				// EPH
-				crs = Models.Presenca.AddEPH<CSGenioApresenca>(ref u, crs, "ML51");
+				crs = Models.Treino.AddEPH<CSGenioAtreino>(ref u, crs, "ML51");
 
 				// Export only records with ZZState == 0
-				crs.Equal(CSGenioApresenca.FldZzstate, 0);
+				crs.Equal(CSGenioAtreino.FldZzstate, 0);
 
 				return crs;
 			}
 
 			// Limitation by Zzstate
-			if (!Navigation.checkFormMode("PRESENCA", FormMode.New)) // TODO: Check in Duplicate mode
-				crs = extendWithZzstateCondition(crs, CSGenioApresenca.FldZzstate, null);
+			if (!Navigation.checkFormMode("TREINO", FormMode.New)) // TODO: Check in Duplicate mode
+				crs = extendWithZzstateCondition(crs, CSGenioAtreino.FldZzstate, null);
 
 
 			if (tableReload)
 			{
-				string QMVC_POS_RECORD = Navigation.GetStrValue("QMVC_POS_RECORD_presenca");
-				Navigation.DestroyEntry("QMVC_POS_RECORD_presenca");
+				string QMVC_POS_RECORD = Navigation.GetStrValue("QMVC_POS_RECORD_treino");
+				Navigation.DestroyEntry("QMVC_POS_RECORD_treino");
 				if (!string.IsNullOrEmpty(QMVC_POS_RECORD))
-					crs.Equals(Models.Presenca.AddEPH<CSGenioApresenca>(ref u, null, "ML51"));
+					crs.Equals(Models.Treino.AddEPH<CSGenioAtreino>(ref u, null, "ML51"));
 			}
 
 			return crs;
@@ -254,7 +257,7 @@ namespace GenioMVC.ViewModels.Presenca
 		/// <param name="conditions">The conditions.</param>
 		public void Load(int numberListItems, NameValueCollection requestValues, bool ajaxRequest = false, CriteriaSet conditions = null)
 		{
-			ListingMVC<CSGenioApresenca> listing = null;
+			ListingMVC<CSGenioAtreino> listing = null;
 
 			Load(numberListItems, requestValues, ajaxRequest, false, ref listing, ref conditions);
 		}
@@ -268,7 +271,7 @@ namespace GenioMVC.ViewModels.Presenca
 		/// <param name="isToExport">Whether the list is being loaded to be exported</param>
 		/// <param name="Qlisting">The rows.</param>
 		/// <param name="conditions">The conditions.</param>
-		public void Load(int numberListItems, NameValueCollection requestValues, bool ajaxRequest, bool isToExport, ref ListingMVC<CSGenioApresenca> Qlisting, ref CriteriaSet conditions)
+		public void Load(int numberListItems, NameValueCollection requestValues, bool ajaxRequest, bool isToExport, ref ListingMVC<CSGenioAtreino> Qlisting, ref CriteriaSet conditions)
 		{
 			CSGenio.core.framework.table.TableConfiguration tableConfig = new();
 
@@ -287,7 +290,7 @@ namespace GenioMVC.ViewModels.Presenca
 		/// <param name="conditions">The conditions.</param>
 		public void Load(CSGenio.core.framework.table.TableConfiguration tableConfig, NameValueCollection requestValues, bool ajaxRequest, bool isToExport = false, CriteriaSet conditions = null)
 		{
-			ListingMVC<CSGenioApresenca> listing = null;
+			ListingMVC<CSGenioAtreino> listing = null;
 
 			Load(tableConfig, requestValues, ajaxRequest, isToExport, ref listing, ref conditions);
 		}
@@ -301,7 +304,7 @@ namespace GenioMVC.ViewModels.Presenca
 		/// <param name="isToExport">Whether the list is being loaded to be exported</param>
 		/// <param name="Qlisting">The rows.</param>
 		/// <param name="conditions">The conditions.</param>
-		public void Load(CSGenio.core.framework.table.TableConfiguration tableConfig, NameValueCollection requestValues, bool ajaxRequest, bool isToExport, ref ListingMVC<CSGenioApresenca> Qlisting, ref CriteriaSet conditions)
+		public void Load(CSGenio.core.framework.table.TableConfiguration tableConfig, NameValueCollection requestValues, bool ajaxRequest, bool isToExport, ref ListingMVC<CSGenioAtreino> Qlisting, ref CriteriaSet conditions)
 		{
 			User u = m_userContext.User;
 			Menu = new TablePartial<SQB_Menu_51_RowViewModel>();
@@ -311,6 +314,8 @@ namespace GenioMVC.ViewModels.Presenca
 
 			//FOR: MENU LIST SORTING
 			Dictionary<string, OrderedDictionary> allSortOrders = new Dictionary<string, OrderedDictionary>();
+			allSortOrders.Add("TREINO.DATA", new OrderedDictionary());
+			allSortOrders["TREINO.DATA"].Add("TREINO.DATA", "A");
 
 
 			int numberListItems = tableConfig.RowsPerPage;
@@ -320,10 +325,16 @@ namespace GenioMVC.ViewModels.Presenca
 			if (pageNumber < 1)
 				pageNumber = 1;
 
-			List<ColumnSort> sorts = GetRequestSorts(this.Menu, tableConfig, "presenca", allSortOrders);
+			List<ColumnSort> sorts = GetRequestSorts(this.Menu, tableConfig, "treino", allSortOrders);
 
+			if (sorts == null || sorts.Count == 0)
+			{
+				sorts = new List<ColumnSort>();
+				sorts.Add(new ColumnSort(new ColumnReference(CSGenioAtreino.FldData), SortOrder.Ascending));
 
-			FieldRef[] fields = new FieldRef[] { CSGenioApresenca.FldCodpresenca, CSGenioApresenca.FldZzstate, CSGenioApresenca.FldCodtreino, CSGenioAtreino.FldCodtreino, CSGenioAtreino.FldData, CSGenioApresenca.FldCodjogador, CSGenioAjogador.FldCodjogador, CSGenioAjogador.FldNome, CSGenioApresenca.FldEstado };
+			}
+
+			FieldRef[] fields = new FieldRef[] { CSGenioAtreino.FldCodtreino, CSGenioAtreino.FldZzstate, CSGenioAtreino.FldData, CSGenioAtreino.FldMesociclos, CSGenioAtreino.FldMicrociclo, CSGenioAtreino.FldNumjogadores, CSGenioAtreino.FldObjetivo, CSGenioAtreino.FldMaterial };
 
 
 			// Totalizers
@@ -346,7 +357,7 @@ namespace GenioMVC.ViewModels.Presenca
 			{
 				Limit limit = new Limit();
 				limit.TipoLimite = LimitType.EPH;
-				CSGenioApresenca model_limit_area = new CSGenioApresenca(m_userContext.User);
+				CSGenioAtreino model_limit_area = new CSGenioAtreino(m_userContext.User);
 				List<Limit> area_EPH_limits = EPH_Limit_Filler(ref limit, model_limit_area, "ML51");
 				if (area_EPH_limits.Count > 0)
 					this.TableLimits.AddRange(area_EPH_limits);
@@ -372,7 +383,7 @@ namespace GenioMVC.ViewModels.Presenca
 				var exportColumns = GetExportColumns(tableConfig.ColumnConfigurations);
 				var exportFieldRefs = exportColumns.Select(eCol => eCol.Field).Where(fldRef => fldRef != null).ToArray();
 
-				Qlisting = Models.ModelBase.BuildListingForExport<CSGenioApresenca>(m_userContext, false, ref sqb_menu_51Conds, exportFieldRefs, (pageNumber - 1) * numberListItems, numberListItems, sorts, "ML51", true, firstVisibleColumn: firstVisibleColumn);
+				Qlisting = Models.ModelBase.BuildListingForExport<CSGenioAtreino>(m_userContext, false, ref sqb_menu_51Conds, exportFieldRefs, (pageNumber - 1) * numberListItems, numberListItems, sorts, "ML51", true, firstVisibleColumn: firstVisibleColumn);
 
 // USE /[MANUAL SQB OVERRQLSTEXP 51]/
 
@@ -383,18 +394,18 @@ namespace GenioMVC.ViewModels.Presenca
 			{
 // USE /[MANUAL SQB OVERRQLIST 51]/
 
-				string QMVC_POS_RECORD = Navigation.GetStrValue("QMVC_POS_RECORD_presenca");
-				Navigation.DestroyEntry("QMVC_POS_RECORD_presenca");
+				string QMVC_POS_RECORD = Navigation.GetStrValue("QMVC_POS_RECORD_treino");
+				Navigation.DestroyEntry("QMVC_POS_RECORD_treino");
 				CriteriaSet m_PagingPosEPHs = null;
 
 				if (!string.IsNullOrEmpty(QMVC_POS_RECORD))
 				{
-					var m_iCurPag = m_userContext.PersistentSupport.getPagingPos(CSGenioApresenca.GetInformation(), QMVC_POS_RECORD, sorts, sqb_menu_51Conds, m_PagingPosEPHs, firstVisibleColumn: firstVisibleColumn);
+					var m_iCurPag = m_userContext.PersistentSupport.getPagingPos(CSGenioAtreino.GetInformation(), QMVC_POS_RECORD, sorts, sqb_menu_51Conds, m_PagingPosEPHs, firstVisibleColumn: firstVisibleColumn);
 					if (m_iCurPag != -1)
 						pageNumber = ((m_iCurPag - 1) / numberListItems) + 1;
 				}
 
-				ListingMVC<CSGenioApresenca> listing = Models.ModelBase.Where<CSGenioApresenca>(m_userContext, distinct, sqb_menu_51Conds, fields, (pageNumber - 1) * numberListItems, numberListItems, sorts, "ML51", true, false, QMVC_POS_RECORD, m_PagingPosEPHs, firstVisibleColumn, fieldsWithTotalizers, tableConfig.SelectedRows);
+				ListingMVC<CSGenioAtreino> listing = Models.ModelBase.Where<CSGenioAtreino>(m_userContext, distinct, sqb_menu_51Conds, fields, (pageNumber - 1) * numberListItems, numberListItems, sorts, "ML51", true, false, QMVC_POS_RECORD, m_PagingPosEPHs, firstVisibleColumn, fieldsWithTotalizers, tableConfig.SelectedRows);
 
 				if (listing.CurrentPage > 0)
 					pageNumber = listing.CurrentPage;
@@ -433,7 +444,7 @@ namespace GenioMVC.ViewModels.Presenca
 			LoadUserTableConfigNameProperties();
 		}
 
-		private List<SQB_Menu_51_RowViewModel> MapSQB_Menu_51(ListingMVC<CSGenioApresenca> Qlisting)
+		private List<SQB_Menu_51_RowViewModel> MapSQB_Menu_51(ListingMVC<CSGenioAtreino> Qlisting)
 		{
 			List<SQB_Menu_51_RowViewModel> Elements = [];
 			int i = 0;
@@ -453,11 +464,11 @@ namespace GenioMVC.ViewModels.Presenca
 		}
 
 		/// <summary>
-		/// Maps a single CSGenioApresenca row
+		/// Maps a single CSGenioAtreino row
 		/// to a SQB_Menu_51_RowViewModel object.
 		/// </summary>
 		/// <param name="row">The row.</param>
-		private SQB_Menu_51_RowViewModel MapSQB_Menu_51(CSGenioApresenca row)
+		private SQB_Menu_51_RowViewModel MapSQB_Menu_51(CSGenioAtreino row)
 		{
 			var model = new SQB_Menu_51_RowViewModel(m_userContext, true, _fieldsToSerialize);
 			if (row == null)
@@ -467,12 +478,8 @@ namespace GenioMVC.ViewModels.Presenca
 			{
 				switch (Qfield.Area)
 				{
-					case "presenca":
-						model.klass.insertNameValueField(Qfield.FullName, Qfield.Value); break;
 					case "treino":
-						model.Treino.klass.insertNameValueField(Qfield.FullName, Qfield.Value); break;
-					case "jogador":
-						model.Jogador.klass.insertNameValueField(Qfield.FullName, Qfield.Value); break;
+						model.klass.insertNameValueField(Qfield.FullName, Qfield.Value); break;
 					default:
 						break;
 				}
@@ -498,19 +505,19 @@ namespace GenioMVC.ViewModels.Presenca
 		/// Sets the document field values to objects.
 		/// </summary>
 		/// <param name="listing">The rows</param>
-		private void SetDocumentFields(ListingMVC<CSGenioApresenca> listing)
+		private void SetDocumentFields(ListingMVC<CSGenioAtreino> listing)
 		{
 		}
 
 		#region Mapper
 
 		/// <inheritdoc />
-		public override void MapFromModel(Models.Presenca m)
+		public override void MapFromModel(Models.Treino m)
 		{
 		}
 
 		/// <inheritdoc />
-		public override void MapToModel(Models.Presenca m)
+		public override void MapToModel(Models.Treino m)
 		{
 		}
 
@@ -524,14 +531,17 @@ namespace GenioMVC.ViewModels.Presenca
 
 		private static readonly string[] _fieldsToSerialize =
 		[
-			"Presenca", "Presenca.ValCodpresenca", "Presenca.ValZzstate", "Treino", "Treino.ValData", "Jogador", "Jogador.ValNome", "Presenca.ValEstado", "Presenca.ValCodjogador", "Presenca.ValCodtreino"
+			"Treino", "Treino.ValCodtreino", "Treino.ValZzstate", "Treino.ValData", "Treino.ValMesociclos", "Treino.ValMicrociclo", "Treino.ValNumjogadores", "Treino.ValObjetivo", "Treino.ValMaterial", "Treino.ValCodclube", "Treino.ValCodjogador", "Treino.ValCodtreinador"
 		];
 
 		private static readonly List<TableSearchColumn> _searchableColumns =
 		[
-			new TableSearchColumn("Treino_ValData", CSGenioAtreino.FldData, typeof(DateTime?)),
-			new TableSearchColumn("Jogador_ValNome", CSGenioAjogador.FldNome, typeof(string)),
-			new TableSearchColumn("ValEstado", CSGenioApresenca.FldEstado, typeof(string), array : "estado_presenca"),
+			new TableSearchColumn("ValData", CSGenioAtreino.FldData, typeof(DateTime?), defaultSearch : true),
+			new TableSearchColumn("ValMesociclos", CSGenioAtreino.FldMesociclos, typeof(decimal?)),
+			new TableSearchColumn("ValMicrociclo", CSGenioAtreino.FldMicrociclo, typeof(decimal?)),
+			new TableSearchColumn("ValNumjogadores", CSGenioAtreino.FldNumjogadores, typeof(decimal?)),
+			new TableSearchColumn("ValObjetivo", CSGenioAtreino.FldObjetivo, typeof(string)),
+			new TableSearchColumn("ValMaterial", CSGenioAtreino.FldMaterial, typeof(string)),
 		];
 	}
 }

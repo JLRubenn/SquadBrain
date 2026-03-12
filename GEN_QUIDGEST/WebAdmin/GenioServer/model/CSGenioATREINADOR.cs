@@ -86,6 +86,16 @@ namespace CSGenio.business
 			info.RegisterFieldDB(Qfield);
 
 			//- - - - - - - - - - - - - - - - - - -
+			Qfield = new Field(info.Alias, "lasttreinocriado", FieldType.TEXT);
+			Qfield.FieldDescription = "LASTTREINOCRIADO";
+			Qfield.FieldSize =  50;
+			Qfield.MQueue = false;
+			Qfield.CavDesignation = "LASTTREINOCRIADO36042";
+
+			Qfield.Dupmsg = "";
+			info.RegisterFieldDB(Qfield);
+
+			//- - - - - - - - - - - - - - - - - - -
 			Qfield = new Field(info.Alias, "zzstate", FieldType.INTEGER);
 			Qfield.FieldDescription = "Estado da ficha";
 			info.RegisterFieldDB(Qfield);
@@ -99,6 +109,8 @@ namespace CSGenio.business
 		{
 			// Daughters Relations
 			//------------------------------
+			info.ChildTable = new ChildRelation[1];
+			info.ChildTable[0]= new ChildRelation("treino", new String[] {"codtreinador"}, DeleteProc.NA);
 
 			// Mother Relations
 			//------------------------------
@@ -129,6 +141,9 @@ namespace CSGenio.business
 
 
 
+			info.LastValueFields = new string[] {
+			 "lasttreinocriado"
+			};
 
 
 
@@ -278,6 +293,17 @@ namespace CSGenio.business
 			set { insertNameValueField(FldFuncao, value); }
 		}
 
+		/// <summary>Field : "LASTTREINOCRIADO" Tipo: "C" Formula: U1 "TREINO[TREINO->DATA][TREINO->DATA]"</summary>
+		public static FieldRef FldLasttreinocriado { get { return m_fldLasttreinocriado; } }
+		private static FieldRef m_fldLasttreinocriado = new FieldRef("treinador", "lasttreinocriado");
+
+		/// <summary>Field : "LASTTREINOCRIADO" Tipo: "C" Formula: U1 "TREINO[TREINO->DATA][TREINO->DATA]"</summary>
+		public string ValLasttreinocriado
+		{
+			get { return (string)returnValueField(FldLasttreinocriado); }
+			set { insertNameValueField(FldLasttreinocriado, value); }
+		}
+
 		/// <summary>Field : "ZZSTATE" Type: "INT" Formula:  ""</summary>
 		public static FieldRef FldZzstate { get { return m_fldZzstate; } }
 		private static FieldRef m_fldZzstate = new FieldRef("treinador", "zzstate");
@@ -375,7 +401,7 @@ namespace CSGenio.business
 		// USE /[MANUAL SQB TABAUX TREINADOR]/
 
  
-     
+      
 
 	}
 }

@@ -163,9 +163,11 @@ namespace CSGenio.business
 		{
 			// Pathways
 			//------------------------------
-			info.Pathways = new Dictionary<string, string>(2);
+			info.Pathways = new Dictionary<string, string>(4);
 			info.Pathways.Add("treino","treino");
 			info.Pathways.Add("clube","treino");
+			info.Pathways.Add("treinador","treino");
+			info.Pathways.Add("jogador","treino");
 		}
 
 		/// <summary>

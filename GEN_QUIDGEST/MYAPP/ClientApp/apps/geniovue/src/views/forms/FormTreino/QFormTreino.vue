@@ -104,7 +104,7 @@
 							v-bind="controls.TREINO__PSEUDNEWGRP01"
 							:is-visible="controls.TREINO__PSEUDNEWGRP01.isVisible">
 							<!-- Start TREINO__PSEUDNEWGRP01 -->
-							<q-row v-if="controls.TREINO__TREINO__NUMJOGADORES.isVisible || controls.TREINO__TREINO__MICROCICLO.isVisible || controls.TREINO__TREINO__MESOCICLOS.isVisible || controls.TREINO__TREINO__DATA.isVisible">
+							<q-row v-if="controls.TREINO__TREINO__NUMJOGADORES.isVisible || controls.TREINO__TREINO__MICROCICLO.isVisible || controls.TREINO__TREINO__MESOCICLOS.isVisible || controls.TREINO__TREINO__DATA.isVisible || controls.TREINO__TREINADOR__NOME.isVisible">
 								<q-col
 									v-if="controls.TREINO__TREINO__NUMJOGADORES.isVisible"
 									cols="auto">
@@ -173,6 +173,27 @@
 											:model-value="model.ValData.value"
 											@reset-icon-click="model.ValData.fnUpdateValue(model.ValData.originalValue ?? new Date())"
 											@update:model-value="model.ValData.fnUpdateValue($event ?? '')" />
+									</base-input-structure>
+								</q-col>
+								<q-col
+									v-if="controls.TREINO__TREINADOR__NOME.isVisible"
+									cols="auto">
+									<base-input-structure
+										v-if="controls.TREINO__TREINADOR__NOME.isVisible"
+										class="i-text"
+										v-bind="controls.TREINO__TREINADOR__NOME"
+										v-on="controls.TREINO__TREINADOR__NOME.handlers"
+										:loading="controls.TREINO__TREINADOR__NOME.props.loading"
+										:reporting-mode-on="reportingModeCAV"
+										:suggestion-mode-on="suggestionModeOn">
+										<q-lookup
+											v-if="controls.TREINO__TREINADOR__NOME.isVisible"
+											v-bind="controls.TREINO__TREINADOR__NOME.props"
+											v-on="controls.TREINO__TREINADOR__NOME.handlers" />
+										<q-see-more-treino-treinador-nome
+											v-if="controls.TREINO__TREINADOR__NOME.seeMoreIsVisible"
+											v-bind="controls.TREINO__TREINADOR__NOME.seeMoreParams"
+											v-on="controls.TREINO__TREINADOR__NOME.handlers" />
 									</base-input-structure>
 								</q-col>
 							</q-row>
@@ -310,6 +331,7 @@
 		name: 'QFormTreino',
 
 		components: {
+			QSeeMoreTreinoTreinadorNome: defineAsyncComponent(() => import('@/views/forms/FormTreino/dbedits/TreinoTreinadorNomeSeeMore.vue')),
 		},
 
 		mixins: [
@@ -594,7 +616,7 @@
 						labelPosition: computed(() => this.labelAlignment.topleft),
 						isCollapsible: false,
 						anchored: false,
-						directChildren: ['TREINO__TREINO__NUMJOGADORES', 'TREINO__TREINO__MICROCICLO', 'TREINO__TREINO__MESOCICLOS', 'TREINO__TREINO__DATA'],
+						directChildren: ['TREINO__TREINO__NUMJOGADORES', 'TREINO__TREINO__MICROCICLO', 'TREINO__TREINO__MESOCICLOS', 'TREINO__TREINO__DATA', 'TREINO__TREINADOR__NOME'],
 						controlLimits: [
 						],
 					}, this),
@@ -655,6 +677,47 @@
 						container: 'TREINO__PSEUDNEWGRP01',
 						dateTimeType: 'dateTime',
 						controlLimits: [
+						],
+					}, this),
+					TREINO__TREINADOR__NOME: new fieldControlClass.LookupControl({
+						modelField: 'TableTreinadorNome',
+						valueChangeEvent: 'fieldChange:treinador.nome',
+						id: 'TREINO__TREINADOR__NOME',
+						name: 'NOME',
+						size: 'medium',
+						label: computed(() => this.Resources.FEITO_POR___22778),
+						placeholder: '',
+						labelPosition: computed(() => this.labelAlignment.topleft),
+						container: 'TREINO__PSEUDNEWGRP01',
+						externalCallbacks: {
+							getModelField: vm.getModelField,
+							getModelFieldValue: vm.getModelFieldValue,
+							setModelFieldValue: vm.setModelFieldValue
+						},
+						externalProperties: {
+							modelKeys: computed(() => vm.modelKeys)
+						},
+						lookupKeyModelField: {
+							name: 'ValCodtreinador',
+							dependencyEvent: 'fieldChange:treino.codtreinador'
+						},
+						dependentFields: () => ({
+							set 'treinador.codtreinador'(value) { vm.model.ValCodtreinador.updateValue(value) },
+							set 'treinador.nome'(value) { vm.model.TableTreinadorNome.updateValue(value) },
+						}),
+						controlLimits: [
+							{
+								identifier: ['clube', 'treino.codclube'],
+								dependencyEvents: ['fieldChange:treino.codclube'],
+								dependencyField: 'TREINO.CODCLUBE',
+								fnValueSelector: (model) => model.ValCodclube.value
+							},
+							{
+								identifier: ['clube', 'treino.codclube'],
+								dependencyEvents: ['fieldChange:treino.codclube'],
+								dependencyField: 'TREINO.CODCLUBE',
+								fnValueSelector: (model) => model.ValCodclube.value
+							},
 						],
 					}, this),
 					TREINO__PSEUDNEWGRP02: new fieldControlClass.GroupControl({
@@ -919,9 +982,17 @@
 				 * The Data API for easy access to model variables.
 				 */
 				dataApi: {
+					Treinador: {
+						get ValNome() { return vm.model.TableTreinadorNome.value },
+						set ValNome(value) { vm.model.TableTreinadorNome.updateValue(value) },
+					},
 					Treino: {
 						get ValCodclube() { return vm.model.ValCodclube.value },
 						set ValCodclube(value) { vm.model.ValCodclube.updateValue(value) },
+						get ValCodjogador() { return vm.model.ValCodjogador.value },
+						set ValCodjogador(value) { vm.model.ValCodjogador.updateValue(value) },
+						get ValCodtreinador() { return vm.model.ValCodtreinador.value },
+						set ValCodtreinador(value) { vm.model.ValCodtreinador.updateValue(value) },
 						get ValData() { return vm.model.ValData.value },
 						set ValData(value) { vm.model.ValData.updateValue(value) },
 						get ValMaterial() { return vm.model.ValMaterial.value },
@@ -940,6 +1011,10 @@
 						get treino() { return vm.model.ValCodtreino },
 						/** The foreign key to the CLUBE table */
 						get clube() { return vm.model.ValCodclube },
+						/** The foreign key to the JOGADOR table */
+						get jogador() { return vm.model.ValCodjogador },
+						/** The foreign key to the TREINADOR table */
+						get treinador() { return vm.model.ValCodtreinador },
 					},
 					get extraProperties() { return vm.model.extraProperties },
 				},

@@ -121,12 +121,12 @@
 				menuInfo: {
 					id: '51',
 					isMenuList: true,
-					designation: computed(() => this.Resources.PRESENCAS23345),
+					designation: computed(() => this.Resources.TREINOS59076),
 					acronym: 'SQB_51',
-					name: 'PRESENCA',
+					name: 'TREINO',
 					route: 'menu-SQB_51',
 					order: '51',
-					controller: 'PRESENCA',
+					controller: 'TREINO',
 					action: 'SQB_Menu_51',
 					isPopup: false
 				},
@@ -137,7 +137,7 @@
 					menu: new controlClass.TableListControl({
 						fnHydrateViewModel: (data) => vm.model.hydrate(data),
 						id: 'SQB_Menu_51',
-						controller: 'PRESENCA',
+						controller: 'TREINO',
 						action: 'SQB_Menu_51',
 						hasDependencies: false,
 						isInCollapsible: false,
@@ -148,49 +148,75 @@
 						columnsOriginal: [
 							new listColumnTypes.DateColumn({
 								order: 1,
-								name: 'Treino.ValData',
+								name: 'ValData',
 								area: 'TREINO',
 								field: 'DATA',
 								label: computed(() => this.Resources.DATA18071),
 								scrollData: 16,
 								dateTimeType: 'dateTime',
 								export: 1,
-								pkColumn: 'ValCodtreino',
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.NumericColumn({
+								order: 2,
+								name: 'ValMesociclos',
+								area: 'TREINO',
+								field: 'MESOCICLOS',
+								label: computed(() => this.Resources.MESOCICLOS42559),
+								scrollData: 3,
+								maxDigits: 3,
+								decimalPlaces: 0,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.NumericColumn({
+								order: 3,
+								name: 'ValMicrociclo',
+								area: 'TREINO',
+								field: 'MICROCICLO',
+								label: computed(() => this.Resources.MICROCICLO36882),
+								scrollData: 3,
+								maxDigits: 3,
+								decimalPlaces: 0,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.NumericColumn({
+								order: 4,
+								name: 'ValNumjogadores',
+								area: 'TREINO',
+								field: 'NUMJOGADORES',
+								label: computed(() => this.Resources.NUMERO_JOGADORES22289),
+								scrollData: 3,
+								maxDigits: 3,
+								decimalPlaces: 0,
+								export: 1,
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 							new listColumnTypes.TextColumn({
-								order: 2,
-								name: 'Jogador.ValNome',
-								area: 'JOGADOR',
-								field: 'NOME',
-								label: computed(() => this.Resources.NOME47814),
-								dataLength: 50,
+								order: 5,
+								name: 'ValObjetivo',
+								area: 'TREINO',
+								field: 'OBJETIVO',
+								label: computed(() => this.Resources.OBJETIVO56787),
 								scrollData: 30,
 								export: 1,
-								pkColumn: 'ValCodjogador',
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.ArrayColumn({
-								order: 3,
-								name: 'ValEstado',
-								area: 'PRESENCA',
-								field: 'ESTADO',
-								label: computed(() => this.Resources.ESTADO07788),
-								dataLength: 2,
-								scrollData: 2,
+							new listColumnTypes.TextColumn({
+								order: 6,
+								name: 'ValMaterial',
+								area: 'TREINO',
+								field: 'MATERIAL',
+								label: computed(() => this.Resources.MATERIAL33877),
+								scrollData: 30,
 								export: 1,
-								array: computed(() => new qProjArrays.QArrayEstado_presenca(vm.$getResource).elements),
-								arrayType: qProjArrays.QArrayEstado_presenca.type,
-								arrayDisplayMode: 'D',
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 						],
 						config: {
 							name: 'SQB_Menu_51',
 							serverMode: true,
-							pkColumn: 'ValCodpresenca',
-							tableAlias: 'PRESENCA',
-							tableNamePlural: computed(() => this.Resources.PRESENCAS23345),
+							pkColumn: 'ValCodtreino',
+							tableAlias: 'TREINO',
+							tableNamePlural: computed(() => this.Resources.TREINOS59076),
 							viewManagement: '',
 							showLimitsInfo: true,
-							tableTitle: computed(() => this.Resources.PRESENCAS23345),
+							tableTitle: computed(() => this.Resources.TREINOS59076),
 							showAlternatePagination: true,
 							permissions: {
 							},
@@ -211,7 +237,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'PRESENCA',
+										formName: 'TREINO',
 										mode: 'SHOW',
 										isControlled: true
 									}
@@ -227,7 +253,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'PRESENCA',
+										formName: 'TREINO',
 										mode: 'EDIT',
 										isControlled: true
 									}
@@ -243,7 +269,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'PRESENCA',
+										formName: 'TREINO',
 										mode: 'DUPLICATE',
 										isControlled: true
 									}
@@ -259,7 +285,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'PRESENCA',
+										formName: 'TREINO',
 										mode: 'DELETE',
 										isControlled: true
 									}
@@ -277,7 +303,7 @@
 									params: {
 										action: vm.openFormAction,
 										type: 'form',
-										formName: 'PRESENCA',
+										formName: 'TREINO',
 										mode: 'NEW',
 										repeatInsertion: false,
 										isControlled: true
@@ -294,35 +320,35 @@
 							],
 							rowClickAction: {
 								id: 'RCA_SQB_511',
-								name: 'form-PRESENCA',
+								name: 'form-TREINO',
 								isVisible: true,
 								params: {
 									isRoute: true,
 									limits: [
 										{
 											identifier: 'id',
-											fnValueSelector: (row) => row.ValCodpresenca
+											fnValueSelector: (row) => row.ValCodtreino
 										},
 									],
 									isControlled: true,
-									action: vm.openFormAction, type: 'form', mode: 'SHOW', formName: 'PRESENCA'
+									action: vm.openFormAction, type: 'form', mode: 'SHOW', formName: 'TREINO'
 								}
 							},
 							formsDefinition: {
-								'PRESENCA': {
-									fnKeySelector: (row) => row.Fields.ValCodpresenca,
+								'TREINO': {
+									fnKeySelector: (row) => row.Fields.ValCodtreino,
 									isPopup: false
 								},
 							},
-							defaultSearchColumnName: '',
-							defaultSearchColumnNameOriginal: '',
+							defaultSearchColumnName: 'ValData',
+							defaultSearchColumnNameOriginal: 'ValData',
 							defaultColumnSorting: {
-								columnName: '',
+								columnName: 'ValData',
 								sortOrder: 'asc'
 							}
 						},
-						globalEvents: ['changed-PRESENCA', 'changed-TREINO', 'changed-JOGADOR'],
-						uuid: '5f5fbc25-85cb-40bf-ac6f-c482b7dfff34',
+						globalEvents: ['changed-CLUBE', 'changed-TREINADOR', 'changed-JOGADOR', 'changed-TREINO'],
+						uuid: '72c7269d-70ae-4b1d-a7b8-595a69ad7ffd',
 						allSelectedRows: 'false',
 						headerLevel: 1,
 						isActiveControl: computed(() => this.isActiveMenu)

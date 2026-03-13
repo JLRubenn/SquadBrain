@@ -1557,6 +1557,15 @@ namespace GenioMVC.Resources
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to "Especificação Posição Segundaria"
+		/// </summary>
+		public static string ESPECIFICACAO_POSICA18874 {
+			get {
+				return ResourceManager.GetString("ESPECIFICACAO_POSICA18874", resourceCulture);
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to "Async process attachments"
 		/// </summary>
 		public static string ASYNC_PROCESS_ATTACH04785 {

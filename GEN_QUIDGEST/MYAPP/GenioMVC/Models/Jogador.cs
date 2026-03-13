@@ -143,6 +143,30 @@ namespace GenioMVC.Models
 		[ShouldSerialize("Jogador.ValNationalidade")]
 		public string ValNationalidade { get { return klass.ValNationalidade; } set { klass.ValNationalidade = value; } }
 
+		[DisplayName("Especificação Posição Segundaria")]
+		/// <summary>Field : "Especificação Posição Segundaria" Tipo: "AC" Formula:  ""</summary>
+		[ShouldSerialize("Jogador.ValSp2posicaomedio")]
+		[DataArray("Spposicaomedio", GenioMVC.Helpers.ArrayType.Character)]
+		public string ValSp2posicaomedio { get { return klass.ValSp2posicaomedio; } set { klass.ValSp2posicaomedio = value; } }
+		[JsonIgnore]
+		public SelectList ArrayValsp2posicaomedio { get { return new SelectList(CSGenio.business.ArraySpposicaomedio.GetDictionary(), "Key", "Value", ValSp2posicaomedio); } set { ValSp2posicaomedio = value.SelectedValue as string; } }
+
+		[DisplayName("Especificação Posição Segundaria")]
+		/// <summary>Field : "Especificação Posição Segundaria" Tipo: "AC" Formula:  ""</summary>
+		[ShouldSerialize("Jogador.ValSp2posicaoat")]
+		[DataArray("Spposicao", GenioMVC.Helpers.ArrayType.Character)]
+		public string ValSp2posicaoat { get { return klass.ValSp2posicaoat; } set { klass.ValSp2posicaoat = value; } }
+		[JsonIgnore]
+		public SelectList ArrayValsp2posicaoat { get { return new SelectList(CSGenio.business.ArraySpposicao.GetDictionary(), "Key", "Value", ValSp2posicaoat); } set { ValSp2posicaoat = value.SelectedValue as string; } }
+
+		[DisplayName("Especificação Posição Segundaria")]
+		/// <summary>Field : "Especificação Posição Segundaria" Tipo: "AC" Formula:  ""</summary>
+		[ShouldSerialize("Jogador.ValSp2posicaodef")]
+		[DataArray("Spposicao", GenioMVC.Helpers.ArrayType.Character)]
+		public string ValSp2posicaodef { get { return klass.ValSp2posicaodef; } set { klass.ValSp2posicaodef = value; } }
+		[JsonIgnore]
+		public SelectList ArrayValsp2posicaodef { get { return new SelectList(CSGenio.business.ArraySpposicao.GetDictionary(), "Key", "Value", ValSp2posicaodef); } set { ValSp2posicaodef = value.SelectedValue as string; } }
+
 		[DisplayName("ZZSTATE")]
 		[ShouldSerialize("Jogador.ValZzstate")]
 		/// <summary>Field: "ZZSTATE", Type: "INT", Formula: ""</summary>

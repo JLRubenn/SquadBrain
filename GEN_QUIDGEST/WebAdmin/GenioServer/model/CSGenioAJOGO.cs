@@ -54,16 +54,6 @@ namespace CSGenio.business
 			info.RegisterFieldDB(Qfield);
 
 			//- - - - - - - - - - - - - - - - - - -
-			Qfield = new Field(info.Alias, "codclube", FieldType.KEY_INT);
-			Qfield.FieldDescription = "Équipa";
-			Qfield.FieldSize =  8;
-			Qfield.MQueue = false;
-			Qfield.CavDesignation = "EQUIPA06027";
-
-			Qfield.Dupmsg = "";
-			info.RegisterFieldDB(Qfield);
-
-			//- - - - - - - - - - - - - - - - - - -
 			Qfield = new Field(info.Alias, "data", FieldType.DATE);
 			Qfield.FieldDescription = "Data";
 			Qfield.FieldSize =  8;
@@ -131,13 +121,10 @@ namespace CSGenio.business
 		{
 			// Daughters Relations
 			//------------------------------
-			info.ChildTable = new ChildRelation[1];
-			info.ChildTable[0]= new ChildRelation("convocatoria", new String[] {"codjogo"}, DeleteProc.NA);
 
 			// Mother Relations
 			//------------------------------
 			info.ParentTables = new Dictionary<string, Relation>();
-			info.ParentTables.Add("clube", new Relation("SQB", "sqbjogo", "jogo", "codjogo", "codclube", "SQB", "sqbclube", "clube", "codclube", "codclube"));
 		}
 
 		/// <summary>
@@ -147,8 +134,7 @@ namespace CSGenio.business
 		{
 			// Pathways
 			//------------------------------
-			info.Pathways = new Dictionary<string, string>(1);
-			info.Pathways.Add("clube","clube");
+			info.Pathways = new Dictionary<string, string>(0);
 		}
 
 		/// <summary>
@@ -277,17 +263,6 @@ namespace CSGenio.business
 		{
 			get { return (string)returnValueField(FldCodjogo); }
 			set { insertNameValueField(FldCodjogo, value); }
-		}
-
-		/// <summary>Field : "Équipa" Tipo: "CE" Formula:  ""</summary>
-		public static FieldRef FldCodclube { get { return m_fldCodclube; } }
-		private static FieldRef m_fldCodclube = new FieldRef("jogo", "codclube");
-
-		/// <summary>Field : "Équipa" Tipo: "CE" Formula:  ""</summary>
-		public string ValCodclube
-		{
-			get { return (string)returnValueField(FldCodclube); }
-			set { insertNameValueField(FldCodclube, value); }
 		}
 
 		/// <summary>Field : "Data" Tipo: "D" Formula:  ""</summary>
@@ -442,7 +417,7 @@ namespace CSGenio.business
 		// USE /[MANUAL SQB TABAUX JOGO]/
 
  
-        
+       
 
 	}
 }

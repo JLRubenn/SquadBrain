@@ -27,26 +27,6 @@ namespace GenioMVC.Models
 		[ShouldSerialize("Exercicio.ValCodexercicio")]
 		public string ValCodexercicio { get { return klass.ValCodexercicio; } set { klass.ValCodexercicio = value; } }
 
-		[DisplayName("Treino")]
-		/// <summary>Field : "Treino" Tipo: "CE" Formula:  ""</summary>
-		[ShouldSerialize("Exercicio.ValCodtreino")]
-		public string ValCodtreino { get { return klass.ValCodtreino; } set { klass.ValCodtreino = value; } }
-
-		private Treino _treino;
-		[DisplayName("Treino")]
-		[ShouldSerialize("Treino")]
-		public virtual Treino Treino
-		{
-			get
-			{
-				if (!isEmptyModel && (_treino == null || (!string.IsNullOrEmpty(ValCodtreino) && (_treino.isEmptyModel || _treino.klass.QPrimaryKey != ValCodtreino))))
-					_treino = Models.Treino.Find(ValCodtreino, m_userContext, Identifier, _fieldsToSerialize);
-				_treino ??= new Models.Treino(m_userContext, true, _fieldsToSerialize);
-				return _treino;
-			}
-			set { _treino = value; }
-		}
-
 		[DisplayName("Titulo")]
 		/// <summary>Field : "Titulo" Tipo: "C" Formula:  ""</summary>
 		[ShouldSerialize("Exercicio.ValTitulo")]
@@ -120,10 +100,6 @@ namespace GenioMVC.Models
 			{
 				switch (Qfield.Area)
 				{
-					case "treino":
-						_treino ??= new Treino(m_userContext, true, _fieldsToSerialize);
-						_treino.klass.insertNameValueField(Qfield.FullName, Qfield.Value);
-						break;
 					default:
 						break;
 				}

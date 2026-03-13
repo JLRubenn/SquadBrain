@@ -36,8 +36,8 @@ public class SQB_Menu_521_RowViewModel : Models.Jogo
 			new ListColumn()
 			{
 				Order = 1,
-				Area = "CLUBE",
-				Field = "NOME",
+				Area = "JOGO",
+				Field = "TITULO",
 			},
 			new ListColumn()
 			{
@@ -55,19 +55,13 @@ public class SQB_Menu_521_RowViewModel : Models.Jogo
 			{
 				Order = 4,
 				Area = "JOGO",
-				Field = "RESULTADO",
+				Field = "EQUIPAADVERSARIA",
 			},
 			new ListColumn()
 			{
 				Order = 5,
 				Area = "JOGO",
-				Field = "TITULO",
-			},
-			new ListColumn()
-			{
-				Order = 6,
-				Area = "JOGO",
-				Field = "EQUIPAADVERSARIA",
+				Field = "RESULTADO",
 			},
 		];
 	}

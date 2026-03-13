@@ -498,6 +498,9 @@
   <msg id="Module" code="MODULE42049">
     <ENUS>Module</ENUS>
   </msg>
+  <msg id="Especificação Posição Segundaria" code="ESPECIFICACAO_POSICA18874">
+    <ENUS>Especificação Posição Segundaria</ENUS>
+  </msg>
   <msg id="Async process attachments" code="ASYNC_PROCESS_ATTACH04785">
     <ENUS>Async process attachments</ENUS>
   </msg>

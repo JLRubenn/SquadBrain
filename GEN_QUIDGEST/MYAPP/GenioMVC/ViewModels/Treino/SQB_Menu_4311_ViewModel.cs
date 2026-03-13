@@ -561,7 +561,7 @@ namespace GenioMVC.ViewModels.Treino
 
 		private static readonly string[] _fieldsToSerialize =
 		[
-			"Treino", "Treino.ValCodtreino", "Treino.ValZzstate", "Treino.ValNumtreino", "Treino.ValData", "Treinador", "Treinador.ValNome", "Treino.ValNumjogadores", "Treino.ValObjetivo", "Treino.ValMaterial", "Treino.ValCodclube", "Treino.ValCodjogador", "Treino.ValCodtreinador"
+			"Treino", "Treino.ValCodtreino", "Treino.ValZzstate", "Treino.ValNumtreino", "Treino.ValData", "Treinador", "Treinador.ValNome", "Treino.ValNumjogadores", "Treino.ValObjetivo", "Treino.ValMaterial", "Treino.ValCodjogador", "Treino.ValCodtreinador"
 		];
 
 		private static readonly List<TableSearchColumn> _searchableColumns =

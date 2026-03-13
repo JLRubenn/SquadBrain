@@ -23,7 +23,7 @@ export default function getFormsRoutes()
 			meta: {
 				routeType: 'form',
 				baseArea: 'CONVOCATORIA',
-				humanKeyFields: ['ValCodjogo'],
+				humanKeyFields: [],
 				isPopup: false
 			}
 		},

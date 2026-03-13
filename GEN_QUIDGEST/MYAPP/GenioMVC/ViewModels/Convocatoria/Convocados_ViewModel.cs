@@ -34,11 +34,6 @@ namespace GenioMVC.ViewModels.Convocatoria
 		/// Title: "Nome" | Type: "CE"
 		/// </summary>
 		public string ValCodjogador { get; set; }
-		/// <summary>
-		/// Title: "" | Type: "CE"
-		/// </summary>
-		[ValidateSetAccess]
-		public string ValCodjogo { get; set; }
 
 		#endregion
 		/// <summary>
@@ -229,7 +224,6 @@ namespace GenioMVC.ViewModels.Convocatoria
 			try
 			{
 				ValCodjogador = ViewModelConversion.ToString(m.ValCodjogador);
-				ValCodjogo = ViewModelConversion.ToString(m.ValCodjogo);
 				funcJogadorValNumerocamisola = () => ViewModelConversion.ToNumeric(m.Jogador.ValNumerocamisola);
 				funcJogadorValPosicao = () => ViewModelConversion.ToString(m.Jogador.ValPosicao);
 				funcJogadorValPosicaosegundaria = () => ViewModelConversion.ToString(m.Jogador.ValPosicaosegundaria);
@@ -269,7 +263,6 @@ namespace GenioMVC.ViewModels.Convocatoria
 				if (!HasDisabledUserValuesSecurity)
 					return;
 
-				m.ValCodjogo = ViewModelConversion.ToString(ValCodjogo);
 			}
 			catch (Exception)
 			{
@@ -658,7 +651,6 @@ namespace GenioMVC.ViewModels.Convocatoria
 			return identifier switch
 			{
 				"convocatoria.codjogador" => ViewModelConversion.ToString(modelValue),
-				"convocatoria.codjogo" => ViewModelConversion.ToString(modelValue),
 				"jogador.numerocamisola" => ViewModelConversion.ToNumeric(modelValue),
 				"jogador.posicao" => ViewModelConversion.ToString(modelValue),
 				"jogador.posicaosegundaria" => ViewModelConversion.ToString(modelValue),

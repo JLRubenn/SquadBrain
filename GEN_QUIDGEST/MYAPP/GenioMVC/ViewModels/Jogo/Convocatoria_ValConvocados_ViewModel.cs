@@ -43,7 +43,7 @@ namespace GenioMVC.ViewModels.Jogo
 		/// The primary key field.
 		/// </summary>
 		[JsonIgnore]
-		public string JogoValCodjogo { get; set; }
+		public string ValCodjogo { get; set; }
 
 		/// <summary>
 		/// The context of the parent.
@@ -110,7 +110,7 @@ namespace GenioMVC.ViewModels.Jogo
 		/// <param name="userContext">The current user request context</param>
 		public Convocatoria_ValConvocados_ViewModel(UserContext userContext) : base(userContext)
 		{
-			JogoValCodjogo = userContext.CurrentNavigation.CurrentLevel.GetEntry("jogo")?.ToString();
+			ValCodjogo = userContext.CurrentNavigation.CurrentLevel.GetEntry("jogo")?.ToString();
 		}
 
 		/// <summary>
@@ -189,11 +189,6 @@ namespace GenioMVC.ViewModels.Jogo
 
 			// Form field filters
 			crs.SubSets.Add(ProcessFieldFilters(tableConfig.GlobalFilters));
-
-			if (this.JogoValCodjogo != null)
-				crs.Equal(CSGenioAconvocatoria.FldCodjogo, this.JogoValCodjogo);
-			else
-				tableReload = false;
 
 
 			crs.SubSets.Add(GetCustomizedStaticLimits(StaticLimits));
@@ -511,7 +506,7 @@ namespace GenioMVC.ViewModels.Jogo
 
 		private static readonly string[] _fieldsToSerialize =
 		[
-			"Convocatoria", "Convocatoria.ValCodconvocatoria", "Convocatoria.ValZzstate", "Jogador", "Jogador.ValNome", "Jogador.ValNumerocamisola", "Jogador.ValPosicao", "Convocatoria.ValCodjogador", "Convocatoria.ValCodjogo"
+			"Convocatoria", "Convocatoria.ValCodconvocatoria", "Convocatoria.ValZzstate", "Jogador", "Jogador.ValNome", "Jogador.ValNumerocamisola", "Jogador.ValPosicao", "Convocatoria.ValCodjogador"
 		];
 
 		private static readonly List<TableSearchColumn> _searchableColumns =

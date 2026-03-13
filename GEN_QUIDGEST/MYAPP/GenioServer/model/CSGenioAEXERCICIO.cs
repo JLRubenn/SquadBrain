@@ -54,16 +54,6 @@ namespace CSGenio.business
 			info.RegisterFieldDB(Qfield);
 
 			//- - - - - - - - - - - - - - - - - - -
-			Qfield = new Field(info.Alias, "codtreino", FieldType.KEY_INT);
-			Qfield.FieldDescription = "Treino";
-			Qfield.FieldSize =  8;
-			Qfield.MQueue = false;
-			Qfield.CavDesignation = "TREINO06086";
-
-			Qfield.Dupmsg = "";
-			info.RegisterFieldDB(Qfield);
-
-			//- - - - - - - - - - - - - - - - - - -
 			Qfield = new Field(info.Alias, "titulo", FieldType.TEXT);
 			Qfield.FieldDescription = "Titulo";
 			Qfield.FieldSize =  50;
@@ -153,7 +143,6 @@ namespace CSGenio.business
 			// Mother Relations
 			//------------------------------
 			info.ParentTables = new Dictionary<string, Relation>();
-			info.ParentTables.Add("treino", new Relation("SQB", "sqbexercicio", "exercicio", "codexercicio", "codtreino", "SQB", "sqbtreino", "treino", "codtreino", "codtreino"));
 		}
 
 		/// <summary>
@@ -163,11 +152,7 @@ namespace CSGenio.business
 		{
 			// Pathways
 			//------------------------------
-			info.Pathways = new Dictionary<string, string>(4);
-			info.Pathways.Add("treino","treino");
-			info.Pathways.Add("clube","treino");
-			info.Pathways.Add("treinador","treino");
-			info.Pathways.Add("jogador","treino");
+			info.Pathways = new Dictionary<string, string>(0);
 		}
 
 		/// <summary>
@@ -296,17 +281,6 @@ namespace CSGenio.business
 		{
 			get { return (string)returnValueField(FldCodexercicio); }
 			set { insertNameValueField(FldCodexercicio, value); }
-		}
-
-		/// <summary>Field : "Treino" Tipo: "CE" Formula:  ""</summary>
-		public static FieldRef FldCodtreino { get { return m_fldCodtreino; } }
-		private static FieldRef m_fldCodtreino = new FieldRef("exercicio", "codtreino");
-
-		/// <summary>Field : "Treino" Tipo: "CE" Formula:  ""</summary>
-		public string ValCodtreino
-		{
-			get { return (string)returnValueField(FldCodtreino); }
-			set { insertNameValueField(FldCodtreino, value); }
 		}
 
 		/// <summary>Field : "Titulo" Tipo: "C" Formula:  ""</summary>
@@ -483,7 +457,7 @@ namespace CSGenio.business
 		// USE /[MANUAL SQB TABAUX EXERCICIO]/
 
  
-          
+         
 
 	}
 }

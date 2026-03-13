@@ -146,8 +146,19 @@
 							'page-full-height'
 						],
 						columnsOriginal: [
-							new listColumnTypes.DateColumn({
+							new listColumnTypes.NumericColumn({
 								order: 1,
+								name: 'ValNumtreino',
+								area: 'TREINO',
+								field: 'NUMTREINO',
+								label: computed(() => this.Resources.TREINO_NO29135),
+								scrollData: 3,
+								maxDigits: 3,
+								decimalPlaces: 0,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.DateColumn({
+								order: 2,
 								name: 'ValData',
 								area: 'TREINO',
 								field: 'DATA',
@@ -156,27 +167,16 @@
 								dateTimeType: 'dateTime',
 								export: 1,
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.NumericColumn({
-								order: 2,
-								name: 'ValMesociclos',
-								area: 'TREINO',
-								field: 'MESOCICLOS',
-								label: computed(() => this.Resources.MESOCICLOS42559),
-								scrollData: 3,
-								maxDigits: 3,
-								decimalPlaces: 0,
-								export: 1,
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.NumericColumn({
+							new listColumnTypes.TextColumn({
 								order: 3,
-								name: 'ValMicrociclo',
-								area: 'TREINO',
-								field: 'MICROCICLO',
-								label: computed(() => this.Resources.MICROCICLO36882),
-								scrollData: 3,
-								maxDigits: 3,
-								decimalPlaces: 0,
+								name: 'Treinador.ValNome',
+								area: 'TREINADOR',
+								field: 'NOME',
+								label: computed(() => this.Resources.NOME47814),
+								dataLength: 50,
+								scrollData: 30,
 								export: 1,
+								pkColumn: 'ValCodtreinador',
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 							new listColumnTypes.NumericColumn({
 								order: 4,
@@ -343,11 +343,11 @@
 							defaultSearchColumnName: 'ValData',
 							defaultSearchColumnNameOriginal: 'ValData',
 							defaultColumnSorting: {
-								columnName: 'ValData',
+								columnName: 'ValNumtreino',
 								sortOrder: 'asc'
 							}
 						},
-						globalEvents: ['changed-CLUBE', 'changed-TREINADOR', 'changed-JOGADOR', 'changed-TREINO'],
+						globalEvents: ['changed-TREINADOR', 'changed-JOGADOR', 'changed-TREINO'],
 						uuid: '56d5cd62-4ccc-4a55-8702-497ddbfaac70',
 						allSelectedRows: 'false',
 						headerLevel: 1,

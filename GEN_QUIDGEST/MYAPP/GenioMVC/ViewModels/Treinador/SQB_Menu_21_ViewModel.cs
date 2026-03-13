@@ -312,8 +312,8 @@ namespace GenioMVC.ViewModels.Treinador
 
 			//FOR: MENU LIST SORTING
 			Dictionary<string, OrderedDictionary> allSortOrders = new Dictionary<string, OrderedDictionary>();
-			allSortOrders.Add("TREINADOR.NOME", new OrderedDictionary());
-			allSortOrders["TREINADOR.NOME"].Add("TREINADOR.NOME", "A");
+			allSortOrders.Add("TREINADOR.FUNCAO", new OrderedDictionary());
+			allSortOrders["TREINADOR.FUNCAO"].Add("TREINADOR.FUNCAO", "A");
 
 
 			int numberListItems = tableConfig.RowsPerPage;
@@ -328,7 +328,7 @@ namespace GenioMVC.ViewModels.Treinador
 			if (sorts == null || sorts.Count == 0)
 			{
 				sorts = new List<ColumnSort>();
-				sorts.Add(new ColumnSort(new ColumnReference(CSGenioAtreinador.FldNome), SortOrder.Ascending));
+				sorts.Add(new ColumnSort(new ColumnReference(CSGenioAtreinador.FldFuncao), SortOrder.Ascending));
 
 			}
 

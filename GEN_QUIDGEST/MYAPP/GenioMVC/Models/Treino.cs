@@ -47,26 +47,6 @@ namespace GenioMVC.Models
 			set { _treinador = value; }
 		}
 
-		[DisplayName("Clube")]
-		/// <summary>Field : "Clube" Tipo: "CE" Formula:  ""</summary>
-		[ShouldSerialize("Treino.ValCodclube")]
-		public string ValCodclube { get { return klass.ValCodclube; } set { klass.ValCodclube = value; } }
-
-		private Clube _clube;
-		[DisplayName("Clube")]
-		[ShouldSerialize("Clube")]
-		public virtual Clube Clube
-		{
-			get
-			{
-				if (!isEmptyModel && (_clube == null || (!string.IsNullOrEmpty(ValCodclube) && (_clube.isEmptyModel || _clube.klass.QPrimaryKey != ValCodclube))))
-					_clube = Models.Clube.Find(ValCodclube, m_userContext, Identifier, _fieldsToSerialize);
-				_clube ??= new Models.Clube(m_userContext, true, _fieldsToSerialize);
-				return _clube;
-			}
-			set { _clube = value; }
-		}
-
 		[DisplayName("Data")]
 		/// <summary>Field : "Data" Tipo: "DT" Formula:  ""</summary>
 		[ShouldSerialize("Treino.ValData")]
@@ -164,10 +144,6 @@ namespace GenioMVC.Models
 					case "treinador":
 						_treinador ??= new Treinador(m_userContext, true, _fieldsToSerialize);
 						_treinador.klass.insertNameValueField(Qfield.FullName, Qfield.Value);
-						break;
-					case "clube":
-						_clube ??= new Clube(m_userContext, true, _fieldsToSerialize);
-						_clube.klass.insertNameValueField(Qfield.FullName, Qfield.Value);
 						break;
 					case "jogador":
 						_jogador ??= new Jogador(m_userContext, true, _fieldsToSerialize);

@@ -246,6 +246,42 @@ namespace CSGenio.business
 			info.RegisterFieldDB(Qfield);
 
 			//- - - - - - - - - - - - - - - - - - -
+			Qfield = new Field(info.Alias, "sp2posicaomedio", FieldType.ARRAY_TEXT);
+			Qfield.FieldDescription = "Especificação Posição Segundaria";
+			Qfield.FieldSize =  3;
+			Qfield.MQueue = false;
+			Qfield.CavDesignation = "ESPECIFICACAO_POSICA18874";
+
+			Qfield.Dupmsg = "";
+            Qfield.ArrayName = "dbo.GetValArrayCspposicaomedio";
+            Qfield.ArrayClassName = "Spposicaomedio";
+			info.RegisterFieldDB(Qfield);
+
+			//- - - - - - - - - - - - - - - - - - -
+			Qfield = new Field(info.Alias, "sp2posicaoat", FieldType.ARRAY_TEXT);
+			Qfield.FieldDescription = "Especificação Posição Segundaria";
+			Qfield.FieldSize =  1;
+			Qfield.MQueue = false;
+			Qfield.CavDesignation = "ESPECIFICACAO_POSICA18874";
+
+			Qfield.Dupmsg = "";
+            Qfield.ArrayName = "dbo.GetValArrayCspposicao";
+            Qfield.ArrayClassName = "Spposicao";
+			info.RegisterFieldDB(Qfield);
+
+			//- - - - - - - - - - - - - - - - - - -
+			Qfield = new Field(info.Alias, "sp2posicaodef", FieldType.ARRAY_TEXT);
+			Qfield.FieldDescription = "Especificação Posição Segundaria";
+			Qfield.FieldSize =  1;
+			Qfield.MQueue = false;
+			Qfield.CavDesignation = "ESPECIFICACAO_POSICA18874";
+
+			Qfield.Dupmsg = "";
+            Qfield.ArrayName = "dbo.GetValArrayCspposicao";
+            Qfield.ArrayClassName = "Spposicao";
+			info.RegisterFieldDB(Qfield);
+
+			//- - - - - - - - - - - - - - - - - - -
 			Qfield = new Field(info.Alias, "zzstate", FieldType.INTEGER);
 			Qfield.FieldDescription = "Estado da ficha";
 			info.RegisterFieldDB(Qfield);
@@ -596,6 +632,39 @@ namespace CSGenio.business
 			set { insertNameValueField(FldNationalidade, value); }
 		}
 
+		/// <summary>Field : "Especificação Posição Segundaria" Tipo: "AC" Formula:  ""</summary>
+		public static FieldRef FldSp2posicaomedio { get { return m_fldSp2posicaomedio; } }
+		private static FieldRef m_fldSp2posicaomedio = new FieldRef("jogador", "sp2posicaomedio");
+
+		/// <summary>Field : "Especificação Posição Segundaria" Tipo: "AC" Formula:  ""</summary>
+		public string ValSp2posicaomedio
+		{
+			get { return (string)returnValueField(FldSp2posicaomedio); }
+			set { insertNameValueField(FldSp2posicaomedio, value); }
+		}
+
+		/// <summary>Field : "Especificação Posição Segundaria" Tipo: "AC" Formula:  ""</summary>
+		public static FieldRef FldSp2posicaoat { get { return m_fldSp2posicaoat; } }
+		private static FieldRef m_fldSp2posicaoat = new FieldRef("jogador", "sp2posicaoat");
+
+		/// <summary>Field : "Especificação Posição Segundaria" Tipo: "AC" Formula:  ""</summary>
+		public string ValSp2posicaoat
+		{
+			get { return (string)returnValueField(FldSp2posicaoat); }
+			set { insertNameValueField(FldSp2posicaoat, value); }
+		}
+
+		/// <summary>Field : "Especificação Posição Segundaria" Tipo: "AC" Formula:  ""</summary>
+		public static FieldRef FldSp2posicaodef { get { return m_fldSp2posicaodef; } }
+		private static FieldRef m_fldSp2posicaodef = new FieldRef("jogador", "sp2posicaodef");
+
+		/// <summary>Field : "Especificação Posição Segundaria" Tipo: "AC" Formula:  ""</summary>
+		public string ValSp2posicaodef
+		{
+			get { return (string)returnValueField(FldSp2posicaodef); }
+			set { insertNameValueField(FldSp2posicaodef, value); }
+		}
+
 		/// <summary>Field : "ZZSTATE" Type: "INT" Formula:  ""</summary>
 		public static FieldRef FldZzstate { get { return m_fldZzstate; } }
 		private static FieldRef m_fldZzstate = new FieldRef("jogador", "zzstate");
@@ -693,7 +762,7 @@ namespace CSGenio.business
 		// USE /[MANUAL SQB TABAUX JOGADOR]/
 
  
-                 
+                    
 
 	}
 }

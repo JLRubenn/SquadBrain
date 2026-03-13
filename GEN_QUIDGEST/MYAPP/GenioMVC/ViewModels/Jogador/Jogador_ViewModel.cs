@@ -92,6 +92,18 @@ namespace GenioMVC.ViewModels.Jogador
 		/// </summary>
 		public string ValPosicaosegundaria { get; set; }
 		/// <summary>
+		/// Title: "Especificação Posição Segundaria" | Type: "AC"
+		/// </summary>
+		public string ValSp2posicaomedio { get; set; }
+		/// <summary>
+		/// Title: "Especificação Posição Segundaria" | Type: "AC"
+		/// </summary>
+		public string ValSp2posicaoat { get; set; }
+		/// <summary>
+		/// Title: "Especificação Posição Segundaria" | Type: "AC"
+		/// </summary>
+		public string ValSp2posicaodef { get; set; }
+		/// <summary>
 		/// Title: "Equipa Anterior" | Type: "C"
 		/// </summary>
 		public string ValEquipaanterior { get; set; }
@@ -243,6 +255,9 @@ namespace GenioMVC.ViewModels.Jogador
 				ValSpposicaoat = ViewModelConversion.ToString(m.ValSpposicaoat);
 				ValSpposicaodef = ViewModelConversion.ToString(m.ValSpposicaodef);
 				ValPosicaosegundaria = ViewModelConversion.ToString(m.ValPosicaosegundaria);
+				ValSp2posicaomedio = ViewModelConversion.ToString(m.ValSp2posicaomedio);
+				ValSp2posicaoat = ViewModelConversion.ToString(m.ValSp2posicaoat);
+				ValSp2posicaodef = ViewModelConversion.ToString(m.ValSp2posicaodef);
 				ValEquipaanterior = ViewModelConversion.ToString(m.ValEquipaanterior);
 				ValValormercado = ViewModelConversion.ToNumeric(m.ValValormercado);
 				ValCodjogador = ViewModelConversion.ToString(m.ValCodjogador);
@@ -284,6 +299,9 @@ namespace GenioMVC.ViewModels.Jogador
 				m.ValSpposicaoat = ViewModelConversion.ToString(ValSpposicaoat);
 				m.ValSpposicaodef = ViewModelConversion.ToString(ValSpposicaodef);
 				m.ValPosicaosegundaria = ViewModelConversion.ToString(ValPosicaosegundaria);
+				m.ValSp2posicaomedio = ViewModelConversion.ToString(ValSp2posicaomedio);
+				m.ValSp2posicaoat = ViewModelConversion.ToString(ValSp2posicaoat);
+				m.ValSp2posicaodef = ViewModelConversion.ToString(ValSp2posicaodef);
 				m.ValEquipaanterior = ViewModelConversion.ToString(ValEquipaanterior);
 				m.ValValormercado = ViewModelConversion.ToNumeric(ValValormercado);
 				m.ValCodjogador = ViewModelConversion.ToString(ValCodjogador);
@@ -355,6 +373,15 @@ namespace GenioMVC.ViewModels.Jogador
 						break;
 					case "jogador.posicaosegundaria":
 						this.ValPosicaosegundaria = ViewModelConversion.ToString(_value);
+						break;
+					case "jogador.sp2posicaomedio":
+						this.ValSp2posicaomedio = ViewModelConversion.ToString(_value);
+						break;
+					case "jogador.sp2posicaoat":
+						this.ValSp2posicaoat = ViewModelConversion.ToString(_value);
+						break;
+					case "jogador.sp2posicaodef":
+						this.ValSp2posicaodef = ViewModelConversion.ToString(_value);
 						break;
 					case "jogador.equipaanterior":
 						this.ValEquipaanterior = ViewModelConversion.ToString(_value);
@@ -745,6 +772,9 @@ namespace GenioMVC.ViewModels.Jogador
 				"jogador.spposicaoat" => ViewModelConversion.ToString(modelValue),
 				"jogador.spposicaodef" => ViewModelConversion.ToString(modelValue),
 				"jogador.posicaosegundaria" => ViewModelConversion.ToString(modelValue),
+				"jogador.sp2posicaomedio" => ViewModelConversion.ToString(modelValue),
+				"jogador.sp2posicaoat" => ViewModelConversion.ToString(modelValue),
+				"jogador.sp2posicaodef" => ViewModelConversion.ToString(modelValue),
 				"jogador.equipaanterior" => ViewModelConversion.ToString(modelValue),
 				"jogador.valormercado" => ViewModelConversion.ToNumeric(modelValue),
 				"jogador.codjogador" => ViewModelConversion.ToString(modelValue),

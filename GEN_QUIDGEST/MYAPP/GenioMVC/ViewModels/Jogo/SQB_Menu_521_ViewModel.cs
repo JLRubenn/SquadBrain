@@ -100,7 +100,7 @@ namespace GenioMVC.ViewModels.Jogo
 			conditions.SubSets.Add(GetCustomizedStaticLimits(StaticLimits));
 
 			// Checks for foreign tables in fields and conditions
-			FieldRef[] fields = new FieldRef[] { CSGenioAjogo.FldCodjogo, CSGenioAjogo.FldZzstate, CSGenioAjogo.FldCodclube, CSGenioAclube.FldCodclube, CSGenioAclube.FldNome, CSGenioAjogo.FldData, CSGenioAjogo.FldLocal, CSGenioAjogo.FldResultado, CSGenioAjogo.FldTitulo, CSGenioAjogo.FldEquipaadversaria };
+			FieldRef[] fields = new FieldRef[] { CSGenioAjogo.FldCodjogo, CSGenioAjogo.FldZzstate, CSGenioAjogo.FldTitulo, CSGenioAjogo.FldData, CSGenioAjogo.FldLocal, CSGenioAjogo.FldEquipaadversaria, CSGenioAjogo.FldResultado };
 
 			ListingMVC<CSGenioAjogo> listing = new(fields, null, 1, 1, false, user, true, string.Empty, false);
 			SelectQuery qs = sp.getSelectQueryFromListingMVC(conditions, listing);
@@ -146,12 +146,11 @@ namespace GenioMVC.ViewModels.Jogo
 		{
 			return
 			[
-				new Exports.QColumn(CSGenioAclube.FldNome, FieldType.TEXT, Resources.Resources.NOME47814, 30, 0, true),
+				new Exports.QColumn(CSGenioAjogo.FldTitulo, FieldType.TEXT, Resources.Resources.TITULO23260, 30, 0, true),
 				new Exports.QColumn(CSGenioAjogo.FldData, FieldType.DATE, Resources.Resources.DATA18071, 8, 0, true),
 				new Exports.QColumn(CSGenioAjogo.FldLocal, FieldType.TEXT, Resources.Resources.LOCAL02842, 30, 0, true),
-				new Exports.QColumn(CSGenioAjogo.FldResultado, FieldType.TEXT, Resources.Resources.RESULTADO50955, 30, 0, true),
-				new Exports.QColumn(CSGenioAjogo.FldTitulo, FieldType.TEXT, Resources.Resources.TITULO23260, 30, 0, true),
 				new Exports.QColumn(CSGenioAjogo.FldEquipaadversaria, FieldType.TEXT, Resources.Resources.EQUIPA_ADVERSARIA15813, 30, 0, true),
+				new Exports.QColumn(CSGenioAjogo.FldResultado, FieldType.TEXT, Resources.Resources.RESULTADO50955, 30, 0, true),
 			];
 		}
 
@@ -335,7 +334,7 @@ namespace GenioMVC.ViewModels.Jogo
 
 			}
 
-			FieldRef[] fields = new FieldRef[] { CSGenioAjogo.FldCodjogo, CSGenioAjogo.FldZzstate, CSGenioAjogo.FldCodclube, CSGenioAclube.FldCodclube, CSGenioAclube.FldNome, CSGenioAjogo.FldData, CSGenioAjogo.FldLocal, CSGenioAjogo.FldResultado, CSGenioAjogo.FldTitulo, CSGenioAjogo.FldEquipaadversaria };
+			FieldRef[] fields = new FieldRef[] { CSGenioAjogo.FldCodjogo, CSGenioAjogo.FldZzstate, CSGenioAjogo.FldTitulo, CSGenioAjogo.FldData, CSGenioAjogo.FldLocal, CSGenioAjogo.FldEquipaadversaria, CSGenioAjogo.FldResultado };
 
 
 			// Totalizers
@@ -347,7 +346,7 @@ namespace GenioMVC.ViewModels.Jogo
 			{
 				firstVisibleColumn = tableConfig?.GetFirstVisibleColumn(TableAlias);
 
-				firstVisibleColumn ??= new FieldRef("clube", "nome");
+				firstVisibleColumn ??= new FieldRef("jogo", "titulo");
 			}
 			// Limitations
 			this.TableLimits ??= [];
@@ -481,8 +480,6 @@ namespace GenioMVC.ViewModels.Jogo
 				{
 					case "jogo":
 						model.klass.insertNameValueField(Qfield.FullName, Qfield.Value); break;
-					case "clube":
-						model.Clube.klass.insertNameValueField(Qfield.FullName, Qfield.Value); break;
 					default:
 						break;
 				}
@@ -534,17 +531,16 @@ namespace GenioMVC.ViewModels.Jogo
 
 		private static readonly string[] _fieldsToSerialize =
 		[
-			"Jogo", "Jogo.ValCodjogo", "Jogo.ValZzstate", "Clube", "Clube.ValNome", "Jogo.ValData", "Jogo.ValLocal", "Jogo.ValResultado", "Jogo.ValTitulo", "Jogo.ValEquipaadversaria", "Jogo.ValCodclube"
+			"Jogo", "Jogo.ValCodjogo", "Jogo.ValZzstate", "Jogo.ValTitulo", "Jogo.ValData", "Jogo.ValLocal", "Jogo.ValEquipaadversaria", "Jogo.ValResultado"
 		];
 
 		private static readonly List<TableSearchColumn> _searchableColumns =
 		[
-			new TableSearchColumn("Clube_ValNome", CSGenioAclube.FldNome, typeof(string)),
+			new TableSearchColumn("ValTitulo", CSGenioAjogo.FldTitulo, typeof(string), defaultSearch : true),
 			new TableSearchColumn("ValData", CSGenioAjogo.FldData, typeof(DateTime?)),
 			new TableSearchColumn("ValLocal", CSGenioAjogo.FldLocal, typeof(string)),
-			new TableSearchColumn("ValResultado", CSGenioAjogo.FldResultado, typeof(string)),
-			new TableSearchColumn("ValTitulo", CSGenioAjogo.FldTitulo, typeof(string), defaultSearch : true),
 			new TableSearchColumn("ValEquipaadversaria", CSGenioAjogo.FldEquipaadversaria, typeof(string)),
+			new TableSearchColumn("ValResultado", CSGenioAjogo.FldResultado, typeof(string)),
 		];
 	}
 }

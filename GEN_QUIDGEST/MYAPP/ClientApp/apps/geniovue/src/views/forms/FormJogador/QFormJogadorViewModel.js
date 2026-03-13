@@ -249,6 +249,39 @@ export default class ViewModel extends FormViewModelBase
 		}).cloneFrom(values?.ValPosicaosegundaria))
 		this.stopWatchers.push(watch(() => this.ValPosicaosegundaria.value, (newValue, oldValue) => this.onUpdate('jogador.posicaosegundaria', this.ValPosicaosegundaria, newValue, oldValue)))
 
+		this.ValSp2posicaomedio = reactive(new modelFieldType.String({
+			id: 'ValSp2posicaomedio',
+			originId: 'ValSp2posicaomedio',
+			area: 'JOGADOR',
+			field: 'SP2POSICAOMEDIO',
+			maxLength: 3,
+			arrayOptions: computed(() => new qProjArrays.QArraySpposicaomedio(vm.$getResource).elements),
+			description: computed(() => this.Resources.ESPECIFICACAO_POSICA18874),
+		}).cloneFrom(values?.ValSp2posicaomedio))
+		this.stopWatchers.push(watch(() => this.ValSp2posicaomedio.value, (newValue, oldValue) => this.onUpdate('jogador.sp2posicaomedio', this.ValSp2posicaomedio, newValue, oldValue)))
+
+		this.ValSp2posicaoat = reactive(new modelFieldType.String({
+			id: 'ValSp2posicaoat',
+			originId: 'ValSp2posicaoat',
+			area: 'JOGADOR',
+			field: 'SP2POSICAOAT',
+			maxLength: 1,
+			arrayOptions: computed(() => new qProjArrays.QArraySpposicao(vm.$getResource).elements),
+			description: computed(() => this.Resources.ESPECIFICACAO_POSICA18874),
+		}).cloneFrom(values?.ValSp2posicaoat))
+		this.stopWatchers.push(watch(() => this.ValSp2posicaoat.value, (newValue, oldValue) => this.onUpdate('jogador.sp2posicaoat', this.ValSp2posicaoat, newValue, oldValue)))
+
+		this.ValSp2posicaodef = reactive(new modelFieldType.String({
+			id: 'ValSp2posicaodef',
+			originId: 'ValSp2posicaodef',
+			area: 'JOGADOR',
+			field: 'SP2POSICAODEF',
+			maxLength: 1,
+			arrayOptions: computed(() => new qProjArrays.QArraySpposicao(vm.$getResource).elements),
+			description: computed(() => this.Resources.ESPECIFICACAO_POSICA18874),
+		}).cloneFrom(values?.ValSp2posicaodef))
+		this.stopWatchers.push(watch(() => this.ValSp2posicaodef.value, (newValue, oldValue) => this.onUpdate('jogador.sp2posicaodef', this.ValSp2posicaodef, newValue, oldValue)))
+
 		this.ValEquipaanterior = reactive(new modelFieldType.String({
 			id: 'ValEquipaanterior',
 			originId: 'ValEquipaanterior',

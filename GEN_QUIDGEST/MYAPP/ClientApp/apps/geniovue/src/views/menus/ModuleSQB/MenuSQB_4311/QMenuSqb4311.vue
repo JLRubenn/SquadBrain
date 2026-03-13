@@ -249,7 +249,7 @@
 								sortOrder: 'asc'
 							}
 						},
-						globalEvents: ['changed-CLUBE', 'changed-TREINADOR', 'changed-JOGADOR', 'changed-TREINO'],
+						globalEvents: ['changed-TREINADOR', 'changed-JOGADOR', 'changed-TREINO'],
 						uuid: '91c67fa1-2cc4-49b8-925e-1403fd62352f',
 						allSelectedRows: 'false',
 						headerLevel: 1,

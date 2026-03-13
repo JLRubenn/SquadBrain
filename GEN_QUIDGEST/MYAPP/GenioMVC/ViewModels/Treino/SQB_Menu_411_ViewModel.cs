@@ -100,7 +100,7 @@ namespace GenioMVC.ViewModels.Treino
 			conditions.SubSets.Add(GetCustomizedStaticLimits(StaticLimits));
 
 			// Checks for foreign tables in fields and conditions
-			FieldRef[] fields = new FieldRef[] { CSGenioAtreino.FldCodtreino, CSGenioAtreino.FldZzstate, CSGenioAtreino.FldData, CSGenioAtreino.FldMesociclos, CSGenioAtreino.FldMicrociclo, CSGenioAtreino.FldNumjogadores, CSGenioAtreino.FldObjetivo, CSGenioAtreino.FldMaterial };
+			FieldRef[] fields = new FieldRef[] { CSGenioAtreino.FldCodtreino, CSGenioAtreino.FldZzstate, CSGenioAtreino.FldNumtreino, CSGenioAtreino.FldData, CSGenioAtreino.FldCodtreinador, CSGenioAtreinador.FldCodtreinador, CSGenioAtreinador.FldNome, CSGenioAtreino.FldNumjogadores, CSGenioAtreino.FldObjetivo, CSGenioAtreino.FldMaterial };
 
 			ListingMVC<CSGenioAtreino> listing = new(fields, null, 1, 1, false, user, true, string.Empty, false);
 			SelectQuery qs = sp.getSelectQueryFromListingMVC(conditions, listing);
@@ -146,9 +146,9 @@ namespace GenioMVC.ViewModels.Treino
 		{
 			return
 			[
+				new Exports.QColumn(CSGenioAtreino.FldNumtreino, FieldType.NUMERIC, Resources.Resources.TREINO_NO29135, 3, 0, true),
 				new Exports.QColumn(CSGenioAtreino.FldData, FieldType.DATETIME, Resources.Resources.DATA18071, 16, 0, true),
-				new Exports.QColumn(CSGenioAtreino.FldMesociclos, FieldType.NUMERIC, Resources.Resources.MESOCICLOS42559, 3, 0, true),
-				new Exports.QColumn(CSGenioAtreino.FldMicrociclo, FieldType.NUMERIC, Resources.Resources.MICROCICLO36882, 3, 0, true),
+				new Exports.QColumn(CSGenioAtreinador.FldNome, FieldType.TEXT, Resources.Resources.NOME47814, 30, 0, true),
 				new Exports.QColumn(CSGenioAtreino.FldNumjogadores, FieldType.NUMERIC, Resources.Resources.NUMERO_JOGADORES22289, 3, 0, true),
 				new Exports.QColumn(CSGenioAtreino.FldObjetivo, FieldType.MEMO, Resources.Resources.OBJETIVO56787, 30, 0, true),
 				new Exports.QColumn(CSGenioAtreino.FldMaterial, FieldType.MEMO, Resources.Resources.MATERIAL33877, 30, 0, true),
@@ -315,8 +315,8 @@ namespace GenioMVC.ViewModels.Treino
 
 			//FOR: MENU LIST SORTING
 			Dictionary<string, OrderedDictionary> allSortOrders = new Dictionary<string, OrderedDictionary>();
-			allSortOrders.Add("TREINO.DATA", new OrderedDictionary());
-			allSortOrders["TREINO.DATA"].Add("TREINO.DATA", "A");
+			allSortOrders.Add("TREINO.NUMTREINO", new OrderedDictionary());
+			allSortOrders["TREINO.NUMTREINO"].Add("TREINO.NUMTREINO", "A");
 
 
 			int numberListItems = tableConfig.RowsPerPage;
@@ -331,11 +331,11 @@ namespace GenioMVC.ViewModels.Treino
 			if (sorts == null || sorts.Count == 0)
 			{
 				sorts = new List<ColumnSort>();
-				sorts.Add(new ColumnSort(new ColumnReference(CSGenioAtreino.FldData), SortOrder.Ascending));
+				sorts.Add(new ColumnSort(new ColumnReference(CSGenioAtreino.FldNumtreino), SortOrder.Ascending));
 
 			}
 
-			FieldRef[] fields = new FieldRef[] { CSGenioAtreino.FldCodtreino, CSGenioAtreino.FldZzstate, CSGenioAtreino.FldData, CSGenioAtreino.FldMesociclos, CSGenioAtreino.FldMicrociclo, CSGenioAtreino.FldNumjogadores, CSGenioAtreino.FldObjetivo, CSGenioAtreino.FldMaterial };
+			FieldRef[] fields = new FieldRef[] { CSGenioAtreino.FldCodtreino, CSGenioAtreino.FldZzstate, CSGenioAtreino.FldNumtreino, CSGenioAtreino.FldData, CSGenioAtreino.FldCodtreinador, CSGenioAtreinador.FldCodtreinador, CSGenioAtreinador.FldNome, CSGenioAtreino.FldNumjogadores, CSGenioAtreino.FldObjetivo, CSGenioAtreino.FldMaterial };
 
 
 			// Totalizers
@@ -347,7 +347,7 @@ namespace GenioMVC.ViewModels.Treino
 			{
 				firstVisibleColumn = tableConfig?.GetFirstVisibleColumn(TableAlias);
 
-				firstVisibleColumn ??= new FieldRef("treino", "data");
+				firstVisibleColumn ??= new FieldRef("treino", "numtreino");
 			}
 			// Limitations
 			this.TableLimits ??= [];
@@ -481,6 +481,8 @@ namespace GenioMVC.ViewModels.Treino
 				{
 					case "treino":
 						model.klass.insertNameValueField(Qfield.FullName, Qfield.Value); break;
+					case "treinador":
+						model.Treinador.klass.insertNameValueField(Qfield.FullName, Qfield.Value); break;
 					default:
 						break;
 				}
@@ -532,14 +534,14 @@ namespace GenioMVC.ViewModels.Treino
 
 		private static readonly string[] _fieldsToSerialize =
 		[
-			"Treino", "Treino.ValCodtreino", "Treino.ValZzstate", "Treino.ValData", "Treino.ValMesociclos", "Treino.ValMicrociclo", "Treino.ValNumjogadores", "Treino.ValObjetivo", "Treino.ValMaterial", "Treino.ValCodclube", "Treino.ValCodjogador", "Treino.ValCodtreinador"
+			"Treino", "Treino.ValCodtreino", "Treino.ValZzstate", "Treino.ValNumtreino", "Treino.ValData", "Treinador", "Treinador.ValNome", "Treino.ValNumjogadores", "Treino.ValObjetivo", "Treino.ValMaterial", "Treino.ValCodjogador", "Treino.ValCodtreinador"
 		];
 
 		private static readonly List<TableSearchColumn> _searchableColumns =
 		[
+			new TableSearchColumn("ValNumtreino", CSGenioAtreino.FldNumtreino, typeof(decimal?)),
 			new TableSearchColumn("ValData", CSGenioAtreino.FldData, typeof(DateTime?), defaultSearch : true),
-			new TableSearchColumn("ValMesociclos", CSGenioAtreino.FldMesociclos, typeof(decimal?)),
-			new TableSearchColumn("ValMicrociclo", CSGenioAtreino.FldMicrociclo, typeof(decimal?)),
+			new TableSearchColumn("Treinador_ValNome", CSGenioAtreinador.FldNome, typeof(string)),
 			new TableSearchColumn("ValNumjogadores", CSGenioAtreino.FldNumjogadores, typeof(decimal?)),
 			new TableSearchColumn("ValObjetivo", CSGenioAtreino.FldObjetivo, typeof(string)),
 			new TableSearchColumn("ValMaterial", CSGenioAtreino.FldMaterial, typeof(string)),

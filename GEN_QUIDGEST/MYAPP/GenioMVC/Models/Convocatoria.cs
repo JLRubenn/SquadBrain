@@ -27,26 +27,6 @@ namespace GenioMVC.Models
 		[ShouldSerialize("Convocatoria.ValCodconvocatoria")]
 		public string ValCodconvocatoria { get { return klass.ValCodconvocatoria; } set { klass.ValCodconvocatoria = value; } }
 
-		[DisplayName("Jogo")]
-		/// <summary>Field : "Jogo" Tipo: "CE" Formula:  ""</summary>
-		[ShouldSerialize("Convocatoria.ValCodjogo")]
-		public string ValCodjogo { get { return klass.ValCodjogo; } set { klass.ValCodjogo = value; } }
-
-		private Jogo _jogo;
-		[DisplayName("Jogo")]
-		[ShouldSerialize("Jogo")]
-		public virtual Jogo Jogo
-		{
-			get
-			{
-				if (!isEmptyModel && (_jogo == null || (!string.IsNullOrEmpty(ValCodjogo) && (_jogo.isEmptyModel || _jogo.klass.QPrimaryKey != ValCodjogo))))
-					_jogo = Models.Jogo.Find(ValCodjogo, m_userContext, Identifier, _fieldsToSerialize);
-				_jogo ??= new Models.Jogo(m_userContext, true, _fieldsToSerialize);
-				return _jogo;
-			}
-			set { _jogo = value; }
-		}
-
 		[DisplayName("Jogador")]
 		/// <summary>Field : "Jogador" Tipo: "CE" Formula:  ""</summary>
 		[ShouldSerialize("Convocatoria.ValCodjogador")]
@@ -98,10 +78,6 @@ namespace GenioMVC.Models
 			{
 				switch (Qfield.Area)
 				{
-					case "jogo":
-						_jogo ??= new Jogo(m_userContext, true, _fieldsToSerialize);
-						_jogo.klass.insertNameValueField(Qfield.FullName, Qfield.Value);
-						break;
 					case "jogador":
 						_jogador ??= new Jogador(m_userContext, true, _fieldsToSerialize);
 						_jogador.klass.insertNameValueField(Qfield.FullName, Qfield.Value);

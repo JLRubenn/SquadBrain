@@ -37,19 +37,19 @@ public class SQB_Menu_411_RowViewModel : Models.Treino
 			{
 				Order = 1,
 				Area = "TREINO",
-				Field = "DATA",
+				Field = "NUMTREINO",
 			},
 			new ListColumn()
 			{
 				Order = 2,
 				Area = "TREINO",
-				Field = "MESOCICLOS",
+				Field = "DATA",
 			},
 			new ListColumn()
 			{
 				Order = 3,
-				Area = "TREINO",
-				Field = "MICROCICLO",
+				Area = "TREINADOR",
+				Field = "NOME",
 			},
 			new ListColumn()
 			{

@@ -324,7 +324,7 @@
 									</base-input-structure>
 								</q-col>
 							</q-row>
-							<q-row v-if="controls.JOGADOR__JOGADOR__POSICAOSEGUNDARIA.isVisible">
+							<q-row v-if="controls.JOGADOR__JOGADOR__POSICAOSEGUNDARIA.isVisible || controls.JOGADOR__JOGADOR__SP2POSICAOMEDIO.isVisible || controls.JOGADOR__JOGADOR__SP2POSICAOAT.isVisible || controls.JOGADOR__JOGADOR__SP2POSICAODEF.isVisible">
 								<q-col
 									v-if="controls.JOGADOR__JOGADOR__POSICAOSEGUNDARIA.isVisible"
 									cols="auto">
@@ -340,6 +340,57 @@
 											v-if="controls.JOGADOR__JOGADOR__POSICAOSEGUNDARIA.isVisible"
 											v-bind="controls.JOGADOR__JOGADOR__POSICAOSEGUNDARIA.props"
 											@update:model-value="model.ValPosicaosegundaria.fnUpdateValue" />
+									</base-input-structure>
+								</q-col>
+								<q-col
+									v-if="controls.JOGADOR__JOGADOR__SP2POSICAOMEDIO.isVisible"
+									cols="auto">
+									<base-input-structure
+										v-if="controls.JOGADOR__JOGADOR__SP2POSICAOMEDIO.isVisible"
+										class="i-text"
+										v-bind="controls.JOGADOR__JOGADOR__SP2POSICAOMEDIO"
+										v-on="controls.JOGADOR__JOGADOR__SP2POSICAOMEDIO.handlers"
+										:loading="controls.JOGADOR__JOGADOR__SP2POSICAOMEDIO.props.loading"
+										:reporting-mode-on="reportingModeCAV"
+										:suggestion-mode-on="suggestionModeOn">
+										<q-select
+											v-if="controls.JOGADOR__JOGADOR__SP2POSICAOMEDIO.isVisible"
+											v-bind="controls.JOGADOR__JOGADOR__SP2POSICAOMEDIO.props"
+											@update:model-value="model.ValSp2posicaomedio.fnUpdateValue" />
+									</base-input-structure>
+								</q-col>
+								<q-col
+									v-if="controls.JOGADOR__JOGADOR__SP2POSICAOAT.isVisible"
+									cols="auto">
+									<base-input-structure
+										v-if="controls.JOGADOR__JOGADOR__SP2POSICAOAT.isVisible"
+										class="i-text"
+										v-bind="controls.JOGADOR__JOGADOR__SP2POSICAOAT"
+										v-on="controls.JOGADOR__JOGADOR__SP2POSICAOAT.handlers"
+										:loading="controls.JOGADOR__JOGADOR__SP2POSICAOAT.props.loading"
+										:reporting-mode-on="reportingModeCAV"
+										:suggestion-mode-on="suggestionModeOn">
+										<q-select
+											v-if="controls.JOGADOR__JOGADOR__SP2POSICAOAT.isVisible"
+											v-bind="controls.JOGADOR__JOGADOR__SP2POSICAOAT.props"
+											@update:model-value="model.ValSp2posicaoat.fnUpdateValue" />
+									</base-input-structure>
+								</q-col>
+								<q-col
+									v-if="controls.JOGADOR__JOGADOR__SP2POSICAODEF.isVisible"
+									cols="auto">
+									<base-input-structure
+										v-if="controls.JOGADOR__JOGADOR__SP2POSICAODEF.isVisible"
+										class="i-text"
+										v-bind="controls.JOGADOR__JOGADOR__SP2POSICAODEF"
+										v-on="controls.JOGADOR__JOGADOR__SP2POSICAODEF.handlers"
+										:loading="controls.JOGADOR__JOGADOR__SP2POSICAODEF.props.loading"
+										:reporting-mode-on="reportingModeCAV"
+										:suggestion-mode-on="suggestionModeOn">
+										<q-select
+											v-if="controls.JOGADOR__JOGADOR__SP2POSICAODEF.isVisible"
+											v-bind="controls.JOGADOR__JOGADOR__SP2POSICAODEF.props"
+											@update:model-value="model.ValSp2posicaodef.fnUpdateValue" />
 									</base-input-structure>
 								</q-col>
 							</q-row>
@@ -758,7 +809,7 @@
 						labelPosition: computed(() => this.labelAlignment.topleft),
 						isCollapsible: false,
 						anchored: false,
-						directChildren: ['JOGADOR_CLUBENOME____', 'JOGADOR__JOGADOR__NUMEROCAMISOLA', 'JOGADOR__JOGADOR__NOME', 'JOGADOR__JOGADOR__NATIONALIDADE', 'JOGADOR__JOGADOR__DATANASCIMENTO', 'JOGADOR__JOGADOR__IDADEJOGADOR', 'JOGADOR__JOGADOR__PEDOMINANTE', 'JOGADOR__JOGADOR__POSICAO', 'JOGADOR__JOGADOR__SPPOSICAOMEDIO', 'JOGADOR__JOGADOR__SPPOSICAOAT', 'JOGADOR__JOGADOR__SPPOSICAODEF', 'JOGADOR__JOGADOR__POSICAOSEGUNDARIA', 'JOGADOR__JOGADOR__EQUIPAANTERIOR', 'JOGADOR__JOGADOR__VALORMERCADO'],
+						directChildren: ['JOGADOR_CLUBENOME____', 'JOGADOR__JOGADOR__NUMEROCAMISOLA', 'JOGADOR__JOGADOR__NOME', 'JOGADOR__JOGADOR__NATIONALIDADE', 'JOGADOR__JOGADOR__DATANASCIMENTO', 'JOGADOR__JOGADOR__IDADEJOGADOR', 'JOGADOR__JOGADOR__PEDOMINANTE', 'JOGADOR__JOGADOR__POSICAO', 'JOGADOR__JOGADOR__SPPOSICAOMEDIO', 'JOGADOR__JOGADOR__SPPOSICAOAT', 'JOGADOR__JOGADOR__SPPOSICAODEF', 'JOGADOR__JOGADOR__POSICAOSEGUNDARIA', 'JOGADOR__JOGADOR__SP2POSICAOMEDIO', 'JOGADOR__JOGADOR__SP2POSICAOAT', 'JOGADOR__JOGADOR__SP2POSICAODEF', 'JOGADOR__JOGADOR__EQUIPAANTERIOR', 'JOGADOR__JOGADOR__VALORMERCADO'],
 						mustBeFilled: true,
 						controlLimits: [
 						],
@@ -1002,6 +1053,87 @@
 						controlLimits: [
 						],
 					}, this),
+					JOGADOR__JOGADOR__SP2POSICAOMEDIO: new fieldControlClass.ArrayStringControl({
+						modelField: 'ValSp2posicaomedio',
+						valueChangeEvent: 'fieldChange:jogador.sp2posicaomedio',
+						id: 'JOGADOR__JOGADOR__SP2POSICAOMEDIO',
+						name: 'SP2POSICAOMEDIO',
+						size: 'medium',
+						label: computed(() => this.Resources.ESPECIFICACAO_POSICA18874),
+						placeholder: '',
+						labelPosition: computed(() => this.labelAlignment.topleft),
+						container: 'JOGADOR_PSEUDNEWGRP01',
+						maxLength: 3,
+						arrayName: 'SPposicaoMedio',
+						helpShortItem: 'None',
+						helpDetailedItem: 'None',
+						controlLimits: [
+						],
+						showWhen: {
+							// eslint-disable-next-line @typescript-eslint/no-unused-vars
+							fnFormula(params)
+							{
+								// Formula: [JOGADOR->POSICAOSEGUNDARIA]== "MD"
+								return this.ValPosicaosegundaria.value==="MD"
+							},
+							dependencyEvents: ['fieldChange:jogador.posicaosegundaria'],
+							isServerRecalc: false,
+						},
+					}, this),
+					JOGADOR__JOGADOR__SP2POSICAOAT: new fieldControlClass.ArrayStringControl({
+						modelField: 'ValSp2posicaoat',
+						valueChangeEvent: 'fieldChange:jogador.sp2posicaoat',
+						id: 'JOGADOR__JOGADOR__SP2POSICAOAT',
+						name: 'SP2POSICAOAT',
+						size: 'medium',
+						label: computed(() => this.Resources.ESPECIFICACAO_POSICA18874),
+						placeholder: '',
+						labelPosition: computed(() => this.labelAlignment.topleft),
+						container: 'JOGADOR_PSEUDNEWGRP01',
+						maxLength: 1,
+						arrayName: 'SPposicao',
+						helpShortItem: 'None',
+						helpDetailedItem: 'None',
+						controlLimits: [
+						],
+						showWhen: {
+							// eslint-disable-next-line @typescript-eslint/no-unused-vars
+							fnFormula(params)
+							{
+								// Formula: [JOGADOR->POSICAOSEGUNDARIA]== "AT"
+								return this.ValPosicaosegundaria.value==="AT"
+							},
+							dependencyEvents: ['fieldChange:jogador.posicaosegundaria'],
+							isServerRecalc: false,
+						},
+					}, this),
+					JOGADOR__JOGADOR__SP2POSICAODEF: new fieldControlClass.ArrayStringControl({
+						modelField: 'ValSp2posicaodef',
+						valueChangeEvent: 'fieldChange:jogador.sp2posicaodef',
+						id: 'JOGADOR__JOGADOR__SP2POSICAODEF',
+						name: 'SP2POSICAODEF',
+						size: 'medium',
+						label: computed(() => this.Resources.ESPECIFICACAO_POSICA18874),
+						placeholder: '',
+						labelPosition: computed(() => this.labelAlignment.topleft),
+						container: 'JOGADOR_PSEUDNEWGRP01',
+						maxLength: 1,
+						arrayName: 'SPposicao',
+						helpShortItem: 'None',
+						helpDetailedItem: 'None',
+						controlLimits: [
+						],
+						showWhen: {
+							// eslint-disable-next-line @typescript-eslint/no-unused-vars
+							fnFormula(params)
+							{
+								// Formula: [JOGADOR->POSICAOSEGUNDARIA]== "DEF"
+								return this.ValPosicaosegundaria.value==="DEF"
+							},
+							dependencyEvents: ['fieldChange:jogador.posicaosegundaria'],
+							isServerRecalc: false,
+						},
+					}, this),
 					JOGADOR__JOGADOR__EQUIPAANTERIOR: new fieldControlClass.StringControl({
 						modelField: 'ValEquipaanterior',
 						valueChangeEvent: 'fieldChange:jogador.equipaanterior',
@@ -1081,6 +1213,12 @@
 						set ValPosicao(value) { vm.model.ValPosicao.updateValue(value) },
 						get ValPosicaosegundaria() { return vm.model.ValPosicaosegundaria.value },
 						set ValPosicaosegundaria(value) { vm.model.ValPosicaosegundaria.updateValue(value) },
+						get ValSp2posicaoat() { return vm.model.ValSp2posicaoat.value },
+						set ValSp2posicaoat(value) { vm.model.ValSp2posicaoat.updateValue(value) },
+						get ValSp2posicaodef() { return vm.model.ValSp2posicaodef.value },
+						set ValSp2posicaodef(value) { vm.model.ValSp2posicaodef.updateValue(value) },
+						get ValSp2posicaomedio() { return vm.model.ValSp2posicaomedio.value },
+						set ValSp2posicaomedio(value) { vm.model.ValSp2posicaomedio.updateValue(value) },
 						get ValSpposicaoat() { return vm.model.ValSpposicaoat.value },
 						set ValSpposicaoat(value) { vm.model.ValSpposicaoat.updateValue(value) },
 						get ValSpposicaodef() { return vm.model.ValSpposicaodef.value },

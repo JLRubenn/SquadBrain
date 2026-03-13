@@ -387,7 +387,7 @@
 							defaultSearchColumnName: 'ValNome',
 							defaultSearchColumnNameOriginal: 'ValNome',
 							defaultColumnSorting: {
-								columnName: 'Clube.ValNome',
+								columnName: 'ValNumerocamisola',
 								sortOrder: 'asc'
 							}
 						},
@@ -422,8 +422,8 @@
 										key: '5'
 									},
 								],
-								selected: undefined,
-								default: undefined
+								selected: '1',
+								default: '1'
 							},
 						],
 						globalEvents: ['changed-JOGADOR', 'changed-CLUBE'],
@@ -505,7 +505,7 @@
 										isMapped: false
 									},
 									showColumnTitles: {
-										rawValue: false,
+										rawValue: true,
 										isMapped: false
 									},
 									showEmptyColumnTitles: {

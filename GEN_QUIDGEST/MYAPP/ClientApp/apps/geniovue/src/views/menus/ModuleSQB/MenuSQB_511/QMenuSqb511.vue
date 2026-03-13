@@ -148,7 +148,7 @@
 						columnsOriginal: [
 							new listColumnTypes.TextColumn({
 								order: 1,
-								name: 'Clube.ValNome',
+								name: '.ValNome',
 								area: 'CLUBE',
 								field: 'NOME',
 								label: computed(() => this.Resources.NOME47814),
@@ -347,7 +347,7 @@
 								sortOrder: 'asc'
 							}
 						},
-						globalEvents: ['changed-CLUBE', 'changed-JOGO'],
+						globalEvents: ['changed-JOGO'],
 						uuid: 'da00c309-0491-44d2-a8c0-78e91aaaafd3',
 						allSelectedRows: 'false',
 						viewModes: [

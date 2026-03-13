@@ -875,7 +875,7 @@
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 							new listColumnTypes.DateColumn({
 								order: 8,
-								name: 'Treino.ValData',
+								name: '.ValData',
 								area: 'TREINO',
 								field: 'DATA',
 								label: computed(() => this.Resources.DATA18071),
@@ -1016,14 +1016,14 @@
 									isPopup: true
 								},
 							},
-							defaultSearchColumnName: 'Treino.ValData',
-							defaultSearchColumnNameOriginal: 'Treino.ValData',
+							defaultSearchColumnName: '.ValData',
+							defaultSearchColumnNameOriginal: '.ValData',
 							defaultColumnSorting: {
 								columnName: '',
 								sortOrder: 'asc'
 							}
 						},
-						globalEvents: ['changed-EXERCICIO', 'changed-TREINO'],
+						globalEvents: ['changed-EXERCICIO'],
 						uuid: 'Treino_ValExercicio',
 						allSelectedRows: 'false',
 						viewModes: [
@@ -1040,12 +1040,17 @@
 											'EXERCICIO.TITULO',
 										]
 									},
-									text: {
-										allowsMultiple: true,
+									subtitle: {
+										allowsMultiple: false,
 										sources: [
 											'EXERCICIO.TEMPO',
 											'EXERCICIO.NUMJOGADOR',
 											'EXERCICIO.ESPACO',
+										]
+									},
+									text: {
+										allowsMultiple: true,
+										sources: [
 											'EXERCICIO.DESCRICAO',
 											'EXERCICIO.OBJETIVO',
 										]
@@ -1111,7 +1116,7 @@
 										isMapped: false
 									},
 									showColumnTitles: {
-										rawValue: false,
+										rawValue: true,
 										isMapped: false
 									},
 									showEmptyColumnTitles: {
@@ -1166,8 +1171,6 @@
 						set ValNome(value) { vm.model.TableTreinadorNome.updateValue(value) },
 					},
 					Treino: {
-						get ValCodclube() { return vm.model.ValCodclube.value },
-						set ValCodclube(value) { vm.model.ValCodclube.updateValue(value) },
 						get ValCodjogador() { return vm.model.ValCodjogador.value },
 						set ValCodjogador(value) { vm.model.ValCodjogador.updateValue(value) },
 						get ValCodtreinador() { return vm.model.ValCodtreinador.value },
@@ -1192,8 +1195,6 @@
 						get treino() { return vm.model.ValCodtreino },
 						/** The foreign key to the TREINADOR table */
 						get treinador() { return vm.model.ValCodtreinador },
-						/** The foreign key to the CLUBE table */
-						get clube() { return vm.model.ValCodclube },
 						/** The foreign key to the JOGADOR table */
 						get jogador() { return vm.model.ValCodjogador },
 					},

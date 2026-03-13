@@ -54,16 +54,6 @@ namespace CSGenio.business
 			info.RegisterFieldDB(Qfield);
 
 			//- - - - - - - - - - - - - - - - - - -
-			Qfield = new Field(info.Alias, "codjogo", FieldType.KEY_INT);
-			Qfield.FieldDescription = "Jogo";
-			Qfield.FieldSize =  8;
-			Qfield.MQueue = false;
-			Qfield.CavDesignation = "JOGO37147";
-
-			Qfield.Dupmsg = "";
-			info.RegisterFieldDB(Qfield);
-
-			//- - - - - - - - - - - - - - - - - - -
 			Qfield = new Field(info.Alias, "codjogador", FieldType.KEY_INT);
 			Qfield.FieldDescription = "Jogador";
 			Qfield.FieldSize =  8;
@@ -92,7 +82,6 @@ namespace CSGenio.business
 			//------------------------------
 			info.ParentTables = new Dictionary<string, Relation>();
 			info.ParentTables.Add("jogador", new Relation("SQB", "sqbconvocatoria", "convocatoria", "codconvocatoria", "codjogador", "SQB", "sqbjogador", "jogador", "codjogador", "codjogador"));
-			info.ParentTables.Add("jogo", new Relation("SQB", "sqbconvocatoria", "convocatoria", "codconvocatoria", "codjogo", "SQB", "sqbjogo", "jogo", "codjogo", "codjogo"));
 		}
 
 		/// <summary>
@@ -102,10 +91,9 @@ namespace CSGenio.business
 		{
 			// Pathways
 			//------------------------------
-			info.Pathways = new Dictionary<string, string>(3);
-			info.Pathways.Add("jogo","jogo");
+			info.Pathways = new Dictionary<string, string>(2);
 			info.Pathways.Add("jogador","jogador");
-			info.Pathways.Add("clube","jogo");
+			info.Pathways.Add("clube","jogador");
 		}
 
 		/// <summary>
@@ -144,7 +132,7 @@ namespace CSGenio.business
 			info.ShadowTabKeyName="";
 
 			info.PrimaryKeyName="codconvocatoria";
-			info.HumanKeyName="codjogo,".TrimEnd(',');
+			info.HumanKeyName="";
 			info.Alias="convocatoria";
 			info.IsDomain = true;
 			info.PersistenceType = PersistenceType.Database;
@@ -234,17 +222,6 @@ namespace CSGenio.business
 		{
 			get { return (string)returnValueField(FldCodconvocatoria); }
 			set { insertNameValueField(FldCodconvocatoria, value); }
-		}
-
-		/// <summary>Field : "Jogo" Tipo: "CE" Formula:  ""</summary>
-		public static FieldRef FldCodjogo { get { return m_fldCodjogo; } }
-		private static FieldRef m_fldCodjogo = new FieldRef("convocatoria", "codjogo");
-
-		/// <summary>Field : "Jogo" Tipo: "CE" Formula:  ""</summary>
-		public string ValCodjogo
-		{
-			get { return (string)returnValueField(FldCodjogo); }
-			set { insertNameValueField(FldCodjogo, value); }
 		}
 
 		/// <summary>Field : "Jogador" Tipo: "CE" Formula:  ""</summary>
@@ -355,7 +332,7 @@ namespace CSGenio.business
 		// USE /[MANUAL SQB TABAUX CONVOCATORIA]/
 
  
-    
+   
 
 	}
 }

@@ -199,6 +199,9 @@ namespace GenioMVC.ViewModels.Jogador
 				new Exports.QColumn(CSGenioAjogador.FldSpposicaodef, FieldType.ARRAY_TEXT, Resources.Resources.ESPECIFICACAO_POSICA24622, 1, 0, true, "SPposicao"),
 				new Exports.QColumn(CSGenioAjogador.FldValormercado, FieldType.CURRENCY, Resources.Resources.VALOR_MERCADO__M_33616, 14, 2, true),
 				new Exports.QColumn(CSGenioAjogador.FldNationalidade, FieldType.TEXT, Resources.Resources.NATIONALIDADE48376, 50, 0, true),
+				new Exports.QColumn(CSGenioAjogador.FldSp2posicaomedio, FieldType.ARRAY_TEXT, Resources.Resources.ESPECIFICACAO_POSICA18874, 3, 0, true, "SPposicaoMedio"),
+				new Exports.QColumn(CSGenioAjogador.FldSp2posicaoat, FieldType.ARRAY_TEXT, Resources.Resources.ESPECIFICACAO_POSICA18874, 1, 0, true, "SPposicao"),
+				new Exports.QColumn(CSGenioAjogador.FldSp2posicaodef, FieldType.ARRAY_TEXT, Resources.Resources.ESPECIFICACAO_POSICA18874, 1, 0, true, "SPposicao"),
 				new Exports.QColumn(CSGenioAclube.FldNome, FieldType.TEXT, Resources.Resources.EQUIPA_ATUAL12425, 30, 0, true),
 			};
 		}
@@ -232,7 +235,7 @@ namespace GenioMVC.ViewModels.Jogador
 
 			if (!tableConfig.GroupFilters.ContainsKey("filter_SQB_Menu_31_TYPEFILTER"))
 			{
-				string defaultValue = "";
+				string defaultValue = "1";
 				tableConfig.Filters.Add(new GroupFilter { Key = "filter_SQB_Menu_31_TYPEFILTER", Value = defaultValue });
 			}
 
@@ -241,6 +244,8 @@ namespace GenioMVC.ViewModels.Jogador
 				bool filter_SQB_Menu_31_TYPEFILTER_1 = false;
 				if (tableConfig.GroupFilters.ContainsKey("filter_SQB_Menu_31_TYPEFILTER"))
 					filter_SQB_Menu_31_TYPEFILTER_1 = tableConfig.GroupFilters["filter_SQB_Menu_31_TYPEFILTER"].Contains("1");
+				else if (!tableConfig.GroupFilters.ContainsKey("filter_SQB_Menu_31_TYPEFILTER"))
+					filter_SQB_Menu_31_TYPEFILTER_1 = true;
 				if (filter_SQB_Menu_31_TYPEFILTER_1)
 				{
 
@@ -395,8 +400,8 @@ namespace GenioMVC.ViewModels.Jogador
 
 			//FOR: MENU LIST SORTING
 			Dictionary<string, OrderedDictionary> allSortOrders = new Dictionary<string, OrderedDictionary>();
-			allSortOrders.Add("CLUBE.NOME", new OrderedDictionary());
-			allSortOrders["CLUBE.NOME"].Add("CLUBE.NOME", "A");
+			allSortOrders.Add("JOGADOR.NUMEROCAMISOLA", new OrderedDictionary());
+			allSortOrders["JOGADOR.NUMEROCAMISOLA"].Add("JOGADOR.NUMEROCAMISOLA", "A");
 
 
 			int numberListItems = tableConfig.RowsPerPage;
@@ -411,7 +416,7 @@ namespace GenioMVC.ViewModels.Jogador
 			if (sorts == null || sorts.Count == 0)
 			{
 				sorts = new List<ColumnSort>();
-				sorts.Add(new ColumnSort(new ColumnReference(CSGenioAclube.FldNome), SortOrder.Ascending));
+				sorts.Add(new ColumnSort(new ColumnReference(CSGenioAjogador.FldNumerocamisola), SortOrder.Ascending));
 
 			}
 

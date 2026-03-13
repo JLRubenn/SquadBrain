@@ -64,16 +64,6 @@ namespace CSGenio.business
 			info.RegisterFieldDB(Qfield);
 
 			//- - - - - - - - - - - - - - - - - - -
-			Qfield = new Field(info.Alias, "codclube", FieldType.KEY_INT);
-			Qfield.FieldDescription = "Clube";
-			Qfield.FieldSize =  8;
-			Qfield.MQueue = false;
-			Qfield.CavDesignation = "CLUBE52443";
-
-			Qfield.Dupmsg = "";
-			info.RegisterFieldDB(Qfield);
-
-			//- - - - - - - - - - - - - - - - - - -
 			Qfield = new Field(info.Alias, "data", FieldType.DATETIME);
 			Qfield.FieldDescription = "Data";
 			Qfield.FieldSize =  16;
@@ -172,14 +162,12 @@ namespace CSGenio.business
 		{
 			// Daughters Relations
 			//------------------------------
-			info.ChildTable = new ChildRelation[2];
-			info.ChildTable[0]= new ChildRelation("exercicio", new String[] {"codtreino"}, DeleteProc.NA);
-			info.ChildTable[1]= new ChildRelation("presenca", new String[] {"codtreino"}, DeleteProc.NA);
+			info.ChildTable = new ChildRelation[1];
+			info.ChildTable[0]= new ChildRelation("presenca", new String[] {"codtreino"}, DeleteProc.NA);
 
 			// Mother Relations
 			//------------------------------
 			info.ParentTables = new Dictionary<string, Relation>();
-			info.ParentTables.Add("clube", new Relation("SQB", "sqbtreino", "treino", "codtreino", "codclube", "SQB", "sqbclube", "clube", "codclube", "codclube"));
 			info.ParentTables.Add("jogador", new Relation("SQB", "sqbtreino", "treino", "codtreino", "codjogador", "SQB", "sqbjogador", "jogador", "codjogador", "codjogador"));
 			info.ParentTables.Add("treinador", new Relation("SQB", "sqbtreino", "treino", "codtreino", "codtreinador", "SQB", "sqbtreinador", "treinador", "codtreinador", "codtreinador"));
 		}
@@ -192,9 +180,9 @@ namespace CSGenio.business
 			// Pathways
 			//------------------------------
 			info.Pathways = new Dictionary<string, string>(3);
-			info.Pathways.Add("clube","clube");
 			info.Pathways.Add("treinador","treinador");
 			info.Pathways.Add("jogador","jogador");
+			info.Pathways.Add("clube","treinador");
 		}
 
 		/// <summary>
@@ -348,17 +336,6 @@ namespace CSGenio.business
 		{
 			get { return (string)returnValueField(FldCodtreinador); }
 			set { insertNameValueField(FldCodtreinador, value); }
-		}
-
-		/// <summary>Field : "Clube" Tipo: "CE" Formula:  ""</summary>
-		public static FieldRef FldCodclube { get { return m_fldCodclube; } }
-		private static FieldRef m_fldCodclube = new FieldRef("treino", "codclube");
-
-		/// <summary>Field : "Clube" Tipo: "CE" Formula:  ""</summary>
-		public string ValCodclube
-		{
-			get { return (string)returnValueField(FldCodclube); }
-			set { insertNameValueField(FldCodclube, value); }
 		}
 
 		/// <summary>Field : "Data" Tipo: "DT" Formula:  ""</summary>
@@ -546,7 +523,7 @@ namespace CSGenio.business
 		// USE /[MANUAL SQB TABAUX TREINO]/
 
  
-            
+           
 
 	}
 }

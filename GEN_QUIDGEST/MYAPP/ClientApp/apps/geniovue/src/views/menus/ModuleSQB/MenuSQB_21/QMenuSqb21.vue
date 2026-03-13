@@ -326,7 +326,7 @@
 							defaultSearchColumnName: 'ValNome',
 							defaultSearchColumnNameOriginal: 'ValNome',
 							defaultColumnSorting: {
-								columnName: 'ValNome',
+								columnName: 'ValFuncao',
 								sortOrder: 'asc'
 							}
 						},

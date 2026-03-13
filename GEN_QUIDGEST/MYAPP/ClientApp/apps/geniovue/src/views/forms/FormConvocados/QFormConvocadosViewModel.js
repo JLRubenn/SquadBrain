@@ -53,18 +53,6 @@ export default class ViewModel extends FormViewModelBase
 		}).cloneFrom(values?.ValCodconvocatoria))
 		this.stopWatchers.push(watch(() => this.ValCodconvocatoria.value, (newValue, oldValue) => this.onUpdate('convocatoria.codconvocatoria', this.ValCodconvocatoria, newValue, oldValue)))
 
-		/** The hidden foreign keys. */
-		this.ValCodjogo = reactive(new modelFieldType.ForeignKey({
-			id: 'ValCodjogo',
-			originId: 'ValCodjogo',
-			area: 'CONVOCATORIA',
-			field: 'CODJOGO',
-			relatedArea: 'JOGO',
-			isFixed: true,
-			description: computed(() => this.Resources.JOGO37147),
-		}).cloneFrom(values?.ValCodjogo))
-		this.stopWatchers.push(watch(() => this.ValCodjogo.value, (newValue, oldValue) => this.onUpdate('convocatoria.codjogo', this.ValCodjogo, newValue, oldValue)))
-
 		/** The used foreign keys. */
 		this.ValCodjogador = reactive(new modelFieldType.ForeignKey({
 			id: 'ValCodjogador',

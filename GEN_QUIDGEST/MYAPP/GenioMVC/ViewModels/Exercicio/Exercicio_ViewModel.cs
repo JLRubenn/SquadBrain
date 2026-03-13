@@ -30,11 +30,6 @@ namespace GenioMVC.ViewModels.Exercicio
 		public bool MsqActive { get; set; } = false;
 
 		#region Foreign keys
-		/// <summary>
-		/// Title: "" | Type: "CE"
-		/// </summary>
-		[ValidateSetAccess]
-		public string ValCodtreino { get; set; }
 
 		#endregion
 		/// <summary>
@@ -197,7 +192,6 @@ namespace GenioMVC.ViewModels.Exercicio
 
 			try
 			{
-				ValCodtreino = ViewModelConversion.ToString(m.ValCodtreino);
 				ValTitulo = ViewModelConversion.ToString(m.ValTitulo);
 				ValFoto = ViewModelConversion.ToImage(m.ValFoto);
 				ValTempo = ViewModelConversion.ToNumeric(m.ValTempo);
@@ -240,15 +234,6 @@ namespace GenioMVC.ViewModels.Exercicio
 				m.ValObjetivo = ViewModelConversion.ToString(ValObjetivo);
 				m.ValDescricao = ViewModelConversion.ToString(ValDescricao);
 				m.ValCodexercicio = ViewModelConversion.ToString(ValCodexercicio);
-
-				/*
-					At this moment, in the case of runtime calculation of server-side formulas, to improve performance and reduce database load,
-						the values coming from the client-side will be accepted as valid, since they will not be saved and are only being used for calculation.
-				*/
-				if (!HasDisabledUserValuesSecurity)
-					return;
-
-				m.ValCodtreino = ViewModelConversion.ToString(ValCodtreino);
 			}
 			catch (Exception)
 			{
@@ -462,7 +447,6 @@ namespace GenioMVC.ViewModels.Exercicio
 		{
 			return identifier switch
 			{
-				"exercicio.codtreino" => ViewModelConversion.ToString(modelValue),
 				"exercicio.titulo" => ViewModelConversion.ToString(modelValue),
 				"exercicio.foto" => ViewModelConversion.ToImage(modelValue),
 				"exercicio.tempo" => ViewModelConversion.ToNumeric(modelValue),

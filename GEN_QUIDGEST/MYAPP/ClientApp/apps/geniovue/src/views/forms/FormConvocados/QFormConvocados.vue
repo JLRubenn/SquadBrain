@@ -623,8 +623,6 @@
 					Convocatoria: {
 						get ValCodjogador() { return vm.model.ValCodjogador.value },
 						set ValCodjogador(value) { vm.model.ValCodjogador.updateValue(value) },
-						get ValCodjogo() { return vm.model.ValCodjogo.value },
-						set ValCodjogo(value) { vm.model.ValCodjogo.updateValue(value) },
 					},
 					Jogador: {
 						get ValNome() { return vm.model.TableJogadorNome.value },
@@ -639,8 +637,6 @@
 					keys: {
 						/** The primary key of the CONVOCATORIA table */
 						get convocatoria() { return vm.model.ValCodconvocatoria },
-						/** The foreign key to the JOGO table */
-						get jogo() { return vm.model.ValCodjogo },
 						/** The foreign key to the JOGADOR table */
 						get jogador() { return vm.model.ValCodjogador },
 					},

@@ -34,11 +34,6 @@ namespace GenioMVC.ViewModels.Treino
 		/// Title: "" | Type: "CE"
 		/// </summary>
 		[ValidateSetAccess]
-		public string ValCodclube { get; set; }
-		/// <summary>
-		/// Title: "" | Type: "CE"
-		/// </summary>
-		[ValidateSetAccess]
 		public string ValCodjogador { get; set; }
 		/// <summary>
 		/// Title: "Feito por..." | Type: "CE"
@@ -210,7 +205,6 @@ namespace GenioMVC.ViewModels.Treino
 
 			try
 			{
-				ValCodclube = ViewModelConversion.ToString(m.ValCodclube);
 				ValCodjogador = ViewModelConversion.ToString(m.ValCodjogador);
 				ValCodtreinador = ViewModelConversion.ToString(m.ValCodtreinador);
 				ValNumtreino = ViewModelConversion.ToNumeric(m.ValNumtreino);
@@ -263,7 +257,6 @@ namespace GenioMVC.ViewModels.Treino
 				if (!HasDisabledUserValuesSecurity)
 					return;
 
-				m.ValCodclube = ViewModelConversion.ToString(ValCodclube);
 				m.ValCodjogador = ViewModelConversion.ToString(ValCodjogador);
 			}
 			catch (Exception)
@@ -670,7 +663,6 @@ namespace GenioMVC.ViewModels.Treino
 		{
 			return identifier switch
 			{
-				"treino.codclube" => ViewModelConversion.ToString(modelValue),
 				"treino.codjogador" => ViewModelConversion.ToString(modelValue),
 				"treino.codtreinador" => ViewModelConversion.ToString(modelValue),
 				"treino.numtreino" => ViewModelConversion.ToNumeric(modelValue),

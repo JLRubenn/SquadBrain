@@ -79,6 +79,21 @@ public class JogadorForm : Form
 	public EnumControl JogadorPosicaosegundaria => new EnumControl(driver, ContainerLocator, "container-JOGADOR__JOGADOR__POSICAOSEGUNDARIA");
 
 	/// <summary>
+	/// Especificação Posição Segundaria
+	/// </summary>
+	public EnumControl JogadorSp2posicaomedio => new EnumControl(driver, ContainerLocator, "container-JOGADOR__JOGADOR__SP2POSICAOMEDIO");
+
+	/// <summary>
+	/// Especificação Posição Segundaria
+	/// </summary>
+	public EnumControl JogadorSp2posicaoat => new EnumControl(driver, ContainerLocator, "container-JOGADOR__JOGADOR__SP2POSICAOAT");
+
+	/// <summary>
+	/// Especificação Posição Segundaria
+	/// </summary>
+	public EnumControl JogadorSp2posicaodef => new EnumControl(driver, ContainerLocator, "container-JOGADOR__JOGADOR__SP2POSICAODEF");
+
+	/// <summary>
 	/// Equipa Anterior
 	/// </summary>
 	public BaseInputControl JogadorEquipaanterior => new BaseInputControl(driver, ContainerLocator, "container-JOGADOR__JOGADOR__EQUIPAANTERIOR", "#JOGADOR__JOGADOR__EQUIPAANTERIOR");

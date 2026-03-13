@@ -615,6 +615,9 @@
 	<data name="MODULE42049" xml:space="preserve">
 		<value>Module</value>
 	</data>
+	<data name="ESPECIFICACAO_POSICA18874" xml:space="preserve">
+		<value>Especificação Posição Segundaria</value>
+	</data>
 	<data name="ASYNC_PROCESS_ATTACH04785" xml:space="preserve">
 		<value>Async process attachments</value>
 	</data>

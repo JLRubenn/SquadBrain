@@ -1617,7 +1617,7 @@ namespace CSGenio.business
         }
 
         /// <summary>
-        /// My application theme variables
+        /// SquadBrain theme variables
         /// </summary>
         private static readonly Dictionary<string, string> MYAPP_THEME_VARIABLES = new Dictionary<string, string>()
         {
@@ -1636,9 +1636,9 @@ namespace CSGenio.business
             { "$font-family-sans-serif", "\"Lato\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"" },
             { "$font-headings", "$font-family-sans-serif" },
             { "$headings-text-transform", "uppercase" },
-            { "$primary", "#008ad2" },
-            { "$secondary", "#001d31" },
-            { "$highlight", "#ff8241" },
+            { "$primary", "#198754" },
+            { "$secondary", "#051b10" },
+            { "$highlight", "#6f42c1" },
             { "$action-focus-width", "2px" },
             { "$action-focus-style", "solid" },
             { "$action-focus-color", "#201060" },
@@ -1653,8 +1653,8 @@ namespace CSGenio.business
             { "$wizard-content", "standard" },
             { "$btn-align-right", "false" },
             { "$menu-multi-level", "true" },
-            { "$primary-light", "#cde5ff" },
-            { "$primary-dark", "#006398" },
+            { "$primary-light", "#A3CFBA" },
+            { "$primary-dark", "#0f5132" },
             { "$success", "#28a745" },
             { "$danger", "#b71c1c" },
             { "$light", "#EAEBEC" },

@@ -1944,6 +1944,15 @@ namespace GenioMVC.Resources
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to "SquadBrain"
+		/// </summary>
+		public static string SQUADBRAIN55445 {
+			get {
+				return ResourceManager.GetString("SQUADBRAIN55445", resourceCulture);
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to "Process Types"
 		/// </summary>
 		public static string PROCESS_TYPES19050 {

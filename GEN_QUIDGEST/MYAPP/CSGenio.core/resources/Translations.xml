@@ -627,6 +627,9 @@
   <msg id="Ambos" code="AMBOS22410">
     <ENUS>Ambos</ENUS>
   </msg>
+  <msg id="SquadBrain" code="SQUADBRAIN55445">
+    <ENUS>SquadBrain</ENUS>
+  </msg>
   <msg id="Process Types" code="PROCESS_TYPES19050">
     <ENUS>Process Types</ENUS>
   </msg>

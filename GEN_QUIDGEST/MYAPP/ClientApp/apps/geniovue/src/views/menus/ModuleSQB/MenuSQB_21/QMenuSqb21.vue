@@ -134,7 +134,7 @@
 				model: new MenuViewModel(this),
 
 				controls: {
-					menu: new controlClass.TableListControl({
+					menu: new controlClass.TableSpecialRenderingControl({
 						fnHydrateViewModel: (data) => vm.model.hydrate(data),
 						id: 'SQB_Menu_21',
 						controller: 'TREINADOR',
@@ -333,6 +333,21 @@
 						globalEvents: ['changed-CLUBE', 'changed-TREINADOR'],
 						uuid: '5ba0ff1b-89f5-40ca-8277-e6289e6181e5',
 						allSelectedRows: 'false',
+						viewModes: [
+							{
+								id: 'LIST',
+								type: 'list',
+								subtype: '',
+								label: computed(() => this.Resources.LISTA13474),
+								order: 1,
+								mappingVariables: readonly({
+								}),
+								styleVariables: {
+								},
+								groups: {
+								}
+							},
+						],
 						headerLevel: 1,
 						isActiveControl: computed(() => this.isActiveMenu)
 					}, this),

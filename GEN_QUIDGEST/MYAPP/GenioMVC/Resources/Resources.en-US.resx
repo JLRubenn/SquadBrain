@@ -744,6 +744,9 @@
 	<data name="AMBOS22410" xml:space="preserve">
 		<value>Ambos</value>
 	</data>
+	<data name="SQUADBRAIN55445" xml:space="preserve">
+		<value>SquadBrain</value>
+	</data>
 	<data name="PROCESS_TYPES19050" xml:space="preserve">
 		<value>Process Types</value>
 	</data>

@@ -6,7 +6,7 @@ namespace CSGenio.framework
     public class ClientApplication
     {
         public static readonly ClientApplication MYAPP = 
-            new ClientApplication("MYAPP", "My application") 
+            new ClientApplication("MYAPP", "SquadBrain") 
             {
                 Modules = new Dictionary<string, string>
 				{

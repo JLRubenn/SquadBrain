@@ -288,7 +288,7 @@
 								sortOrder: 'asc'
 							}
 						},
-						globalEvents: ['changed-JOGO'],
+						globalEvents: ['changed-CLUBE', 'changed-JOGO'],
 						uuid: 'd1d1fb8c-2ecb-4105-b577-84ea2b2390f8',
 						allSelectedRows: 'false',
 						headerLevel: 1,

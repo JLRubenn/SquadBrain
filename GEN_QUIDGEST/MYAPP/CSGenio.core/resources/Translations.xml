@@ -189,6 +189,9 @@
   <msg id="To" code="TO55217">
     <ENUS>To</ENUS>
   </msg>
+  <msg id="CODCLUBE" code="CODCLUBE53411">
+    <ENUS>CODCLUBE</ENUS>
+  </msg>
   <msg id="Resultados" code="RESULTADOS20000">
     <ENUS>Resultados</ENUS>
   </msg>
@@ -278,6 +281,9 @@
   </msg>
   <msg id="Presidente" code="PRESIDENTE51745">
     <ENUS>Presidente</ENUS>
+  </msg>
+  <msg id="CODTREINO" code="CODTREINO05790">
+    <ENUS>CODTREINO</ENUS>
   </msg>
   <msg id="Feito por..." code="FEITO_POR___22778">
     <ENUS>Feito por...</ENUS>

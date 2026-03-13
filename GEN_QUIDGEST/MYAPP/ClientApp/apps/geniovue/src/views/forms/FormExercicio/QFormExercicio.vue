@@ -680,6 +680,8 @@
 				 */
 				dataApi: {
 					Exercicio: {
+						get ValCodtreino() { return vm.model.ValCodtreino.value },
+						set ValCodtreino(value) { vm.model.ValCodtreino.updateValue(value) },
 						get ValDescricao() { return vm.model.ValDescricao.value },
 						set ValDescricao(value) { vm.model.ValDescricao.updateValue(value) },
 						get ValEspaco() { return vm.model.ValEspaco.value },
@@ -698,6 +700,8 @@
 					keys: {
 						/** The primary key of the EXERCICIO table */
 						get exercicio() { return vm.model.ValCodexercicio },
+						/** The foreign key to the TREINO table */
+						get treino() { return vm.model.ValCodtreino },
 					},
 					get extraProperties() { return vm.model.extraProperties },
 				},

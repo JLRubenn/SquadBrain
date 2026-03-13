@@ -875,7 +875,7 @@
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 							new listColumnTypes.DateColumn({
 								order: 8,
-								name: '.ValData',
+								name: 'Treino.ValData',
 								area: 'TREINO',
 								field: 'DATA',
 								label: computed(() => this.Resources.DATA18071),
@@ -1016,14 +1016,14 @@
 									isPopup: true
 								},
 							},
-							defaultSearchColumnName: '.ValData',
-							defaultSearchColumnNameOriginal: '.ValData',
+							defaultSearchColumnName: 'Treino.ValData',
+							defaultSearchColumnNameOriginal: 'Treino.ValData',
 							defaultColumnSorting: {
 								columnName: '',
 								sortOrder: 'asc'
 							}
 						},
-						globalEvents: ['changed-EXERCICIO'],
+						globalEvents: ['changed-TREINO', 'changed-EXERCICIO'],
 						uuid: 'Treino_ValExercicio',
 						allSelectedRows: 'false',
 						viewModes: [

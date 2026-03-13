@@ -69,6 +69,26 @@ namespace GenioMVC.Models
 		[DataType(DataType.MultilineText)]
 		public string ValObjetivo { get { return klass.ValObjetivo; } set { klass.ValObjetivo = value; } }
 
+		[DisplayName("CODTREINO")]
+		/// <summary>Field : "CODTREINO" Tipo: "CE" Formula:  ""</summary>
+		[ShouldSerialize("Exercicio.ValCodtreino")]
+		public string ValCodtreino { get { return klass.ValCodtreino; } set { klass.ValCodtreino = value; } }
+
+		private Treino _treino;
+		[DisplayName("Treino")]
+		[ShouldSerialize("Treino")]
+		public virtual Treino Treino
+		{
+			get
+			{
+				if (!isEmptyModel && (_treino == null || (!string.IsNullOrEmpty(ValCodtreino) && (_treino.isEmptyModel || _treino.klass.QPrimaryKey != ValCodtreino))))
+					_treino = Models.Treino.Find(ValCodtreino, m_userContext, Identifier, _fieldsToSerialize);
+				_treino ??= new Models.Treino(m_userContext, true, _fieldsToSerialize);
+				return _treino;
+			}
+			set { _treino = value; }
+		}
+
 		[DisplayName("ZZSTATE")]
 		[ShouldSerialize("Exercicio.ValZzstate")]
 		/// <summary>Field: "ZZSTATE", Type: "INT", Formula: ""</summary>
@@ -100,6 +120,10 @@ namespace GenioMVC.Models
 			{
 				switch (Qfield.Area)
 				{
+					case "treino":
+						_treino ??= new Treino(m_userContext, true, _fieldsToSerialize);
+						_treino.klass.insertNameValueField(Qfield.FullName, Qfield.Value);
+						break;
 					default:
 						break;
 				}

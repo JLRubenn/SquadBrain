@@ -628,6 +628,15 @@ namespace Administration.Resources {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to "CODCLUBE"
+        /// </summary>
+        public static string CODCLUBE53411 {
+            get {
+                return ResourceManager.GetString("CODCLUBE53411", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to "Resultados"
         /// </summary>
         public static string RESULTADOS20000 {
@@ -894,6 +903,15 @@ namespace Administration.Resources {
         public static string PRESIDENTE51745 {
             get {
                 return ResourceManager.GetString("PRESIDENTE51745", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to "CODTREINO"
+        /// </summary>
+        public static string CODTREINO05790 {
+            get {
+                return ResourceManager.GetString("CODTREINO05790", resourceCulture);
             }
         }
 

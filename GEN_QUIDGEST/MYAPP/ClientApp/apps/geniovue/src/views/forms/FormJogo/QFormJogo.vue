@@ -623,6 +623,8 @@
 				 */
 				dataApi: {
 					Jogo: {
+						get ValCodclube() { return vm.model.ValCodclube.value },
+						set ValCodclube(value) { vm.model.ValCodclube.updateValue(value) },
 						get ValData() { return vm.model.ValData.value },
 						set ValData(value) { vm.model.ValData.updateValue(value) },
 						get ValEquipaadversaria() { return vm.model.ValEquipaadversaria.value },
@@ -637,6 +639,8 @@
 					keys: {
 						/** The primary key of the JOGO table */
 						get jogo() { return vm.model.ValCodjogo },
+						/** The foreign key to the CLUBE table */
+						get clube() { return vm.model.ValCodclube },
 					},
 					get extraProperties() { return vm.model.extraProperties },
 				},

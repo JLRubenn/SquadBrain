@@ -100,7 +100,8 @@ namespace GenioMVC.ViewModels.Jogo
 			conditions.SubSets.Add(GetCustomizedStaticLimits(StaticLimits));
 
 			// Checks for foreign tables in fields and conditions
-			
+			FieldRef[] fields = new FieldRef[] { CSGenioAjogo.FldCodjogo, CSGenioAjogo.FldZzstate, CSGenioAjogo.FldCodclube, CSGenioAclube.FldCodclube, CSGenioAclube.FldNome, CSGenioAjogo.FldData, CSGenioAjogo.FldLocal, CSGenioAjogo.FldResultado, CSGenioAjogo.FldTitulo, CSGenioAjogo.FldEquipaadversaria };
+
 			ListingMVC<CSGenioAjogo> listing = new(fields, null, 1, 1, false, user, true, string.Empty, false);
 			SelectQuery qs = sp.getSelectQueryFromListingMVC(conditions, listing);
 
@@ -334,7 +335,8 @@ namespace GenioMVC.ViewModels.Jogo
 
 			}
 
-			
+			FieldRef[] fields = new FieldRef[] { CSGenioAjogo.FldCodjogo, CSGenioAjogo.FldZzstate, CSGenioAjogo.FldCodclube, CSGenioAclube.FldCodclube, CSGenioAclube.FldNome, CSGenioAjogo.FldData, CSGenioAjogo.FldLocal, CSGenioAjogo.FldResultado, CSGenioAjogo.FldTitulo, CSGenioAjogo.FldEquipaadversaria };
+
 
 			// Totalizers
 			List<FieldRef> fieldsWithTotalizers = fields.Where(field => tableConfig.TotalizerColumns.Contains(field.FullName)).ToList();
@@ -480,7 +482,7 @@ namespace GenioMVC.ViewModels.Jogo
 					case "jogo":
 						model.klass.insertNameValueField(Qfield.FullName, Qfield.Value); break;
 					case "clube":
-						model..klass.insertNameValueField(Qfield.FullName, Qfield.Value); break;
+						model.Clube.klass.insertNameValueField(Qfield.FullName, Qfield.Value); break;
 					default:
 						break;
 				}
@@ -532,12 +534,12 @@ namespace GenioMVC.ViewModels.Jogo
 
 		private static readonly string[] _fieldsToSerialize =
 		[
-			"Jogo", "Jogo.ValCodjogo", "Jogo.ValZzstate", "Clube", "Clube.ValNome", "Jogo.ValData", "Jogo.ValLocal", "Jogo.ValResultado", "Jogo.ValTitulo", "Jogo.ValEquipaadversaria"
+			"Jogo", "Jogo.ValCodjogo", "Jogo.ValZzstate", "Clube", "Clube.ValNome", "Jogo.ValData", "Jogo.ValLocal", "Jogo.ValResultado", "Jogo.ValTitulo", "Jogo.ValEquipaadversaria", "Jogo.ValCodclube"
 		];
 
 		private static readonly List<TableSearchColumn> _searchableColumns =
 		[
-			new TableSearchColumn("_ValNome", CSGenioAclube.FldNome, typeof(string)),
+			new TableSearchColumn("Clube_ValNome", CSGenioAclube.FldNome, typeof(string)),
 			new TableSearchColumn("ValData", CSGenioAjogo.FldData, typeof(DateTime?)),
 			new TableSearchColumn("ValLocal", CSGenioAjogo.FldLocal, typeof(string)),
 			new TableSearchColumn("ValResultado", CSGenioAjogo.FldResultado, typeof(string)),

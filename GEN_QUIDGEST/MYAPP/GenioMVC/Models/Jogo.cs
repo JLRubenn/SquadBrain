@@ -54,6 +54,26 @@ namespace GenioMVC.Models
 		[ShouldSerialize("Jogo.ValTitulo")]
 		public string ValTitulo { get { return klass.ValTitulo; } set { klass.ValTitulo = value; } }
 
+		[DisplayName("CODCLUBE")]
+		/// <summary>Field : "CODCLUBE" Tipo: "CE" Formula:  ""</summary>
+		[ShouldSerialize("Jogo.ValCodclube")]
+		public string ValCodclube { get { return klass.ValCodclube; } set { klass.ValCodclube = value; } }
+
+		private Clube _clube;
+		[DisplayName("Clube")]
+		[ShouldSerialize("Clube")]
+		public virtual Clube Clube
+		{
+			get
+			{
+				if (!isEmptyModel && (_clube == null || (!string.IsNullOrEmpty(ValCodclube) && (_clube.isEmptyModel || _clube.klass.QPrimaryKey != ValCodclube))))
+					_clube = Models.Clube.Find(ValCodclube, m_userContext, Identifier, _fieldsToSerialize);
+				_clube ??= new Models.Clube(m_userContext, true, _fieldsToSerialize);
+				return _clube;
+			}
+			set { _clube = value; }
+		}
+
 		[DisplayName("ZZSTATE")]
 		[ShouldSerialize("Jogo.ValZzstate")]
 		/// <summary>Field: "ZZSTATE", Type: "INT", Formula: ""</summary>
@@ -85,6 +105,10 @@ namespace GenioMVC.Models
 			{
 				switch (Qfield.Area)
 				{
+					case "clube":
+						_clube ??= new Clube(m_userContext, true, _fieldsToSerialize);
+						_clube.klass.insertNameValueField(Qfield.FullName, Qfield.Value);
+						break;
 					default:
 						break;
 				}

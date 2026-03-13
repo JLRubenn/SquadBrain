@@ -43,7 +43,7 @@ namespace GenioMVC.ViewModels.Treino
 		/// The primary key field.
 		/// </summary>
 		[JsonIgnore]
-		public string ValCodtreino { get; set; }
+		public string TreinoValCodtreino { get; set; }
 
 		/// <summary>
 		/// The context of the parent.
@@ -110,7 +110,7 @@ namespace GenioMVC.ViewModels.Treino
 		/// <param name="userContext">The current user request context</param>
 		public Treino_ValExercicio_ViewModel(UserContext userContext) : base(userContext)
 		{
-			ValCodtreino = userContext.CurrentNavigation.CurrentLevel.GetEntry("treino")?.ToString();
+			TreinoValCodtreino = userContext.CurrentNavigation.CurrentLevel.GetEntry("treino")?.ToString();
 		}
 
 		/// <summary>
@@ -193,6 +193,11 @@ namespace GenioMVC.ViewModels.Treino
 
 			// Form field filters
 			crs.SubSets.Add(ProcessFieldFilters(tableConfig.GlobalFilters));
+
+			if (this.TreinoValCodtreino != null)
+				crs.Equal(CSGenioAexercicio.FldCodtreino, this.TreinoValCodtreino);
+			else
+				tableReload = false;
 
 
 			crs.SubSets.Add(GetCustomizedStaticLimits(StaticLimits));
@@ -312,7 +317,8 @@ namespace GenioMVC.ViewModels.Treino
 			List<ColumnSort> sorts = GetRequestSorts(this.Menu, tableConfig, "exercicio", allSortOrders);
 
 
-			
+			FieldRef[] fields = new FieldRef[] { CSGenioAexercicio.FldCodexercicio, CSGenioAexercicio.FldZzstate, CSGenioAexercicio.FldTitulo, CSGenioAexercicio.FldFoto, CSGenioAexercicio.FldDescricao, CSGenioAexercicio.FldObjetivo, CSGenioAexercicio.FldTempo, CSGenioAexercicio.FldNumjogador, CSGenioAexercicio.FldEspaco, CSGenioAexercicio.FldCodtreino, CSGenioAtreino.FldCodtreino, CSGenioAtreino.FldData };
+
 
 			// Totalizers
 			List<FieldRef> fieldsWithTotalizers = fields.Where(field => tableConfig.TotalizerColumns.Contains(field.FullName)).ToList();
@@ -457,7 +463,7 @@ namespace GenioMVC.ViewModels.Treino
 					case "exercicio":
 						model.klass.insertNameValueField(Qfield.FullName, Qfield.Value); break;
 					case "treino":
-						model..klass.insertNameValueField(Qfield.FullName, Qfield.Value); break;
+						model.Treino.klass.insertNameValueField(Qfield.FullName, Qfield.Value); break;
 					default:
 						break;
 				}
@@ -513,7 +519,7 @@ namespace GenioMVC.ViewModels.Treino
 
 		private static readonly string[] _fieldsToSerialize =
 		[
-			"Exercicio", "Exercicio.ValCodexercicio", "Exercicio.ValZzstate", "Exercicio.ValTitulo", "Exercicio.ValFoto", "Exercicio.ValDescricao", "Exercicio.ValObjetivo", "Exercicio.ValTempo", "Exercicio.ValNumjogador", "Exercicio.ValEspaco", "Treino", "Treino.ValData"
+			"Exercicio", "Exercicio.ValCodexercicio", "Exercicio.ValZzstate", "Exercicio.ValTitulo", "Exercicio.ValFoto", "Exercicio.ValDescricao", "Exercicio.ValObjetivo", "Exercicio.ValTempo", "Exercicio.ValNumjogador", "Exercicio.ValEspaco", "Treino", "Treino.ValData", "Exercicio.ValCodtreino"
 		];
 
 		private static readonly List<TableSearchColumn> _searchableColumns =
@@ -524,7 +530,7 @@ namespace GenioMVC.ViewModels.Treino
 			new TableSearchColumn("ValTempo", CSGenioAexercicio.FldTempo, typeof(decimal?), visible : false),
 			new TableSearchColumn("ValNumjogador", CSGenioAexercicio.FldNumjogador, typeof(decimal?), visible : false),
 			new TableSearchColumn("ValEspaco", CSGenioAexercicio.FldEspaco, typeof(string), visible : false),
-			new TableSearchColumn("_ValData", CSGenioAtreino.FldData, typeof(DateTime?), visible : false, defaultSearch : true),
+			new TableSearchColumn("Treino_ValData", CSGenioAtreino.FldData, typeof(DateTime?), visible : false, defaultSearch : true),
 		];
 		protected void SetTicketToImageFields(Models.Exercicio row)
 		{

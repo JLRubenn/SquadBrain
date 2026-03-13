@@ -108,6 +108,16 @@ namespace CSGenio.business
 			info.RegisterFieldDB(Qfield);
 
 			//- - - - - - - - - - - - - - - - - - -
+			Qfield = new Field(info.Alias, "codclube", FieldType.KEY_INT);
+			Qfield.FieldDescription = "CODCLUBE";
+			Qfield.FieldSize =  8;
+			Qfield.MQueue = false;
+			Qfield.CavDesignation = "CODCLUBE53411";
+
+			Qfield.Dupmsg = "";
+			info.RegisterFieldDB(Qfield);
+
+			//- - - - - - - - - - - - - - - - - - -
 			Qfield = new Field(info.Alias, "zzstate", FieldType.INTEGER);
 			Qfield.FieldDescription = "Estado da ficha";
 			info.RegisterFieldDB(Qfield);
@@ -125,6 +135,7 @@ namespace CSGenio.business
 			// Mother Relations
 			//------------------------------
 			info.ParentTables = new Dictionary<string, Relation>();
+			info.ParentTables.Add("clube", new Relation("SQB", "sqbjogo", "jogo", "codjogo", "codclube", "SQB", "sqbclube", "clube", "codclube", "codclube"));
 		}
 
 		/// <summary>
@@ -134,7 +145,8 @@ namespace CSGenio.business
 		{
 			// Pathways
 			//------------------------------
-			info.Pathways = new Dictionary<string, string>(0);
+			info.Pathways = new Dictionary<string, string>(1);
+			info.Pathways.Add("clube","clube");
 		}
 
 		/// <summary>
@@ -320,6 +332,17 @@ namespace CSGenio.business
 			set { insertNameValueField(FldTitulo, value); }
 		}
 
+		/// <summary>Field : "CODCLUBE" Tipo: "CE" Formula:  ""</summary>
+		public static FieldRef FldCodclube { get { return m_fldCodclube; } }
+		private static FieldRef m_fldCodclube = new FieldRef("jogo", "codclube");
+
+		/// <summary>Field : "CODCLUBE" Tipo: "CE" Formula:  ""</summary>
+		public string ValCodclube
+		{
+			get { return (string)returnValueField(FldCodclube); }
+			set { insertNameValueField(FldCodclube, value); }
+		}
+
 		/// <summary>Field : "ZZSTATE" Type: "INT" Formula:  ""</summary>
 		public static FieldRef FldZzstate { get { return m_fldZzstate; } }
 		private static FieldRef m_fldZzstate = new FieldRef("jogo", "zzstate");
@@ -417,7 +440,7 @@ namespace CSGenio.business
 		// USE /[MANUAL SQB TABAUX JOGO]/
 
  
-       
+        
 
 	}
 }

@@ -126,6 +126,16 @@ namespace CSGenio.business
 			info.RegisterFieldDB(Qfield);
 
 			//- - - - - - - - - - - - - - - - - - -
+			Qfield = new Field(info.Alias, "codtreino", FieldType.KEY_INT);
+			Qfield.FieldDescription = "CODTREINO";
+			Qfield.FieldSize =  8;
+			Qfield.MQueue = false;
+			Qfield.CavDesignation = "CODTREINO05790";
+
+			Qfield.Dupmsg = "";
+			info.RegisterFieldDB(Qfield);
+
+			//- - - - - - - - - - - - - - - - - - -
 			Qfield = new Field(info.Alias, "zzstate", FieldType.INTEGER);
 			Qfield.FieldDescription = "Estado da ficha";
 			info.RegisterFieldDB(Qfield);
@@ -143,6 +153,7 @@ namespace CSGenio.business
 			// Mother Relations
 			//------------------------------
 			info.ParentTables = new Dictionary<string, Relation>();
+			info.ParentTables.Add("treino", new Relation("SQB", "sqbexercicio", "exercicio", "codexercicio", "codtreino", "SQB", "sqbtreino", "treino", "codtreino", "codtreino"));
 		}
 
 		/// <summary>
@@ -152,7 +163,11 @@ namespace CSGenio.business
 		{
 			// Pathways
 			//------------------------------
-			info.Pathways = new Dictionary<string, string>(0);
+			info.Pathways = new Dictionary<string, string>(4);
+			info.Pathways.Add("treino","treino");
+			info.Pathways.Add("treinador","treino");
+			info.Pathways.Add("jogador","treino");
+			info.Pathways.Add("clube","treino");
 		}
 
 		/// <summary>
@@ -360,6 +375,17 @@ namespace CSGenio.business
 			set { insertNameValueField(FldObjetivo, value); }
 		}
 
+		/// <summary>Field : "CODTREINO" Tipo: "CE" Formula:  ""</summary>
+		public static FieldRef FldCodtreino { get { return m_fldCodtreino; } }
+		private static FieldRef m_fldCodtreino = new FieldRef("exercicio", "codtreino");
+
+		/// <summary>Field : "CODTREINO" Tipo: "CE" Formula:  ""</summary>
+		public string ValCodtreino
+		{
+			get { return (string)returnValueField(FldCodtreino); }
+			set { insertNameValueField(FldCodtreino, value); }
+		}
+
 		/// <summary>Field : "ZZSTATE" Type: "INT" Formula:  ""</summary>
 		public static FieldRef FldZzstate { get { return m_fldZzstate; } }
 		private static FieldRef m_fldZzstate = new FieldRef("exercicio", "zzstate");
@@ -457,7 +483,7 @@ namespace CSGenio.business
 		// USE /[MANUAL SQB TABAUX EXERCICIO]/
 
  
-         
+          
 
 	}
 }

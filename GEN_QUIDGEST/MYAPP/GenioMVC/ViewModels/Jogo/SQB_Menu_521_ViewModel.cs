@@ -531,7 +531,7 @@ namespace GenioMVC.ViewModels.Jogo
 
 		private static readonly string[] _fieldsToSerialize =
 		[
-			"Jogo", "Jogo.ValCodjogo", "Jogo.ValZzstate", "Jogo.ValTitulo", "Jogo.ValData", "Jogo.ValLocal", "Jogo.ValEquipaadversaria", "Jogo.ValResultado"
+			"Jogo", "Jogo.ValCodjogo", "Jogo.ValZzstate", "Jogo.ValTitulo", "Jogo.ValData", "Jogo.ValLocal", "Jogo.ValEquipaadversaria", "Jogo.ValResultado", "Jogo.ValCodclube"
 		];
 
 		private static readonly List<TableSearchColumn> _searchableColumns =

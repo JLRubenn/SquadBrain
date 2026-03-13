@@ -306,6 +306,9 @@
 	<data name="TO55217" xml:space="preserve">
 		<value>To</value>
 	</data>
+	<data name="CODCLUBE53411" xml:space="preserve">
+		<value>CODCLUBE</value>
+	</data>
 	<data name="RESULTADOS20000" xml:space="preserve">
 		<value>Resultados</value>
 	</data>
@@ -395,6 +398,9 @@
 	</data>
 	<data name="PRESIDENTE51745" xml:space="preserve">
 		<value>Presidente</value>
+	</data>
+	<data name="CODTREINO05790" xml:space="preserve">
+		<value>CODTREINO</value>
 	</data>
 	<data name="FEITO_POR___22778" xml:space="preserve">
 		<value>Feito por...</value>

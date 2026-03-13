@@ -30,6 +30,11 @@ namespace GenioMVC.ViewModels.Jogo
 		public bool MsqActive { get; set; } = false;
 
 		#region Foreign keys
+		/// <summary>
+		/// Title: "" | Type: "CE"
+		/// </summary>
+		[ValidateSetAccess]
+		public string ValCodclube { get; set; }
 
 		#endregion
 		/// <summary>
@@ -179,6 +184,7 @@ namespace GenioMVC.ViewModels.Jogo
 
 			try
 			{
+				ValCodclube = ViewModelConversion.ToString(m.ValCodclube);
 				ValTitulo = ViewModelConversion.ToString(m.ValTitulo);
 				ValData = ViewModelConversion.ToDateTime(m.ValData);
 				ValLocal = ViewModelConversion.ToString(m.ValLocal);
@@ -214,6 +220,15 @@ namespace GenioMVC.ViewModels.Jogo
 				m.ValLocal = ViewModelConversion.ToString(ValLocal);
 				m.ValEquipaadversaria = ViewModelConversion.ToString(ValEquipaadversaria);
 				m.ValCodjogo = ViewModelConversion.ToString(ValCodjogo);
+
+				/*
+					At this moment, in the case of runtime calculation of server-side formulas, to improve performance and reduce database load,
+						the values coming from the client-side will be accepted as valid, since they will not be saved and are only being used for calculation.
+				*/
+				if (!HasDisabledUserValuesSecurity)
+					return;
+
+				m.ValCodclube = ViewModelConversion.ToString(ValCodclube);
 			}
 			catch (Exception)
 			{
@@ -427,6 +442,7 @@ namespace GenioMVC.ViewModels.Jogo
 		{
 			return identifier switch
 			{
+				"jogo.codclube" => ViewModelConversion.ToString(modelValue),
 				"jogo.titulo" => ViewModelConversion.ToString(modelValue),
 				"jogo.data" => ViewModelConversion.ToDateTime(modelValue),
 				"jogo.local" => ViewModelConversion.ToString(modelValue),

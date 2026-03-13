@@ -162,9 +162,10 @@ public class SQB_Menu_11_RowViewModel : Models.Clube
 
 	/// <summary>
 	/// The background color
+	/// Formula: iif([CLUBE->VALORMERCADOEQUIPA]> 100, HEXCOLOUR("4deb94"), iif ([CLUBE->VALORMERCADOEQUIPA]< 50, HEXCOLOUR("f7c65c"), HEXCOLOUR("FFFFFF")))
 	/// </summary>
 	[JsonPropertyName("backgroundColor")]
-	public string BackgroundColor => "";
+	public string BackgroundColor => ((((decimal)this.ValValormercadoequipa)>100)?("#"+"4deb94"):(((((decimal)this.ValValormercadoequipa)<50)?("#"+"f7c65c"):("#"+"FFFFFF"))));
 
 	/// <summary>
 	/// Runs init logic that depends on row data.

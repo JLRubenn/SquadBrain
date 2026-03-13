@@ -127,7 +127,7 @@ namespace GenioMVC.ViewModels.Jogador
 		/// <param name="userContext">The current user request context</param>
 		public SQB_Menu_31_ViewModel(UserContext userContext) : base(userContext)
 		{
-			this.RoleToShow = CSGenio.framework.Role.ROLE_1;
+			this.RoleToShow = CSGenio.framework.Role.ROLE_50;
 		}
 
 		/// <summary>
@@ -198,6 +198,7 @@ namespace GenioMVC.ViewModels.Jogador
 				new Exports.QColumn(CSGenioAjogador.FldSpposicaoat, FieldType.ARRAY_TEXT, Resources.Resources.ESPECIFICACAO_POSICA24622, 1, 0, true, "SPposicao"),
 				new Exports.QColumn(CSGenioAjogador.FldSpposicaodef, FieldType.ARRAY_TEXT, Resources.Resources.ESPECIFICACAO_POSICA24622, 1, 0, true, "SPposicao"),
 				new Exports.QColumn(CSGenioAjogador.FldValormercado, FieldType.CURRENCY, Resources.Resources.VALOR_MERCADO__M_33616, 14, 2, true),
+				new Exports.QColumn(CSGenioAjogador.FldNationalidade, FieldType.TEXT, Resources.Resources.NATIONALIDADE48376, 50, 0, true),
 				new Exports.QColumn(CSGenioAclube.FldNome, FieldType.TEXT, Resources.Resources.EQUIPA_ATUAL12425, 30, 0, true),
 			};
 		}

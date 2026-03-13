@@ -387,6 +387,9 @@
   <msg id="Client ip address" code="CLIENT_IP_ADDRESS62089">
     <ENUS>Client ip address</ENUS>
   </msg>
+  <msg id="Nationalidade" code="NATIONALIDADE48376">
+    <ENUS>Nationalidade</ENUS>
+  </msg>
   <msg id="JOGADOR" code="JOGADOR55167">
     <ENUS>JOGADOR</ENUS>
   </msg>

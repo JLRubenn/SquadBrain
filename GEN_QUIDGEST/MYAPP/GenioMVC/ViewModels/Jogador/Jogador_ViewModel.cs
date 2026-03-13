@@ -55,6 +55,10 @@ namespace GenioMVC.ViewModels.Jogador
 		/// </summary>
 		public string ValNome { get; set; }
 		/// <summary>
+		/// Title: "Nationalidade" | Type: "C"
+		/// </summary>
+		public string ValNationalidade { get; set; }
+		/// <summary>
 		/// Title: "Data Nascimento" | Type: "D"
 		/// </summary>
 		public DateTime? ValDatanascimento { get; set; }
@@ -230,6 +234,7 @@ namespace GenioMVC.ViewModels.Jogador
 				ValFoto = ViewModelConversion.ToImage(m.ValFoto);
 				ValNumerocamisola = ViewModelConversion.ToNumeric(m.ValNumerocamisola);
 				ValNome = ViewModelConversion.ToString(m.ValNome);
+				ValNationalidade = ViewModelConversion.ToString(m.ValNationalidade);
 				ValDatanascimento = ViewModelConversion.ToDateTime(m.ValDatanascimento);
 				ValIdadejogador = ViewModelConversion.ToNumeric(m.ValIdadejogador);
 				ValPedominante = ViewModelConversion.ToString(m.ValPedominante);
@@ -271,6 +276,7 @@ namespace GenioMVC.ViewModels.Jogador
 					m.ValFoto = ViewModelConversion.ToImage(ValFoto);
 				m.ValNumerocamisola = ViewModelConversion.ToNumeric(ValNumerocamisola);
 				m.ValNome = ViewModelConversion.ToString(ValNome);
+				m.ValNationalidade = ViewModelConversion.ToString(ValNationalidade);
 				m.ValDatanascimento = ViewModelConversion.ToDateTime(ValDatanascimento);
 				m.ValPedominante = ViewModelConversion.ToString(ValPedominante);
 				m.ValPosicao = ViewModelConversion.ToString(ValPosicao);
@@ -325,6 +331,9 @@ namespace GenioMVC.ViewModels.Jogador
 						break;
 					case "jogador.nome":
 						this.ValNome = ViewModelConversion.ToString(_value);
+						break;
+					case "jogador.nationalidade":
+						this.ValNationalidade = ViewModelConversion.ToString(_value);
 						break;
 					case "jogador.datanascimento":
 						this.ValDatanascimento = ViewModelConversion.ToDateTime(_value);
@@ -484,6 +493,7 @@ namespace GenioMVC.ViewModels.Jogador
 			validator.StringLength("ValNome", Resources.Resources.NOME47814, ValNome, 50);
 
 			validator.Required("ValNome", Resources.Resources.NOME47814, ViewModelConversion.ToString(ValNome), FieldType.TEXT.GetFormatting());
+			validator.StringLength("ValNationalidade", Resources.Resources.NATIONALIDADE48376, ValNationalidade, 50);
 
 			validator.Required("ValDatanascimento", Resources.Resources.DATA_NASCIMENTO26850, ViewModelConversion.ToDateTime(ValDatanascimento), FieldType.DATE.GetFormatting());
 
@@ -726,6 +736,7 @@ namespace GenioMVC.ViewModels.Jogador
 				"jogador.foto" => ViewModelConversion.ToImage(modelValue),
 				"jogador.numerocamisola" => ViewModelConversion.ToNumeric(modelValue),
 				"jogador.nome" => ViewModelConversion.ToString(modelValue),
+				"jogador.nationalidade" => ViewModelConversion.ToString(modelValue),
 				"jogador.datanascimento" => ViewModelConversion.ToDateTime(modelValue),
 				"jogador.idadejogador" => ViewModelConversion.ToNumeric(modelValue),
 				"jogador.pedominante" => ViewModelConversion.ToString(modelValue),

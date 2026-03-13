@@ -138,6 +138,11 @@ namespace GenioMVC.Models
 		[CurrencyAttribute("EUR", 2)]
 		public decimal? ValValormercado { get { return Convert.ToDecimal(GenFunctions.RoundQG(klass.ValValormercado, 2)); } set { klass.ValValormercado = Convert.ToDecimal(value); } }
 
+		[DisplayName("Nationalidade")]
+		/// <summary>Field : "Nationalidade" Tipo: "C" Formula:  ""</summary>
+		[ShouldSerialize("Jogador.ValNationalidade")]
+		public string ValNationalidade { get { return klass.ValNationalidade; } set { klass.ValNationalidade = value; } }
+
 		[DisplayName("ZZSTATE")]
 		[ShouldSerialize("Jogador.ValZzstate")]
 		/// <summary>Field: "ZZSTATE", Type: "INT", Formula: ""</summary>

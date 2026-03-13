@@ -784,7 +784,7 @@
 						controlLimits: [
 						],
 					}, this),
-					TREINO__PSEUD__EXERCICIO: new fieldControlClass.TableListControl({
+					TREINO__PSEUD__EXERCICIO: new fieldControlClass.TableSpecialRenderingControl({
 						id: 'TREINO__PSEUD__EXERCICIO',
 						name: 'EXERCICIO',
 						size: 'block',
@@ -827,6 +827,63 @@
 								label: computed(() => this.Resources.DESCRICAO07528),
 								scrollData: 30,
 								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.TextColumn({
+								order: 4,
+								name: 'ValObjetivo',
+								area: 'EXERCICIO',
+								field: 'OBJETIVO',
+								label: computed(() => this.Resources.OBJETIVO56787),
+								scrollData: 30,
+								isVisible: false,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.NumericColumn({
+								order: 5,
+								name: 'ValTempo',
+								area: 'EXERCICIO',
+								field: 'TEMPO',
+								label: computed(() => this.Resources.TEMPO__M_37967),
+								scrollData: 3,
+								maxDigits: 3,
+								decimalPlaces: 0,
+								isVisible: false,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.NumericColumn({
+								order: 6,
+								name: 'ValNumjogador',
+								area: 'EXERCICIO',
+								field: 'NUMJOGADOR',
+								label: computed(() => this.Resources.NUMERO_DE_JOGADOES35633),
+								scrollData: 3,
+								maxDigits: 3,
+								decimalPlaces: 0,
+								isVisible: false,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.TextColumn({
+								order: 7,
+								name: 'ValEspaco',
+								area: 'EXERCICIO',
+								field: 'ESPACO',
+								label: computed(() => this.Resources.ESPACO13353),
+								dataLength: 50,
+								scrollData: 30,
+								isVisible: false,
+								export: 1,
+							}, computed(() => vm.model), computed(() => vm.internalEvents)),
+							new listColumnTypes.DateColumn({
+								order: 8,
+								name: 'Treino.ValData',
+								area: 'TREINO',
+								field: 'DATA',
+								label: computed(() => this.Resources.DATA18071),
+								scrollData: 16,
+								dateTimeType: 'dateTime',
+								isVisible: false,
+								export: 1,
+								pkColumn: 'ValCodtreino',
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 						],
 						config: {
@@ -959,8 +1016,8 @@
 									isPopup: true
 								},
 							},
-							defaultSearchColumnName: 'ValTitulo',
-							defaultSearchColumnNameOriginal: 'ValTitulo',
+							defaultSearchColumnName: 'Treino.ValData',
+							defaultSearchColumnNameOriginal: 'Treino.ValData',
 							defaultColumnSorting: {
 								columnName: '',
 								sortOrder: 'asc'
@@ -969,6 +1026,107 @@
 						globalEvents: ['changed-EXERCICIO', 'changed-TREINO'],
 						uuid: 'Treino_ValExercicio',
 						allSelectedRows: 'false',
+						viewModes: [
+							{
+								id: 'CARDS',
+								type: 'cards',
+								subtype: 'card',
+								label: computed(() => this.Resources.CARTOES27587),
+								order: 1,
+								mappingVariables: readonly({
+									title: {
+										allowsMultiple: false,
+										sources: [
+											'EXERCICIO.TITULO',
+										]
+									},
+									text: {
+										allowsMultiple: true,
+										sources: [
+											'EXERCICIO.TEMPO',
+											'EXERCICIO.NUMJOGADOR',
+											'EXERCICIO.ESPACO',
+											'EXERCICIO.DESCRICAO',
+											'EXERCICIO.OBJETIVO',
+										]
+									},
+									image: {
+										allowsMultiple: false,
+										sources: [
+											'EXERCICIO.FOTO',
+										]
+									},
+								}),
+								styleVariables: {
+									actionsAlignment: {
+										rawValue: 'left',
+										isMapped: false
+									},
+									actionsPlacement: {
+										rawValue: 'footer',
+										isMapped: false
+									},
+									actionsStyle: {
+										rawValue: 'dropdown',
+										isMapped: false
+									},
+									backgroundColor: {
+										rawValue: 'auto',
+										isMapped: false
+									},
+									contentAlignment: {
+										rawValue: 'left',
+										isMapped: false
+									},
+									customFollowupDefaultTarget: {
+										rawValue: 'blank',
+										isMapped: false
+									},
+									customInsertCard: {
+										rawValue: false,
+										isMapped: false
+									},
+									customInsertCardStyle: {
+										rawValue: 'secondary',
+										isMapped: false
+									},
+									displayMode: {
+										rawValue: 'grid',
+										isMapped: false
+									},
+									gridMode: {
+										rawValue: 'fixed',
+										isMapped: false
+									},
+									containerAlignment: {
+										rawValue: 'left',
+										isMapped: false
+									},
+									hoverScaleAmount: {
+										rawValue: '1.00',
+										isMapped: false
+									},
+									imageShape: {
+										rawValue: 'rectangular',
+										isMapped: false
+									},
+									showColumnTitles: {
+										rawValue: false,
+										isMapped: false
+									},
+									showEmptyColumnTitles: {
+										rawValue: true,
+										isMapped: false
+									},
+									size: {
+										rawValue: 'regular',
+										isMapped: false
+									},
+								},
+								groups: {
+								}
+							},
+						],
 						controlLimits: [
 							{
 								identifier: ['id', 'treino'],

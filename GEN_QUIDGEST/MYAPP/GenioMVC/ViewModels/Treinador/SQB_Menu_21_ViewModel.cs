@@ -127,7 +127,7 @@ namespace GenioMVC.ViewModels.Treinador
 		/// <param name="userContext">The current user request context</param>
 		public SQB_Menu_21_ViewModel(UserContext userContext) : base(userContext)
 		{
-			this.RoleToShow = CSGenio.framework.Role.ROLE_1;
+			this.RoleToShow = CSGenio.framework.Role.ROLE_40;
 		}
 
 		/// <summary>

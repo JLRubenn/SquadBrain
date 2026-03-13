@@ -34,6 +34,24 @@ namespace Administration.Models
                 Module = "SQB"
             },
             new ModuleRoleModel() {
+                Role = "30",
+                Designation = "JOGADOR34905",
+                Description = "",              
+                Module = "SQB"
+            },
+            new ModuleRoleModel() {
+                Role = "40",
+                Designation = "DIRIGENTE54986",
+                Description = "",              
+                Module = "SQB"
+            },
+            new ModuleRoleModel() {
+                Role = "50",
+                Designation = "TREINADOR19936",
+                Description = "",              
+                Module = "SQB"
+            },
+            new ModuleRoleModel() {
                 Role = "99",
                 Designation = "ADMINISTRADOR57294",
                 Description = "",              

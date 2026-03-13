@@ -34,6 +34,11 @@ public class JogadorForm : Form
 	public BaseInputControl JogadorNome => new BaseInputControl(driver, ContainerLocator, "container-JOGADOR__JOGADOR__NOME", "#JOGADOR__JOGADOR__NOME");
 
 	/// <summary>
+	/// Nationalidade
+	/// </summary>
+	public BaseInputControl JogadorNationalidade => new BaseInputControl(driver, ContainerLocator, "container-JOGADOR__JOGADOR__NATIONALIDADE", "#JOGADOR__JOGADOR__NATIONALIDADE");
+
+	/// <summary>
 	/// Data Nascimento
 	/// </summary>
 	public DateInputControl JogadorDatanascimento => new DateInputControl(driver, ContainerLocator, "#JOGADOR__JOGADOR__DATANASCIMENTO");

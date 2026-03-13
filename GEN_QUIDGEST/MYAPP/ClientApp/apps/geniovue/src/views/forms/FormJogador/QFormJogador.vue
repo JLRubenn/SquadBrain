@@ -182,6 +182,25 @@
 									</base-input-structure>
 								</q-col>
 							</q-row>
+							<q-row v-if="controls.JOGADOR__JOGADOR__NATIONALIDADE.isVisible">
+								<q-col
+									v-if="controls.JOGADOR__JOGADOR__NATIONALIDADE.isVisible"
+									cols="auto">
+									<base-input-structure
+										v-if="controls.JOGADOR__JOGADOR__NATIONALIDADE.isVisible"
+										class="i-text"
+										v-bind="controls.JOGADOR__JOGADOR__NATIONALIDADE"
+										v-on="controls.JOGADOR__JOGADOR__NATIONALIDADE.handlers"
+										:loading="controls.JOGADOR__JOGADOR__NATIONALIDADE.props.loading"
+										:reporting-mode-on="reportingModeCAV"
+										:suggestion-mode-on="suggestionModeOn">
+										<q-text-field
+											v-bind="controls.JOGADOR__JOGADOR__NATIONALIDADE.props"
+											@blur="onBlur(controls.JOGADOR__JOGADOR__NATIONALIDADE, model.ValNationalidade.value)"
+											@change="model.ValNationalidade.fnUpdateValueOnChange" />
+									</base-input-structure>
+								</q-col>
+							</q-row>
 							<q-row v-if="controls.JOGADOR__JOGADOR__DATANASCIMENTO.isVisible || controls.JOGADOR__JOGADOR__IDADEJOGADOR.isVisible">
 								<q-col
 									v-if="controls.JOGADOR__JOGADOR__DATANASCIMENTO.isVisible || controls.JOGADOR__JOGADOR__IDADEJOGADOR.isVisible"
@@ -739,7 +758,7 @@
 						labelPosition: computed(() => this.labelAlignment.topleft),
 						isCollapsible: false,
 						anchored: false,
-						directChildren: ['JOGADOR_CLUBENOME____', 'JOGADOR__JOGADOR__NUMEROCAMISOLA', 'JOGADOR__JOGADOR__NOME', 'JOGADOR__JOGADOR__DATANASCIMENTO', 'JOGADOR__JOGADOR__IDADEJOGADOR', 'JOGADOR__JOGADOR__PEDOMINANTE', 'JOGADOR__JOGADOR__POSICAO', 'JOGADOR__JOGADOR__SPPOSICAOMEDIO', 'JOGADOR__JOGADOR__SPPOSICAOAT', 'JOGADOR__JOGADOR__SPPOSICAODEF', 'JOGADOR__JOGADOR__POSICAOSEGUNDARIA', 'JOGADOR__JOGADOR__EQUIPAANTERIOR', 'JOGADOR__JOGADOR__VALORMERCADO'],
+						directChildren: ['JOGADOR_CLUBENOME____', 'JOGADOR__JOGADOR__NUMEROCAMISOLA', 'JOGADOR__JOGADOR__NOME', 'JOGADOR__JOGADOR__NATIONALIDADE', 'JOGADOR__JOGADOR__DATANASCIMENTO', 'JOGADOR__JOGADOR__IDADEJOGADOR', 'JOGADOR__JOGADOR__PEDOMINANTE', 'JOGADOR__JOGADOR__POSICAO', 'JOGADOR__JOGADOR__SPPOSICAOMEDIO', 'JOGADOR__JOGADOR__SPPOSICAOAT', 'JOGADOR__JOGADOR__SPPOSICAODEF', 'JOGADOR__JOGADOR__POSICAOSEGUNDARIA', 'JOGADOR__JOGADOR__EQUIPAANTERIOR', 'JOGADOR__JOGADOR__VALORMERCADO'],
 						mustBeFilled: true,
 						controlLimits: [
 						],
@@ -801,6 +820,20 @@
 						container: 'JOGADOR_PSEUDNEWGRP01',
 						maxLength: 50,
 						mustBeFilled: true,
+						controlLimits: [
+						],
+					}, this),
+					JOGADOR__JOGADOR__NATIONALIDADE: new fieldControlClass.StringControl({
+						modelField: 'ValNationalidade',
+						valueChangeEvent: 'fieldChange:jogador.nationalidade',
+						id: 'JOGADOR__JOGADOR__NATIONALIDADE',
+						name: 'NATIONALIDADE',
+						size: 'xxlarge',
+						label: computed(() => this.Resources.NATIONALIDADE48376),
+						placeholder: '',
+						labelPosition: computed(() => this.labelAlignment.topleft),
+						container: 'JOGADOR_PSEUDNEWGRP01',
+						maxLength: 50,
 						controlLimits: [
 						],
 					}, this),
@@ -891,8 +924,8 @@
 							// eslint-disable-next-line @typescript-eslint/no-unused-vars
 							fnFormula(params)
 							{
-								// Formula: [JOGADOR->POSICAO] == "Medio"
-								return this.ValPosicao.value==="Medio"
+								// Formula: [JOGADOR->POSICAO] == "MD"
+								return this.ValPosicao.value==="MD"
 							},
 							dependencyEvents: ['fieldChange:jogador.posicao'],
 							isServerRecalc: false,
@@ -918,8 +951,8 @@
 							// eslint-disable-next-line @typescript-eslint/no-unused-vars
 							fnFormula(params)
 							{
-								// Formula: [JOGADOR->POSICAO] == "Atacante"
-								return this.ValPosicao.value==="Atacante"
+								// Formula: [JOGADOR->POSICAO] == "AT"
+								return this.ValPosicao.value==="AT"
 							},
 							dependencyEvents: ['fieldChange:jogador.posicao'],
 							isServerRecalc: false,
@@ -945,8 +978,8 @@
 							// eslint-disable-next-line @typescript-eslint/no-unused-vars
 							fnFormula(params)
 							{
-								// Formula: [JOGADOR->POSICAO] == "Defesa"
-								return this.ValPosicao.value==="Defesa"
+								// Formula: [JOGADOR->POSICAO] == "DEF"
+								return this.ValPosicao.value==="DEF"
 							},
 							dependencyEvents: ['fieldChange:jogador.posicao'],
 							isServerRecalc: false,
@@ -1036,6 +1069,8 @@
 						set ValFoto(value) { vm.model.ValFoto.updateValue(value) },
 						get ValIdadejogador() { return vm.model.ValIdadejogador.value },
 						set ValIdadejogador(value) { vm.model.ValIdadejogador.updateValue(value) },
+						get ValNationalidade() { return vm.model.ValNationalidade.value },
+						set ValNationalidade(value) { vm.model.ValNationalidade.updateValue(value) },
 						get ValNome() { return vm.model.ValNome.value },
 						set ValNome(value) { vm.model.ValNome.updateValue(value) },
 						get ValNumerocamisola() { return vm.model.ValNumerocamisola.value },

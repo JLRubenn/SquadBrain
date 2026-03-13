@@ -107,6 +107,16 @@ export default class ViewModel extends FormViewModelBase
 		}).cloneFrom(values?.ValNome))
 		this.stopWatchers.push(watch(() => this.ValNome.value, (newValue, oldValue) => this.onUpdate('jogador.nome', this.ValNome, newValue, oldValue)))
 
+		this.ValNationalidade = reactive(new modelFieldType.String({
+			id: 'ValNationalidade',
+			originId: 'ValNationalidade',
+			area: 'JOGADOR',
+			field: 'NATIONALIDADE',
+			maxLength: 50,
+			description: computed(() => this.Resources.NATIONALIDADE48376),
+		}).cloneFrom(values?.ValNationalidade))
+		this.stopWatchers.push(watch(() => this.ValNationalidade.value, (newValue, oldValue) => this.onUpdate('jogador.nationalidade', this.ValNationalidade, newValue, oldValue)))
+
 		this.ValDatanascimento = reactive(new modelFieldType.Date({
 			id: 'ValDatanascimento',
 			originId: 'ValDatanascimento',

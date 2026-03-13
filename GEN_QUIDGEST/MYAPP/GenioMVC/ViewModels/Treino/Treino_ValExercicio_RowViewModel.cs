@@ -51,6 +51,36 @@ public class Treino_ValExercicio_RowViewModel : Models.Exercicio
 				Area = "EXERCICIO",
 				Field = "DESCRICAO",
 			},
+			new ListColumn()
+			{
+				Order = 4,
+				Area = "EXERCICIO",
+				Field = "OBJETIVO",
+			},
+			new ListColumn()
+			{
+				Order = 5,
+				Area = "EXERCICIO",
+				Field = "TEMPO",
+			},
+			new ListColumn()
+			{
+				Order = 6,
+				Area = "EXERCICIO",
+				Field = "NUMJOGADOR",
+			},
+			new ListColumn()
+			{
+				Order = 7,
+				Area = "EXERCICIO",
+				Field = "ESPACO",
+			},
+			new ListColumn()
+			{
+				Order = 8,
+				Area = "TREINO",
+				Field = "DATA",
+			},
 		];
 	}
 

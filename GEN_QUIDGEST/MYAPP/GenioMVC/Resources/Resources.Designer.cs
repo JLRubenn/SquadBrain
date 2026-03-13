@@ -1224,6 +1224,15 @@ namespace GenioMVC.Resources
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to "Nationalidade"
+		/// </summary>
+		public static string NATIONALIDADE48376 {
+			get {
+				return ResourceManager.GetString("NATIONALIDADE48376", resourceCulture);
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to "JOGADOR"
 		/// </summary>
 		public static string JOGADOR55167 {

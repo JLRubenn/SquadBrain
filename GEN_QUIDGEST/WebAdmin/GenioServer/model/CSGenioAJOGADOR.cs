@@ -236,6 +236,16 @@ namespace CSGenio.business
 			info.RegisterFieldDB(Qfield);
 
 			//- - - - - - - - - - - - - - - - - - -
+			Qfield = new Field(info.Alias, "nationalidade", FieldType.TEXT);
+			Qfield.FieldDescription = "Nationalidade";
+			Qfield.FieldSize =  50;
+			Qfield.MQueue = false;
+			Qfield.CavDesignation = "NATIONALIDADE48376";
+
+			Qfield.Dupmsg = "";
+			info.RegisterFieldDB(Qfield);
+
+			//- - - - - - - - - - - - - - - - - - -
 			Qfield = new Field(info.Alias, "zzstate", FieldType.INTEGER);
 			Qfield.FieldDescription = "Estado da ficha";
 			info.RegisterFieldDB(Qfield);
@@ -296,13 +306,13 @@ namespace CSGenio.business
 			//Write conditions
 			List<ConditionFormula> conditions = new List<ConditionFormula>();
 
-			// DateCompare([JOGADOR->DATANASCIMENTO], [Today]) > 0
+			// DateCompare([JOGADOR->DATANASCIMENTO], [Today]) < 0
 			{
 			List<ByAreaArguments> argumentsListByArea = new List<ByAreaArguments>();
 			argumentsListByArea= new List<ByAreaArguments>();
 			argumentsListByArea.Add(new ByAreaArguments(new string[] {"datanascimento"},new int[] {0},"jogador","codjogador"));
 			ConditionFormula writeCondition = new ConditionFormula(argumentsListByArea, 1, delegate(object []args,User user,string module,PersistentSupport sp) {
-				return GenFunctions.DateCompare(((DateTime)args[0]),DateTime.Today)>0;
+				return GenFunctions.DateCompare(((DateTime)args[0]),DateTime.Today)<0;
 			});
 			writeCondition.ErrorWarning = "A data de nascimento do jogador tem de ser no passado.";
             writeCondition.Type =  ConditionType.ERROR;
@@ -575,6 +585,17 @@ namespace CSGenio.business
 			set { insertNameValueField(FldValormercado, value); }
 		}
 
+		/// <summary>Field : "Nationalidade" Tipo: "C" Formula:  ""</summary>
+		public static FieldRef FldNationalidade { get { return m_fldNationalidade; } }
+		private static FieldRef m_fldNationalidade = new FieldRef("jogador", "nationalidade");
+
+		/// <summary>Field : "Nationalidade" Tipo: "C" Formula:  ""</summary>
+		public string ValNationalidade
+		{
+			get { return (string)returnValueField(FldNationalidade); }
+			set { insertNameValueField(FldNationalidade, value); }
+		}
+
 		/// <summary>Field : "ZZSTATE" Type: "INT" Formula:  ""</summary>
 		public static FieldRef FldZzstate { get { return m_fldZzstate; } }
 		private static FieldRef m_fldZzstate = new FieldRef("jogador", "zzstate");
@@ -672,7 +693,7 @@ namespace CSGenio.business
 		// USE /[MANUAL SQB TABAUX JOGADOR]/
 
  
-                
+                 
 
 	}
 }

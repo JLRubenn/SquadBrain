@@ -504,6 +504,9 @@
   <data name="CLIENT_IP_ADDRESS62089" xml:space="preserve">
     <value>Client ip address</value>
   </data>
+  <data name="NATIONALIDADE48376" xml:space="preserve">
+    <value>Nationalidade</value>
+  </data>
   <data name="JOGADOR55167" xml:space="preserve">
     <value>JOGADOR</value>
   </data>

@@ -108,6 +108,9 @@ namespace CSGenio.framework
 				new("SQB", Role.UNAUTHORIZED),
 
 				new("SQB", Role.ROLE_1),
+				new("SQB", Role.ROLE_30),
+				new("SQB", Role.ROLE_40),
+				new("SQB", Role.ROLE_50),
 				new("SQB", Role.ADMINISTRATION)			];
 
         }

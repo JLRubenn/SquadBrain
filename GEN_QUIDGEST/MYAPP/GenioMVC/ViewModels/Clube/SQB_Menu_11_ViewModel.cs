@@ -100,7 +100,7 @@ namespace GenioMVC.ViewModels.Clube
 			conditions.SubSets.Add(GetCustomizedStaticLimits(StaticLimits));
 
 			// Checks for foreign tables in fields and conditions
-			FieldRef[] fields = new FieldRef[] { CSGenioAclube.FldCodclube, CSGenioAclube.FldZzstate, CSGenioAclube.FldNome, CSGenioAclube.FldEpoca, CSGenioAclube.FldCoordtecn, CSGenioAclube.FldTreinadorprincipal, CSGenioAclube.FldEscalao, CSGenioAclube.FldPresidente, CSGenioAclube.FldFoto, CSGenioAclube.FldTreinadoradjunto, CSGenioAclube.FldCoordform };
+			FieldRef[] fields = new FieldRef[] { CSGenioAclube.FldCodclube, CSGenioAclube.FldZzstate, CSGenioAclube.FldNome, CSGenioAclube.FldEpoca, CSGenioAclube.FldCoordtecn, CSGenioAclube.FldTreinadorprincipal, CSGenioAclube.FldEscalao, CSGenioAclube.FldPresidente, CSGenioAclube.FldFoto, CSGenioAclube.FldTreinadoradjunto, CSGenioAclube.FldCoordform, CSGenioAclube.FldValormercadoequipa };
 
 			ListingMVC<CSGenioAclube> listing = new(fields, null, 1, 1, false, user, true, string.Empty, false);
 			SelectQuery qs = sp.getSelectQueryFromListingMVC(conditions, listing);
@@ -127,7 +127,7 @@ namespace GenioMVC.ViewModels.Clube
 		/// <param name="userContext">The current user request context</param>
 		public SQB_Menu_11_ViewModel(UserContext userContext) : base(userContext)
 		{
-			this.RoleToShow = CSGenio.framework.Role.ROLE_1;
+			this.RoleToShow = CSGenio.framework.Role.ROLE_40;
 		}
 
 		/// <summary>
@@ -336,7 +336,7 @@ namespace GenioMVC.ViewModels.Clube
 
 			}
 
-			FieldRef[] fields = new FieldRef[] { CSGenioAclube.FldCodclube, CSGenioAclube.FldZzstate, CSGenioAclube.FldNome, CSGenioAclube.FldEpoca, CSGenioAclube.FldCoordtecn, CSGenioAclube.FldTreinadorprincipal, CSGenioAclube.FldEscalao, CSGenioAclube.FldPresidente, CSGenioAclube.FldFoto, CSGenioAclube.FldTreinadoradjunto, CSGenioAclube.FldCoordform };
+			FieldRef[] fields = new FieldRef[] { CSGenioAclube.FldCodclube, CSGenioAclube.FldZzstate, CSGenioAclube.FldNome, CSGenioAclube.FldEpoca, CSGenioAclube.FldCoordtecn, CSGenioAclube.FldTreinadorprincipal, CSGenioAclube.FldEscalao, CSGenioAclube.FldPresidente, CSGenioAclube.FldFoto, CSGenioAclube.FldTreinadoradjunto, CSGenioAclube.FldCoordform, CSGenioAclube.FldValormercadoequipa };
 
 
 			// Totalizers
@@ -534,7 +534,7 @@ namespace GenioMVC.ViewModels.Clube
 
 		private static readonly string[] _fieldsToSerialize =
 		[
-			"Clube", "Clube.ValCodclube", "Clube.ValZzstate", "Clube.ValNome", "Clube.ValEpoca", "Clube.ValCoordtecn", "Clube.ValTreinadorprincipal", "Clube.ValEscalao", "Clube.ValPresidente", "Clube.ValFoto", "Clube.ValTreinadoradjunto", "Clube.ValCoordform"
+			"Clube", "Clube.ValCodclube", "Clube.ValZzstate", "Clube.ValNome", "Clube.ValEpoca", "Clube.ValCoordtecn", "Clube.ValTreinadorprincipal", "Clube.ValEscalao", "Clube.ValPresidente", "Clube.ValFoto", "Clube.ValTreinadoradjunto", "Clube.ValCoordform", "Clube.ValValormercadoequipa"
 		];
 
 		private static readonly List<TableSearchColumn> _searchableColumns =

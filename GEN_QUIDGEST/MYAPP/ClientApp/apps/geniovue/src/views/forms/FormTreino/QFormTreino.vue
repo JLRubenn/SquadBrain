@@ -873,18 +873,6 @@
 								isVisible: false,
 								export: 1,
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.DateColumn({
-								order: 8,
-								name: 'Treino.ValData',
-								area: 'TREINO',
-								field: 'DATA',
-								label: computed(() => this.Resources.DATA18071),
-								scrollData: 16,
-								dateTimeType: 'dateTime',
-								isVisible: false,
-								export: 1,
-								pkColumn: 'ValCodtreino',
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 						],
 						config: {
 							name: 'ValExercicio',
@@ -1016,8 +1004,8 @@
 									isPopup: true
 								},
 							},
-							defaultSearchColumnName: 'Treino.ValData',
-							defaultSearchColumnNameOriginal: 'Treino.ValData',
+							defaultSearchColumnName: 'ValTitulo',
+							defaultSearchColumnNameOriginal: 'ValTitulo',
 							defaultColumnSorting: {
 								columnName: '',
 								sortOrder: 'asc'

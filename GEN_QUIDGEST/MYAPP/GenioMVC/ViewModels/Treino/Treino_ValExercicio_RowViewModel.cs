@@ -75,12 +75,6 @@ public class Treino_ValExercicio_RowViewModel : Models.Exercicio
 				Area = "EXERCICIO",
 				Field = "ESPACO",
 			},
-			new ListColumn()
-			{
-				Order = 8,
-				Area = "TREINO",
-				Field = "DATA",
-			},
 		];
 	}
 

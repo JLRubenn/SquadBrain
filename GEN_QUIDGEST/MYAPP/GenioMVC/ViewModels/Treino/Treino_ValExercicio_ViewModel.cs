@@ -134,7 +134,6 @@ namespace GenioMVC.ViewModels.Treino
 				new Exports.QColumn(CSGenioAexercicio.FldTempo, FieldType.NUMERIC, Resources.Resources.TEMPO__M_37967, 3, 0, false),
 				new Exports.QColumn(CSGenioAexercicio.FldNumjogador, FieldType.NUMERIC, Resources.Resources.NUMERO_DE_JOGADOES35633, 3, 0, false),
 				new Exports.QColumn(CSGenioAexercicio.FldEspaco, FieldType.TEXT, Resources.Resources.ESPACO13353, 30, 0, false),
-				new Exports.QColumn(CSGenioAtreino.FldData, FieldType.DATETIME, Resources.Resources.DATA18071, 16, 0, false),
 			];
 		}
 
@@ -317,7 +316,7 @@ namespace GenioMVC.ViewModels.Treino
 			List<ColumnSort> sorts = GetRequestSorts(this.Menu, tableConfig, "exercicio", allSortOrders);
 
 
-			FieldRef[] fields = new FieldRef[] { CSGenioAexercicio.FldCodexercicio, CSGenioAexercicio.FldZzstate, CSGenioAexercicio.FldTitulo, CSGenioAexercicio.FldFoto, CSGenioAexercicio.FldDescricao, CSGenioAexercicio.FldObjetivo, CSGenioAexercicio.FldTempo, CSGenioAexercicio.FldNumjogador, CSGenioAexercicio.FldEspaco, CSGenioAexercicio.FldCodtreino, CSGenioAtreino.FldCodtreino, CSGenioAtreino.FldData };
+			FieldRef[] fields = new FieldRef[] { CSGenioAexercicio.FldCodexercicio, CSGenioAexercicio.FldZzstate, CSGenioAexercicio.FldTitulo, CSGenioAexercicio.FldFoto, CSGenioAexercicio.FldDescricao, CSGenioAexercicio.FldObjetivo, CSGenioAexercicio.FldTempo, CSGenioAexercicio.FldNumjogador, CSGenioAexercicio.FldEspaco };
 
 
 			// Totalizers
@@ -462,17 +461,12 @@ namespace GenioMVC.ViewModels.Treino
 				{
 					case "exercicio":
 						model.klass.insertNameValueField(Qfield.FullName, Qfield.Value); break;
-					case "treino":
-						model.Treino.klass.insertNameValueField(Qfield.FullName, Qfield.Value); break;
 					default:
 						break;
 				}
 			}
 
 			model.InitRowData();
-
-			// Use the parent context, so the formulas are calculated with the current values.
-			model.Treino = ParentCtx as Models.Treino;
 
 			SetTicketToImageFields(model);
 			return model;
@@ -519,7 +513,7 @@ namespace GenioMVC.ViewModels.Treino
 
 		private static readonly string[] _fieldsToSerialize =
 		[
-			"Exercicio", "Exercicio.ValCodexercicio", "Exercicio.ValZzstate", "Exercicio.ValTitulo", "Exercicio.ValFoto", "Exercicio.ValDescricao", "Exercicio.ValObjetivo", "Exercicio.ValTempo", "Exercicio.ValNumjogador", "Exercicio.ValEspaco", "Treino", "Treino.ValData", "Exercicio.ValCodtreino"
+			"Exercicio", "Exercicio.ValCodexercicio", "Exercicio.ValZzstate", "Exercicio.ValTitulo", "Exercicio.ValFoto", "Exercicio.ValDescricao", "Exercicio.ValObjetivo", "Exercicio.ValTempo", "Exercicio.ValNumjogador", "Exercicio.ValEspaco", "Exercicio.ValCodtreino"
 		];
 
 		private static readonly List<TableSearchColumn> _searchableColumns =
@@ -530,7 +524,6 @@ namespace GenioMVC.ViewModels.Treino
 			new TableSearchColumn("ValTempo", CSGenioAexercicio.FldTempo, typeof(decimal?), visible : false),
 			new TableSearchColumn("ValNumjogador", CSGenioAexercicio.FldNumjogador, typeof(decimal?), visible : false),
 			new TableSearchColumn("ValEspaco", CSGenioAexercicio.FldEspaco, typeof(string), visible : false),
-			new TableSearchColumn("Treino_ValData", CSGenioAtreino.FldData, typeof(DateTime?), visible : false, defaultSearch : true),
 		];
 		protected void SetTicketToImageFields(Models.Exercicio row)
 		{

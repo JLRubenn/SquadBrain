@@ -435,6 +435,9 @@
   <msg id="Agendado para execução" code="AGENDADO_PARA_EXECUC11223">
     <ENUS>Agendado para execução</ENUS>
   </msg>
+  <msg id="Ultimo treino criado" code="ULTIMO_TREINO_CRIADO14931">
+    <ENUS>Ultimo treino criado</ENUS>
+  </msg>
   <msg id="Não responde" code="NAO_RESPONDE33275">
     <ENUS>Não responde</ENUS>
   </msg>

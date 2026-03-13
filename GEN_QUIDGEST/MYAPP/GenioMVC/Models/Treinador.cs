@@ -60,8 +60,8 @@ namespace GenioMVC.Models
 		[JsonIgnore]
 		public SelectList ArrayValfuncao { get { return new SelectList(CSGenio.business.ArrayFuncaotr.GetDictionary(), "Key", "Value", ValFuncao); } set { ValFuncao = value.SelectedValue as string; } }
 
-		[DisplayName("LASTTREINOCRIADO")]
-		/// <summary>Field : "LASTTREINOCRIADO" Tipo: "C" Formula: U1 "TREINO[TREINO->DATA][TREINO->DATA]"</summary>
+		[DisplayName("Ultimo treino criado")]
+		/// <summary>Field : "Ultimo treino criado" Tipo: "C" Formula: U1 "TREINO[TREINO->DATA][TREINO->DATA]"</summary>
 		[ShouldSerialize("Treinador.ValLasttreinocriado")]
 		public string ValLasttreinocriado { get { return klass.ValLasttreinocriado; } set { klass.ValLasttreinocriado = value; } }
 

@@ -335,14 +335,96 @@
 						allSelectedRows: 'false',
 						viewModes: [
 							{
-								id: 'LIST',
-								type: 'list',
-								subtype: '',
-								label: computed(() => this.Resources.LISTA13474),
+								id: 'CARDS',
+								type: 'cards',
+								subtype: 'card',
+								label: computed(() => this.Resources.CARTOES27587),
 								order: 1,
 								mappingVariables: readonly({
+									title: {
+										allowsMultiple: false,
+										sources: [
+											'TREINADOR.NOME',
+										]
+									},
+									subtitle: {
+										allowsMultiple: false,
+										sources: [
+											'TREINADOR.FUNCAO',
+										]
+									},
+									text: {
+										allowsMultiple: true,
+										sources: [
+											'CLUBE.NOME',
+										]
+									},
 								}),
 								styleVariables: {
+									actionsAlignment: {
+										rawValue: 'left',
+										isMapped: false
+									},
+									actionsPlacement: {
+										rawValue: 'footer',
+										isMapped: false
+									},
+									actionsStyle: {
+										rawValue: 'dropdown',
+										isMapped: false
+									},
+									backgroundColor: {
+										rawValue: 'auto',
+										isMapped: false
+									},
+									contentAlignment: {
+										rawValue: 'left',
+										isMapped: false
+									},
+									customFollowupDefaultTarget: {
+										rawValue: 'blank',
+										isMapped: false
+									},
+									customInsertCard: {
+										rawValue: false,
+										isMapped: false
+									},
+									customInsertCardStyle: {
+										rawValue: 'secondary',
+										isMapped: false
+									},
+									displayMode: {
+										rawValue: 'grid',
+										isMapped: false
+									},
+									gridMode: {
+										rawValue: 'fixed',
+										isMapped: false
+									},
+									containerAlignment: {
+										rawValue: 'left',
+										isMapped: false
+									},
+									hoverScaleAmount: {
+										rawValue: '1.00',
+										isMapped: false
+									},
+									imageShape: {
+										rawValue: 'rectangular',
+										isMapped: false
+									},
+									showColumnTitles: {
+										rawValue: false,
+										isMapped: false
+									},
+									showEmptyColumnTitles: {
+										rawValue: true,
+										isMapped: false
+									},
+									size: {
+										rawValue: 'regular',
+										isMapped: false
+									},
 								},
 								groups: {
 								}

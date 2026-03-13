@@ -100,7 +100,7 @@ namespace GenioMVC.ViewModels.Treinador
 			conditions.SubSets.Add(GetCustomizedStaticLimits(StaticLimits));
 
 			// Checks for foreign tables in fields and conditions
-			FieldRef[] fields = new FieldRef[] { CSGenioAtreinador.FldCodtreinador, CSGenioAtreinador.FldZzstate, CSGenioAtreinador.FldFuncao, CSGenioAtreinador.FldNome, CSGenioAtreinador.FldCodclube, CSGenioAclube.FldCodclube, CSGenioAclube.FldNome, CSGenioAtreinador.FldLasttreinocriado };
+			FieldRef[] fields = new FieldRef[] { CSGenioAtreinador.FldCodtreinador, CSGenioAtreinador.FldZzstate, CSGenioAtreinador.FldFuncao, CSGenioAtreinador.FldNome, CSGenioAtreinador.FldCodclube, CSGenioAclube.FldCodclube, CSGenioAclube.FldNome };
 
 			ListingMVC<CSGenioAtreinador> listing = new(fields, null, 1, 1, false, user, true, string.Empty, false);
 			SelectQuery qs = sp.getSelectQueryFromListingMVC(conditions, listing);
@@ -149,7 +149,6 @@ namespace GenioMVC.ViewModels.Treinador
 				new Exports.QColumn(CSGenioAtreinador.FldFuncao, FieldType.ARRAY_TEXT, Resources.Resources.FUN01176, 3, 0, true, "funcaoTR"),
 				new Exports.QColumn(CSGenioAtreinador.FldNome, FieldType.TEXT, Resources.Resources.NOME47814, 30, 0, true),
 				new Exports.QColumn(CSGenioAclube.FldNome, FieldType.TEXT, Resources.Resources.NOME47814, 30, 0, true),
-				new Exports.QColumn(CSGenioAtreinador.FldLasttreinocriado, FieldType.TEXT, Resources.Resources.LASTTREINOCRIADO36042, 30, 0, true),
 			];
 		}
 
@@ -333,7 +332,7 @@ namespace GenioMVC.ViewModels.Treinador
 
 			}
 
-			FieldRef[] fields = new FieldRef[] { CSGenioAtreinador.FldCodtreinador, CSGenioAtreinador.FldZzstate, CSGenioAtreinador.FldFuncao, CSGenioAtreinador.FldNome, CSGenioAtreinador.FldCodclube, CSGenioAclube.FldCodclube, CSGenioAclube.FldNome, CSGenioAtreinador.FldLasttreinocriado };
+			FieldRef[] fields = new FieldRef[] { CSGenioAtreinador.FldCodtreinador, CSGenioAtreinador.FldZzstate, CSGenioAtreinador.FldFuncao, CSGenioAtreinador.FldNome, CSGenioAtreinador.FldCodclube, CSGenioAclube.FldCodclube, CSGenioAclube.FldNome };
 
 
 			// Totalizers
@@ -532,7 +531,7 @@ namespace GenioMVC.ViewModels.Treinador
 
 		private static readonly string[] _fieldsToSerialize =
 		[
-			"Treinador", "Treinador.ValCodtreinador", "Treinador.ValZzstate", "Treinador.ValFuncao", "Treinador.ValNome", "Clube", "Clube.ValNome", "Treinador.ValLasttreinocriado", "Treinador.ValCodclube"
+			"Treinador", "Treinador.ValCodtreinador", "Treinador.ValZzstate", "Treinador.ValFuncao", "Treinador.ValNome", "Clube", "Clube.ValNome", "Treinador.ValCodclube"
 		];
 
 		private static readonly List<TableSearchColumn> _searchableColumns =
@@ -540,7 +539,6 @@ namespace GenioMVC.ViewModels.Treinador
 			new TableSearchColumn("ValFuncao", CSGenioAtreinador.FldFuncao, typeof(string), array : "funcaoTR"),
 			new TableSearchColumn("ValNome", CSGenioAtreinador.FldNome, typeof(string), defaultSearch : true),
 			new TableSearchColumn("Clube_ValNome", CSGenioAclube.FldNome, typeof(string)),
-			new TableSearchColumn("ValLasttreinocriado", CSGenioAtreinador.FldLasttreinocriado, typeof(string)),
 		];
 	}
 }

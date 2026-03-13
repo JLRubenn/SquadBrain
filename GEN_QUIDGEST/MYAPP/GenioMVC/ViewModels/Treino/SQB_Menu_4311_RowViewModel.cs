@@ -36,62 +36,38 @@ public class SQB_Menu_4311_RowViewModel : Models.Treino
 			new ListColumn()
 			{
 				Order = 1,
-				Area = "CLUBE",
-				Field = "NOME",
-			},
-			new ListColumn()
-			{
-				Order = 2,
-				Area = "TREINO",
-				Field = "NUMJOGADORES",
-			},
-			new ListColumn()
-			{
-				Order = 3,
-				Area = "TREINO",
-				Field = "MESOCICLOS",
-			},
-			new ListColumn()
-			{
-				Order = 4,
-				Area = "TREINO",
-				Field = "MICROCICLO",
-			},
-			new ListColumn()
-			{
-				Order = 5,
 				Area = "TREINO",
 				Field = "NUMTREINO",
 			},
 			new ListColumn()
 			{
-				Order = 6,
+				Order = 2,
 				Area = "TREINO",
 				Field = "DATA",
 			},
 			new ListColumn()
 			{
-				Order = 7,
+				Order = 3,
 				Area = "TREINADOR",
 				Field = "NOME",
 			},
 			new ListColumn()
 			{
-				Order = 8,
+				Order = 4,
 				Area = "TREINO",
-				Field = "MATERIAL",
+				Field = "NUMJOGADORES",
 			},
 			new ListColumn()
 			{
-				Order = 9,
-				Area = "JOGADOR",
-				Field = "NOME",
-			},
-			new ListColumn()
-			{
-				Order = 10,
+				Order = 5,
 				Area = "TREINO",
 				Field = "OBJETIVO",
+			},
+			new ListColumn()
+			{
+				Order = 6,
+				Area = "TREINO",
+				Field = "MATERIAL",
 			},
 		];
 	}

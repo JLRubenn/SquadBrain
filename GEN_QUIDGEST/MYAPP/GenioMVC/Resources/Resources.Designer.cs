@@ -1368,6 +1368,15 @@ namespace GenioMVC.Resources
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to "Ultimo treino criado"
+		/// </summary>
+		public static string ULTIMO_TREINO_CRIADO14931 {
+			get {
+				return ResourceManager.GetString("ULTIMO_TREINO_CRIADO14931", resourceCulture);
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to "Não responde"
 		/// </summary>
 		public static string NAO_RESPONDE33275 {

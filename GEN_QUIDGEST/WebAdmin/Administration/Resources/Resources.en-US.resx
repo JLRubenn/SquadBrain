@@ -552,6 +552,9 @@
   <data name="AGENDADO_PARA_EXECUC11223" xml:space="preserve">
     <value>Agendado para execução</value>
   </data>
+  <data name="ULTIMO_TREINO_CRIADO14931" xml:space="preserve">
+    <value>Ultimo treino criado</value>
+  </data>
   <data name="NAO_RESPONDE33275" xml:space="preserve">
     <value>Não responde</value>
   </data>

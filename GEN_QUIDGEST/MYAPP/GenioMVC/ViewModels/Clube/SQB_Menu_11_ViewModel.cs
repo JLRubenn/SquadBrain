@@ -100,7 +100,7 @@ namespace GenioMVC.ViewModels.Clube
 			conditions.SubSets.Add(GetCustomizedStaticLimits(StaticLimits));
 
 			// Checks for foreign tables in fields and conditions
-			FieldRef[] fields = new FieldRef[] { CSGenioAclube.FldCodclube, CSGenioAclube.FldZzstate, CSGenioAclube.FldNome, CSGenioAclube.FldEpoca, CSGenioAclube.FldCoordtecn, CSGenioAclube.FldTreinadorprincipal, CSGenioAclube.FldEscalao, CSGenioAclube.FldPresidente, CSGenioAclube.FldFoto, CSGenioAclube.FldTreinadoradjunto, CSGenioAclube.FldCoordform, CSGenioAclube.FldValormercadoequipa };
+			FieldRef[] fields = new FieldRef[] { CSGenioAclube.FldCodclube, CSGenioAclube.FldZzstate, CSGenioAclube.FldFoto, CSGenioAclube.FldNome, CSGenioAclube.FldEpoca, CSGenioAclube.FldEscalao, CSGenioAclube.FldPresidente, CSGenioAclube.FldTreinadorprincipal, CSGenioAclube.FldValormercadoequipa };
 
 			ListingMVC<CSGenioAclube> listing = new(fields, null, 1, 1, false, user, true, string.Empty, false);
 			SelectQuery qs = sp.getSelectQueryFromListingMVC(conditions, listing);
@@ -147,12 +147,9 @@ namespace GenioMVC.ViewModels.Clube
 			[
 				new Exports.QColumn(CSGenioAclube.FldNome, FieldType.TEXT, Resources.Resources.NOME47814, 30, 0, true),
 				new Exports.QColumn(CSGenioAclube.FldEpoca, FieldType.TEXT, Resources.Resources.EPOCA21186, 30, 0, true),
-				new Exports.QColumn(CSGenioAclube.FldCoordtecn, FieldType.TEXT, Resources.Resources.COORDENADOR_TECNICO51290, 30, 0, true),
-				new Exports.QColumn(CSGenioAclube.FldTreinadorprincipal, FieldType.TEXT, Resources.Resources.TREINADOR_PRINCIPAL45661, 30, 0, true),
 				new Exports.QColumn(CSGenioAclube.FldEscalao, FieldType.TEXT, Resources.Resources.ESCALAO14935, 30, 0, true),
 				new Exports.QColumn(CSGenioAclube.FldPresidente, FieldType.TEXT, Resources.Resources.PRESIDENTE51745, 30, 0, true),
-				new Exports.QColumn(CSGenioAclube.FldTreinadoradjunto, FieldType.TEXT, Resources.Resources.TREINADOR_ADJUNTO05329, 30, 0, true),
-				new Exports.QColumn(CSGenioAclube.FldCoordform, FieldType.TEXT, Resources.Resources.COORDENADOR_FORMACAO06004, 30, 0, true),
+				new Exports.QColumn(CSGenioAclube.FldTreinadorprincipal, FieldType.TEXT, Resources.Resources.TREINADOR_PRINCIPAL45661, 30, 0, true),
 			];
 		}
 
@@ -336,7 +333,7 @@ namespace GenioMVC.ViewModels.Clube
 
 			}
 
-			FieldRef[] fields = new FieldRef[] { CSGenioAclube.FldCodclube, CSGenioAclube.FldZzstate, CSGenioAclube.FldNome, CSGenioAclube.FldEpoca, CSGenioAclube.FldCoordtecn, CSGenioAclube.FldTreinadorprincipal, CSGenioAclube.FldEscalao, CSGenioAclube.FldPresidente, CSGenioAclube.FldFoto, CSGenioAclube.FldTreinadoradjunto, CSGenioAclube.FldCoordform, CSGenioAclube.FldValormercadoequipa };
+			FieldRef[] fields = new FieldRef[] { CSGenioAclube.FldCodclube, CSGenioAclube.FldZzstate, CSGenioAclube.FldFoto, CSGenioAclube.FldNome, CSGenioAclube.FldEpoca, CSGenioAclube.FldEscalao, CSGenioAclube.FldPresidente, CSGenioAclube.FldTreinadorprincipal, CSGenioAclube.FldValormercadoequipa };
 
 
 			// Totalizers
@@ -348,7 +345,7 @@ namespace GenioMVC.ViewModels.Clube
 			{
 				firstVisibleColumn = tableConfig?.GetFirstVisibleColumn(TableAlias);
 
-				firstVisibleColumn ??= new FieldRef("clube", "nome");
+				firstVisibleColumn ??= new FieldRef("clube", "foto");
 			}
 			// Limitations
 			this.TableLimits ??= [];
@@ -534,19 +531,16 @@ namespace GenioMVC.ViewModels.Clube
 
 		private static readonly string[] _fieldsToSerialize =
 		[
-			"Clube", "Clube.ValCodclube", "Clube.ValZzstate", "Clube.ValNome", "Clube.ValEpoca", "Clube.ValCoordtecn", "Clube.ValTreinadorprincipal", "Clube.ValEscalao", "Clube.ValPresidente", "Clube.ValFoto", "Clube.ValTreinadoradjunto", "Clube.ValCoordform", "Clube.ValValormercadoequipa"
+			"Clube", "Clube.ValCodclube", "Clube.ValZzstate", "Clube.ValFoto", "Clube.ValNome", "Clube.ValEpoca", "Clube.ValEscalao", "Clube.ValPresidente", "Clube.ValTreinadorprincipal", "Clube.ValValormercadoequipa"
 		];
 
 		private static readonly List<TableSearchColumn> _searchableColumns =
 		[
 			new TableSearchColumn("ValNome", CSGenioAclube.FldNome, typeof(string), defaultSearch : true),
 			new TableSearchColumn("ValEpoca", CSGenioAclube.FldEpoca, typeof(string)),
-			new TableSearchColumn("ValCoordtecn", CSGenioAclube.FldCoordtecn, typeof(string)),
-			new TableSearchColumn("ValTreinadorprincipal", CSGenioAclube.FldTreinadorprincipal, typeof(string)),
 			new TableSearchColumn("ValEscalao", CSGenioAclube.FldEscalao, typeof(string)),
 			new TableSearchColumn("ValPresidente", CSGenioAclube.FldPresidente, typeof(string)),
-			new TableSearchColumn("ValTreinadoradjunto", CSGenioAclube.FldTreinadoradjunto, typeof(string)),
-			new TableSearchColumn("ValCoordform", CSGenioAclube.FldCoordform, typeof(string)),
+			new TableSearchColumn("ValTreinadorprincipal", CSGenioAclube.FldTreinadorprincipal, typeof(string)),
 		];
 		protected void SetTicketToImageFields(Models.Clube row)
 		{

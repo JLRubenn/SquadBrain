@@ -87,10 +87,10 @@ namespace CSGenio.business
 
 			//- - - - - - - - - - - - - - - - - - -
 			Qfield = new Field(info.Alias, "lasttreinocriado", FieldType.TEXT);
-			Qfield.FieldDescription = "LASTTREINOCRIADO";
+			Qfield.FieldDescription = "Ultimo treino criado";
 			Qfield.FieldSize =  50;
 			Qfield.MQueue = false;
-			Qfield.CavDesignation = "LASTTREINOCRIADO36042";
+			Qfield.CavDesignation = "ULTIMO_TREINO_CRIADO14931";
 
 			Qfield.Dupmsg = "";
 			info.RegisterFieldDB(Qfield);
@@ -293,11 +293,11 @@ namespace CSGenio.business
 			set { insertNameValueField(FldFuncao, value); }
 		}
 
-		/// <summary>Field : "LASTTREINOCRIADO" Tipo: "C" Formula: U1 "TREINO[TREINO->DATA][TREINO->DATA]"</summary>
+		/// <summary>Field : "Ultimo treino criado" Tipo: "C" Formula: U1 "TREINO[TREINO->DATA][TREINO->DATA]"</summary>
 		public static FieldRef FldLasttreinocriado { get { return m_fldLasttreinocriado; } }
 		private static FieldRef m_fldLasttreinocriado = new FieldRef("treinador", "lasttreinocriado");
 
-		/// <summary>Field : "LASTTREINOCRIADO" Tipo: "C" Formula: U1 "TREINO[TREINO->DATA][TREINO->DATA]"</summary>
+		/// <summary>Field : "Ultimo treino criado" Tipo: "C" Formula: U1 "TREINO[TREINO->DATA][TREINO->DATA]"</summary>
 		public string ValLasttreinocriado
 		{
 			get { return (string)returnValueField(FldLasttreinocriado); }

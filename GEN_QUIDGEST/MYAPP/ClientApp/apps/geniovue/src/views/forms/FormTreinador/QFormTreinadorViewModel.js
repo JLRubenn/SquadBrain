@@ -105,7 +105,7 @@ export default class ViewModel extends FormViewModelBase
 			field: 'LASTTREINOCRIADO',
 			maxLength: 50,
 			isFixed: true,
-			description: computed(() => this.Resources.LASTTREINOCRIADO36042),
+			description: computed(() => this.Resources.ULTIMO_TREINO_CRIADO14931),
 		}).cloneFrom(values?.ValLasttreinocriado))
 		this.stopWatchers.push(watch(() => this.ValLasttreinocriado.value, (newValue, oldValue) => this.onUpdate('treinador.lasttreinocriado', this.ValLasttreinocriado, newValue, oldValue)))
 	}

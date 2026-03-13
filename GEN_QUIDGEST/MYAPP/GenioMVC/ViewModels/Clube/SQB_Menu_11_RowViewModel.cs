@@ -37,55 +37,37 @@ public class SQB_Menu_11_RowViewModel : Models.Clube
 			{
 				Order = 1,
 				Area = "CLUBE",
-				Field = "NOME",
+				Field = "FOTO",
 			},
 			new ListColumn()
 			{
 				Order = 2,
 				Area = "CLUBE",
-				Field = "EPOCA",
+				Field = "NOME",
 			},
 			new ListColumn()
 			{
 				Order = 3,
 				Area = "CLUBE",
-				Field = "COORDTECN",
+				Field = "EPOCA",
 			},
 			new ListColumn()
 			{
 				Order = 4,
 				Area = "CLUBE",
-				Field = "TREINADORPRINCIPAL",
+				Field = "ESCALAO",
 			},
 			new ListColumn()
 			{
 				Order = 5,
 				Area = "CLUBE",
-				Field = "ESCALAO",
+				Field = "PRESIDENTE",
 			},
 			new ListColumn()
 			{
 				Order = 6,
 				Area = "CLUBE",
-				Field = "PRESIDENTE",
-			},
-			new ListColumn()
-			{
-				Order = 7,
-				Area = "CLUBE",
-				Field = "FOTO",
-			},
-			new ListColumn()
-			{
-				Order = 8,
-				Area = "CLUBE",
-				Field = "TREINADORADJUNTO",
-			},
-			new ListColumn()
-			{
-				Order = 9,
-				Area = "CLUBE",
-				Field = "COORDFORM",
+				Field = "TREINADORPRINCIPAL",
 			},
 		];
 	}

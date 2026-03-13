@@ -180,16 +180,6 @@
 								export: 1,
 								pkColumn: 'ValCodclube',
 							}, computed(() => vm.model), computed(() => vm.internalEvents)),
-							new listColumnTypes.TextColumn({
-								order: 4,
-								name: 'ValLasttreinocriado',
-								area: 'TREINADOR',
-								field: 'LASTTREINOCRIADO',
-								label: computed(() => this.Resources.LASTTREINOCRIADO36042),
-								dataLength: 50,
-								scrollData: 30,
-								export: 1,
-							}, computed(() => vm.model), computed(() => vm.internalEvents)),
 						],
 						config: {
 							name: 'SQB_Menu_431',

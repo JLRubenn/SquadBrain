@@ -51,12 +51,6 @@ public class SQB_Menu_431_RowViewModel : Models.Treinador
 				Area = "CLUBE",
 				Field = "NOME",
 			},
-			new ListColumn()
-			{
-				Order = 4,
-				Area = "TREINADOR",
-				Field = "LASTTREINOCRIADO",
-			},
 		];
 	}
 

@@ -2,7 +2,7 @@
 
 Para rodar o projeto:
 
-1.Abrir pasta: GEN_QUIDGEST>MYAPP
+1.Abrir pasta: GEN_QUIDGEST>MYAPP /n
 2.Abrir o Docker 
 3.Para Windows: Executar o ficheiro start.bat
   Para MAC ou Linux, abrir o ficheiro start.bat e seguir as instruções que estão lá.

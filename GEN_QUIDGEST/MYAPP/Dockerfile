@@ -11,7 +11,7 @@ COPY ClientApp/apps/geniovue/package.json ./apps/geniovue/
 COPY ClientApp/packages/clientapp/package.json ./packages/clientapp/
 
 # Install dependencies (this layer will be cached unless package files change)
-RUN pnpm install
+RUN pnpm install --ignore-scripts=false
 
 # Copy the rest of the frontend files
 COPY ClientApp/apps/geniovue ./apps/geniovue

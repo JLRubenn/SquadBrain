@@ -1,4 +1,4 @@
-﻿<template>
+<template>
 	<teleport
 		v-if="menuModalIsReady"
 		:to="`#${uiContainersId.body}`"
@@ -6,6 +6,39 @@
 		<form
 			class="form-horizontal"
 			@submit.prevent>
+			<div class="zerozero-squad-block" style="margin-bottom: 1rem; padding: 0.75rem; border: 1px solid #dee2e6; border-radius: 4px; background: #f8f9fa;">
+				<strong style="display: block; margin-bottom: 0.5rem;">Plantel ZeroZero</strong>
+				<div style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem;">
+					<input
+						v-model="zerozeroTeamQuery"
+						class="form-control"
+						style="max-width: 22rem;"
+						placeholder="Nome da equipa ou URL do ZeroZero"
+						@keyup.enter="fetchZeroZeroSquad" />
+					<button
+						type="button"
+						class="btn btn-primary"
+						:disabled="zerozeroLoading"
+						@click="fetchZeroZeroSquad">
+						{{ zerozeroLoading ? 'A carregar...' : 'Carregar plantel' }}
+					</button>
+				</div>
+				<span v-if="zerozeroError" style="color: #dc3545;">{{ zerozeroError }}</span>
+				<div v-else-if="zerozeroSquad.length > 0">
+					<div style="margin-bottom: 0.35rem; color: #6c757d;">
+						{{ zerozeroResolvedTeam || zerozeroTeamQuery }}
+						<a v-if="zerozeroTeamUrl" :href="zerozeroTeamUrl" target="_blank" rel="noopener noreferrer" style="margin-left: 0.5rem;">abrir no ZeroZero</a>
+					</div>
+					<ul style="columns: 2; margin: 0; padding-left: 1.25rem;">
+						<li v-for="player in zerozeroSquad" :key="player.ProfileLink || player.Name">
+							<a v-if="player.ProfileLink" :href="player.ProfileLink" target="_blank" rel="noopener noreferrer">{{ player.Name }}</a>
+							<span v-else>{{ player.Name }}</span>
+							<span v-if="player.Age" style="color: #6c757d; margin-left: 0.35rem;">({{ player.Age }} anos)</span>
+						</li>
+					</ul>
+				</div>
+				<span v-else style="color: #6c757d;">Escreve uma equipa e carrega o plantel quando precisares.</span>
+			</div>
 			<q-row-container>
 				<q-table
 					v-bind="controls.menu"
@@ -117,6 +150,13 @@
 					id: 'QMenuSQB_31', // Used for resources
 					requiredTextResources
 				},
+
+				zerozeroTeamQuery: '',
+				zerozeroSquad: [],
+				zerozeroLoading: false,
+				zerozeroError: null,
+				zerozeroResolvedTeam: '',
+				zerozeroTeamUrl: '',
 
 				menuInfo: {
 					id: '31',
@@ -559,6 +599,55 @@
 		},
 
 		methods: {
+			async fetchZeroZeroSquad()
+			{
+				const team = (this.zerozeroTeamQuery || '').trim()
+				if (!team)
+				{
+					this.zerozeroError = 'Indica o nome da equipa.'
+					return
+				}
+
+				this.zerozeroLoading = true
+				this.zerozeroError = null
+				this.zerozeroSquad = []
+				this.zerozeroResolvedTeam = ''
+				this.zerozeroTeamUrl = ''
+
+				try
+				{
+					await netAPI.fetchData(
+						'ZeroZero',
+						'Squad',
+						{ team },
+						(data, response) => {
+							if (response?.data?.Success === false)
+							{
+								this.zerozeroError = response.data.Message || 'Nao foi possivel carregar o plantel.'
+								return
+							}
+
+							this.zerozeroResolvedTeam = data?.Team || team
+							this.zerozeroTeamUrl = data?.TeamUrl || ''
+							this.zerozeroSquad = data?.Players || []
+
+							if (this.zerozeroSquad.length === 0)
+								this.zerozeroError = 'Plantel nao encontrado para esta equipa.'
+						},
+						() => {
+							this.zerozeroError = 'Nao foi possivel carregar o plantel.'
+						}
+					)
+				}
+				catch
+				{
+					this.zerozeroError = 'Nao foi possivel carregar o plantel.'
+				}
+				finally
+				{
+					this.zerozeroLoading = false
+				}
+			},
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
 // USE /[MANUAL SQB FUNCTIONS_JS SQB_31]/
 // eslint-disable-next-line

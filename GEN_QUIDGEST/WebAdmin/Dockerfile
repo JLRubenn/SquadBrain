@@ -3,7 +3,7 @@ FROM node:22-alpine AS frontend-build
 WORKDIR /app
 
 # Install pnpm
-RUN npm install -g pnpm
+RUN npm install -g pnpm@9.15.0
 
 # Copy only package files first to leverage caching
 COPY ClientApp/package.json ./

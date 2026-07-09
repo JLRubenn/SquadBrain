@@ -8,7 +8,7 @@
 			@submit.prevent>
 			<div class="zerozero-squad-block" style="margin-bottom: 1rem; padding: 0.75rem; border: 1px solid #dee2e6; border-radius: 4px; background: #f8f9fa;">
 				<strong style="display: block; margin-bottom: 0.5rem;">Plantel ZeroZero</strong>
-				<div style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem;">
+				<div style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.75rem;">
 					<input
 						v-model="zerozeroTeamQuery"
 						class="form-control"
@@ -22,20 +22,59 @@
 						@click="fetchZeroZeroSquad">
 						{{ zerozeroLoading ? 'A carregar...' : 'Carregar plantel' }}
 					</button>
+					<button
+						v-if="zerozeroSquad.length > 0"
+						type="button"
+						class="btn btn-success"
+						:disabled="zerozeroImporting"
+						@click="importZeroZeroSquad">
+						{{ zerozeroImporting ? 'A importar...' : 'Importar plantel' }}
+					</button>
 				</div>
-				<span v-if="zerozeroError" style="color: #dc3545;">{{ zerozeroError }}</span>
-				<div v-else-if="zerozeroSquad.length > 0">
-					<div style="margin-bottom: 0.35rem; color: #6c757d;">
-						{{ zerozeroResolvedTeam || zerozeroTeamQuery }}
-						<a v-if="zerozeroTeamUrl" :href="zerozeroTeamUrl" target="_blank" rel="noopener noreferrer" style="margin-left: 0.5rem;">abrir no ZeroZero</a>
+				<span v-if="zerozeroError" style="color: #dc3545; display: block; margin-bottom: 0.5rem;">{{ zerozeroError }}</span>
+				<span v-if="zerozeroSuccess" style="color: #198754; display: block; margin-bottom: 0.5rem;">{{ zerozeroSuccess }}</span>
+				<div v-if="zerozeroSquad.length > 0">
+					<div style="display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; margin-bottom: 0.75rem; color: #6c757d;">
+						<span>{{ zerozeroResolvedTeam || zerozeroTeamQuery }}</span>
+						<a v-if="zerozeroTeamUrl" :href="zerozeroTeamUrl" target="_blank" rel="noopener noreferrer">abrir no ZeroZero</a>
+						<span>{{ filteredZeroZeroSquad.length }} / {{ zerozeroSquad.length }} jogadores</span>
 					</div>
-					<ul style="columns: 2; margin: 0; padding-left: 1.25rem;">
-						<li v-for="player in zerozeroSquad" :key="player.ProfileLink || player.Name">
-							<a v-if="player.ProfileLink" :href="player.ProfileLink" target="_blank" rel="noopener noreferrer">{{ player.Name }}</a>
-							<span v-else>{{ player.Name }}</span>
-							<span v-if="player.Age" style="color: #6c757d; margin-left: 0.35rem;">({{ player.Age }} anos)</span>
-						</li>
-					</ul>
+					<div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+						<button
+							v-for="filter in zerozeroPositionFilters"
+							:key="filter.key"
+							type="button"
+							class="btn btn-sm"
+							:class="zerozeroPositionFilter === filter.key ? 'btn-primary' : 'btn-outline-primary'"
+							@click="zerozeroPositionFilter = filter.key">
+							{{ filter.label }}
+						</button>
+					</div>
+					<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0.75rem;">
+						<div
+							v-for="player in filteredZeroZeroSquad"
+							:key="player.ProfileLink || player.Name"
+							style="display: grid; grid-template-columns: 86px 1fr; gap: 0.75rem; min-height: 132px; padding: 0.75rem; border: 1px solid #ced4da; border-radius: 4px; background: #fff;">
+							<div style="width: 86px; height: 86px; border-radius: 4px; background: #d9d9d9; overflow: hidden; display: flex; align-items: center; justify-content: center; color: #6c757d;">
+								<img
+									v-if="player.PhotoUrl"
+									:src="player.PhotoUrl"
+									:alt="player.Name"
+									style="width: 100%; height: 100%; object-fit: cover;" />
+								<span v-else>foto</span>
+							</div>
+							<div style="min-width: 0;">
+								<a v-if="player.ProfileLink" :href="player.ProfileLink" target="_blank" rel="noopener noreferrer" style="font-weight: 700; font-size: 1rem; color: #007f4e; text-decoration: none;">
+									{{ player.Name }}
+								</a>
+								<strong v-else style="display: block; font-size: 1rem;">{{ player.Name }}</strong>
+								<div v-if="player.Age" style="color: #007f4e; margin-top: 0.25rem;">{{ player.Age }} anos</div>
+								<div style="margin-top: 0.5rem;">Posição:</div>
+								<div>{{ player.PositionLabel || positionLabel(player.Position) }}</div>
+								<div v-if="player.Number" style="margin-top: 0.35rem; color: #6c757d;">N.º {{ player.Number }}</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				<span v-else style="color: #6c757d;">Escreve uma equipa e carrega o plantel quando precisares.</span>
 			</div>
@@ -155,6 +194,9 @@
 				zerozeroSquad: [],
 				zerozeroLoading: false,
 				zerozeroError: null,
+				zerozeroSuccess: '',
+				zerozeroImporting: false,
+				zerozeroPositionFilter: 'ALL',
 				zerozeroResolvedTeam: '',
 				zerozeroTeamUrl: '',
 
@@ -568,6 +610,26 @@
 			}
 		},
 
+		computed: {
+			zerozeroPositionFilters()
+			{
+				return [
+					{ key: 'ALL', label: 'Todos' },
+					{ key: 'GR', label: 'Guarda-Redes' },
+					{ key: 'DEF', label: 'Defesas' },
+					{ key: 'MD', label: 'Médios' },
+					{ key: 'AT', label: 'Atacantes' }
+				]
+			},
+
+			filteredZeroZeroSquad()
+			{
+				if (this.zerozeroPositionFilter === 'ALL')
+					return this.zerozeroSquad
+
+				return this.zerozeroSquad.filter((player) => player.Position === this.zerozeroPositionFilter)
+			}
+		},
 		beforeRouteEnter(to, _, next)
 		{
 			// called before the route that renders this component is confirmed.
@@ -584,6 +646,7 @@
 
 		mounted()
 		{
+			this.restoreZeroZeroSquad()
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
 // USE /[MANUAL SQB FORM_CODEJS SQB_MENU_31]/
 // eslint-disable-next-line
@@ -648,7 +711,84 @@
 					this.zerozeroLoading = false
 				}
 			},
-/* eslint-disable indent, vue/html-indent, vue/script-indent */
+
+			saveZeroZeroSquad()
+			{
+				const state = {
+					teamQuery: this.zerozeroTeamQuery,
+					team: this.zerozeroResolvedTeam,
+					teamUrl: this.zerozeroTeamUrl,
+					players: this.zerozeroSquad
+				}
+				sessionStorage.setItem('zerozero-squad-preview', JSON.stringify(state))
+			},
+
+			restoreZeroZeroSquad()
+			{
+				try
+				{
+					const saved = JSON.parse(sessionStorage.getItem('zerozero-squad-preview') || 'null')
+					if (!saved?.players?.length)
+						return
+
+					this.zerozeroTeamQuery = saved.teamQuery || saved.team || ''
+					this.zerozeroResolvedTeam = saved.team || ''
+					this.zerozeroTeamUrl = saved.teamUrl || ''
+					this.zerozeroSquad = saved.players || []
+				}
+				catch
+				{
+					sessionStorage.removeItem('zerozero-squad-preview')
+				}
+			},
+
+			positionLabel(position)
+			{
+				return this.zerozeroPositionFilters.find((filter) => filter.key === position)?.label || 'Atacante'
+			},
+
+			async importZeroZeroSquad()
+			{
+				if (this.zerozeroSquad.length === 0)
+					return
+
+				this.zerozeroImporting = true
+				this.zerozeroError = null
+				this.zerozeroSuccess = ''
+
+				try
+				{
+					await netAPI.postData(
+						'ZeroZero',
+						'ImportSquad',
+						{
+							Team: this.zerozeroResolvedTeam || this.zerozeroTeamQuery,
+							TeamUrl: this.zerozeroTeamUrl,
+							Players: this.zerozeroSquad
+						},
+						(data, response) => {
+							if (response?.data?.Success === false)
+							{
+								this.zerozeroError = response.data.Message || 'Nao foi possivel importar o plantel.'
+								return
+							}
+
+							this.zerozeroSuccess = `Importados ${data?.Created || 0} jogadores para ${data?.ClubName || 'o clube'}. Ignorados ${data?.Skipped || 0} duplicados.`
+						},
+						() => {
+							this.zerozeroError = 'Nao foi possivel importar o plantel.'
+						}
+					)
+				}
+				catch
+				{
+					this.zerozeroError = 'Nao foi possivel importar o plantel.'
+				}
+				finally
+				{
+					this.zerozeroImporting = false
+				}
+			},/* eslint-disable indent, vue/html-indent, vue/script-indent */
 // USE /[MANUAL SQB FUNCTIONS_JS SQB_31]/
 // eslint-disable-next-line
 /* eslint-enable indent, vue/html-indent, vue/script-indent */

@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using CSGenio.business;
+using GenioMVC.ViewModels.Jogador;
 using System.Globalization;
 using System.Net;
 using System.Text;
@@ -45,8 +47,27 @@ namespace GenioMVC.Controllers
 			public string Name { get; set; } = string.Empty;
 			public string? Age { get; set; }
 			public string? ProfileLink { get; set; }
+			public string? Position { get; set; }
+			public string? PositionLabel { get; set; }
+			public string? Number { get; set; }
+			public string? PhotoUrl { get; set; }
 		}
 
+
+		public class ImportSquadRequest
+		{
+			public string Team { get; set; } = string.Empty;
+			public string TeamUrl { get; set; } = string.Empty;
+			public List<PlayerInfo> Players { get; set; } = [];
+		}
+
+		public class ImportSquadResponse
+		{
+			public int Created { get; set; }
+			public int Skipped { get; set; }
+			public string ClubId { get; set; } = string.Empty;
+			public string ClubName { get; set; } = string.Empty;
+		}
 		private sealed class TeamPage
 		{
 			public string Name { get; init; } = string.Empty;
@@ -81,6 +102,86 @@ namespace GenioMVC.Controllers
 			}
 		}
 
+
+		[HttpPost]
+		public ActionResult ImportSquad([FromBody] ImportSquadRequest request)
+		{
+			if (request is null || request.Players is null || request.Players.Count == 0)
+				return JsonERROR("Nao existem jogadores para importar.");
+
+			var clubName = string.IsNullOrWhiteSpace(request.Team) ? "Plantel ZeroZero" : request.Team.Trim();
+			var sp = UserContext.Current.PersistentSupport;
+
+			try
+			{
+				var created = 0;
+				var skipped = 0;
+
+				sp.openTransaction();
+				var club = FindOrCreateClub(clubName, sp);
+				var allPlayers = Models.Jogador.AllModel(UserContext.Current);
+				var existingNames = allPlayers
+					.Where(player => string.Equals(player.ValCodclube, club.ValCodclube, StringComparison.OrdinalIgnoreCase))
+					.Select(player => NormalizeSearchText(player.ValNome ?? string.Empty))
+					.ToHashSet(StringComparer.OrdinalIgnoreCase);
+				var usedSquadNumbers = allPlayers
+					.Select(player => player.ValNumerocamisola ?? 0)
+					.Where(number => number > 0)
+					.ToHashSet();
+
+				foreach (var player in request.Players)
+				{
+					var playerName = (player.Name ?? string.Empty).Trim();
+					if (string.IsNullOrWhiteSpace(playerName) || existingNames.Contains(NormalizeSearchText(playerName)))
+					{
+						skipped++;
+						continue;
+					}
+
+					var jogador = new Jogador_ViewModel(UserContext.Current);
+					jogador.New();
+					jogador.ValNome = Truncate(playerName, 50);
+					jogador.ValCodclube = club.ValCodclube;
+					jogador.ValNumerocamisola = AllocateSquadNumber(usedSquadNumbers, ParseDecimal(player.Number));
+					jogador.ValNationalidade = "Portugal";
+					jogador.ValDatanascimento = EstimateBirthDate(player.Age);
+					jogador.ValPedominante = "AMB";
+					jogador.ValPosicao = NormalizePosition(player.Position);
+					jogador.ValPosicaosegundaria = NormalizePosition(player.Position);
+					jogador.ValEquipaanterior = "ZeroZero";
+					jogador.ValValormercado = 0;
+					jogador.MapToModel();
+					jogador.ExecuteModelFormulas();
+					jogador.Save();
+
+					existingNames.Add(NormalizeSearchText(playerName));
+					created++;
+				}
+
+				sp.closeTransaction();
+
+				Navigation.SetValue("ForcePrimaryRead_jogador", "true", true);
+				Navigation.SetValue("ForcePrimaryRead_clube", "true", true);
+
+				return JsonOK(new ImportSquadResponse
+				{
+					Created = created,
+					Skipped = skipped,
+					ClubId = club.ValCodclube,
+					ClubName = club.ValNome
+				});
+			}
+			catch (FieldValidationException ex)
+			{
+				sp.rollbackTransaction();
+				return JsonERROR($"Erro ao importar plantel: {ex.Message} {ex.StatusMessage?.PrintMessages()}".Trim());
+			}
+			catch (Exception ex)
+			{
+				sp.rollbackTransaction();
+				return JsonERROR($"Erro ao importar plantel: {ex.Message}");
+			}
+		}
 		[HttpGet]
 		public Task<ActionResult> AtleticoCacem()
 		{
@@ -215,6 +316,9 @@ namespace GenioMVC.Controllers
 			var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 			var playerPattern = new Regex(@"<a[^>]+href=""(?<href>/jogador/[^""?#]+(?:/\d+)?[^""]*)""[^>]*>(?<text>.*?)</a>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
 			var agePattern = new Regex(@"(?<age>\d{1,2})\s*anos", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+			var sectionMatches = Regex.Matches(html, @"<div[^>]+class=""section""[^>]*>(?<section>.*?)</div>", RegexOptions.Singleline | RegexOptions.IgnoreCase)
+				.Cast<Match>()
+				.ToList();
 
 			foreach (Match match in playerPattern.Matches(html))
 			{
@@ -225,26 +329,32 @@ namespace GenioMVC.Controllers
 				if (string.IsNullOrWhiteSpace(name) || name.Length < 3 || !profilePath.StartsWith("/jogador/", StringComparison.OrdinalIgnoreCase) || !seen.Add(profilePath))
 					continue;
 
-				string? age = null;
-				var afterPlayer = html.Substring(match.Index, Math.Min(650, html.Length - match.Index));
+				var section = FindSectionForIndex(sectionMatches, match.Index);
+				var position = MapSectionToPosition(section);
+				var staffStart = html.LastIndexOf("<div class=\"staff\"", match.Index, StringComparison.OrdinalIgnoreCase);
+				var beforePlayer = staffStart >= 0 ? html.Substring(staffStart, match.Index - staffStart) : html.Substring(Math.Max(0, match.Index - 700), Math.Min(700, match.Index));
+				var afterPlayer = html.Substring(match.Index, Math.Min(700, html.Length - match.Index));
+				var photoMatch = Regex.Match(beforePlayer, @"background-image:\s*url\('(?<photo>[^']+)'\)", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+				var numberMatch = Regex.Match(beforePlayer, @"<div[^>]+class=""number""[^>]*>(?<number>.*?)</div>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
 				var ageMatch = agePattern.Match(afterPlayer);
-				if (ageMatch.Success)
-					age = ageMatch.Groups["age"].Value.Trim();
 
 				players.Add(new PlayerInfo
 				{
 					Name = name,
-					Age = age,
-					ProfileLink = ZeroZeroBaseUrl + profilePath
+					Age = ageMatch.Success ? ageMatch.Groups["age"].Value.Trim() : null,
+					ProfileLink = ZeroZeroBaseUrl + profilePath,
+					Position = position.code,
+					PositionLabel = position.label,
+					Number = StripTags(numberMatch.Groups["number"].Value),
+					PhotoUrl = photoMatch.Success ? photoMatch.Groups["photo"].Value.Trim() : null
 				});
 
-				if (players.Count >= 60)
+				if (players.Count >= 80)
 					break;
 			}
 
 			return players;
 		}
-
 		private static string NormalizeTeamInput(string team)
 		{
 			if (TryBuildZeroZeroUrl(team, out var url))
@@ -320,6 +430,92 @@ namespace GenioMVC.Controllers
 			return Regex.Replace(withoutTags, @"\s+", " ");
 		}
 
+		private Models.Clube FindOrCreateClub(string clubName, CSGenio.persistence.PersistentSupport sp)
+		{
+			var normalizedClubName = NormalizeSearchText(clubName);
+			var existingClub = Models.Clube.AllModel(UserContext.Current)
+				.FirstOrDefault(club => NormalizeSearchText(club.ValNome ?? string.Empty) == normalizedClubName);
+
+			if (existingClub is not null)
+				return existingClub;
+
+			var club = new Models.Clube(UserContext.Current);
+			club.New("FCLUBE", sp);
+			club.ValNome = Truncate(clubName, 50);
+			club.Save(sp);
+			return club;
+		}
+
+		private static string Truncate(string value, int maxLength)
+		{
+			if (string.IsNullOrEmpty(value) || value.Length <= maxLength)
+				return value;
+
+			return value[..maxLength];
+		}
+
+		private static decimal? ParseDecimal(string? value)
+		{
+			if (decimal.TryParse(value, NumberStyles.Number, CultureInfo.InvariantCulture, out var result))
+				return result;
+
+			return null;
+		}
+
+		private static decimal AllocateSquadNumber(HashSet<decimal> usedSquadNumbers, decimal? preferredNumber)
+		{
+			if (preferredNumber.HasValue && preferredNumber.Value >= 1 && preferredNumber.Value <= 99 && usedSquadNumbers.Add(preferredNumber.Value))
+				return preferredNumber.Value;
+
+			for (var number = 1; number <= 99; number++)
+			{
+				if (usedSquadNumbers.Add(number))
+					return number;
+			}
+
+			throw new InvalidOperationException("Nao existem numeros de camisola livres entre 1 e 99 para importar este plantel.");
+		}
+
+		private static DateTime EstimateBirthDate(string? age)
+		{
+			if (int.TryParse(age, out var years) && years > 0)
+				return DateTime.Today.AddYears(-years);
+
+			return DateTime.Today.AddYears(-18);
+		}
+
+		private static string NormalizePosition(string? position)
+		{
+			return position switch
+			{
+				"GR" => "GR",
+				"DEF" => "DEF",
+				"MD" => "MD",
+				"AT" => "AT",
+				_ => "AT"
+			};
+		}
+
+		private static string FindSectionForIndex(List<Match> sections, int index)
+		{
+			var section = sections.LastOrDefault(match => match.Index < index);
+			return section is null ? string.Empty : StripTags(WebUtility.HtmlDecode(section.Groups["section"].Value));
+		}
+
+		private static (string code, string label) MapSectionToPosition(string section)
+		{
+			var normalized = NormalizeSearchText(section);
+			if (normalized.Contains("guarda redes"))
+				return ("GR", "Guarda-Redes");
+			if (normalized.Contains("defesa"))
+				return ("DEF", "Defesa");
+			if (normalized.Contains("medio") || normalized.Contains("medios"))
+				return ("MD", "Medio");
+			if (normalized.Contains("avancado") || normalized.Contains("avancados") || normalized.Contains("atacante"))
+				return ("AT", "Atacante");
+
+			return ("AT", "Atacante");
+		}
 		private static string NormalizeSearchText(string value)
 		{
 			return Slugify(value).Replace('-', ' ').Trim();

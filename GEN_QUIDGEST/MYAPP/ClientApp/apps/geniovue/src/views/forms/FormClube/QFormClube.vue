@@ -1,4 +1,4 @@
-﻿<template>
+<template>
 	<teleport
 		v-if="formModalIsReady && showFormHeader"
 		:to="`#${uiContainersId.header}`"
@@ -438,6 +438,7 @@
 			// eslint-disable-next-line
 			const vm = this
 			return {
+
 				componentOnLoadProc: asyncProcM.getProcListMonitor('QFormClube', false),
 
 				interfaceMetadata: {
@@ -977,7 +978,6 @@
 
 				return true
 			},
-
 			/**
 			 * Called after form init.
 			 */

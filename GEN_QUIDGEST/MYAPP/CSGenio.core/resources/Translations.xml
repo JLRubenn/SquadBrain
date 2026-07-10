@@ -9687,4 +9687,6 @@
   <msg id="Endpoint do Servidor MCP para esta aplicação. O Serviço de IA deve conseguir aceder a este endpoint para invocar ferramentas MCP." code="ENDPOINT_DO_SERVIDOR41381">
     <ENUS>Endpoint of the MCP Server for this application. The AI Service must be able to reach it to invoke MCP tools.</ENUS>
   </msg>
-</Messages>
+  <msg id="Modelo de Jogo" code="MODELO_JOGO00001">
+    <ENUS>Modelo de Jogo</ENUS>
+  </msg></Messages>

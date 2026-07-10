@@ -9804,4 +9804,6 @@
 	<data name="ENDPOINT_DO_SERVIDOR41381" xml:space="preserve">
 		<value>Endpoint of the MCP Server for this application. The AI Service must be able to reach it to invoke MCP tools.</value>
 	</data>
-</root>
+  <data name="MODELO_JOGO00001" xml:space="preserve">
+    <value>Modelo de Jogo</value>
+  </data></root>

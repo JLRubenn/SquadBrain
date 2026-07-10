@@ -117,6 +117,19 @@ export default function getMenusRoutes()
 			}
 		},
 		{
+			path: '/:culture/:system/SQB/menu/SQB_61',
+			name: 'menu-SQB_61',
+			component: () => import('@/views/menus/ModuleSQB/MenuSQB_61/QMenuSqb61.vue'),
+			meta: {
+				routeType: 'menu',
+				module: 'SQB',
+				order: '61',
+				baseArea: 'TREINADOR',
+				hasInitialPHE: false,
+				humanKeyFields: ['Titulo'],
+				isPopup: false
+			}
+		},		{
 			path: '/:culture/:system/SQB/menu/SQB_4311',
 			name: 'menu-SQB_4311',
 			component: () => import('@/views/menus/ModuleSQB/MenuSQB_4311/QMenuSqb4311.vue'),

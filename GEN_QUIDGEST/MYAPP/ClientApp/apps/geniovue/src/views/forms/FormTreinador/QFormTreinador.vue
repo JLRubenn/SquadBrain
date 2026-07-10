@@ -1,4 +1,4 @@
-﻿<template>
+<template>
 	<teleport
 		v-if="formModalIsReady && showFormHeader"
 		:to="`#${uiContainersId.header}`"
@@ -96,7 +96,7 @@
 			data-key="TREINADOR"
 			:data-loading="!formInitialDataLoaded || !isActiveForm">
 			<template v-if="formControl.initialized && showFormBody">
-				<q-row v-if="controls.TREINADOR__CLUBE__NOME.isVisible || controls.TREINADOR__TREINADOR__NOME.isVisible || controls.TREINADOR__TREINADOR__FUNCAO.isVisible || controls.TREINADOR__TREINADOR__LASTTREINOCRIADO.isVisible">
+				<q-row v-if="controls.TREINADOR__CLUBE__NOME.isVisible || controls.TREINADOR__TREINADOR__NOME.isVisible || controls.TREINADOR__TREINADOR__FUNCAO.isVisible">
 					<q-col
 						v-if="controls.TREINADOR__CLUBE__NOME.isVisible"
 						cols="auto">
@@ -150,23 +150,6 @@
 								v-if="controls.TREINADOR__TREINADOR__FUNCAO.isVisible"
 								v-bind="controls.TREINADOR__TREINADOR__FUNCAO.props"
 								@update:model-value="model.ValFuncao.fnUpdateValue" />
-						</base-input-structure>
-					</q-col>
-					<q-col
-						v-if="controls.TREINADOR__TREINADOR__LASTTREINOCRIADO.isVisible"
-						cols="auto">
-						<base-input-structure
-							v-if="controls.TREINADOR__TREINADOR__LASTTREINOCRIADO.isVisible"
-							class="i-text"
-							v-bind="controls.TREINADOR__TREINADOR__LASTTREINOCRIADO"
-							v-on="controls.TREINADOR__TREINADOR__LASTTREINOCRIADO.handlers"
-							:loading="controls.TREINADOR__TREINADOR__LASTTREINOCRIADO.props.loading"
-							:reporting-mode-on="reportingModeCAV"
-							:suggestion-mode-on="suggestionModeOn">
-							<q-text-field
-								v-bind="controls.TREINADOR__TREINADOR__LASTTREINOCRIADO.props"
-								@blur="onBlur(controls.TREINADOR__TREINADOR__LASTTREINOCRIADO, model.ValLasttreinocriado.value)"
-								@change="model.ValLasttreinocriado.fnUpdateValueOnChange" />
 						</base-input-structure>
 					</q-col>
 				</q-row>

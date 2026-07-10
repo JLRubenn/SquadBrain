@@ -1,4 +1,4 @@
-﻿<template>
+<template>
 	<teleport
 		v-if="menuModalIsReady"
 		:to="`#${uiContainersId.body}`"
@@ -6,18 +6,156 @@
 		<form
 			class="form-horizontal"
 			@submit.prevent>
-			<q-row-container>
-				<q-table
-					v-bind="controls.menu"
-					v-on="controls.menu.handlers">
-					<template #header>
-						<q-table-config
-							:table-ctrl="controls.menu"
-							v-on="controls.menu.handlers" />
-					</template>
-					<!-- USE /[MANUAL SQB CUSTOM_TABLE SQB_Menu_421]/ -->
-				</q-table>
-			</q-row-container>
+			<div class="attendance-panel">
+				<h3>Presencas por treino</h3>
+				<div class="attendance-toolbar">
+					<select
+						v-model="attendanceSelectedTrainingId"
+						class="form-control">
+						<option value="">Escolher treino</option>
+						<option
+							v-for="training in attendanceTrainings"
+							:key="training.Id"
+							:value="training.Id">
+							{{ training.Label }}
+						</option>
+					</select>
+					<select
+						v-model="attendanceSelectedClubId"
+						class="form-control">
+						<option value="">Todos os clubes</option>
+						<option
+							v-for="club in attendanceClubs"
+							:key="club.Id"
+							:value="club.Id">
+							{{ club.Name }}
+						</option>
+					</select>
+					<button
+						type="button"
+						class="btn btn-primary"
+						:disabled="attendanceLoading"
+						@click="loadSquadAttendance">
+						{{ attendanceLoading ? 'A carregar...' : 'Carregar plantel' }}
+					</button>
+					<button
+						type="button"
+						class="btn btn-success"
+						:disabled="attendanceSaving || attendancePlayers.length === 0"
+						@click="saveSquadAttendance">
+						{{ attendanceSaving ? 'A guardar...' : 'Guardar presencas' }}
+					</button>
+				</div>
+				<p
+					v-if="attendanceError"
+					class="attendance-message attendance-message--error">
+					{{ attendanceError }}
+				</p>
+				<p
+					v-if="attendanceSuccess"
+					class="attendance-message attendance-message--success">
+					{{ attendanceSuccess }}
+				</p>
+				<div
+					v-if="attendancePlayers.length > 0"
+					class="attendance-summary">
+					<strong>{{ attendanceTrainingLabel }}</strong>
+					<span>{{ attendancePlayers.length }} jogadores</span>
+					<span>Presentes: {{ attendanceSummary.P }}</span>
+					<span>Faltas: {{ attendanceSummary.F + attendanceSummary.FJ + attendanceSummary.FI }}</span>
+					<span>Atrasos: {{ attendanceSummary.A }}</span>
+					<span>Lesoes: {{ attendanceSummary.L }}</span>
+				</div>
+				<div
+					v-if="attendancePlayers.length > 0"
+					class="attendance-grid">
+					<div
+						v-for="player in attendancePlayers"
+						:key="player.PlayerId"
+						class="attendance-card">
+						<div class="attendance-card__top">
+							<div>
+								<h4>{{ player.Name }}</h4>
+								<p>{{ positionLabel(player.Position) }}</p>
+								<p v-if="player.ClubName">{{ player.ClubName }}</p>
+							</div>
+							<span
+								v-if="player.Number"
+								class="attendance-card__number">
+								{{ player.Number }}
+							</span>
+						</div>
+						<div class="attendance-state-buttons">
+							<button
+								v-for="state in attendanceStates"
+								:key="`${player.PlayerId}-${state.key}`"
+								type="button"
+								class="btn btn-sm"
+								:class="player.State === state.key ? state.activeClass : 'btn-outline-secondary'"
+								@click="player.State = state.key">
+								{{ state.label }}
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="attendance-history">
+					<div class="attendance-history__header">
+						<h3>Presencas guardadas</h3>
+						<button
+							type="button"
+							class="btn btn-sm btn-outline-secondary"
+							:disabled="attendanceHistoryLoading"
+							@click="loadAttendanceHistory">
+							Atualizar
+						</button>
+					</div>
+					<p
+						v-if="attendanceHistoryError"
+						class="attendance-message attendance-message--error">
+						{{ attendanceHistoryError }}
+					</p>
+					<p
+						v-else-if="attendanceHistory.length === 0"
+						class="attendance-history__empty">
+						Ainda nao existem presencas guardadas.
+					</p>
+					<div
+						v-else
+						class="attendance-history__list">
+						<button
+							v-for="training in attendanceHistory"
+							:key="training.Id"
+							type="button"
+							class="attendance-history__item"
+							:class="{ 'attendance-history__item--active': selectedHistoryTrainingId === training.Id }"
+							@click="loadSavedAttendance(training.Id)">
+							<span>{{ training.Label }}</span>
+							<small>
+								{{ training.Total }} jogadores - Presentes: {{ training.Present }} - Faltas: {{ training.Missing }}
+							</small>
+						</button>
+					</div>
+					<div
+						v-if="savedAttendancePlayers.length > 0"
+						class="attendance-closed">
+						<h4>{{ savedAttendanceTrainingLabel }}</h4>
+						<div
+							v-for="player in savedAttendancePlayers"
+							:key="`saved-${player.PlayerId}`"
+							class="attendance-closed__row">
+							<div>
+								<strong>{{ player.Name }}</strong>
+								<span>{{ positionLabel(player.Position) }}</span>
+							</div>
+							<span
+								class="attendance-state-label"
+								:class="stateLabelClass(player.State)">
+								{{ stateLabel(player.State) }}
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
 		</form>
 	</teleport>
 
@@ -112,6 +250,22 @@
 			const vm = this
 			return {
 				componentOnLoadProc: asyncProcM.getProcListMonitor('QMenuSQB_421', false),
+				attendanceTrainings: [],
+				attendanceClubs: [],
+				attendanceSelectedTrainingId: '',
+				attendanceSelectedClubId: '',
+				attendanceTrainingLabel: '',
+				attendancePlayers: [],
+				attendanceHistory: [],
+				attendanceHistoryLoading: false,
+				attendanceHistoryError: '',
+				selectedHistoryTrainingId: '',
+				savedAttendanceTrainingLabel: '',
+				savedAttendancePlayers: [],
+				attendanceLoading: false,
+				attendanceSaving: false,
+				attendanceError: '',
+				attendanceSuccess: '',
 
 				interfaceMetadata: {
 					id: 'QMenuSQB_421', // Used for resources
@@ -330,6 +484,29 @@
 				}
 			}
 		},
+		computed: {
+			attendanceStates()
+			{
+				return [
+					{ key: 'P', label: 'Presente', activeClass: 'btn-success' },
+					{ key: 'F', label: 'Falta', activeClass: 'btn-danger' },
+					{ key: 'FJ', label: 'Justificada', activeClass: 'btn-warning' },
+					{ key: 'FI', label: 'Injustificada', activeClass: 'btn-danger' },
+					{ key: 'A', label: 'Atraso', activeClass: 'btn-info' },
+					{ key: 'L', label: 'Lesao', activeClass: 'btn-secondary' },
+					{ key: 'O', label: 'Outros', activeClass: 'btn-dark' }
+				]
+			},
+
+			attendanceSummary()
+			{
+				return this.attendancePlayers.reduce((summary, player) => {
+					const state = player.State || 'P'
+					summary[state] = (summary[state] || 0) + 1
+					return summary
+				}, { P: 0, F: 0, FJ: 0, FI: 0, A: 0, L: 0, O: 0 })
+			}
+		},
 
 		beforeRouteEnter(to, _, next)
 		{
@@ -347,6 +524,8 @@
 
 		mounted()
 		{
+			this.loadAttendanceOptions()
+			this.loadAttendanceHistory()
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
 // USE /[MANUAL SQB FORM_CODEJS SQB_MENU_421]/
 // eslint-disable-next-line
@@ -362,6 +541,130 @@
 		},
 
 		methods: {
+			loadAttendanceOptions()
+			{
+				netAPI.fetchData('PRESENCA', 'AttendanceOptions', {}, (data) => {
+					this.attendanceTrainings = data?.Trainings || []
+					this.attendanceClubs = data?.Clubs || []
+				}, (error) => {
+					this.attendanceError = error?.message || 'Nao foi possivel carregar os treinos.'
+				})
+			},
+
+			loadAttendanceHistory()
+			{
+				this.attendanceHistoryLoading = true
+				this.attendanceHistoryError = ''
+
+				netAPI.fetchData('PRESENCA', 'AttendanceHistory', {}, (data) => {
+					this.attendanceHistory = data?.Trainings || []
+					this.attendanceHistoryLoading = false
+				}, (error) => {
+					this.attendanceHistoryLoading = false
+					this.attendanceHistoryError = error?.message || 'Nao foi possivel carregar as presencas guardadas.'
+				})
+			},
+
+			loadSavedAttendance(trainingId)
+			{
+				if (!trainingId)
+					return
+
+				this.selectedHistoryTrainingId = trainingId
+				this.attendanceHistoryError = ''
+
+				netAPI.fetchData('PRESENCA', 'SavedAttendance', { trainingId }, (data) => {
+					this.savedAttendanceTrainingLabel = data?.Training?.Label || ''
+					this.savedAttendancePlayers = data?.Players || []
+				}, (error) => {
+					this.savedAttendancePlayers = []
+					this.savedAttendanceTrainingLabel = ''
+					this.attendanceHistoryError = error?.message || 'Nao foi possivel consultar as presencas guardadas.'
+				})
+			},
+
+			loadSquadAttendance()
+			{
+				if (!this.attendanceSelectedTrainingId)
+				{
+					this.attendanceError = 'Escolhe primeiro um treino.'
+					return
+				}
+
+				this.attendanceLoading = true
+				this.attendanceError = ''
+				this.attendanceSuccess = ''
+
+				netAPI.fetchData('PRESENCA', 'SquadAttendance', {
+					trainingId: this.attendanceSelectedTrainingId,
+					clubId: this.attendanceSelectedClubId
+				}, (data) => {
+					this.attendanceTrainingLabel = data?.Training?.Label || ''
+					this.attendancePlayers = (data?.Players || []).map((player) => ({
+						...player,
+						State: player.State || 'P'
+					}))
+					this.attendanceLoading = false
+					if (this.attendancePlayers.length === 0)
+						this.attendanceError = 'Nao existem jogadores para estes filtros.'
+				}, (error) => {
+					this.attendanceLoading = false
+					this.attendanceError = error?.message || 'Nao foi possivel carregar o plantel.'
+				})
+			},
+
+			saveSquadAttendance()
+			{
+				if (!this.attendanceSelectedTrainingId || this.attendancePlayers.length === 0)
+				{
+					this.attendanceError = 'Carrega primeiro um plantel para este treino.'
+					return
+				}
+
+				this.attendanceSaving = true
+				this.attendanceError = ''
+				this.attendanceSuccess = ''
+
+				netAPI.postData('PRESENCA', 'SaveSquadAttendance', {
+					TrainingId: this.attendanceSelectedTrainingId,
+					Players: this.attendancePlayers.map((player) => ({
+						PlayerId: player.PlayerId,
+						State: player.State || 'P'
+					}))
+				}, (data) => {
+					this.attendanceSaving = false
+					this.attendancePlayers = this.attendancePlayers.map((player) => ({ ...player, Exists: true }))
+					this.attendanceSuccess = `Presencas guardadas: ${data?.Created || 0} novas, ${data?.Updated || 0} atualizadas.`
+					this.loadAttendanceHistory()
+					this.loadSavedAttendance(this.attendanceSelectedTrainingId)
+					this.controls.menu?.reload?.()
+				}, (error) => {
+					this.attendanceSaving = false
+					this.attendanceError = error?.message || 'Nao foi possivel guardar as presencas.'
+				})
+			},
+
+			stateLabel(state)
+			{
+				const current = this.attendanceStates.find((item) => item.key === state)
+				return current?.label || 'Presente'
+			},
+
+			stateLabelClass(state)
+			{
+				return `attendance-state-label--${state || 'P'}`
+			},
+
+			positionLabel(position)
+			{
+				const labels = {
+					GR: 'Guarda-Redes',
+					DEF: 'Defesa',
+					MD: 'Medio',
+					AT: 'Avancado'
+				}
+				return labels[position] || position || 'Sem posicao'
+			},
 /* eslint-disable indent, vue/html-indent, vue/script-indent */
 // USE /[MANUAL SQB FUNCTIONS_JS SQB_421]/
 // eslint-disable-next-line
@@ -373,3 +676,218 @@
 		}
 	}
 </script>
+<style scoped>
+	.attendance-panel {
+		margin: 0 0 1rem;
+		width: 100%;
+		box-sizing: border-box;
+		padding: 1rem;
+		border: 1px solid #d4dde5;
+		background: #f8fafc;
+	}
+
+	.attendance-panel h3 {
+		margin: 0 0 .75rem;
+		font-size: 1.1rem;
+		font-weight: 700;
+	}
+
+	.attendance-toolbar {
+		display: grid;
+		grid-template-columns: minmax(14rem, 1fr) minmax(12rem, .7fr) auto auto;
+		gap: .5rem;
+		align-items: center;
+	}
+
+	.attendance-message {
+		margin: .75rem 0 0;
+	}
+
+	.attendance-message--error {
+		color: #dc3545;
+	}
+
+	.attendance-message--success {
+		color: #198754;
+	}
+
+	.attendance-summary {
+		display: flex;
+		flex-wrap: wrap;
+		gap: .5rem 1rem;
+		margin-top: .85rem;
+		color: #526170;
+	}
+
+	.attendance-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+		gap: .75rem;
+		margin-top: .85rem;
+	}
+
+	.attendance-card {
+		border: 1px solid #ccd6df;
+		background: #fff;
+		padding: .85rem;
+	}
+
+	.attendance-card__top {
+		display: flex;
+		justify-content: space-between;
+		gap: .75rem;
+		margin-bottom: .75rem;
+	}
+
+	.attendance-card h4 {
+		margin: 0 0 .2rem;
+		font-size: 1rem;
+		color: #00834b;
+	}
+
+	.attendance-card p {
+		margin: 0;
+		color: #526170;
+	}
+
+	.attendance-card__number {
+		min-width: 2.25rem;
+		height: 2.25rem;
+		border-radius: 50%;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		background: #eef4f0;
+		color: #00834b;
+		font-weight: 700;
+	}
+
+	.attendance-state-buttons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: .35rem;
+	}
+
+	.attendance-history {
+		margin-top: 1rem;
+		padding-top: 1rem;
+		border-top: 1px solid #d4dde5;
+	}
+
+	.attendance-history__header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: .75rem;
+		margin-bottom: .75rem;
+	}
+
+	.attendance-history__header h3 {
+		margin: 0;
+		font-size: 1.05rem;
+	}
+
+	.attendance-history__empty {
+		margin: 0;
+		color: #526170;
+	}
+
+	.attendance-history__list {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+		gap: .5rem;
+	}
+
+	.attendance-history__item {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: .2rem;
+		padding: .65rem .75rem;
+		border: 1px solid #ccd6df;
+		background: #fff;
+		color: #1f2933;
+		text-align: left;
+	}
+
+	.attendance-history__item--active {
+		border-color: #00834b;
+		box-shadow: inset 3px 0 0 #00834b;
+	}
+
+	.attendance-history__item small {
+		color: #526170;
+	}
+
+	.attendance-closed {
+		margin-top: 1rem;
+		border: 1px solid #ccd6df;
+		background: #fff;
+	}
+
+	.attendance-closed h4 {
+		margin: 0;
+		padding: .75rem;
+		border-bottom: 1px solid #e2e8ef;
+		font-size: 1rem;
+	}
+
+	.attendance-closed__row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: .65rem .75rem;
+		border-bottom: 1px solid #edf2f7;
+	}
+
+	.attendance-closed__row:last-child {
+		border-bottom: 0;
+	}
+
+	.attendance-closed__row div {
+		display: flex;
+		flex-direction: column;
+		gap: .1rem;
+	}
+
+	.attendance-closed__row span {
+		color: #526170;
+	}
+
+	.attendance-state-label {
+		min-width: 6.5rem;
+		padding: .25rem .5rem;
+		border-radius: 4px;
+		text-align: center;
+		font-weight: 700;
+	}
+
+	.attendance-state-label--P {
+		background: #e7f5ee;
+		color: #087a42;
+	}
+
+	.attendance-state-label--F,
+	.attendance-state-label--FI {
+		background: #fdecec;
+		color: #b42318;
+	}
+
+	.attendance-state-label--FJ,
+	.attendance-state-label--A {
+		background: #fff4db;
+		color: #946200;
+	}
+
+	.attendance-state-label--L,
+	.attendance-state-label--O {
+		background: #eef2f6;
+		color: #465564;
+	}
+	@media (max-width: 900px) {
+		.attendance-toolbar {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

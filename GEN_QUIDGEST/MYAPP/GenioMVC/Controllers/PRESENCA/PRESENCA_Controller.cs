@@ -1,4 +1,4 @@
-﻿using JsonPropertyName = System.Text.Json.Serialization.JsonPropertyNameAttribute;
+using JsonPropertyName = System.Text.Json.Serialization.JsonPropertyNameAttribute;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Primitives;
@@ -49,6 +49,345 @@ namespace GenioMVC.Controllers
 		}
 
 // USE /[MANUAL SQB MANUAL_CONTROLLER PRESENCA]/
+		public class AttendanceOptionsResponse
+		{
+			public List<AttendanceTrainingOption> Trainings { get; set; } = [];
+			public List<AttendanceClubOption> Clubs { get; set; } = [];
+		}
+
+		public class AttendanceTrainingOption
+		{
+			public string Id { get; set; } = string.Empty;
+			public string Label { get; set; } = string.Empty;
+			public DateTime? Date { get; set; }
+		}
+
+		public class AttendanceClubOption
+		{
+			public string Id { get; set; } = string.Empty;
+			public string Name { get; set; } = string.Empty;
+		}
+
+		public class SquadAttendanceResponse
+		{
+			public AttendanceTrainingOption Training { get; set; } = new();
+			public List<SquadAttendancePlayer> Players { get; set; } = [];
+		}
+
+		public class SquadAttendancePlayer
+		{
+			public string PlayerId { get; set; } = string.Empty;
+			public string Name { get; set; } = string.Empty;
+			public decimal? Number { get; set; }
+			public string Position { get; set; } = string.Empty;
+			public string PositionLabel { get; set; } = string.Empty;
+			public string ClubName { get; set; } = string.Empty;
+			public string State { get; set; } = "P";
+			public bool Exists { get; set; }
+		}
+
+		public class SaveSquadAttendanceRequest
+		{
+			public string TrainingId { get; set; } = string.Empty;
+			public List<SaveSquadAttendanceItem> Players { get; set; } = [];
+		}
+
+		public class SaveSquadAttendanceItem
+		{
+			public string PlayerId { get; set; } = string.Empty;
+			public string State { get; set; } = "P";
+		}
+
+		public class SaveSquadAttendanceResponse
+		{
+			public int Created { get; set; }
+			public int Updated { get; set; }
+			public int Skipped { get; set; }
+		}
+
+		public class AttendanceHistoryResponse
+		{
+			public List<AttendanceHistoryTraining> Trainings { get; set; } = [];
+		}
+
+		public class AttendanceHistoryTraining
+		{
+			public string Id { get; set; } = string.Empty;
+			public string Label { get; set; } = string.Empty;
+			public DateTime? Date { get; set; }
+			public int Total { get; set; }
+			public int Present { get; set; }
+			public int Missing { get; set; }
+			public int Delayed { get; set; }
+			public int Injured { get; set; }
+			public int Other { get; set; }
+		}
+
+		[HttpGet]
+		public ActionResult AttendanceOptions()
+		{
+			try
+			{
+				var trainings = Models.Treino.AllModel(UserContext.Current)
+					.OrderByDescending(training => training.ValData ?? DateTime.MinValue)
+					.Take(80)
+					.Select(training => new AttendanceTrainingOption
+					{
+						Id = training.ValCodtreino,
+						Date = training.ValData,
+						Label = FormatTrainingLabel(training)
+					})
+					.ToList();
+
+				var clubs = Models.Clube.AllModel(UserContext.Current)
+					.OrderBy(club => club.ValNome)
+					.Select(club => new AttendanceClubOption
+					{
+						Id = club.ValCodclube,
+						Name = club.ValNome ?? string.Empty
+					})
+					.ToList();
+
+				return JsonOK(new AttendanceOptionsResponse { Trainings = trainings, Clubs = clubs });
+			}
+			catch (Exception ex)
+			{
+				return JsonERROR($"Erro ao carregar opcoes de presencas: {ex.Message}");
+			}
+		}
+
+		[HttpGet]
+		public ActionResult AttendanceHistory()
+		{
+			try
+			{
+				var attendanceRows = Models.Presenca.AllModel(UserContext.Current).ToList();
+				var trainingIds = attendanceRows
+					.Select(attendance => attendance.ValCodtreino)
+					.Where(id => !string.IsNullOrWhiteSpace(id))
+					.Distinct(StringComparer.OrdinalIgnoreCase)
+					.ToList();
+
+				var trainings = Models.Treino.AllModel(UserContext.Current)
+					.Where(training => trainingIds.Contains(training.ValCodtreino))
+					.ToDictionary(training => training.ValCodtreino, StringComparer.OrdinalIgnoreCase);
+
+				var history = attendanceRows
+					.Where(attendance => !string.IsNullOrWhiteSpace(attendance.ValCodtreino) && trainings.ContainsKey(attendance.ValCodtreino))
+					.GroupBy(attendance => attendance.ValCodtreino, StringComparer.OrdinalIgnoreCase)
+					.Select(group =>
+					{
+						var training = trainings[group.Key];
+						var states = group
+							.Select(attendance => NormalizeAttendanceState(attendance.ValEstado))
+							.ToList();
+
+						return new AttendanceHistoryTraining
+						{
+							Id = training.ValCodtreino,
+							Date = training.ValData,
+							Label = FormatTrainingLabel(training),
+							Total = states.Count,
+							Present = states.Count(state => state == "P"),
+							Missing = states.Count(state => state == "F" || state == "FJ" || state == "FI"),
+							Delayed = states.Count(state => state == "A"),
+							Injured = states.Count(state => state == "L"),
+							Other = states.Count(state => state == "O")
+						};
+					})
+					.OrderByDescending(training => training.Date ?? DateTime.MinValue)
+					.ThenBy(training => training.Label)
+					.ToList();
+
+				return JsonOK(new AttendanceHistoryResponse { Trainings = history });
+			}
+			catch (Exception ex)
+			{
+				return JsonERROR($"Erro ao carregar historico de presencas: {ex.Message}");
+			}
+		}
+
+		[HttpGet]
+		public ActionResult SavedAttendance(string trainingId)
+		{
+			if (string.IsNullOrWhiteSpace(trainingId))
+				return JsonERROR("Seleciona um treino para consultar presencas.");
+
+			try
+			{
+				var training = Models.Treino.Find(trainingId, UserContext.Current, "FPRESENCA");
+				if (training is null)
+					return JsonERROR("Treino nao encontrado.");
+
+				var players = Models.Presenca.AllModel(UserContext.Current)
+					.Where(attendance => string.Equals(attendance.ValCodtreino, trainingId, StringComparison.OrdinalIgnoreCase))
+					.OrderBy(attendance => attendance.Jogador.ValNumerocamisola ?? 999)
+					.ThenBy(attendance => attendance.Jogador.ValNome)
+					.Select(attendance => new SquadAttendancePlayer
+					{
+						PlayerId = attendance.ValCodjogador,
+						Name = attendance.Jogador.ValNome ?? string.Empty,
+						Number = attendance.Jogador.ValNumerocamisola,
+						Position = attendance.Jogador.ValPosicao ?? string.Empty,
+						PositionLabel = PositionLabel(attendance.Jogador.ValPosicao),
+						ClubName = attendance.Jogador.Clube.ValNome ?? string.Empty,
+						State = NormalizeAttendanceState(attendance.ValEstado),
+						Exists = true
+					})
+					.ToList();
+
+				return JsonOK(new SquadAttendanceResponse
+				{
+					Training = new AttendanceTrainingOption { Id = training.ValCodtreino, Date = training.ValData, Label = FormatTrainingLabel(training) },
+					Players = players
+				});
+			}
+			catch (Exception ex)
+			{
+				return JsonERROR($"Erro ao consultar presencas guardadas: {ex.Message}");
+			}
+		}
+
+		[HttpGet]
+		public ActionResult SquadAttendance(string trainingId, string clubId = "")
+		{
+			if (string.IsNullOrWhiteSpace(trainingId))
+				return JsonERROR("Seleciona um treino para carregar presencas.");
+
+			try
+			{
+				var training = Models.Treino.Find(trainingId, UserContext.Current, "FPRESENCA");
+				if (training is null)
+					return JsonERROR("Treino nao encontrado.");
+
+				var attendances = Models.Presenca.AllModel(UserContext.Current)
+					.Where(attendance => string.Equals(attendance.ValCodtreino, trainingId, StringComparison.OrdinalIgnoreCase))
+					.GroupBy(attendance => attendance.ValCodjogador)
+					.ToDictionary(group => group.Key, group => group.First(), StringComparer.OrdinalIgnoreCase);
+
+				var players = Models.Jogador.AllModel(UserContext.Current)
+					.Where(player => string.IsNullOrWhiteSpace(clubId) || string.Equals(player.ValCodclube, clubId, StringComparison.OrdinalIgnoreCase))
+					.OrderBy(player => player.ValNumerocamisola ?? 999)
+					.ThenBy(player => player.ValNome)
+					.Select(player =>
+					{
+						attendances.TryGetValue(player.ValCodjogador, out var attendance);
+						return new SquadAttendancePlayer
+						{
+							PlayerId = player.ValCodjogador,
+							Name = player.ValNome ?? string.Empty,
+							Number = player.ValNumerocamisola,
+							Position = player.ValPosicao ?? string.Empty,
+							PositionLabel = PositionLabel(player.ValPosicao),
+							ClubName = player.Clube?.ValNome ?? string.Empty,
+							State = NormalizeAttendanceState(attendance?.ValEstado),
+							Exists = attendance is not null
+						};
+					})
+					.ToList();
+
+				return JsonOK(new SquadAttendanceResponse
+				{
+					Training = new AttendanceTrainingOption { Id = training.ValCodtreino, Date = training.ValData, Label = FormatTrainingLabel(training) },
+					Players = players
+				});
+			}
+			catch (Exception ex)
+			{
+				return JsonERROR($"Erro ao carregar plantel para presencas: {ex.Message}");
+			}
+		}
+
+		[HttpPost]
+		public ActionResult SaveSquadAttendance([FromBody] SaveSquadAttendanceRequest request)
+		{
+			if (request is null || string.IsNullOrWhiteSpace(request.TrainingId))
+				return JsonERROR("Seleciona um treino para guardar presencas.");
+			if (request.Players is null || request.Players.Count == 0)
+				return JsonERROR("Nao existem jogadores para guardar.");
+
+			var sp = UserContext.Current.PersistentSupport;
+			try
+			{
+				var created = 0;
+				var updated = 0;
+				var skipped = 0;
+
+				sp.openTransaction();
+				var existing = Models.Presenca.AllModel(UserContext.Current)
+					.Where(attendance => string.Equals(attendance.ValCodtreino, request.TrainingId, StringComparison.OrdinalIgnoreCase))
+					.GroupBy(attendance => attendance.ValCodjogador)
+					.ToDictionary(group => group.Key, group => group.First(), StringComparer.OrdinalIgnoreCase);
+
+				foreach (var item in request.Players)
+				{
+					if (string.IsNullOrWhiteSpace(item.PlayerId))
+					{
+						skipped++;
+						continue;
+					}
+
+					var state = NormalizeAttendanceState(item.State);
+					if (existing.TryGetValue(item.PlayerId, out var attendance))
+					{
+						attendance.ValEstado = state;
+						attendance.Save(sp);
+						updated++;
+						continue;
+					}
+
+					var newAttendance = new Models.Presenca(UserContext.Current);
+					newAttendance.New("FPRESENCA", sp);
+					newAttendance.ValCodtreino = request.TrainingId;
+					newAttendance.ValCodjogador = item.PlayerId;
+					newAttendance.ValEstado = state;
+					newAttendance.Save(sp);
+					created++;
+				}
+
+				sp.closeTransaction();
+				Navigation.SetValue("ForcePrimaryRead_presenca", "true", true);
+				return JsonOK(new SaveSquadAttendanceResponse { Created = created, Updated = updated, Skipped = skipped });
+			}
+			catch (Exception ex)
+			{
+				sp.rollbackTransaction();
+				return JsonERROR($"Erro ao guardar presencas: {ex.Message}");
+			}
+		}
+
+		private static string FormatTrainingLabel(Models.Treino training)
+		{
+			var date = training.ValData?.ToString("dd/MM/yyyy HH:mm") ?? "Sem data";
+			var number = training.ValNumtreino.HasValue && training.ValNumtreino.Value > 0 ? $"Treino {training.ValNumtreino:0} - " : string.Empty;
+			return number + date;
+		}
+
+		private static string NormalizeAttendanceState(string state)
+		{
+			return state switch
+			{
+				"F" => "F",
+				"L" => "L",
+				"FJ" => "FJ",
+				"FI" => "FI",
+				"O" => "O",
+				"A" => "A",
+				_ => "P"
+			};
+		}
+
+		private static string PositionLabel(string position)
+		{
+			return position switch
+			{
+				"GR" => "Guarda-Redes",
+				"DEF" => "Defesa",
+				"MD" => "Medio",
+				"AT" => "Atacante",
+				_ => ""
+			};
+		}
 
 		[HttpPost]
 		public JsonResult ReloadDBEdit([FromBody]RequestReloadDBEditModel requestModel)
